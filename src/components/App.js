@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../App.css";
+import Cell from "./Cell";
 
 class App extends Component {
 	constructor(props) {
@@ -7,7 +8,15 @@ class App extends Component {
 	}
 	state = {};
 	render() {
-		return <h1>Hello World</h1>;
+		return (
+			<div className="svg-container">
+				<svg width="100%" height="100%">
+					<g>
+						<Cell />
+					</g>
+				</svg>
+			</div>
+		);
 	}
 }
 
