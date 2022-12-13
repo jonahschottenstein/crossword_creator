@@ -1,4 +1,9 @@
-.svg-container {
+.xword-board-section {
 	height: 480px;
 	width: 480px;
+}
+.xword-board-container,
+.xword-board {
+	width: 100%;
+	height: 100%;
 }
