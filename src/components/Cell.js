@@ -1,6 +1,6 @@
 const Cell = (props) => {
 	return (
-		<g>
+		<g className="xword-cell">
 			<rect
 				x={props.x}
 				y={props.y}
