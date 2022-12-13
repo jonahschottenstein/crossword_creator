@@ -1,4 +1,4 @@
-const Clue = () => {
+export const Clue = () => {
 	return (
 		<div className="xword-clue">
 			<div className="xword-clue-number">1A</div>
