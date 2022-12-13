@@ -14,7 +14,7 @@ class App extends Component {
 		});
 		return (
 			<div className="svg-container">
-				<svg width="100%" height="100%">
+				<svg className="xword-board" width="100%" height="100%">
 					<g>{cells}</g>
 				</svg>
 			</div>
