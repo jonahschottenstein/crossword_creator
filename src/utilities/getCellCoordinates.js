@@ -1,4 +1,4 @@
-const getCellCoordinates = (cellsPerRow) => {
+export const getCellCoordinates = (cellsPerRow) => {
 	let array = [];
 	const CELL_Width = 32;
 	const lastCellStart = cellsPerRow * CELL_Width - CELL_Width;
