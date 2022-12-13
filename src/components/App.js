@@ -13,7 +13,7 @@ class App extends Component {
 			return <Cell key={`cell-${index + 1}`} x={coord.x} y={coord.y} />;
 		});
 		return (
-			<div className="svg-container">
+			<div className="xword-board-container">
 				<svg className="xword-board" width="100%" height="100%">
 					<g>{cells}</g>
 				</svg>
