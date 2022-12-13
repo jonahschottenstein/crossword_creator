@@ -2,8 +2,8 @@ const Cell = (props) => {
 	return (
 		<g>
 			<rect
-				x={32}
-				y={32}
+				x={{ x }}
+				y={{ y }}
 				tabIndex={0}
 				width="32"
 				height="32"
