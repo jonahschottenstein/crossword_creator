@@ -5,6 +5,7 @@ import { getCellCoordinates } from "../utilities/getCellCoordinates.js";
 import { Clue } from "./Clue.js";
 import { toggleCellBlock } from "../utilities/toggleCellBlock.js";
 import { toggleCellBlockSymmetry } from "../utilities/toggleCellBlockSymmetry.js";
+import { Checkbox } from "./Checkbox.js";
 
 class App extends Component {
 	constructor(props) {
