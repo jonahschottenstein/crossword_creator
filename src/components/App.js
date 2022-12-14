@@ -15,6 +15,31 @@ class App extends Component {
 		});
 		return (
 			<article className="puzzle">
+				<section className="xword-cell-block-section">
+					<div className="cell-block-section-content">
+						<div className="cell-block-toggle-wrapper">
+							<input type="checkbox" id="cell-block-toggle-input" />
+							<label
+								className="cell-block-toggle-label"
+								htmlFor="cell-block-toggle-input">
+								<div className="cell-block-div"></div>
+							</label>
+						</div>
+						<div className="symmetry-container">
+							<input type="checkbox" id="cell-block-symmetry-input" />
+							<label
+								className="cell-block-symmetry-label"
+								htmlFor="cell-block-symmetry-input">
+								Symmetry
+							</label>
+						</div>
+						<div className="cell-block-count-container">
+							<p className="cell-block-count-p">
+								Cell Block Count: <span className="cell-block-count">0</span>
+							</p>
+						</div>
+					</div>
+				</section>
 				<section className="xword-clue-and-board-section">
 					<Clue />
 					<section className="xword-board-section">
