@@ -10,6 +10,9 @@ import { Checkbox } from "./Checkbox.js";
 class App extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			isChecked: true,
+		};
 		this.handleCellBlockToggle = this.handleCellBlockToggle.bind(this);
 	}
 	state = {};
