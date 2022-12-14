@@ -14,11 +14,18 @@ class App extends Component {
 			isChecked: true,
 		};
 		this.handleCellBlockToggle = this.handleCellBlockToggle.bind(this);
+		this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
 	}
 	state = {};
 	handleCellBlockToggle(e) {
 		toggleCellBlock(e);
 		toggleCellBlockSymmetry(e);
+	}
+
+	handleCheckboxChange() {
+		this.setState((state) => ({
+			isChecked: !state.isChecked,
+		}));
 	}
 	render() {
 		const cells = getCellCoordinates(15).map((coord, index) => {
