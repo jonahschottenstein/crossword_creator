@@ -16,7 +16,7 @@ class App extends Component {
 		this.handleCellBlockToggle = this.handleCellBlockToggle.bind(this);
 		this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
 	}
-	state = {};
+	// state = {};
 	handleCellBlockToggle(e) {
 		toggleCellBlock(e);
 		toggleCellBlockSymmetry(e);
@@ -51,14 +51,12 @@ class App extends Component {
 								<div className="cell-block-div"></div>
 							</label>
 						</div>
-						<div className="symmetry-container">
-							<input type="checkbox" id="cell-block-symmetry-input" />
-							<label
-								className="cell-block-symmetry-label"
-								htmlFor="cell-block-symmetry-input">
-								Symmetry
-							</label>
-						</div>
+						<Checkbox
+							checkboxId="cell-block-symmetry-input"
+							isChecked={this.state.isChecked}
+							handleChange={this.handleCheckboxChange}
+							label="Symmetry"
+						/>
 						<div className="cell-block-count-container">
 							<p className="cell-block-count-p">
 								Cell Block Count: <span className="cell-block-count">0</span>
