@@ -22,6 +22,11 @@ body {
 	height: 100%;
 }
 
+.xword-board-container,
+.xword-board {
+	user-select: none;
+}
+
 .xword-clue {
 	align-items: center;
 	background-color: #dcefff;
