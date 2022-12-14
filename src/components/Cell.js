@@ -11,12 +11,15 @@ const Cell = (props) => {
 	return (
 		<g className="xword-cell">
 			<rect
+				className="cell-rect"
 				x={props.x + RECT_OFFSET_X}
 				y={props.y + RECT_OFFSET_Y}
 				tabIndex={0}
 				width="33"
 				height="33"
-				fill="white"></rect>
+				fill="white"
+				data-index={props.index}
+				onClick={props.onRectClick}></rect>
 			<text
 				x={props.x + NUMBER_OFFSET_X}
 				y={props.y + NUMBER_OFFSET_Y}
