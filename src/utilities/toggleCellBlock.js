@@ -1,8 +1,6 @@
-const toggleCellBlock = (e) => {
-	const cellBlockInput = document.querySelector(".cell-block-toggle-input");
+export const toggleCellBlock = (e) => {
+	const cellBlockInput = document.querySelector("#cell-block-toggle-input");
 	if (!cellBlockInput.checked) return;
 	if (!e.target.matches("rect")) return;
-	e.target.classList.add("cell-block");
+	e.target.classList.toggle("cell-block");
 };
-
-export default toggleCellBlock;
