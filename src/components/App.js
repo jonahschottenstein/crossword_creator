@@ -3,15 +3,30 @@ import "../App.css";
 import Cell from "./Cell";
 import { getCellCoordinates } from "../utilities/getCellCoordinates.js";
 import { Clue } from "./Clue.js";
+import { toggleCellBlock } from "../utilities/toggleCellBlock.js";
+import { toggleCellBlockSymmetry } from "../utilities/toggleCellBlockSymmetry.js";
 
 class App extends Component {
 	constructor(props) {
 		super(props);
+		this.handleCellBlockToggle = this.handleCellBlockToggle.bind(this);
 	}
 	state = {};
+	handleCellBlockToggle(e) {
+		toggleCellBlock(e);
+		toggleCellBlockSymmetry(e);
+	}
 	render() {
 		const cells = getCellCoordinates(15).map((coord, index) => {
-			return <Cell key={`cell-${index + 1}`} x={coord.x} y={coord.y} />;
+			return (
+				<Cell
+					key={`cell-${index + 1}`}
+					x={coord.x}
+					y={coord.y}
+					index={index}
+					onRectClick={this.handleCellBlockToggle}
+				/>
+			);
 		});
 		return (
 			<article className="puzzle">
