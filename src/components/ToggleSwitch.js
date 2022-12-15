@@ -8,6 +8,7 @@ export const ToggleSwitch = (props) => {
 						type="checkbox"
 						id={props.toggleSwitchId}
 						className="toggle-switch-input"
+						name={props.name}
 						checked={props.isChecked}
 						onChange={props.handleToggleSwitchChange}
 					/>
