@@ -49,14 +49,12 @@ class App extends Component {
 								Cell Block Count: <span className="cell-block-count">0</span>
 							</p>
 						</div>
-						<div className="cell-block-toggle-wrapper">
-							<input type="checkbox" id="cell-block-toggle-input" />
-							<label
-								className="cell-block-toggle-label"
-								htmlFor="cell-block-toggle-input">
-								<div className="cell-block-div"></div>
-							</label>
-						</div>
+						<ToggleSwitch
+							toggleSwitchId="cell-block-input"
+							text="Black Square:"
+							isChecked={this.state.isChecked}
+							handleToggleSwitchChange={this.handleCheckboxChange}
+						/>
 						<ToggleSwitch
 							toggleSwitchId="symmetry-input"
 							text="Symmetry:"
