@@ -13,7 +13,7 @@ export const toggleCellBlockSymmetry = (e) => {
 	const symmetricalIndex = lastCellIndex - targetIndex;
 	const centerCellIndex = Math.floor(numberOfCells / 2);
 
-	if (!targetIndex !== centerCellIndex) {
+	if (targetIndex !== centerCellIndex) {
 		console.log(targetIndex);
 		console.log(cellRects);
 		console.log(cellRects[symmetricalIndex]);
