@@ -12,7 +12,10 @@ class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isChecked: true,
+			cellBlockSettings: {
+				add: false,
+				symmetry: true,
+			},
 		};
 		this.handleCellBlockToggle = this.handleCellBlockToggle.bind(this);
 		this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
