@@ -6,6 +6,7 @@ import { Clue } from "./Clue.js";
 import { toggleCellBlock } from "../utilities/toggleCellBlock.js";
 import { toggleCellBlockSymmetry } from "../utilities/toggleCellBlockSymmetry.js";
 import { Checkbox } from "./Checkbox.js";
+import { ToggleSwitch } from "./ToggleSwitch.js";
 
 class App extends Component {
 	constructor(props) {
@@ -51,17 +52,12 @@ class App extends Component {
 								<div className="cell-block-div"></div>
 							</label>
 						</div>
-						<Checkbox
-							checkboxId="cell-block-symmetry-input"
+						<ToggleSwitch
+							toggleSwitchId="symmetry-input"
+							text="Symmetry:"
 							isChecked={this.state.isChecked}
-							handleChange={this.handleCheckboxChange}
-							label="Symmetry"
+							handleToggleSwitchChange={this.handleCheckboxChange}
 						/>
-						<div className="cell-block-count-container">
-							<p className="cell-block-count-p">
-								Cell Block Count: <span className="cell-block-count">0</span>
-							</p>
-						</div>
 					</div>
 				</section>
 				<section className="xword-clue-and-board-section">
