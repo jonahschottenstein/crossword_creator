@@ -19,6 +19,7 @@ class App extends Component {
 		};
 		this.handleCellBlockToggle = this.handleCellBlockToggle.bind(this);
 		this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
+		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 	// state = {};
 	handleCellBlockToggle(e) {
@@ -31,6 +32,17 @@ class App extends Component {
 			isChecked: !state.isChecked,
 		}));
 	}
+
+	handleInputChange(e) {
+		const name = e.target.name;
+		let cellBlockSettings = { ...this.state.cellBlockSettings };
+
+		cellBlockSettings[name] = !this.state.cellBlockSettings[name];
+		this.setState({
+			cellBlockSettings: cellBlockSettings,
+		});
+	}
+
 	render() {
 		const cells = getCellCoordinates(15).map((coord, index) => {
 			return (
