@@ -1,6 +1,6 @@
 export const toggleCellBlockSymmetry = (e) => {
-	const cellBlockInput = document.querySelector("#cell-block-toggle-input");
-	const symmetryInput = document.querySelector("#cell-block-symmetry-input");
+	const cellBlockInput = document.querySelector("#cell-block-input");
+	const symmetryInput = document.querySelector("#symmetry-input");
 	const cellRects = document.querySelectorAll(".cell-rect");
 
 	if (!cellBlockInput.checked) return;
