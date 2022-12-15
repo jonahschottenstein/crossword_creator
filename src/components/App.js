@@ -44,6 +44,11 @@ class App extends Component {
 			<article className="puzzle">
 				<section className="xword-cell-block-section">
 					<div className="cell-block-section-content">
+						<div className="cell-block-count-container">
+							<p className="cell-block-count-p">
+								Cell Block Count: <span className="cell-block-count">0</span>
+							</p>
+						</div>
 						<div className="cell-block-toggle-wrapper">
 							<input type="checkbox" id="cell-block-toggle-input" />
 							<label
