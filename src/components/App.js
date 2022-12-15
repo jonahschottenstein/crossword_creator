@@ -66,15 +66,17 @@ class App extends Component {
 						</div>
 						<ToggleSwitch
 							toggleSwitchId="cell-block-input"
-							text="Black Square:"
-							isChecked={this.state.isChecked}
-							handleToggleSwitchChange={this.handleCheckboxChange}
+							name="add"
+							text="Add Black Square:"
+							isChecked={this.state.cellBlockSettings.add}
+							handleToggleSwitchChange={this.handleInputChange}
 						/>
 						<ToggleSwitch
 							toggleSwitchId="symmetry-input"
+							name="symmetry"
 							text="Symmetry:"
-							isChecked={this.state.isChecked}
-							handleToggleSwitchChange={this.handleCheckboxChange}
+							isChecked={this.state.cellBlockSettings.symmetry}
+							handleToggleSwitchChange={this.handleInputChange}
 						/>
 					</div>
 				</section>
