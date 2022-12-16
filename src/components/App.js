@@ -27,6 +27,10 @@ class App extends Component {
 		toggleCellBlock(e);
 		toggleCellBlockSymmetry(e);
 		toggleTabIndex(e);
+
+		this.setState({
+			cellBlockCount: document.getElementsByClassName("cell-block").length,
+		});
 	}
 
 	handleInputChange(e) {
