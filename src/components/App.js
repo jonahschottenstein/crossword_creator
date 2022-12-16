@@ -14,7 +14,7 @@ class App extends Component {
 		super(props);
 		this.state = {
 			cellBlockSettings: {
-				add: false,
+				toggle: false,
 				symmetry: true,
 			},
 			cellBlockCount: 0,
@@ -84,9 +84,9 @@ class App extends Component {
 						<div className="cell-block-section-content">
 							<ToggleSwitch
 								toggleSwitchId="cell-block-input"
-								name="add"
-								text="Add Black Square:"
-								isChecked={this.state.cellBlockSettings.add}
+								name="toggle"
+								text="Toggle Black Square:"
+								isChecked={this.state.cellBlockSettings.toggle}
 								handleToggleSwitchChange={this.handleInputChange}
 							/>
 							<ToggleSwitch
