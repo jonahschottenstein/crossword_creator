@@ -9,20 +9,10 @@ body {
 	max-width: 1132px;
 }
 
-/* .xword-cell-block-section {
-	background-color: lightgrey;
-	margin-right: 10px;
-	padding-top: 70px;
-} */
-
 .cell-block-section-content {
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
-}
-
-.cell-block-toggle-wrapper:has(#cell-block-toggle-input:checked) {
-	box-shadow: 0 0 3px 3px goldenrod;
 }
 
 #cell-block-toggle-input {
@@ -101,8 +91,7 @@ rect {
 	pointer-events: none;
 }
 
-.xword-cell-block-section:has(#cell-block-input:not(:checked))
-	~ .xword-clue-and-board-section
+.xword-clue-and-board-section:has(#cell-block-input:not(:checked))
 	.cell-rect:not(.cell-block):focus {
 	fill: #ffda00;
 }
