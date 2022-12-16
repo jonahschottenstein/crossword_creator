@@ -5,7 +5,6 @@ import { getCellCoordinates } from "../utilities/getCellCoordinates.js";
 import { Clue } from "./Clue.js";
 import { toggleCellBlock } from "../utilities/toggleCellBlock.js";
 import { toggleCellBlockSymmetry } from "../utilities/toggleCellBlockSymmetry.js";
-import { Checkbox } from "./Checkbox.js";
 import { ToggleSwitch } from "./ToggleSwitch.js";
 import { toggleTabIndex } from "../utilities/toggleTabIndex.js";
 
@@ -22,7 +21,6 @@ class App extends Component {
 		this.handleRectClick = this.handleRectClick.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 	}
-	// state = {};
 	handleRectClick(e) {
 		toggleCellBlock(e);
 		toggleCellBlockSymmetry(e);
