@@ -99,6 +99,13 @@ body {
 	pointer-events: none;
 }
 
+.xword-cell-block-section:has(#cell-block-input:not(:checked))
+	~ .xword-clue-and-board-section
+	.cell-rect:not(.cell-block):focus {
+	outline: 0;
+	fill: #ffda00;
+}
+
 .toggle-switch-label {
 	display: flex;
 	align-items: center;
