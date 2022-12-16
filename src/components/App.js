@@ -94,7 +94,10 @@ class App extends Component {
 							/>
 							<div className="cell-block-count-container">
 								<p className="cell-block-count-p">
-									Cell Block Count: <span className="cell-block-count">0</span>
+									Cell Block Count:{" "}
+									<span className="cell-block-count">
+										{this.state.cellBlockCount}
+									</span>
 								</p>
 							</div>
 						</div>
