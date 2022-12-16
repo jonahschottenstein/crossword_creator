@@ -18,19 +18,12 @@ class App extends Component {
 			},
 		};
 		this.handleCellBlockToggle = this.handleCellBlockToggle.bind(this);
-		this.handleCheckboxChange = this.handleCheckboxChange.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 	// state = {};
 	handleCellBlockToggle(e) {
 		toggleCellBlock(e);
 		toggleCellBlockSymmetry(e);
-	}
-
-	handleCheckboxChange() {
-		this.setState((state) => ({
-			isChecked: !state.isChecked,
-		}));
 	}
 
 	handleInputChange(e) {
