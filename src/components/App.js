@@ -19,11 +19,11 @@ class App extends Component {
 			},
 			cellBlockCount: 0,
 		};
-		this.handleCellBlockToggle = this.handleCellBlockToggle.bind(this);
+		this.handleRectClick = this.handleRectClick.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 	}
 	// state = {};
-	handleCellBlockToggle(e) {
+	handleRectClick(e) {
 		toggleCellBlock(e);
 		toggleCellBlockSymmetry(e);
 		toggleTabIndex(e);
@@ -51,7 +51,7 @@ class App extends Component {
 					x={coord.x}
 					y={coord.y}
 					index={index}
-					onRectClick={this.handleCellBlockToggle}
+					onRectClick={this.handleRectClick}
 				/>
 			);
 		});
