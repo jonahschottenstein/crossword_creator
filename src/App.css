@@ -51,6 +51,10 @@ body {
 	fill: black;
 }
 
+rect {
+	outline: 0;
+}
+
 .xword-clue-and-board-section {
 	display: flex;
 	flex-direction: column;
@@ -102,7 +106,6 @@ body {
 .xword-cell-block-section:has(#cell-block-input:not(:checked))
 	~ .xword-clue-and-board-section
 	.cell-rect:not(.cell-block):focus {
-	outline: 0;
 	fill: #ffda00;
 }
 
