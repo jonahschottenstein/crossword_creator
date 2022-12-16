@@ -52,29 +52,6 @@ class App extends Component {
 		});
 		return (
 			<article className="puzzle">
-				<section className="xword-cell-block-section">
-					<div className="cell-block-section-content">
-						<div className="cell-block-count-container">
-							<p className="cell-block-count-p">
-								Cell Block Count: <span className="cell-block-count">0</span>
-							</p>
-						</div>
-						<ToggleSwitch
-							toggleSwitchId="cell-block-input"
-							name="add"
-							text="Add Black Square:"
-							isChecked={this.state.cellBlockSettings.add}
-							handleToggleSwitchChange={this.handleInputChange}
-						/>
-						<ToggleSwitch
-							toggleSwitchId="symmetry-input"
-							name="symmetry"
-							text="Symmetry:"
-							isChecked={this.state.cellBlockSettings.symmetry}
-							handleToggleSwitchChange={this.handleInputChange}
-						/>
-					</div>
-				</section>
 				<section className="xword-clue-and-board-section">
 					<Clue />
 					<section className="xword-board-section">
@@ -96,6 +73,29 @@ class App extends Component {
 										fill="none"></rect>
 								</g>
 							</svg>
+						</div>
+					</section>
+					<section className="xword-cell-block-section">
+						<div className="cell-block-section-content">
+							<ToggleSwitch
+								toggleSwitchId="cell-block-input"
+								name="add"
+								text="Add Black Square:"
+								isChecked={this.state.cellBlockSettings.add}
+								handleToggleSwitchChange={this.handleInputChange}
+							/>
+							<ToggleSwitch
+								toggleSwitchId="symmetry-input"
+								name="symmetry"
+								text="Symmetry:"
+								isChecked={this.state.cellBlockSettings.symmetry}
+								handleToggleSwitchChange={this.handleInputChange}
+							/>
+							<div className="cell-block-count-container">
+								<p className="cell-block-count-p">
+									Cell Block Count: <span className="cell-block-count">0</span>
+								</p>
+							</div>
 						</div>
 					</section>
 				</section>
