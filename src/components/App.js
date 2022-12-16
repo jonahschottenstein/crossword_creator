@@ -17,6 +17,7 @@ class App extends Component {
 				add: false,
 				symmetry: true,
 			},
+			cellBlockCount: 0,
 		};
 		this.handleCellBlockToggle = this.handleCellBlockToggle.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
