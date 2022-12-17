@@ -35,8 +35,10 @@ class App extends Component {
 		toggleCellBlockSymmetry(e);
 		toggleTabIndex(e);
 
+		const numberedCells = getNumberedCells();
 		this.setState({
 			cellBlockCount: document.getElementsByClassName("cell-block").length,
+			numberedCellIndices: numberedCells.map((cell) => cell.dataset.index),
 		});
 	}
 
