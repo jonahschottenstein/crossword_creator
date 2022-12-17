@@ -163,3 +163,27 @@ input:checked + .slider:before {
 .slider.round:before {
 	border-radius: 50%;
 }
+
+.clue-lists-section {
+	display: flex;
+	flex-wrap: wrap;
+	height: 100%;
+	justify-content: space-around;
+	max-height: 625px;
+	width: 48%;
+}
+
+.clue-list-wrapper {
+	display: block;
+	height: 100%;
+	padding-left: 10px;
+	width: 47%;
+}
+
+.clue-list-title {
+	border-bottom: solid #e6e6e6 1px;
+	font-size: 14px;
+	font-weight: bold;
+	line-height: 2;
+	margin: 0;
+}
