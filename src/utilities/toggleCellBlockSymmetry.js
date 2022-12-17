@@ -14,9 +14,6 @@ export const toggleCellBlockSymmetry = (e) => {
 	const centerCellIndex = Math.floor(numberOfCells / 2).toString();
 
 	if (targetIndex !== centerCellIndex) {
-		console.log(targetIndex);
-		console.log(cellRects);
-		console.log(cellRects[symmetricalIndex]);
 		cellRects[symmetricalIndex].classList.toggle("cell-block");
 	}
 };
