@@ -7,6 +7,7 @@ import { toggleCellBlock } from "../utilities/toggleCellBlock.js";
 import { toggleCellBlockSymmetry } from "../utilities/toggleCellBlockSymmetry.js";
 import { ToggleSwitch } from "./ToggleSwitch.js";
 import { toggleTabIndex } from "../utilities/toggleTabIndex.js";
+import { getNumberedCells } from "../utilities/numbers.js";
 
 class App extends Component {
 	constructor(props) {
@@ -17,6 +18,7 @@ class App extends Component {
 				symmetry: true,
 			},
 			cellBlockCount: 0,
+			numberedCellIndices: [],
 		};
 		this.handleRectClick = this.handleRectClick.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
