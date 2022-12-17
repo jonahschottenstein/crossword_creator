@@ -23,6 +23,13 @@ class App extends Component {
 		this.handleRectClick = this.handleRectClick.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 	}
+	componentDidMount() {
+		const numberedCells = getNumberedCells();
+		this.setState({
+			numberedCellIndices: numberedCells.map((cell) => cell.dataset.index),
+		});
+	}
+
 	handleRectClick(e) {
 		toggleCellBlock(e);
 		toggleCellBlockSymmetry(e);
