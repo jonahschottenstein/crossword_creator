@@ -9,7 +9,7 @@ const Cell = (props) => {
 	const LETTER_OFFSET_Y = 33.25;
 
 	return (
-		<g className="xword-cell">
+		<g className="xword-cell" data-index={props.index}>
 			<rect
 				className="cell-rect"
 				x={props.x + RECT_OFFSET_X}
