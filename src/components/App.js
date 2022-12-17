@@ -8,6 +8,7 @@ import { toggleCellBlockSymmetry } from "../utilities/toggleCellBlockSymmetry.js
 import { ToggleSwitch } from "./ToggleSwitch.js";
 import { toggleTabIndex } from "../utilities/toggleTabIndex.js";
 import { getNumberedCells } from "../utilities/numbers.js";
+import { ClueList } from "./ClueList.js";
 
 class App extends Component {
 	constructor(props) {
@@ -120,6 +121,10 @@ class App extends Component {
 							</div>
 						</div>
 					</section>
+				</section>
+				<section className="clue-lists-section">
+					<ClueList direction="ACROSS"></ClueList>
+					<ClueList direction="DOWN"></ClueList>
 				</section>
 			</article>
 		);
