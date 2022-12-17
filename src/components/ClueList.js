@@ -1,4 +1,4 @@
-const ClueList = (props) => {
+export const ClueList = (props) => {
 	return (
 		<div className="clue-list-wrapper">
 			<h3 className="clue-list-title">{props.direction}</h3>
@@ -6,5 +6,3 @@ const ClueList = (props) => {
 		</div>
 	);
 };
-
-export default ClueList;
