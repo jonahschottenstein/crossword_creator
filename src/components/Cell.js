@@ -24,7 +24,9 @@ const Cell = (props) => {
 				x={props.x + NUMBER_OFFSET_X}
 				y={props.y + NUMBER_OFFSET_Y}
 				textAnchor="start"
-				fontSize="11"></text>
+				fontSize="11">
+				{props.number}
+			</text>
 			<text
 				x={props.x + LETTER_OFFSET_X}
 				y={props.y + LETTER_OFFSET_Y}
