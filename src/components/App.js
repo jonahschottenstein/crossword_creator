@@ -60,6 +60,11 @@ class App extends Component {
 					x={coord.x}
 					y={coord.y}
 					index={index}
+					number={
+						this.state.numberedCellIndices.includes(index.toString())
+							? this.state.numberedCellIndices.indexOf(index.toString()) + 1
+							: ""
+					}
 					onRectClick={this.handleRectClick}
 				/>
 			);
