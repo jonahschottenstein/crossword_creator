@@ -7,7 +7,12 @@ import { toggleCellBlock } from "../utilities/toggleCellBlock.js";
 import { toggleCellBlockSymmetry } from "../utilities/toggleCellBlockSymmetry.js";
 import { ToggleSwitch } from "./ToggleSwitch.js";
 import { toggleTabIndex } from "../utilities/toggleTabIndex.js";
-import { getNumberedCells } from "../utilities/numbers.js";
+import {
+	getNumberedCells,
+	getInitialNumberedCellIndexes,
+	getAcrossNumbers,
+	getDownNumbers,
+} from "../utilities/numbers.js";
 import { ClueList } from "./ClueList.js";
 
 class App extends Component {
@@ -19,7 +24,13 @@ class App extends Component {
 				symmetry: true,
 			},
 			cellBlockCount: 0,
-			numberedCellIndices: [],
+			numberedCellIndexes: getInitialNumberedCellIndexes(),
+			acrossClueNumbers: getInitialNumberedCellIndexes()
+				.filter((number) => number % 15 === 0)
+				.map((number) => getInitialNumberedCellIndexes().indexOf(number) + 1),
+			downClueNumbers: getInitialNumberedCellIndexes()
+				.filter((number) => number % 15 !== 0)
+				.map((number) => getInitialNumberedCellIndexes().indexOf(number) + 1),
 		};
 		this.handleRectClick = this.handleRectClick.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
