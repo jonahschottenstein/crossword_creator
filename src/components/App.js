@@ -82,8 +82,8 @@ class App extends Component {
 					y={coord.y}
 					index={index}
 					number={
-						this.state.numberedCellIndices.includes(index.toString())
-							? this.state.numberedCellIndices.indexOf(index.toString()) + 1
+						this.state.numberedCellIndexes.includes(index)
+							? this.state.numberedCellIndexes.indexOf(index) + 1
 							: ""
 					}
 					onRectClick={this.handleRectClick}
