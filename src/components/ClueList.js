@@ -1,5 +1,3 @@
-import { ClueListItem } from "./ClueListItem.js";
-
 export const ClueList = (props) => {
 	return (
 		<div className="clue-list-wrapper">
