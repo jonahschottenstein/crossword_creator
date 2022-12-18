@@ -14,6 +14,7 @@ import {
 	getDownNumbers,
 } from "../utilities/numbers.js";
 import { ClueList } from "./ClueList.js";
+import { ClueListItem } from "./ClueListItem.js";
 
 class App extends Component {
 	constructor(props) {
@@ -143,8 +144,22 @@ class App extends Component {
 					</section>
 				</section>
 				<section className="clue-lists-section">
-					<ClueList direction="ACROSS"></ClueList>
-					<ClueList direction="DOWN"></ClueList>
+					<ClueList direction="ACROSS">
+						{this.state.acrossClueNumbers.map((number) => (
+							<ClueListItem
+								key={`${number.toString()}-across`}
+								clueLabel={number}
+							/>
+						))}
+					</ClueList>
+					<ClueList direction="DOWN">
+						{this.state.downClueNumbers.map((number) => (
+							<ClueListItem
+								key={`${number.toString()}-down`}
+								clueLabel={number}
+							/>
+						))}
+					</ClueList>
 				</section>
 			</article>
 		);
