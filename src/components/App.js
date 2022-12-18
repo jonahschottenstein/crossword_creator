@@ -48,10 +48,19 @@ class App extends Component {
 		toggleTabIndex(e);
 
 		const numberedCells = getNumberedCells();
-		this.setState({
-			cellBlockCount: document.getElementsByClassName("cell-block").length,
-			numberedCellIndices: numberedCells.map((cell) => cell.dataset.index),
-		});
+		this.setState(
+			{
+				cellBlockCount: document.getElementsByClassName("cell-block").length,
+				numberedCellIndexes: numberedCells.map((cell) =>
+					Number(cell.dataset.index)
+				),
+			},
+			() =>
+				this.setState({
+					acrossClueNumbers: getAcrossNumbers(numberedCells),
+					downClueNumbers: getDownNumbers(numberedCells),
+				})
+		);
 	}
 
 	handleInputChange(e) {
