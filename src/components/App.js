@@ -35,12 +35,12 @@ class App extends Component {
 		this.handleRectClick = this.handleRectClick.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
 	}
-	componentDidMount() {
+	/* 	componentDidMount() {
 		const numberedCells = getNumberedCells();
 		this.setState({
-			numberedCellIndices: numberedCells.map((cell) => cell.dataset.index),
+			numberedCellIndexes: numberedCells.map((cell) => cell.dataset.index),
 		});
-	}
+	} */
 
 	handleRectClick(e) {
 		toggleCellBlock(e);
