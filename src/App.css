@@ -3,10 +3,14 @@ body {
 }
 
 .puzzle {
+	align-items: flex-start;
 	display: flex;
 	height: 100%;
+	justify-content: space-around;
+	margin: auto;
 	max-height: 660px;
 	max-width: 1132px;
+	padding: 10px;
 }
 
 .cell-block-section-content {
