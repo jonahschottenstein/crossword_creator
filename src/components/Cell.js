@@ -21,6 +21,7 @@ const Cell = (props) => {
 				data-index={props.index}
 				onClick={props.onRectClick}></rect>
 			<text
+				className="cell-number"
 				x={props.x + NUMBER_OFFSET_X}
 				y={props.y + NUMBER_OFFSET_Y}
 				textAnchor="start"
