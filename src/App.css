@@ -193,4 +193,28 @@ input:checked + .slider:before {
 	height: 585px;
 	list-style: none;
 	overflow-y: scroll;
+	padding-left: 0;
+}
+
+.clue-list-item {
+	border-left: solid rgba(0, 0, 0, 0) 10px;
+	cursor: pointer;
+	display: flex;
+	padding: 5px 1px;
+}
+
+.clue-list-item span {
+	line-height: 1.4;
+	margin-right: 5px;
+}
+
+.clue-label {
+	font-weight: bold;
+	text-align: right;
+	min-width: 24px;
+	width: 24px;
+}
+
+.clue-text {
+	margin-left: 5px;
 }
