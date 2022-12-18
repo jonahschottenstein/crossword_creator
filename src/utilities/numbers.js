@@ -17,6 +17,16 @@ const previousDownCellBlocked = (cell) =>
 		.querySelector(`.cell-rect[data-index="${getCellIndex(cell) - 15}"`)
 		.classList.contains("cell-block");
 
+const NUMBER_OF_CELLS = 225;
+const CELLS_PER_ROW = 15;
+
+const getCellIndexes = () => Array.from(Array(NUMBER_OF_CELLS).keys());
+
+export const getInitialNumberedCellIndexes = () =>
+	getCellIndexes().filter(
+		(index) => index < CELLS_PER_ROW || index % CELLS_PER_ROW === 0
+	);
+
 export const getNumberedCells = () => {
 	const cellsArray = [...document.querySelectorAll(".xword-cell")];
 	return cellsArray.filter(
