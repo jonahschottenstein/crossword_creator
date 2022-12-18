@@ -1,4 +1,4 @@
-const ClueListItem = (props) => {
+export const ClueListItem = (props) => {
 	return (
 		<li className="clue-list-item">
 			<span className="clue-label">{props.clueLabel}</span>
@@ -7,4 +7,4 @@ const ClueListItem = (props) => {
 	);
 };
 
-export default ClueListItem;
+ClueListItem.defaultProps = { clueText: "Clue text" };
