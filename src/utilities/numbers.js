@@ -38,3 +38,22 @@ export const getNumberedCells = () => {
 				previousDownCellBlocked(cell))
 	);
 };
+
+const isAcross = (cell) =>
+	!isCellBlock(cell) &&
+	(cellInColumn1(cell) || previousAcrossCellBlocked(cell));
+
+const isDown = (cell) =>
+	!isCellBlock(cell) && (cellInRow1(cell) || previousDownCellBlocked(cell));
+
+export const getAcrossNumbers = (numberedCells) => {
+	return numberedCells
+		.filter((cell) => isAcross(cell))
+		.map((cell) => cell.querySelector(".cell-number").textContent);
+};
+
+export const getDownNumbers = (numberedCells) => {
+	return numberedCells
+		.filter((cell) => isDown(cell))
+		.map((cell) => cell.querySelector(".cell-number").textContent);
+};
