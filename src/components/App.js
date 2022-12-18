@@ -32,6 +32,7 @@ class App extends Component {
 			downClueNumbers: getInitialNumberedCellIndexes()
 				.filter((number) => number % 15 !== 0)
 				.map((number) => getInitialNumberedCellIndexes().indexOf(number) + 1),
+			direction: "across",
 		};
 		this.handleRectClick = this.handleRectClick.bind(this);
 		this.handleInputChange = this.handleInputChange.bind(this);
