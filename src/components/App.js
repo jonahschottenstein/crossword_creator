@@ -6,7 +6,7 @@ import { Clue } from "./Clue.js";
 import { toggleCellBlock } from "../utilities/toggleCellBlock.js";
 import { toggleCellBlockSymmetry } from "../utilities/toggleCellBlockSymmetry.js";
 import { ToggleSwitch } from "./ToggleSwitch.js";
-import { toggleTabIndex } from "../utilities/toggleTabIndex.js";
+import { setTabIndex } from "../utilities/toggleTabIndex.js";
 import {
 	getNumberedCells,
 	getInitialNumberedCellIndexes,
@@ -49,7 +49,7 @@ class App extends Component {
 	handleRectClick(e) {
 		toggleCellBlock(e);
 		toggleCellBlockSymmetry(e);
-		toggleTabIndex(e);
+		setTabIndex();
 
 		const numberedCells = getNumberedCells();
 		console.log(
