@@ -4,18 +4,13 @@ import {
 	cellInFirstColumn,
 } from "./cellLocation.js";
 
+import {
+	previousAcrossCellBlocked,
+	previousDownCellBlocked,
+} from "./cellBlockLocation.js";
+
 const isCellBlock = (cell) =>
 	cell.querySelector(".cell-rect").classList.contains("cell-block");
-
-const previousAcrossCellBlocked = (cell) =>
-	cell.previousElementSibling
-		.querySelector(".cell-rect")
-		.classList.contains("cell-block");
-
-const previousDownCellBlocked = (cell) =>
-	document
-		.querySelector(`.cell-rect[data-index="${getCellIndex(cell) - 15}"`)
-		.classList.contains("cell-block");
 
 const NUMBER_OF_CELLS = 225;
 const CELLS_PER_ROW = 15;
