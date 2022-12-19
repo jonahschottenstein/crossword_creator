@@ -5,8 +5,8 @@
 }; */
 
 export const setTabIndex = () => {
-	const rectsArray = document.querySelectorAll(".cell-rect");
-	rectsArray.forEach((rect) => {
+	const rects = document.querySelectorAll(".cell-rect");
+	rects.forEach((rect) => {
 		if (rect.classList.contains("cell-block")) {
 			rect.tabIndex = -1;
 		} else {
