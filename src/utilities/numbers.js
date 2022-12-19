@@ -1,11 +1,11 @@
+import {
+	getCellIndex,
+	cellInFirstRow,
+	cellInFirstColumn,
+} from "./cellLocation.js";
+
 const isCellBlock = (cell) =>
 	cell.querySelector(".cell-rect").classList.contains("cell-block");
-
-const cellInRow1 = (cell) => cell.dataset.index < 15;
-
-const cellInColumn1 = (cell) => cell.dataset.index % 15 === 0;
-
-const getCellIndex = (cell) => cell.dataset.index;
 
 const previousAcrossCellBlocked = (cell) =>
 	cell.previousElementSibling
@@ -32,8 +32,8 @@ export const getNumberedCells = () => {
 	return cellsArray.filter(
 		(cell) =>
 			!isCellBlock(cell) &&
-			(cellInRow1(cell) ||
-				cellInColumn1(cell) ||
+			(cellInFirstRow(cell) ||
+				cellInFirstColumn(cell) ||
 				previousAcrossCellBlocked(cell) ||
 				previousDownCellBlocked(cell))
 	);
@@ -41,10 +41,10 @@ export const getNumberedCells = () => {
 
 const isAcross = (cell) =>
 	!isCellBlock(cell) &&
-	(cellInColumn1(cell) || previousAcrossCellBlocked(cell));
+	(cellInFirstColumn(cell) || previousAcrossCellBlocked(cell));
 
 const isDown = (cell) =>
-	!isCellBlock(cell) && (cellInRow1(cell) || previousDownCellBlocked(cell));
+	!isCellBlock(cell) && (cellInFirstRow(cell) || previousDownCellBlocked(cell));
 
 export const getAcrossNumbers = (numberedCells) => {
 	return numberedCells
