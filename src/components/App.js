@@ -15,6 +15,14 @@ import {
 } from "../utilities/numbers.js";
 import { ClueList } from "./ClueList.js";
 import { ClueListItem } from "./ClueListItem.js";
+import {
+	getAcrossFirstLetterCells,
+	getDownFirstLetterCells,
+	getAcrossLastLetterCells,
+	getDownLastLetterCells,
+	getAcrossWords,
+	getDownWords,
+} from "../utilities/words.js";
 
 class App extends Component {
 	constructor(props) {
@@ -44,6 +52,21 @@ class App extends Component {
 		toggleTabIndex(e);
 
 		const numberedCells = getNumberedCells();
+		console.log(
+			"A-WORDS",
+			getAcrossWords(
+				getAcrossFirstLetterCells(numberedCells),
+				getAcrossLastLetterCells(getAcrossFirstLetterCells(numberedCells))
+			)
+		);
+		console.log(
+			"D-WORDS",
+			getDownWords(
+				getDownFirstLetterCells(numberedCells),
+				getDownLastLetterCells(getDownFirstLetterCells(numberedCells))
+			)
+		);
+
 		this.setState(
 			{
 				cellBlockCount: document.getElementsByClassName("cell-block").length,
