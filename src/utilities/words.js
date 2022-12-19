@@ -35,7 +35,7 @@ export const getAcrossLastLetterCells = (firstLetterCells) => {
 	const lastLetterCells = firstLetterCells.map((firstLetterCell) => {
 		return cellsArray.find((cell, index) => {
 			return (
-				index > getCellIndex(firstLetterCell) &&
+				index >= getCellIndex(firstLetterCell) &&
 				(cellInLastColumn(cell) || nextAcrossCellBlocked(cell))
 			);
 		});
@@ -48,7 +48,7 @@ export const getDownLastLetterCells = (firstLetterCells) => {
 	const lastLetterCells = firstLetterCells.map((firstLetterCell) => {
 		return cellsArray.find((cell, index, array) => {
 			return (
-				index > getCellIndex(firstLetterCell) &&
+				index >= getCellIndex(firstLetterCell) &&
 				cellsInSameColumn(cell, firstLetterCell) &&
 				(cellInLastRow(cell) || nextDownCellBlocked(cell))
 			);
