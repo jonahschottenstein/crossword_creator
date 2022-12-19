@@ -1,12 +1,12 @@
 export const getCellIndex = (cell) => Number(cell.dataset.index);
 
 export const cellsInSameColumn = (cell1, cell2) =>
-	cell1.dataset.index % 15 === cell2.dataset.index % 15;
+	getCellIndex(cell1) % 15 === getCellIndex(cell2) % 15;
 
-export const cellInFirstRow = (cell) => cell.dataset.index < 15;
+export const cellInFirstRow = (cell) => getCellIndex(cell) < 15;
 
-export const cellInFirstColumn = (cell) => cell.dataset.index % 15 === 0;
+export const cellInFirstColumn = (cell) => getCellIndex(cell) % 15 === 0;
 
-export const cellInLastRow = (cell) => cell.dataset.index > 209;
+export const cellInLastRow = (cell) => getCellIndex(cell) > 209;
 
-export const cellInLastColumn = (cell) => cell.dataset.index % 15 === 14;
+export const cellInLastColumn = (cell) => getCellIndex(cell) % 15 === 14;
