@@ -38,7 +38,7 @@ class App extends Component {
 				.filter((number) => number % 15 === 0)
 				.map((number) => getInitialNumberedCellIndexes().indexOf(number) + 1),
 			downClueNumbers: getInitialNumberedCellIndexes()
-				.filter((number) => number % 15 !== 0)
+				.filter((number) => number < 15)
 				.map((number) => getInitialNumberedCellIndexes().indexOf(number) + 1),
 			direction: "across",
 		};
