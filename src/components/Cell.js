@@ -29,6 +29,7 @@ const Cell = (props) => {
 				{props.number}
 			</text>
 			<text
+				className="cell-letter"
 				x={props.x + LETTER_OFFSET_X}
 				y={props.y + LETTER_OFFSET_Y}
 				textAnchor="middle"
