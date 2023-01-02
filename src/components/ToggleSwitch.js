@@ -10,7 +10,7 @@ export const ToggleSwitch = (props) => {
 						className="toggle-switch-input"
 						name={props.name}
 						checked={props.isChecked}
-						onChange={props.handleToggleSwitchChange}
+						onChange={props.onChange}
 					/>
 					<span className="slider round"></span>
 				</div>
