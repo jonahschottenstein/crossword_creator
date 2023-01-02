@@ -186,7 +186,7 @@ class App extends Component {
 
 export default App; */
 
-// import "./styles.css";
+import "../App.css";
 import React, { useState } from "react";
 import { Board } from "./Board.js";
 
