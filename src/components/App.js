@@ -242,7 +242,17 @@ export default function App() {
 		});
 	};
 
-	const handleChange = (e) => {};
+	const handleToggleChange = (e) => {
+		const name = e.target.name;
+		let settings = { ...cellBlockSettings };
+		settings[name] = !cellBlockSettings[name];
+		removeSelectedCell(settings.cellBlockInput);
+		setCellBlockSettings(settings);
+	};
+
+	const handleChange = (e) => {
+		handleToggleChange(e);
+	};
 
 	return (
 		<div className="App">
