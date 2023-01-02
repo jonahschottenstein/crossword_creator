@@ -1,4 +1,4 @@
-body {
+/* body {
 	font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -113,14 +113,12 @@ rect {
 	width: 60px;
 }
 
-/* Hide default HTML checkbox */
 .toggle-switch-input {
 	opacity: 0;
 	width: 0;
 	height: 0;
 }
 
-/* The slider */
 .slider {
 	position: absolute;
 	cursor: pointer;
@@ -159,7 +157,6 @@ input:checked + .slider:before {
 	transform: translateX(26px);
 }
 
-/* Rounded sliders */
 .slider.round {
 	border-radius: 34px;
 }
@@ -193,7 +190,6 @@ input:checked + .slider:before {
 }
 
 .clue-list {
-	/* height: calc(100% - 40px); */
 	height: 585px;
 	list-style: none;
 	overflow-y: scroll;
@@ -221,4 +217,46 @@ input:checked + .slider:before {
 
 .clue-text {
 	margin-left: 5px;
+} */
+
+.App {
+	font-family: sans-serif;
+	text-align: center;
+}
+
+.board {
+	border: solid black 1px;
+	display: grid;
+	grid-template-rows: repeat(15, 33px);
+	grid-template-columns: repeat(15, 33px);
+	width: fit-content;
+}
+
+.cell {
+	border: solid black 0.5px;
+	position: relative;
+}
+
+.cell > * {
+	pointer-events: none;
+}
+
+.number {
+	border: solid red 0.25px;
+	font-size: 11px;
+	left: 3px;
+	position: absolute;
+	top: 3px;
+}
+
+.letter {
+	bottom: 0;
+	font-size: 22px;
+	height: 22px;
+	position: absolute;
+	width: 100%;
+}
+
+.selected {
+	background-color: #ffda00;
 }
