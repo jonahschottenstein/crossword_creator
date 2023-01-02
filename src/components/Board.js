@@ -12,6 +12,7 @@ export const Board = (props) => {
 				letter={cell.letter}
 				isSelected={cell.isSelected}
 				isBlackSquare={cell.isBlackSquare}
+				onClick={props.onClick}
 			/>
 		);
 	});
