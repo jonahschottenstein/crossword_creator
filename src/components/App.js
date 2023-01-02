@@ -204,6 +204,10 @@ export default function App() {
 	});
 
 	const [cells, setCells] = useState(cellsArray);
+	const [cellBlockSettings, setCellBlockSettings] = useState({
+		cellBlockInput: false,
+		symmetryInput: true,
+	});
 
 	const setSelectedCell = (e) => {
 		const targetIndex = Number(e.target.dataset.index);
