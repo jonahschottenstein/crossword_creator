@@ -205,9 +205,13 @@ export default function App() {
 
 	const [cells, setCells] = useState(cellsArray);
 
+	const handleClick = (e) => {
+		console.log(e.target);
+	};
+
 	return (
 		<div className="App">
-			<Board cells={cells.slice()} />
+			<Board cells={cells.slice()} onClick={(e) => handleClick(e)} />
 		</div>
 	);
 }
