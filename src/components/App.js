@@ -205,8 +205,22 @@ export default function App() {
 
 	const [cells, setCells] = useState(cellsArray);
 
+	const setSelectedCell = (e) => {
+		const targetIndex = Number(e.target.dataset.index);
+		setCells((prevState) => {
+			const newState = prevState.map((cell) => {
+				if (cell.index === targetIndex) {
+					return { ...cell, isSelected: true };
+				} else {
+					return { ...cell, isSelected: false };
+				}
+			});
+			return newState;
+		});
+	};
+
 	const handleClick = (e) => {
-		console.log(e.target);
+		setSelectedCell(e);
 	};
 
 	return (
