@@ -189,6 +189,7 @@ export default App; */
 import "../App.css";
 import React, { useState } from "react";
 import { Board } from "./Board.js";
+import { CellBlockSettings } from "./CellBlockSettings.js";
 
 export default function App() {
 	const cellsArray = Array.from(Array(225).keys()).map((key, index) => {
@@ -229,6 +230,10 @@ export default function App() {
 
 	return (
 		<div className="App">
+			<CellBlockSettings
+				cellBlockInput={cellBlockSettings.cellBlockInput}
+				symmetryInput={cellBlockSettings.symmetryInput}
+			/>
 			<Board cells={cells.slice()} onClick={(e) => handleClick(e)} />
 		</div>
 	);
