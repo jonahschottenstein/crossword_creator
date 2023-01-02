@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+/* import React, { Component } from "react";
 import "../App.css";
 import Cell from "./Cell";
 import { getCellCoordinates } from "../utilities/getCellCoordinates.js";
@@ -184,4 +184,30 @@ class App extends Component {
 	}
 }
 
-export default App;
+export default App; */
+
+// import "./styles.css";
+import React, { useState } from "react";
+import { Board } from "./Board.js";
+
+export default function App() {
+	const cellsArray = Array.from(Array(225).keys()).map((key, index) => {
+		return {
+			id: `cell-${index}`,
+			index: index,
+			tabIndex: 0,
+			number: index,
+			letter: "A",
+			isSelected: false,
+			isBlackSquare: false,
+		};
+	});
+
+	const [cells, setCells] = useState(cellsArray);
+
+	return (
+		<div className="App">
+			<Board cells={cells.slice()} />
+		</div>
+	);
+}
