@@ -1,4 +1,4 @@
-const Cell = (props) => {
+/* const Cell = (props) => {
 	const RECT_OFFSET_X = 3;
 	const RECT_OFFSET_Y = 3;
 
@@ -35,6 +35,21 @@ const Cell = (props) => {
 				textAnchor="middle"
 				fontSize="22"></text>
 		</g>
+	);
+}; */
+
+export const Cell = (props) => {
+	return (
+		<div
+			id={`cell-${props.index}`}
+			className={props.className}
+			data-index={props.index}
+			tabIndex={props.tabIndex}
+			onClick={props.onClick}
+			onKeyDown={props.onKeyDown}>
+			<div className="number">{props.number}</div>
+			<div className="letter">{props.letter}</div>
+		</div>
 	);
 };
 
