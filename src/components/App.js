@@ -228,11 +228,28 @@ export default function App() {
 		setSelectedCell(e);
 	};
 
+	const removeSelectedCell = (cellBlockInput) => {
+		if (cellBlockInput === false) return;
+		setCells((prevState) => {
+			const newState = prevState.map((cell) => {
+				if (cell.isSelected) {
+					return { ...cell, isSelected: false };
+				} else {
+					return { ...cell };
+				}
+			});
+			return newState;
+		});
+	};
+
+	const handleChange = (e) => {};
+
 	return (
 		<div className="App">
 			<CellBlockSettings
 				cellBlockInput={cellBlockSettings.cellBlockInput}
 				symmetryInput={cellBlockSettings.symmetryInput}
+				onChange={handleChange}
 			/>
 			<Board cells={cells.slice()} onClick={(e) => handleClick(e)} />
 		</div>
