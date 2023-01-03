@@ -211,6 +211,8 @@ export default function App() {
 	});
 
 	const setSelectedCell = (e) => {
+		if (cellBlockSettings.cellBlockInput === true) return;
+
 		const targetIndex = Number(e.target.dataset.index);
 		setCells((prevState) => {
 			const newState = prevState.map((cell) => {
