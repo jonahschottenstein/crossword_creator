@@ -60,3 +60,14 @@ const previousAcrossCellBlocked = (cellsArray, cell) =>
 	cellsArray[cell.index - 1].isBlackSquare;
 const previousDownCellBlocked = (cellsArray, cell) =>
 	cellsArray[cell.index - 15].isBlackSquare;
+
+export const getNumberedCells = (cells) => {
+	return cells.filter(
+		(cell, index, array) =>
+			!isCellBlock(cell) &&
+			(cellInFirstRow(cell) ||
+				cellInFirstColumn(cell) ||
+				previousAcrossCellBlocked(array, cell) ||
+				previousDownCellBlocked(array, cell))
+	);
+};
