@@ -190,6 +190,7 @@ import "../App.css";
 import React, { useState } from "react";
 import { Board } from "./Board.js";
 import { CellBlockSettings } from "./CellBlockSettings.js";
+import { getNumberedCells } from "../utilities/numbers.js";
 
 export default function App() {
 	let numberedCells = [];
@@ -201,7 +202,6 @@ export default function App() {
 			id: `cell-${index}`,
 			index: index,
 			tabIndex: 0,
-			// number: index,
 			number:
 				index < 15 || index % 15 === 0 ? numberedCells.indexOf(key) + 1 : null,
 			letter: "",
@@ -273,10 +273,28 @@ export default function App() {
 		}
 	};
 
+	const setCellNumbers = () => {
+		if (cellBlockSettings.cellBlockInput === false) return;
+
+		setCells((prevState) => {
+			const numberedCells = getNumberedCells(prevState);
+			console.log("numberedCells", numberedCells);
+			const newState = prevState.map((cell) => {
+				if (numberedCells.includes(cell)) {
+					return { ...cell, number: numberedCells.indexOf(cell) + 1 };
+				} else {
+					return { ...cell, number: null };
+				}
+			});
+			return newState;
+		});
+	};
+
 	const handleClick = (e) => {
 		setSelectedCell(e);
 		setCellBlock(e);
 		setSymmetricalCellBlock(e);
+		setCellNumbers(e);
 	};
 
 	const removeSelectedCell = (cellBlockInput) => {
