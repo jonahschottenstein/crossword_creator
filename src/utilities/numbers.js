@@ -1,4 +1,4 @@
-import {
+/* import {
 	getCellIndex,
 	cellInFirstRow,
 	cellInFirstColumn,
@@ -51,4 +51,12 @@ export const getDownNumbers = (numberedCells) => {
 	return numberedCells
 		.filter((cell) => isDown(cell))
 		.map((cell) => cell.querySelector(".cell-number").textContent);
-};
+}; */
+
+const isCellBlock = (cell) => cell.isBlackSquare;
+const cellInFirstRow = (cell) => cell.index < 15;
+const cellInFirstColumn = (cell) => cell.index % 15 === 0;
+const previousAcrossCellBlocked = (cellsArray, cell) =>
+	cellsArray[cell.index - 1].isBlackSquare;
+const previousDownCellBlocked = (cellsArray, cell) =>
+	cellsArray[cell.index - 15].isBlackSquare;
