@@ -205,6 +205,8 @@ export default function App() {
 			tabIndex: 0,
 			number:
 				index < 15 || index % 15 === 0 ? numberedCells.indexOf(key) + 1 : null,
+			across: index % 15 === 0 ? true : false,
+			down: index < 15 ? true : false,
 			letter: "",
 			isSelected: false,
 			isBlackSquare: false,
