@@ -224,6 +224,17 @@ input:checked + .slider:before {
 	text-align: center;
 }
 
+.cell-block-settings {
+	border: solid black 1px;
+	display: flex;
+	justify-content: space-evenly;
+}
+
+.toggle-switch-label {
+	display: flex;
+	padding: 5px;
+}
+
 .board {
 	border: solid black 1px;
 	display: grid;
