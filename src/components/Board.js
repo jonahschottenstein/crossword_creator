@@ -19,6 +19,7 @@ export const Board = (props) => {
 				isSelected={cell.isSelected}
 				isBlackSquare={cell.isBlackSquare}
 				onClick={props.onClick}
+				onKeyDown={props.onKeyDown}
 			/>
 		);
 	});
