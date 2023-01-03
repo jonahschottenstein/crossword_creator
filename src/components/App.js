@@ -204,7 +204,7 @@ export default function App() {
 			// number: index,
 			number:
 				index < 15 || index % 15 === 0 ? numberedCells.indexOf(key) + 1 : null,
-			letter: "A",
+			letter: "",
 			isSelected: false,
 			isBlackSquare: false,
 		};
