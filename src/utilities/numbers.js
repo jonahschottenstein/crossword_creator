@@ -71,3 +71,17 @@ export const getNumberedCells = (cells) => {
 				previousDownCellBlocked(array, cell))
 	);
 };
+
+export const isAcross = (array, cell) => {
+	return (
+		!isCellBlock(cell) &&
+		(cellInFirstColumn(cell) || previousAcrossCellBlocked(array, cell))
+	);
+};
+
+export const isDown = (array, cell) => {
+	return (
+		!isCellBlock(cell) &&
+		(cellInFirstRow(cell) || previousDownCellBlocked(array, cell))
+	);
+};
