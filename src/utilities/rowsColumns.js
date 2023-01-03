@@ -26,7 +26,7 @@ const getColumnEnds = (cells) => {
 	return columnEnds;
 };
 
-export const createRows = () => {
+const createRows = () => {
 	const keysArray = Array.from(Array(225).keys());
 	const rowStarts = getRowStarts(keysArray);
 	const rowEnds = getRowEnds(keysArray);
@@ -34,4 +34,20 @@ export const createRows = () => {
 		return keysArray.slice(start, rowEnds[startIndex] + 1);
 	});
 	return rows;
+};
+
+const createColumns = () => {
+	const keysArray = Array.from(Array(225).keys());
+	const columnStarts = getColumnStarts(keysArray);
+	const columnEnds = getColumnEnds(keysArray);
+	const columns = columnStarts.map((start, startIndex) => {
+		return keysArray.filter((key, index) => {
+			return (
+				index >= start &&
+				index <= columnEnds[startIndex] &&
+				key % 15 === start % 15
+			);
+		});
+	});
+	return columns;
 };
