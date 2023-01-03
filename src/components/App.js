@@ -192,12 +192,18 @@ import { Board } from "./Board.js";
 import { CellBlockSettings } from "./CellBlockSettings.js";
 
 export default function App() {
+	let numberedCells = [];
 	const cellsArray = Array.from(Array(225).keys()).map((key, index) => {
+		if (index < 15 || index % 15 === 0) {
+			numberedCells = numberedCells.concat(key);
+		}
 		return {
 			id: `cell-${index}`,
 			index: index,
 			tabIndex: 0,
-			number: index,
+			// number: index,
+			number:
+				index < 15 || index % 15 === 0 ? numberedCells.indexOf(key) + 1 : null,
 			letter: "A",
 			isSelected: false,
 			isBlackSquare: false,
