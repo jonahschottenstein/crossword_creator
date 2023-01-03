@@ -5,7 +5,13 @@ export const Board = (props) => {
 		return (
 			<Cell
 				key={index}
-				className={cell.isSelected ? "cell selected" : "cell"}
+				className={
+					cell.isSelected
+						? "cell selected"
+						: cell.isBlackSquare
+						? "cell cell-block"
+						: "cell"
+				}
 				index={index}
 				tabIndex={cell.tabIndex}
 				number={cell.number}
