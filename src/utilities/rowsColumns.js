@@ -12,6 +12,13 @@ const getRowEnds = (cells) => {
 	return rowEnds;
 };
 
+const getColumnStarts = (cells) => {
+	const columnStarts = cells.filter((cell, index) => {
+		return index <= 14;
+	});
+	return columnStarts;
+};
+
 export const createRows = () => {
 	const keysArray = Array.from(Array(225).keys());
 	const rowStarts = getRowStarts(keysArray);
