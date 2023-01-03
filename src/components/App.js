@@ -190,7 +190,7 @@ import "../App.css";
 import React, { useState } from "react";
 import { Board } from "./Board.js";
 import { CellBlockSettings } from "./CellBlockSettings.js";
-import { getNumberedCells } from "../utilities/numbers.js";
+import { getNumberedCells, isAcross, isDown } from "../utilities/numbers.js";
 import { ClueListsContainer } from "./ClueListsContainer";
 
 export default function App() {
@@ -293,11 +293,31 @@ export default function App() {
 		});
 	};
 
+	const setClues = () => {
+		if (cellBlockSettings.cellBlockInput === false) return;
+
+		setCells((prevState) => {
+			const newState = prevState.map((cell, index, array) => {
+				if (isAcross(array, cell) && isDown(array, cell)) {
+					return { ...cell, across: true, down: true };
+				} else if (isAcross(array, cell) && !isDown(array, cell)) {
+					return { ...cell, across: true, down: false };
+				} else if (!isAcross(array, cell) && isDown(array, cell)) {
+					return { ...cell, across: false, down: true };
+				} else {
+					return { ...cell, across: false, down: false };
+				}
+			});
+			return newState;
+		});
+	};
+
 	const handleClick = (e) => {
 		setSelectedCell(e);
 		setCellBlock(e);
 		setSymmetricalCellBlock(e);
 		setCellNumbers(e);
+		setClues();
 	};
 
 	const removeSelectedCell = (cellBlockInput) => {
