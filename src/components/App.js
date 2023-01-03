@@ -192,6 +192,7 @@ import { Board } from "./Board.js";
 import { CellBlockSettings } from "./CellBlockSettings.js";
 import { getNumberedCells, isAcross, isDown } from "../utilities/numbers.js";
 import { ClueListsContainer } from "./ClueListsContainer";
+import { getRowAndColumn } from "../utilities/rowsColumns.js";
 
 export default function App() {
 	let numberedCells = [];
@@ -203,6 +204,8 @@ export default function App() {
 			id: `cell-${index}`,
 			index: index,
 			tabIndex: 0,
+			row: getRowAndColumn(key).row,
+			column: getRowAndColumn(key).column,
 			number:
 				index < 15 || index % 15 === 0 ? numberedCells.indexOf(key) + 1 : null,
 			across: index % 15 === 0 ? true : false,
