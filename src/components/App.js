@@ -354,7 +354,16 @@ export default function App() {
 				onChange={handleChange}
 			/>
 			<Board cells={cells.slice()} onClick={(e) => handleClick(e)} />
-			<ClueListsContainer />
+			<ClueListsContainer
+				acrossClueNumbers={cells
+					.filter(
+						(cell) => cell.isBlackSquare === false && cell.across === true
+					)
+					.map((cell) => cell.number)}
+				downClueNumbers={cells
+					.filter((cell) => cell.isBlackSquare === false && cell.down === true)
+					.map((cell) => cell.number)}
+			/>
 		</div>
 	);
 }
