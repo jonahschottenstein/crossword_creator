@@ -63,3 +63,9 @@ const getCellColumn = (key) => {
 	const columnIndex = columns.findIndex((column) => column.includes(key));
 	return columnIndex;
 };
+
+export const getRowAndColumn = (key) => {
+	const row = getCellRow(key);
+	const column = getCellColumn(key);
+	return { row: row, column: column };
+};
