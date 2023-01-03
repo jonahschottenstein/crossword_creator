@@ -242,7 +242,6 @@ input:checked + .slider:before {
 }
 
 .number {
-	border: solid red 0.25px;
 	font-size: 11px;
 	left: 3px;
 	position: absolute;
@@ -259,4 +258,8 @@ input:checked + .slider:before {
 
 .selected {
 	background-color: #ffda00;
+}
+
+.cell-block {
+	background-color: black;
 }
