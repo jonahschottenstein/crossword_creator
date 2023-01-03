@@ -19,6 +19,13 @@ const getColumnStarts = (cells) => {
 	return columnStarts;
 };
 
+const getColumnEnds = (cells) => {
+	const columnEnds = cells.filter((cell, index) => {
+		return index >= 210;
+	});
+	return columnEnds;
+};
+
 export const createRows = () => {
 	const keysArray = Array.from(Array(225).keys());
 	const rowStarts = getRowStarts(keysArray);
