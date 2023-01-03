@@ -191,6 +191,7 @@ import React, { useState } from "react";
 import { Board } from "./Board.js";
 import { CellBlockSettings } from "./CellBlockSettings.js";
 import { getNumberedCells } from "../utilities/numbers.js";
+import { ClueListsContainer } from "./ClueListsContainer";
 
 export default function App() {
 	let numberedCells = [];
@@ -331,6 +332,7 @@ export default function App() {
 				onChange={handleChange}
 			/>
 			<Board cells={cells.slice()} onClick={(e) => handleClick(e)} />
+			<ClueListsContainer />
 		</div>
 	);
 }
