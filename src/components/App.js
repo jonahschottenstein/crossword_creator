@@ -337,6 +337,10 @@ export default function App() {
 		setClues();
 	};
 
+	const handleKeyDown = (e) => {
+		console.log(e.key);
+	};
+
 	const removeCellSelection = (cellBlockInput) => {
 		if (cellBlockInput === false) return;
 		setCells((prevState) => {
@@ -370,7 +374,11 @@ export default function App() {
 				symmetryInput={cellBlockSettings.symmetryInput}
 				onChange={handleChange}
 			/>
-			<Board cells={cells.slice()} onClick={(e) => handleClick(e)} />
+			<Board
+				cells={cells.slice()}
+				onClick={(e) => handleClick(e)}
+				onKeyDown={handleKeyDown}
+			/>
 			<ClueListsContainer
 				acrossClueNumbers={cells
 					.filter(
