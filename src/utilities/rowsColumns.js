@@ -51,3 +51,9 @@ const createColumns = () => {
 	});
 	return columns;
 };
+
+const getCellRow = (key) => {
+	const rows = createRows();
+	const rowIndex = rows.findIndex((row) => row.includes(key));
+	return rowIndex;
+};
