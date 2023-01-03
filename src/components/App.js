@@ -216,6 +216,7 @@ export default function App() {
 		};
 	});
 
+	const [direction, setDirection] = useState("across");
 	const [cells, setCells] = useState(cellsArray);
 	const [cellBlockSettings, setCellBlockSettings] = useState({
 		cellBlockInput: false,
