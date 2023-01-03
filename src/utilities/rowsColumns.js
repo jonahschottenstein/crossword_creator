@@ -57,3 +57,9 @@ const getCellRow = (key) => {
 	const rowIndex = rows.findIndex((row) => row.includes(key));
 	return rowIndex;
 };
+
+const getCellColumn = (key) => {
+	const columns = createColumns();
+	const columnIndex = columns.findIndex((column) => column.includes(key));
+	return columnIndex;
+};
