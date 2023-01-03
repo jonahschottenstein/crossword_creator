@@ -337,7 +337,7 @@ export default function App() {
 		setClues();
 	};
 
-	const removeSelectedCell = (cellBlockInput) => {
+	const removeCellSelection = (cellBlockInput) => {
 		if (cellBlockInput === false) return;
 		setCells((prevState) => {
 			const newState = prevState.map((cell) => {
@@ -355,7 +355,7 @@ export default function App() {
 		const name = e.target.name;
 		let settings = { ...cellBlockSettings };
 		settings[name] = !cellBlockSettings[name];
-		removeSelectedCell(settings.cellBlockInput);
+		removeCellSelection(settings.cellBlockInput);
 		setCellBlockSettings(settings);
 	};
 
