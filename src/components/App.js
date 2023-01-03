@@ -223,6 +223,18 @@ export default function App() {
 		symmetryInput: true,
 	});
 
+	const setPuzzleDirection = (e) => {
+		if (cellBlockSettings.cellBlockInput === true) return;
+		const selectedCellIndex = cells
+			.slice()
+			.findIndex((cell) => cell.isSelected);
+		const targetIndex = Number(e.target.dataset.index);
+		const selectedCellIsClicked = selectedCellIndex === targetIndex;
+
+		if (!selectedCellIsClicked) return;
+		setDirection((d) => (d === "across" ? "down" : "across"));
+	};
+
 	const setSelectedCell = (e) => {
 		if (cellBlockSettings.cellBlockInput === true) return;
 
@@ -317,6 +329,7 @@ export default function App() {
 	};
 
 	const handleClick = (e) => {
+		setPuzzleDirection(e);
 		setSelectedCell(e);
 		setCellBlock(e);
 		setSymmetricalCellBlock(e);
