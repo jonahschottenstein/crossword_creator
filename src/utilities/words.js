@@ -307,3 +307,10 @@ export const getClosestAvailableWord = (beforeOrAfter, direction, cells) => {
 	});
 	return adjacentAvailableWord;
 };
+
+const wordIsSelected = (wordIndex, direction, cells) => {
+	const wordsObject = getWords(direction, cells);
+	const selectedWordIndex = getSelectedWordObject(wordsObject).index;
+
+	return selectedWordIndex === wordIndex;
+};
