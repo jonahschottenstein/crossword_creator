@@ -241,7 +241,7 @@ export default function App() {
 		const targetIndex = Number(e.target.dataset.index);
 		setCells((prevState) => {
 			const newState = prevState.map((cell) => {
-				if (cell.index === targetIndex) {
+				if (cell.index === targetIndex && !cell.isBlackSquare) {
 					return { ...cell, isSelected: true };
 				} else {
 					return { ...cell, isSelected: false };
