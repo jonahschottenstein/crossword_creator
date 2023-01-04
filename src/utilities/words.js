@@ -224,7 +224,10 @@ export const getOutermostAvailableWordObject = (
 	};
 };
 
-const getFirstBlankInWord = (word) => word.find((cell) => !cellHasLetter(cell));
+/* export const getFirstBlankInWord = (word) =>
+	word.find((cell) => !cellHasLetter(cell)); */
+export const getFirstBlankInWord = (word) =>
+	word && word.find((cell) => !cellHasLetter(cell));
 
 /* const getPreviousAvailableWord = (direction, cells) => {
 	const wordsObject = getWords(direction, cells);
@@ -308,7 +311,7 @@ export const getClosestAvailableWord = (beforeOrAfter, direction, cells) => {
 	return adjacentAvailableWord;
 };
 
-const wordIsSelected = (wordIndex, direction, cells) => {
+export const wordIsSelected = (wordIndex, direction, cells) => {
 	const wordsObject = getWords(direction, cells);
 	const selectedWordIndex = getSelectedWordObject(wordsObject).index;
 
