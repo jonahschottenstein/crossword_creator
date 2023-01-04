@@ -175,3 +175,7 @@ export const getSelectedWordObject = (wordsObject) => {
 		index: wordsArray.indexOf(selectedWord),
 	};
 };
+
+export const isInSelectedWord = (selectedWord, cell) => {
+	return selectedWord && selectedWord.includes(cell);
+};
