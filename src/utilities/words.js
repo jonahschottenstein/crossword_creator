@@ -260,11 +260,35 @@ const getFirstBlankInWord = (word) => word.find((cell) => !cellHasLetter(cell));
 	return nextAvailableWord;
 }; */
 
-export const getAdjacentAvailableWord = (previousOrNext, direction, cells) => {
+/* export const getAdjacentAvailableWord = (previousOrNext, direction, cells) => {
 	const wordsObject = getWords(direction, cells);
 	const wordsArray = Object.values(wordsObject);
 	const selectedWordIndex = getSelectedWordObject(wordsObject).index;
 	const extremity = previousOrNext === "previous" ? "first" : "last";
+	const outermostAvailableWordIndex = getOutermostAvailableWordObject(
+		extremity,
+		direction,
+		cells
+	).index;
+
+	if (selectedWordIndex === outermostAvailableWordIndex) return;
+
+	const arrayMethod = extremity === "first" ? "findLast" : "find";
+	const adjacentAvailableWord = wordsArray[arrayMethod]((word, index) => {
+		if (arrayMethod === "findLast") {
+			return index < selectedWordIndex && !word.every(cellHasLetter);
+		} else {
+			return index > selectedWordIndex && !word.every(cellHasLetter);
+		}
+	});
+	return adjacentAvailableWord;
+}; */
+
+export const getClosestAvailableWord = (beforeOrAfter, direction, cells) => {
+	const wordsObject = getWords(direction, cells);
+	const wordsArray = Object.values(wordsObject);
+	const selectedWordIndex = getSelectedWordObject(wordsObject).index;
+	const extremity = beforeOrAfter === "before" ? "first" : "last";
 	const outermostAvailableWordIndex = getOutermostAvailableWordObject(
 		extremity,
 		direction,
