@@ -344,7 +344,6 @@ export default function App() {
 
 		const getSelectedCell = (cell) => cell.isSelected === true;
 		const selectedCellIndex = cells.findIndex(getSelectedCell);
-		console.log("selectedCellIndex", selectedCellIndex);
 
 		setCells((prevState) => {
 			const newState = prevState.map((cell) => {
@@ -396,6 +395,7 @@ export default function App() {
 				onChange={handleChange}
 			/>
 			<Board
+				direction={direction}
 				cells={cells.slice()}
 				onClick={(e) => handleClick(e)}
 				onKeyDown={handleKeyDown}
