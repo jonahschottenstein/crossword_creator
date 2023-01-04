@@ -179,3 +179,5 @@ export const getSelectedWordObject = (wordsObject) => {
 export const isInSelectedWord = (selectedWord, cell) => {
 	return selectedWord && selectedWord.includes(cell);
 };
+
+const cellHasLetter = (cell) => cell.letter.length > 0;
