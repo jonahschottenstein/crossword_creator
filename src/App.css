@@ -267,6 +267,10 @@ input:checked + .slider:before {
 	width: 100%;
 }
 
+.highlighted {
+	background-color: #a7d8ff;
+}
+
 .selected {
 	background-color: #ffda00;
 }
