@@ -164,3 +164,14 @@ export const getWords = (direction, cells) => {
 	const wordsObject = Object.assign(...words);
 	return wordsObject;
 };
+
+export const getSelectedWordObject = (wordsObject) => {
+	const wordsArray = Object.values(wordsObject);
+	const selectedWord = wordsArray.find((word) =>
+		word.find((cell) => cell.isSelected)
+	);
+	return {
+		word: selectedWord,
+		index: wordsArray.indexOf(selectedWord),
+	};
+};
