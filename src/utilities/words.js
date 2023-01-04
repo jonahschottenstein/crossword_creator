@@ -131,3 +131,13 @@ const getColumnEnd = (cells, startCell) => {
 	const columnEnd = column[column.length - 1];
 	return columnEnd;
 };
+
+const getRowOrColumnEnd = (direction, cells, startCell) => {
+	const rowOrColumn = direction === "across" ? "row" : "column";
+	const rowOrColumnIndex = startCell[rowOrColumn];
+	const rowOrColumnCells = cells.filter(
+		(cell) => cell[rowOrColumn] === rowOrColumnIndex
+	);
+	const rowOrColumnEnd = rowOrColumnCells[rowOrColumnCells.length - 1];
+	return rowOrColumnEnd;
+};
