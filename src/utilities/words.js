@@ -181,3 +181,27 @@ export const isInSelectedWord = (selectedWord, cell) => {
 };
 
 const cellHasLetter = (cell) => cell.letter.length > 0;
+
+const getFirstAvailableWordObject = (direction, cells) => {
+	const wordsObject = getWords(direction, cells);
+	const wordsArray = Object.values(wordsObject);
+	const firstAvailableWord = wordsArray.find(
+		(word) => !word.every(cellHasLetter)
+	);
+	return {
+		word: firstAvailableWord,
+		index: wordsArray.indexOf(firstAvailableWord),
+	};
+};
+
+const getLastAvailableWordObject = (direction, cells) => {
+	const wordsObject = getWords(direction, cells);
+	const wordsArray = Object.values(wordsObject);
+	const lastAvailableWord = wordsArray.findLast(
+		(word) => !word.every(cellHasLetter)
+	);
+	return {
+		word: lastAvailableWord,
+		index: wordsArray.indexOf(lastAvailableWord),
+	};
+};
