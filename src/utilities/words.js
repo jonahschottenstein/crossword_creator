@@ -205,3 +205,5 @@ const getLastAvailableWordObject = (direction, cells) => {
 		index: wordsArray.indexOf(lastAvailableWord),
 	};
 };
+
+const getFirstBlankInWord = (word) => word.find((cell) => !cellHasLetter(cell));
