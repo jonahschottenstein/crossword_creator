@@ -225,3 +225,61 @@ export const getOutermostAvailableWordObject = (
 };
 
 const getFirstBlankInWord = (word) => word.find((cell) => !cellHasLetter(cell));
+
+/* const getPreviousAvailableWord = (direction, cells) => {
+	const wordsObject = getWords(direction, cells);
+	const wordsArray = Object.values(wordsObject);
+	const selectedWordIndex = getSelectedWordObject(wordsObject).index;
+	const firstAvailableWordIndex = getFirstAvailableWordObject(
+		direction,
+		cells
+	).index;
+
+	if (selectedWordIndex === firstAvailableWordIndex) return;
+
+	const previousAvailableWord = wordsArray.findLast(
+		(word, index) => index < selectedWordIndex && !word.every(cellHasLetter)
+	);
+	return previousAvailableWord;
+}; */
+
+/* const getNextAvailableWord = (direction, cells) => {
+	const wordsObject = getWords(direction, cells);
+	const wordsArray = Object.values(wordsObject);
+	const selectedWordIndex = getSelectedWordObject(wordsObject).index;
+	const lastAvailableWordIndex = getLastAvailableWordObject(
+		direction,
+		cells
+	).index;
+
+	if (selectedWordIndex === lastAvailableWordIndex) return;
+
+	const nextAvailableWord = wordsArray.find(
+		(word, index) => index > selectedWordIndex && !word.every(cellHasLetter)
+	);
+	return nextAvailableWord;
+}; */
+
+export const getAdjacentAvailableWord = (previousOrNext, direction, cells) => {
+	const wordsObject = getWords(direction, cells);
+	const wordsArray = Object.values(wordsObject);
+	const selectedWordIndex = getSelectedWordObject(wordsObject).index;
+	const extremity = previousOrNext === "previous" ? "first" : "last";
+	const outermostAvailableWordIndex = getOutermostAvailableWordObject(
+		extremity,
+		direction,
+		cells
+	).index;
+
+	if (selectedWordIndex === outermostAvailableWordIndex) return;
+
+	const arrayMethod = extremity === "first" ? "findLast" : "find";
+	const adjacentAvailableWord = wordsArray[arrayMethod]((word, index) => {
+		if (arrayMethod === "findLast") {
+			return index < selectedWordIndex && !word.every(cellHasLetter);
+		} else {
+			return index > selectedWordIndex && !word.every(cellHasLetter);
+		}
+	});
+	return adjacentAvailableWord;
+};
