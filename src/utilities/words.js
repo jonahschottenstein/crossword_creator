@@ -118,7 +118,7 @@ const getNextBlackSquare = (direction, cells, startCell) => {
 	return nextBlackSquare;
 };
 
-const getRowEnd = (cells, startCell) => {
+/* const getRowEnd = (cells, startCell) => {
 	const rowIndex = startCell.row;
 	const row = cells.filter((cell) => cell.row === rowIndex);
 	const rowEnd = row[row.length - 1];
@@ -130,7 +130,7 @@ const getColumnEnd = (cells, startCell) => {
 	const column = cells.filter((cell) => cell.column === columnIndex);
 	const columnEnd = column[column.length - 1];
 	return columnEnd;
-};
+}; */
 
 const getRowOrColumnEnd = (direction, cells, startCell) => {
 	const rowOrColumn = direction === "across" ? "row" : "column";
@@ -140,4 +140,27 @@ const getRowOrColumnEnd = (direction, cells, startCell) => {
 	);
 	const rowOrColumnEnd = rowOrColumnCells[rowOrColumnCells.length - 1];
 	return rowOrColumnEnd;
+};
+
+export const getWords = (direction, cells) => {
+	const startCells = getStartCells(direction, cells);
+	const words = startCells.map((startCell) => {
+		const nextBlackSquare = getNextBlackSquare(direction, cells, startCell);
+		const rowOrColumnEnd = getRowOrColumnEnd(direction, cells, startCell);
+		const wordEndIndex = nextBlackSquare
+			? nextBlackSquare.index - 1
+			: rowOrColumnEnd.index;
+		const word = cells.filter((cell, index) => {
+			return direction === "across"
+				? index >= startCell.index && index <= wordEndIndex
+				: index >= startCell.index &&
+						index <= wordEndIndex &&
+						cell.column === startCell.column;
+		});
+		const clueNumber = cells[startCell.index].number;
+		const wordObject = { [clueNumber]: word };
+		return wordObject;
+	});
+	const wordsObject = Object.assign(...words);
+	return wordsObject;
 };
