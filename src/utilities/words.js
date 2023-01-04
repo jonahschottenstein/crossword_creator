@@ -182,7 +182,7 @@ export const isInSelectedWord = (selectedWord, cell) => {
 
 const cellHasLetter = (cell) => cell.letter.length > 0;
 
-const getFirstAvailableWordObject = (direction, cells) => {
+/* const getFirstAvailableWordObject = (direction, cells) => {
 	const wordsObject = getWords(direction, cells);
 	const wordsArray = Object.values(wordsObject);
 	const firstAvailableWord = wordsArray.find(
@@ -192,9 +192,9 @@ const getFirstAvailableWordObject = (direction, cells) => {
 		word: firstAvailableWord,
 		index: wordsArray.indexOf(firstAvailableWord),
 	};
-};
+}; */
 
-const getLastAvailableWordObject = (direction, cells) => {
+/* const getLastAvailableWordObject = (direction, cells) => {
 	const wordsObject = getWords(direction, cells);
 	const wordsArray = Object.values(wordsObject);
 	const lastAvailableWord = wordsArray.findLast(
@@ -203,6 +203,24 @@ const getLastAvailableWordObject = (direction, cells) => {
 	return {
 		word: lastAvailableWord,
 		index: wordsArray.indexOf(lastAvailableWord),
+	};
+}; */
+
+export const getOutermostAvailableWordObject = (
+	firstOrLast,
+	direction,
+	cells
+) => {
+	const wordsObject = getWords(direction, cells);
+	const wordsArray = Object.values(wordsObject);
+	const arrayMethod = firstOrLast === "first" ? "find" : "findLast";
+	const availableWord = wordsArray[arrayMethod](
+		(word) => !word.every(cellHasLetter)
+	);
+
+	return {
+		word: availableWord,
+		index: wordsArray.indexOf(availableWord),
 	};
 };
 
