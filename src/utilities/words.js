@@ -1,4 +1,4 @@
-import {
+/* import {
 	getCellIndex,
 	cellsInSameColumn,
 	cellInFirstRow,
@@ -100,3 +100,4 @@ export const getDownWords = (firstLetterCells, lastLetterCells) => {
 
 	return wordsArray;
 };
+ */
