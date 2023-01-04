@@ -106,3 +106,14 @@ const getStartCells = (direction, cells) => {
 	const startCells = cells.filter((cell) => cell[direction] === true);
 	return startCells;
 };
+
+const getNextBlackSquare = (direction, cells, startCell) => {
+	const nextBlackSquare = cells.find((cell, index) => {
+		const isInSameCellGroup =
+			direction === "across"
+				? cell.row === startCell.row
+				: cell.column === startCell.column;
+		return index > startCell.index && isInSameCellGroup && cell.isBlackSquare;
+	});
+	return nextBlackSquare;
+};
