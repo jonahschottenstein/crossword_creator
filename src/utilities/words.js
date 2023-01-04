@@ -117,3 +117,17 @@ const getNextBlackSquare = (direction, cells, startCell) => {
 	});
 	return nextBlackSquare;
 };
+
+const getRowEnd = (cells, startCell) => {
+	const rowIndex = startCell.row;
+	const row = cells.filter((cell) => cell.row === rowIndex);
+	const rowEnd = row[row.length - 1];
+	return rowEnd;
+};
+
+const getColumnEnd = (cells, startCell) => {
+	const columnIndex = startCell.column;
+	const column = cells.filter((cell) => cell.column === columnIndex);
+	const columnEnd = column[column.length - 1];
+	return columnEnd;
+};
