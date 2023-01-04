@@ -101,3 +101,8 @@ export const getDownWords = (firstLetterCells, lastLetterCells) => {
 	return wordsArray;
 };
  */
+
+const getStartCells = (direction, cells) => {
+	const startCells = cells.filter((cell) => cell[direction] === true);
+	return startCells;
+};
