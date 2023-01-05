@@ -48,4 +48,17 @@ export const handleTabKeyMovement = (e, direction, setDirection, cells) => {
 		direction,
 		cells
 	);
+
+	if (lastAvailableWordIsSelected) {
+		handleTabKeyDirectionChange(e, direction, setDirection, cells);
+		firstBlankElement.click();
+		firstBlankElement.focus({ preventScroll: true });
+	} else {
+		const firstBlankElementInNextAvailableWord =
+			document.getElementsByClassName("cell")[
+				firstBlankInNextAvailableWord.index
+			];
+		firstBlankElementInNextAvailableWord.click();
+		firstBlankElementInNextAvailableWord.focus({ preventScroll: true });
+	}
 };
