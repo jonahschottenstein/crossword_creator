@@ -29,7 +29,7 @@ export const handleShiftTabKeyDirectionChange = (
 	}
 };
 
-export const handleShiftTabKeyMovement = (
+/* export const handleShiftTabKeyMovement = (
 	e,
 	direction,
 	setDirection,
@@ -44,7 +44,6 @@ export const handleShiftTabKeyMovement = (
 	const firstBlankInLastAvailableWord = getFirstBlankInWord(
 		getFirstOrLastAvailableWordObject("last", direction, cells).word
 	);
-	console.log("1stBlankLastWord", firstBlankInLastAvailableWord);
 	const firstBlankElement =
 		document.getElementsByClassName("cell")[
 			firstBlankInLastAvailableWord.index
@@ -66,6 +65,72 @@ export const handleShiftTabKeyMovement = (
 			];
 		firstBlankElementInPreviousAvailableWord.click();
 		firstBlankElementInPreviousAvailableWord.focus({ preventScroll: true });
+	}
+}; */
+
+export const handleShiftTabKeyMovement = (
+	e,
+	direction,
+	setDirection,
+	cells
+) => {
+	if (!e.shiftKey || e.key !== "Tab") return;
+	e.preventDefault();
+
+	const firstBlankInPreviousAvailableWord = getFirstBlankInWord(
+		getClosestAvailableWord("before", direction, cells)
+	);
+	const firstBlankInLastAvailableAcrossWord = getFirstBlankInWord(
+		getFirstOrLastAvailableWordObject("last", "across", cells).word
+	);
+	const firstBlankInLastAvailableDownWord = getFirstBlankInWord(
+		getFirstOrLastAvailableWordObject("last", "down", cells).word
+	);
+	const firstBlankElementInLastAvailableAcrossWord =
+		document.getElementsByClassName("cell")[
+			firstBlankInLastAvailableAcrossWord.index
+		];
+	const firstBlankElementInLastAvailableDownWord =
+		document.getElementsByClassName("cell")[
+			firstBlankInLastAvailableDownWord.index
+		];
+	const firstAvailableAcrossWordIsSelected = wordIsSelected(
+		getFirstOrLastAvailableWordObject("first", "across", cells).index,
+		"across",
+		cells
+	);
+	const firstAvailableDownWordIsSelected = wordIsSelected(
+		getFirstOrLastAvailableWordObject("first", "down", cells).index,
+		"down",
+		cells
+	);
+
+	if (direction === "across") {
+		if (firstAvailableAcrossWordIsSelected) {
+			handleShiftTabKeyDirectionChange(e, "across", setDirection, cells);
+			firstBlankElementInLastAvailableDownWord.click();
+			firstBlankElementInLastAvailableDownWord.focus({ preventScroll: true });
+		} else {
+			const firstBlankElementInPreviousAvailableWord =
+				document.getElementsByClassName("cell")[
+					firstBlankInPreviousAvailableWord.index
+				];
+			firstBlankElementInPreviousAvailableWord.click();
+			firstBlankElementInPreviousAvailableWord.focus({ preventScroll: true });
+		}
+	} else {
+		if (firstAvailableDownWordIsSelected) {
+			handleShiftTabKeyDirectionChange(e, "down", setDirection, cells);
+			firstBlankElementInLastAvailableAcrossWord.click();
+			firstBlankElementInLastAvailableAcrossWord.focus({ preventScroll: true });
+		} else {
+			const firstBlankElementInPreviousAvailableWord =
+				document.getElementsByClassName("cell")[
+					firstBlankInPreviousAvailableWord.index
+				];
+			firstBlankElementInPreviousAvailableWord.click();
+			firstBlankElementInPreviousAvailableWord.focus({ preventScroll: true });
+		}
 	}
 };
 
