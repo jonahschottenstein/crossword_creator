@@ -7,7 +7,6 @@ import {
 
 export const Board = (props) => {
 	const wordsObject = getWords(props.direction, props.cells);
-	console.log(wordsObject);
 	const selectedWord = getSelectedWordObject(wordsObject).word;
 
 	const cells = props.cells.map((cell, index) => {
