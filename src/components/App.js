@@ -197,6 +197,7 @@ import {
 	handleArrowKeyDirectionChange,
 	handleArrowKeyMovement,
 } from "../utilities/arrows";
+import { handleTabKeyMovement } from "../utilities/tab.js";
 
 export default function App() {
 	let numberedCells = [];
@@ -366,6 +367,7 @@ export default function App() {
 		setCellLetter(e);
 		handleArrowKeyDirectionChange(e, direction, setDirection);
 		handleArrowKeyMovement(e, direction, cells);
+		handleTabKeyMovement(e, direction, setDirection, cells);
 	};
 
 	const removeCellSelection = (cellBlockInput) => {
