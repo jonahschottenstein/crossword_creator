@@ -292,13 +292,13 @@ export const getClosestAvailableWord = (beforeOrAfter, direction, cells) => {
 	const wordsArray = Object.values(wordsObject);
 	const selectedWordIndex = getSelectedWordObject(wordsObject).index;
 	const extremity = beforeOrAfter === "before" ? "first" : "last";
-	const outermostAvailableWordIndex = getFirstOrLastAvailableWordObject(
+	const firstOrLastAvailableWordIndex = getFirstOrLastAvailableWordObject(
 		extremity,
 		direction,
 		cells
 	).index;
 
-	if (selectedWordIndex === outermostAvailableWordIndex) return;
+	if (selectedWordIndex === firstOrLastAvailableWordIndex) return;
 
 	const arrayMethod = extremity === "first" ? "findLast" : "find";
 	const adjacentAvailableWord = wordsArray[arrayMethod]((word, index) => {
