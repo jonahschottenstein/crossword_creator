@@ -1,4 +1,9 @@
-import { getFirstOrLastAvailableWordObject, wordIsSelected } from "./words.js";
+import {
+	getFirstOrLastAvailableWordObject,
+	wordIsSelected,
+	getClosestAvailableWord,
+	getFirstBlankInWord,
+} from "./words.js";
 
 export const handleTabKeyDirectionChange = (
 	e,
@@ -22,4 +27,25 @@ export const handleTabKeyDirectionChange = (
 	if (lastAvailableWordIsSelected) {
 		setDirection((d) => (d === "across" ? "down" : "across"));
 	}
+};
+
+export const handleTabKeyMovement = (e, direction, setDirection, cells) => {
+	if (e.shiftKey || e.key !== "Tab") return;
+	e.preventDefault();
+
+	const firstBlankInNextAvailableWord = getFirstBlankInWord(
+		getClosestAvailableWord("after", direction, cells)
+	);
+	const firstBlankInFirstAvailableWord = getFirstBlankInWord(
+		getFirstOrLastAvailableWordObject("first", direction, cells).word
+	);
+	const firstBlankElement =
+		document.getElementsByClassName("cell")[
+			firstBlankInFirstAvailableWord.index
+		];
+	const lastAvailableWordIsSelected = wordIsSelected(
+		getFirstOrLastAvailableWordObject("last", direction, cells).index,
+		direction,
+		cells
+	);
 };
