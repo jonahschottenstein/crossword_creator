@@ -193,6 +193,10 @@ import { CellBlockSettings } from "./CellBlockSettings.js";
 import { getNumberedCells, isAcross, isDown } from "../utilities/numbers.js";
 import { ClueListsContainer } from "./ClueListsContainer";
 import { getRowAndColumn } from "../utilities/rowsColumns.js";
+import {
+	handleArrowKeyDirectionChange,
+	handleArrowKeyMovement,
+} from "../utilities/arrows";
 
 export default function App() {
 	let numberedCells = [];
@@ -360,6 +364,8 @@ export default function App() {
 
 	const handleKeyDown = (e) => {
 		setCellLetter(e);
+		handleArrowKeyDirectionChange(e, direction, setDirection);
+		handleArrowKeyMovement(e, direction, cells);
 	};
 
 	const removeCellSelection = (cellBlockInput) => {
