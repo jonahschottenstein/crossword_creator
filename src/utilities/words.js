@@ -206,7 +206,7 @@ const cellHasLetter = (cell) => cell.letter.length > 0;
 	};
 }; */
 
-export const getFirstOrLastAvailableWordObject = (
+/* export const getFirstOrLastAvailableWordObject = (
 	firstOrLast,
 	direction,
 	cells
@@ -222,7 +222,26 @@ export const getFirstOrLastAvailableWordObject = (
 		word: availableWord,
 		index: wordsArray.indexOf(availableWord),
 	};
-};
+}; */
+
+export const getFirstOrLastAvailableWordObject =
+	(firstOrLast) => (direction, cells) => {
+		const wordsObject = getWords(direction, cells);
+		const wordsArray = Object.values(wordsObject);
+		const arrayMethod = firstOrLast === "first" ? "find" : "findLast";
+		const availableWord = wordsArray[arrayMethod](
+			(word) => !word.every(cellHasLetter)
+		);
+
+		return {
+			word: availableWord,
+			index: wordsArray.indexOf(availableWord),
+		};
+	};
+export const firstAvailableWordObject =
+	getFirstOrLastAvailableWordObject("first");
+export const lastAvailableWordObject =
+	getFirstOrLastAvailableWordObject("last");
 
 /* export const getFirstBlankInWord = (word) =>
 	word.find((cell) => !cellHasLetter(cell)); */
@@ -292,11 +311,14 @@ export const getClosestAvailableWord = (beforeOrAfter, direction, cells) => {
 	const wordsArray = Object.values(wordsObject);
 	const selectedWordIndex = getSelectedWordObject(wordsObject).index;
 	const extremity = beforeOrAfter === "before" ? "first" : "last";
+	// const firstOrLastAvailableWordIndex = getFirstOrLastAvailableWordObject(
+	// 	extremity,
+	// 	direction,
+	// 	cells
+	// ).index;
 	const firstOrLastAvailableWordIndex = getFirstOrLastAvailableWordObject(
-		extremity,
-		direction,
-		cells
-	).index;
+		extremity
+	)(direction, cells).index;
 
 	if (selectedWordIndex === firstOrLastAvailableWordIndex) return;
 
