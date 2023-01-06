@@ -1,5 +1,6 @@
 import {
-	getFirstOrLastAvailableWordObject,
+	firstAvailableWordObject,
+	lastAvailableWordObject,
 	wordIsSelected,
 	getClosestAvailableWord,
 	getFirstBlankInWord,
@@ -11,13 +12,8 @@ export const handleShiftTabKeyDirectionChange = (
 	setDirection,
 	cells
 ) => {
-	const firstAvailableWordObject = getFirstOrLastAvailableWordObject(
-		"first",
-		direction,
-		cells
-	);
 	const firstAvailableWordIsSelected = wordIsSelected(
-		firstAvailableWordObject.index,
+		firstAvailableWordObject(direction, cells).index,
 		direction,
 		cells
 	);
@@ -28,45 +24,6 @@ export const handleShiftTabKeyDirectionChange = (
 		setDirection((d) => (d === "across" ? "down" : "across"));
 	}
 };
-
-/* export const handleShiftTabKeyMovement = (
-	e,
-	direction,
-	setDirection,
-	cells
-) => {
-	if (!e.shiftKey || e.key !== "Tab") return;
-	e.preventDefault();
-
-	const firstBlankInPreviousAvailableWord = getFirstBlankInWord(
-		getClosestAvailableWord("before", direction, cells)
-	);
-	const firstBlankInLastAvailableWord = getFirstBlankInWord(
-		getFirstOrLastAvailableWordObject("last", direction, cells).word
-	);
-	const firstBlankElement =
-		document.getElementsByClassName("cell")[
-			firstBlankInLastAvailableWord.index
-		];
-	const firstAvailableWordIsSelected = wordIsSelected(
-		getFirstOrLastAvailableWordObject("first", direction, cells).index,
-		direction,
-		cells
-	);
-
-	if (firstAvailableWordIsSelected) {
-		handleShiftTabKeyDirectionChange(e, direction, setDirection, cells);
-		firstBlankElement.click();
-		firstBlankElement.focus({ preventScroll: true });
-	} else {
-		const firstBlankElementInPreviousAvailableWord =
-			document.getElementsByClassName("cell")[
-				firstBlankInPreviousAvailableWord.index
-			];
-		firstBlankElementInPreviousAvailableWord.click();
-		firstBlankElementInPreviousAvailableWord.focus({ preventScroll: true });
-	}
-}; */
 
 export const handleShiftTabKeyMovement = (
 	e,
@@ -81,10 +38,10 @@ export const handleShiftTabKeyMovement = (
 		getClosestAvailableWord("before", direction, cells)
 	);
 	const firstBlankInLastAvailableAcrossWord = getFirstBlankInWord(
-		getFirstOrLastAvailableWordObject("last", "across", cells).word
+		lastAvailableWordObject("across", cells).word
 	);
 	const firstBlankInLastAvailableDownWord = getFirstBlankInWord(
-		getFirstOrLastAvailableWordObject("last", "down", cells).word
+		lastAvailableWordObject("down", cells).word
 	);
 	const firstBlankElementInLastAvailableAcrossWord =
 		document.getElementsByClassName("cell")[
@@ -95,12 +52,12 @@ export const handleShiftTabKeyMovement = (
 			firstBlankInLastAvailableDownWord.index
 		];
 	const firstAvailableAcrossWordIsSelected = wordIsSelected(
-		getFirstOrLastAvailableWordObject("first", "across", cells).index,
+		firstAvailableWordObject("across", cells).index,
 		"across",
 		cells
 	);
 	const firstAvailableDownWordIsSelected = wordIsSelected(
-		getFirstOrLastAvailableWordObject("first", "down", cells).index,
+		firstAvailableWordObject("down", cells).index,
 		"down",
 		cells
 	);
@@ -140,13 +97,8 @@ export const handleTabKeyDirectionChange = (
 	setDirection,
 	cells
 ) => {
-	const lastAvailableWordObject = getFirstOrLastAvailableWordObject(
-		"last",
-		direction,
-		cells
-	);
 	const lastAvailableWordIsSelected = wordIsSelected(
-		lastAvailableWordObject.index,
+		lastAvailableWordObject(direction, cells).index,
 		direction,
 		cells
 	);
@@ -158,6 +110,7 @@ export const handleTabKeyDirectionChange = (
 	}
 };
 
+// Think the reason handleTabKeyMovement works is because first blank cells of firstAvailableWordAcross/Down are the same
 export const handleTabKeyMovement = (e, direction, setDirection, cells) => {
 	if (e.shiftKey || e.key !== "Tab") return;
 	e.preventDefault();
@@ -166,14 +119,14 @@ export const handleTabKeyMovement = (e, direction, setDirection, cells) => {
 		getClosestAvailableWord("after", direction, cells)
 	);
 	const firstBlankInFirstAvailableWord = getFirstBlankInWord(
-		getFirstOrLastAvailableWordObject("first", direction, cells).word
+		firstAvailableWordObject(direction, cells).word
 	);
 	const firstBlankElement =
 		document.getElementsByClassName("cell")[
 			firstBlankInFirstAvailableWord.index
 		];
 	const lastAvailableWordIsSelected = wordIsSelected(
-		getFirstOrLastAvailableWordObject("last", direction, cells).index,
+		lastAvailableWordObject(direction, cells).index,
 		direction,
 		cells
 	);
