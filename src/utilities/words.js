@@ -306,7 +306,7 @@ export const getFirstBlankInWord = (word) =>
 	return adjacentAvailableWord;
 }; */
 
-export const getClosestAvailableWord = (beforeOrAfter, direction, cells) => {
+/* export const getClosestAvailableWord = (beforeOrAfter, direction, cells) => {
 	const wordsObject = getWords(direction, cells);
 	const wordsArray = Object.values(wordsObject);
 	const selectedWordIndex = getSelectedWordObject(wordsObject).index;
@@ -331,7 +331,32 @@ export const getClosestAvailableWord = (beforeOrAfter, direction, cells) => {
 		}
 	});
 	return adjacentAvailableWord;
+}; */
+
+const getClosestAvailableWord = (beforeOrAfter) => (direction, cells) => {
+	const wordsObject = getWords(direction, cells);
+	const wordsArray = Object.values(wordsObject);
+	const selectedWordIndex = getSelectedWordObject(wordsObject).index;
+	const extremity = beforeOrAfter === "before" ? "first" : "last";
+	const firstOrLastAvailableWordIndex = getFirstOrLastAvailableWordObject(
+		extremity
+	)(direction, cells).index;
+
+	if (selectedWordIndex === firstOrLastAvailableWordIndex) return;
+
+	const arrayMethod = extremity === "first" ? "findLast" : "find";
+	const adjacentAvailableWord = wordsArray[arrayMethod]((word, index) => {
+		if (arrayMethod === "findLast") {
+			return index < selectedWordIndex && !word.every(cellHasLetter);
+		} else {
+			return index > selectedWordIndex && !word.every(cellHasLetter);
+		}
+	});
+	return adjacentAvailableWord;
 };
+
+export const previousAvailableWord = getClosestAvailableWord("before");
+export const nextAvailableWord = getClosestAvailableWord("after");
 
 export const wordIsSelected = (wordIndex, direction, cells) => {
 	const wordsObject = getWords(direction, cells);
