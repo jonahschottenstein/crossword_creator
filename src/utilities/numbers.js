@@ -53,13 +53,13 @@ export const getDownNumbers = (numberedCells) => {
 		.map((cell) => cell.querySelector(".cell-number").textContent);
 }; */
 
-const isCellBlock = (cell) => cell.isBlackSquare;
-const cellInFirstRow = (cell) => cell.index < 15;
-const cellInFirstColumn = (cell) => cell.index % 15 === 0;
-const previousAcrossCellBlocked = (cellsArray, cell) =>
-	cellsArray[cell.index - 1].isBlackSquare;
-const previousDownCellBlocked = (cellsArray, cell) =>
-	cellsArray[cell.index - 15].isBlackSquare;
+import {
+	isCellBlock,
+	cellInFirstRow,
+	cellInFirstColumn,
+	previousAcrossCellBlocked,
+	previousDownCellBlocked,
+} from "./cellDescriptors.js";
 
 export const getNumberedCells = (cells) => {
 	return cells.filter(
