@@ -1,8 +1,9 @@
 import {
 	firstAvailableWordObject,
 	lastAvailableWordObject,
+	previousAvailableWord,
+	nextAvailableWord,
 	wordIsSelected,
-	getClosestAvailableWord,
 	getFirstBlankInWord,
 } from "./words.js";
 
@@ -35,7 +36,7 @@ export const handleShiftTabKeyMovement = (
 	e.preventDefault();
 
 	const firstBlankInPreviousAvailableWord = getFirstBlankInWord(
-		getClosestAvailableWord("before", direction, cells)
+		previousAvailableWord(direction, cells)
 	);
 	const firstBlankInLastAvailableAcrossWord = getFirstBlankInWord(
 		lastAvailableWordObject("across", cells).word
@@ -116,7 +117,7 @@ export const handleTabKeyMovement = (e, direction, setDirection, cells) => {
 	e.preventDefault();
 
 	const firstBlankInNextAvailableWord = getFirstBlankInWord(
-		getClosestAvailableWord("after", direction, cells)
+		nextAvailableWord(direction, cells)
 	);
 	const firstBlankInFirstAvailableWord = getFirstBlankInWord(
 		firstAvailableWordObject(direction, cells).word
