@@ -188,11 +188,11 @@ export default App; */
 
 import "../App.css";
 import React, { useState } from "react";
+import { createCellObjects } from "../utilities/createCellObjects.js";
 import { Board } from "./Board.js";
 import { CellBlockSettings } from "./CellBlockSettings.js";
 import { getNumberedCells, isAcross, isDown } from "../utilities/numbers.js";
 import { ClueListsContainer } from "./ClueListsContainer";
-import { getRowAndColumn } from "../utilities/rowsColumns.js";
 import {
 	handleArrowKeyDirectionChange,
 	handleArrowKeyMovement,
@@ -203,29 +203,8 @@ import {
 } from "../utilities/tab.js";
 
 export default function App() {
-	let numberedCells = [];
-	const cellsArray = Array.from(Array(225).keys()).map((key, index) => {
-		if (index < 15 || index % 15 === 0) {
-			numberedCells = numberedCells.concat(key);
-		}
-		return {
-			id: `cell-${index}`,
-			index: index,
-			tabIndex: 0,
-			row: getRowAndColumn(key).row,
-			column: getRowAndColumn(key).column,
-			number:
-				index < 15 || index % 15 === 0 ? numberedCells.indexOf(key) + 1 : null,
-			across: index % 15 === 0 ? true : false,
-			down: index < 15 ? true : false,
-			letter: "",
-			isSelected: false,
-			isBlackSquare: false,
-		};
-	});
-
 	const [direction, setDirection] = useState("across");
-	const [cells, setCells] = useState(cellsArray);
+	const [cells, setCells] = useState(createCellObjects());
 	const [cellBlockSettings, setCellBlockSettings] = useState({
 		cellBlockInput: false,
 		symmetryInput: true,
@@ -306,7 +285,6 @@ export default function App() {
 
 		setCells((prevState) => {
 			const numberedCells = getNumberedCells(prevState);
-			console.log("numberedCells", numberedCells);
 			const newState = prevState.map((cell) => {
 				if (numberedCells.includes(cell)) {
 					return { ...cell, number: numberedCells.indexOf(cell) + 1 };
