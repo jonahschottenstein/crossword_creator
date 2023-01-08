@@ -165,6 +165,25 @@ export const getWords = (direction, cells) => {
 	return wordsObject;
 };
 
+export const getWords2 = (direction, cells) => {
+	const startCells = getStartCells(direction, cells);
+	const words = startCells.map((startCell) => {
+		const nextBlackSquare = getNextBlackSquare(direction, cells, startCell);
+		const rowOrColumnEnd = getRowOrColumnEnd(direction, cells, startCell);
+		const wordEndIndex = nextBlackSquare
+			? nextBlackSquare.index - 1
+			: rowOrColumnEnd.index;
+		const word = cells.filter((cell, index) => {
+			return direction === "across"
+				? index >= startCell.index && index <= wordEndIndex
+				: index >= startCell.index &&
+						index <= wordEndIndex &&
+						cell.column === startCell.column;
+		});
+		return word;
+	});
+	return words;
+};
 export const getSelectedWordObject = (wordsObject) => {
 	const wordsArray = Object.values(wordsObject);
 	const selectedWord = wordsArray.find((word) =>
