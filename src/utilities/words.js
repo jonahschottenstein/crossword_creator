@@ -392,3 +392,38 @@ export const wordIsSelected = (wordIndex, direction, cells) => {
 
 	return selectedWordIndex === wordIndex;
 };
+
+export const createWordObjects = (direction, cells) => {
+	const wordsArray = getWords2(direction, cells);
+	const availableWordsArray = getAvailableWords(direction, cells);
+	const firstAvailableWord = availableWordsArray[0];
+	const lastAvailableWord = availableWordsArray[availableWordsArray.length - 1];
+	const wordObjectsArray = wordsArray.map((word, index, array) => {
+		const selectedWordIndex = array.findIndex((word) =>
+			word.find((cell) => cell.isSelected)
+		);
+		const previousAvailableWordIndex = array.findLastIndex(
+			(word, index) => index < selectedWordIndex && !word.every(cellHasLetter)
+		);
+		const nextAvailableWordIndex = array.findIndex(
+			(word, index) => index > selectedWordIndex && !word.every(cellHasLetter)
+		);
+		return {
+			word: word,
+			index: index,
+			clueNumber: word[0].number,
+			direction: direction,
+			isAvailable: !word.every(cellHasLetter),
+			availableWordIndex: availableWordsArray.findIndex(
+				(availableWord) => availableWord[0].number === word[0].number
+			),
+			isFirstAvailableWord: firstAvailableWord[0].number === word[0].number,
+			isLastAvailableWord: lastAvailableWord[0].number === word[0].number,
+			isPreviousAvailableWord: index === previousAvailableWordIndex,
+			isNextAvailableWord: index === nextAvailableWordIndex,
+			isSelected: index === selectedWordIndex,
+			firstBlankCell: word.find((cell) => !cellHasLetter(cell)),
+		};
+	});
+	return wordObjectsArray;
+};
