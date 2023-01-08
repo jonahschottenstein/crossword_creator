@@ -243,6 +243,15 @@ const cellHasLetter = (cell) => cell.letter.length > 0;
 	};
 }; */
 
+export const getAvailableWords = (direction, cells) => {
+	const words = getWords(direction, cells);
+	const wordsArray = Object.values(words);
+	const availableWords = wordsArray.filter(
+		(word) => !word.every(cellHasLetter)
+	);
+	return availableWords;
+};
+
 export const getFirstOrLastAvailableWordObject =
 	(firstOrLast) => (direction, cells) => {
 		const wordsObject = getWords(direction, cells);
