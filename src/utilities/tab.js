@@ -5,6 +5,7 @@ import {
 	nextAvailableWord,
 	wordIsSelected,
 	getFirstBlankInWord,
+	createWordObjects,
 } from "./words.js";
 
 export const handleShiftTabKeyDirectionChange = (
@@ -13,13 +14,12 @@ export const handleShiftTabKeyDirectionChange = (
 	setDirection,
 	cells
 ) => {
-	const firstAvailableWordIsSelected = wordIsSelected(
-		firstAvailableWordObject(direction, cells).index,
-		direction,
-		cells
-	);
-
 	if (!e.shiftKey || e.key !== "Tab") return;
+
+	const wordObjects = createWordObjects(direction, cells);
+	const firstAvailableWordIsSelected = wordObjects.some(
+		(obj) => obj.isFirstAvailableWord && obj.isSelected
+	);
 
 	if (firstAvailableWordIsSelected) {
 		setDirection((d) => (d === "across" ? "down" : "across"));
