@@ -414,9 +414,14 @@ export const createWordObjects = (direction, cells) => {
 			clueNumber: word[0].number,
 			direction: direction,
 			isAvailable: !word.every(cellHasLetter),
-			availableWordIndex: availableWordsArray.findIndex(
-				(availableWord) => availableWord[0].number === word[0].number
-			),
+			// availableWordIndex: availableWordsArray.findIndex(
+			// 	(availableWord) => availableWord[0].number === word[0].number
+			// ),
+			availableWordIndex:
+				!word.every(cellHasLetter) &&
+				availableWordsArray.findIndex(
+					(availableWord) => availableWord[0].number === word[0].number
+				),
 			isFirstAvailableWord: firstAvailableWord[0].number === word[0].number,
 			isLastAvailableWord: lastAvailableWord[0].number === word[0].number,
 			isPreviousAvailableWord: index === previousAvailableWordIndex,
