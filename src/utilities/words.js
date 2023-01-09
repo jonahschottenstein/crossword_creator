@@ -432,3 +432,16 @@ export const createWordObjects = (direction, cells) => {
 	});
 	return wordObjectsArray;
 };
+
+export const getFirstAvailableWord = (direction, cells) =>
+	createWordObjects(direction, cells).find((obj) => obj.isFirstAvailableWord);
+
+export const getLastAvailableWord = (direction, cells) =>
+	createWordObjects(direction, cells).find((obj) => obj.isLastAvailableWord);
+
+export const getPreviousAvailableWord = (direction, cells) =>
+	createWordObjects(direction, cells).find(
+		(obj) => obj.isPreviousAvailableWord
+	);
+export const getNextAvailableWord = (direction, cells) =>
+	createWordObjects(direction, cells).find((obj) => obj.isNextAvailableWord);
