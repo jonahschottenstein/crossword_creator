@@ -21,7 +21,6 @@ export const Board = (props) => {
 				number={cell.number}
 				letter={cell.letter}
 				isSelected={cell.isSelected}
-				isInSelectedWord={isInSelectedWord(selectedWord, cell)}
 				isBlackSquare={cell.isBlackSquare}
 				onClick={props.onClick}
 				onKeyDown={props.onKeyDown}
