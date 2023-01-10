@@ -4,9 +4,10 @@ import {
 	getPreviousAvailableWord,
 	getNextAvailableWord,
 	getRemainingAvailableWords,
+	getRemainingOpenWords,
 } from "./words.js";
 
-export const handleTabDirectionChange = (e, direction, setDirection, cells) => {
+/* export const handleTabDirectionChange = (e, direction, setDirection, cells) => {
 	const isShiftKeyPressed = e.shiftKey;
 	if (e.key !== "Tab") return;
 	e.preventDefault();
@@ -16,6 +17,19 @@ export const handleTabDirectionChange = (e, direction, setDirection, cells) => {
 	];
 
 	if (remainingAvailableWords.length !== 0) return;
+	setDirection((d) => (d === "across" ? "down" : "across"));
+}; */
+
+export const handleTabDirectionChange = (e, direction, setDirection, cells) => {
+	const isShiftKeyPressed = e.shiftKey;
+	if (e.key !== "Tab") return;
+	e.preventDefault();
+
+	const remainingOpenWords = getRemainingOpenWords(direction, cells)[
+		isShiftKeyPressed ? "before" : "after"
+	];
+
+	if (remainingOpenWords.length !== 0) return;
 	setDirection((d) => (d === "across" ? "down" : "across"));
 };
 
