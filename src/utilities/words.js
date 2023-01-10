@@ -412,10 +412,10 @@ export const createWordObjects2 = (direction, cells) => {
 	const lastOpenWord = openWords[openWords.length - 1];
 	const wordObjects = words.map((word, index, array) => {
 		const selectedWordIndex = array.findIndex(isSelectedWord);
-		const previousOpenWord = array.findLast(
+		const openWordBefore = array.findLast(
 			(word, index) => wordIsOpen(word) && index < selectedWordIndex
 		);
-		const nextOpenWord = array.find(
+		const openWordAfter = array.find(
 			(word, index) => wordIsOpen(word) && index > selectedWordIndex
 		);
 
@@ -430,9 +430,8 @@ export const createWordObjects2 = (direction, cells) => {
 				: null,
 			isFirstOpenWord: isSameWord(firstOpenWord, word),
 			isLastOpenWord: isSameWord(lastOpenWord, word),
-			isPreviousOpenWord:
-				previousOpenWord && isSameWord(previousOpenWord, word),
-			isNextOpenWord: nextOpenWord && isSameWord(nextOpenWord, word),
+			isOpenWordBefore: openWordBefore && isSameWord(openWordBefore, word),
+			isOpenWordAfter: openWordAfter && isSameWord(openWordAfter, word),
 			isSelected: index === selectedWordIndex,
 			firstBlankCell: word.find((cell) => !cellHasLetter(cell)) ?? null,
 		};
@@ -516,11 +515,11 @@ export const getFirstOpenWord = (direction, cells) =>
 export const getLastOpenWord = (direction, cells) =>
 	createWordObjects2(direction, cells).find((obj) => obj.isLastOpenWord);
 
-export const getPreviousOpenWord = (direction, cells) =>
-	createWordObjects2(direction, cells).find((obj) => obj.isPreviousOpenWord);
+export const getOpenWordBefore = (direction, cells) =>
+	createWordObjects2(direction, cells).find((obj) => obj.isOpenWordBefore);
 
-export const getNextOpenWord = (direction, cells) =>
-	createWordObjects2(direction, cells).find((obj) => obj.isNextOpenWord);
+export const getOpenWordAfter = (direction, cells) =>
+	createWordObjects2(direction, cells).find((obj) => obj.isOpenWordAfter);
 
 const getSelectedWord2 = (direction, cells) =>
 	createWordObjects2(direction, cells).find((obj) => obj.isSelected);
