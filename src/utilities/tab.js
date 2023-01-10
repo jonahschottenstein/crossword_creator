@@ -5,6 +5,10 @@ import {
 	getNextAvailableWord,
 	getRemainingAvailableWords,
 	getRemainingOpenWords,
+	getLastOpenWord,
+	getFirstOpenWord,
+	getPreviousOpenWord,
+	getNextOpenWord,
 } from "./words.js";
 
 /* export const handleTabDirectionChange = (e, direction, setDirection, cells) => {
@@ -38,7 +42,7 @@ const getCellElement = (cell) => {
 	return cellElements[cell.index];
 };
 
-export const handleTabMovement = (e, direction, cells) => {
+/* export const handleTabMovement = (e, direction, cells) => {
 	const isShiftKeyPressed = e.shiftKey;
 	if (e.key !== "Tab") return;
 	e.preventDefault();
@@ -62,6 +66,35 @@ export const handleTabMovement = (e, direction, cells) => {
 	} else {
 		getCellElement(nextAvailableWord.firstBlankCell).click();
 		getCellElement(nextAvailableWord.firstBlankCell).focus({
+			preventScroll: true,
+		});
+	}
+}; */
+
+export const handleTabMovement = (e, direction, cells) => {
+	const isShiftKeyPressed = e.shiftKey;
+	if (e.key !== "Tab") return;
+	e.preventDefault();
+
+	const nextDirection = direction === "across" ? "down" : "across";
+	const firstOpenWordNextDirection = isShiftKeyPressed
+		? getLastOpenWord(nextDirection, cells)
+		: getFirstOpenWord(nextDirection, cells);
+	const nextOpenWord = isShiftKeyPressed
+		? getPreviousOpenWord(direction, cells)
+		: getNextOpenWord(direction, cells);
+	const remainingOpenWords = getRemainingOpenWords(direction, cells)[
+		isShiftKeyPressed ? "before" : "after"
+	];
+
+	if (remainingOpenWords.length === 0) {
+		getCellElement(firstOpenWordNextDirection.firstBlankCell).click();
+		getCellElement(firstOpenWordNextDirection.firstBlankCell).focus({
+			preventScroll: true,
+		});
+	} else {
+		getCellElement(nextOpenWord.firstBlankCell).click();
+		getCellElement(nextOpenWord.firstBlankCell).focus({
 			preventScroll: true,
 		});
 	}
