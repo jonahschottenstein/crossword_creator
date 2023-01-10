@@ -442,3 +442,19 @@ export const getPreviousAvailableWord = (direction, cells) =>
 	);
 export const getNextAvailableWord = (direction, cells) =>
 	createWordObjects(direction, cells).find((obj) => obj.isNextAvailableWord);
+
+const getSelectedWord = (direction, cells) =>
+	createWordObjects(direction, cells).find((obj) => obj.isSelected);
+
+export const getRemainingAvailableWords = (direction, cells) => {
+	return {
+		before: createWordObjects(direction, cells).filter(
+			(obj) =>
+				obj.isAvailable && obj.index < getSelectedWord(direction, cells).index
+		),
+		after: createWordObjects(direction, cells).filter(
+			(obj) =>
+				obj.isAvailable && obj.index > getSelectedWord(direction, cells).index
+		),
+	};
+};
