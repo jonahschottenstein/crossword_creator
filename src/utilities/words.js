@@ -1,3 +1,4 @@
+/* Get Cells */
 const getStartCells = (direction, cells) => {
 	const startCells = cells.filter((cell) => cell[direction] === true);
 	return startCells;
@@ -24,6 +25,10 @@ const getRowOrColumnEnd = (direction, cells, startCell) => {
 	return rowOrColumnEnd;
 };
 
+/* Cell Descriptors */
+const cellHasLetter = (cell) => cell.letter.length > 0;
+
+/* Get Words */
 export const getWords = (direction, cells) => {
 	const startCells = getStartCells(direction, cells);
 	const words = startCells.map((startCell) => {
@@ -44,27 +49,26 @@ export const getWords = (direction, cells) => {
 	return words;
 };
 
-const cellHasLetter = (cell) => cell.letter.length > 0;
-
-export const getOpenWords = (direction, cells) => {
+const getOpenWords = (direction, cells) => {
 	const words = getWords(direction, cells);
 	const openWords = words.filter((word) => !word.every(cellHasLetter));
 	return openWords;
 };
 
-export const getFirstBlankInWord = (word) =>
-	word && word.find((cell) => !cellHasLetter(cell));
-
+/* Word Descriptors */
 const wordIsOpen = (word) => !word.every(cellHasLetter);
+
 const isSameWord = (openWord, word) => {
 	if (openWord.length !== word.length) return false;
 	for (let i = 0; i < openWord.length; i++) {
 		return openWord[i].id === word[i].id;
 	}
 };
+
 const isSelectedWord = (word) => word.find((cell) => cell.isSelected);
 
-export const createWordObjects = (direction, cells) => {
+/* Word Objects */
+const createWordObjects = (direction, cells) => {
 	const words = getWords(direction, cells);
 	const openWords = getOpenWords(direction, cells);
 	const firstOpenWord = openWords[0];
@@ -100,6 +104,7 @@ export const createWordObjects = (direction, cells) => {
 	return wordObjects;
 };
 
+/* Get Specific Words */
 export const getFirstOpenWord = (direction, cells) =>
 	createWordObjects(direction, cells).find((obj) => obj.isFirstOpenWord);
 
