@@ -34,17 +34,51 @@ export const handleShiftTabKeyDirectionChange = (
 ) => {
 	if (!e.shiftKey || e.key !== "Tab") return;
 
-	const wordObjects = createWordObjects(direction, cells);
-	const firstAvailableWordIsSelected = wordObjects.some(
-		(obj) => obj.isFirstAvailableWord && obj.isSelected
-	);
+	const remainingAvailableWords = getRemainingAvailableWords(
+		direction,
+		cells
+	).before;
 
-	if (firstAvailableWordIsSelected) {
+	if (remainingAvailableWords.length === 0) {
 		setDirection((d) => (d === "across" ? "down" : "across"));
 	}
 };
 
-export const handleShiftTabKeyMovement = (
+const getCellElement = (cell) => {
+	const cellElements = document.getElementsByClassName("cell");
+	return cellElements[cell.index];
+};
+
+export const handleTabMovement = (e, direction, cells) => {
+	const isShiftKeyPressed = e.shiftKey;
+	if (e.key !== "Tab") return;
+	e.preventDefault();
+
+	const nextDirection = direction === "across" ? "down" : "across";
+	const firstAvailableWordNextDirection = isShiftKeyPressed
+		? getLastAvailableWord(nextDirection, cells)
+		: getFirstAvailableWord(nextDirection, cells);
+	const nextAvailableWord = isShiftKeyPressed
+		? getPreviousAvailableWord(direction, cells)
+		: getNextAvailableWord(direction, cells);
+	const remainingAvailableWords = getRemainingAvailableWords(direction, cells)[
+		isShiftKeyPressed ? "before" : "after"
+	];
+
+	if (remainingAvailableWords.length === 0) {
+		getCellElement(firstAvailableWordNextDirection.firstBlankCell).click();
+		getCellElement(firstAvailableWordNextDirection.firstBlankCell).focus({
+			preventScroll: true,
+		});
+	} else {
+		getCellElement(nextAvailableWord.firstBlankCell).click();
+		getCellElement(nextAvailableWord.firstBlankCell).focus({
+			preventScroll: true,
+		});
+	}
+};
+
+/* export const handleShiftTabKeyMovement = (
 	e,
 	direction,
 	setDirection,
@@ -108,9 +142,9 @@ export const handleShiftTabKeyMovement = (
 			firstBlankElementInPreviousAvailableWord.focus({ preventScroll: true });
 		}
 	}
-};
+}; */
 
-export const handleTabKeyDirectionChange = (
+/* export const handleTabKeyDirectionChange = (
 	e,
 	direction,
 	setDirection,
@@ -127,10 +161,10 @@ export const handleTabKeyDirectionChange = (
 	if (lastAvailableWordIsSelected) {
 		setDirection((d) => (d === "across" ? "down" : "across"));
 	}
-};
+}; */
 
 // Think the reason handleTabKeyMovement works is because first blank cells of firstAvailableWordAcross/Down are the same
-export const handleTabKeyMovement = (e, direction, setDirection, cells) => {
+/* export const handleTabKeyMovement = (e, direction, setDirection, cells) => {
 	if (e.shiftKey || e.key !== "Tab") return;
 	e.preventDefault();
 
@@ -162,4 +196,4 @@ export const handleTabKeyMovement = (e, direction, setDirection, cells) => {
 		firstBlankElementInNextAvailableWord.click();
 		firstBlankElementInNextAvailableWord.focus({ preventScroll: true });
 	}
-};
+}; */
