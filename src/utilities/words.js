@@ -28,6 +28,10 @@ const getRowOrColumnEnd = (direction, cells, startCell) => {
 /* Cell Descriptors */
 const cellHasLetter = (cell) => cell.letter.length > 0;
 
+export const isInSelectedWord = (selectedWord, cell) => {
+	return selectedWord && selectedWord.includes(cell);
+};
+
 /* Get Words */
 export const getWords = (direction, cells) => {
 	const startCells = getStartCells(direction, cells);
