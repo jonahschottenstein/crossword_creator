@@ -529,11 +529,11 @@ export const getRemainingOpenWords = (direction, cells) => {
 	return {
 		before: createWordObjects2(direction, cells).filter(
 			(obj) =>
-				obj.isAvailable && obj.index < getSelectedWord2(direction, cells).index
+				obj.isOpen && obj.index < getSelectedWord2(direction, cells).index
 		),
 		after: createWordObjects2(direction, cells).filter(
 			(obj) =>
-				obj.isAvailable && obj.index > getSelectedWord2(direction, cells).index
+				obj.isOpen && obj.index > getSelectedWord2(direction, cells).index
 		),
 	};
 };
