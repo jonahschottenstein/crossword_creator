@@ -249,6 +249,12 @@ export const getAvailableWords = (direction, cells) => {
 	return availableWords;
 };
 
+export const getOpenWords = (direction, cells) => {
+	const words = getWords2(direction, cells);
+	const openWords = words.filter((word) => !word.every(cellHasLetter));
+	return openWords;
+};
+
 export const getFirstOrLastAvailableWordObject =
 	(firstOrLast) => (direction, cells) => {
 		const wordsObject = getWords(direction, cells);
