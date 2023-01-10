@@ -1,11 +1,4 @@
 import {
-	firstAvailableWordObject,
-	lastAvailableWordObject,
-	previousAvailableWord,
-	nextAvailableWord,
-	wordIsSelected,
-	getFirstBlankInWord,
-	createWordObjects,
 	getFirstAvailableWord,
 	getLastAvailableWord,
 	getPreviousAvailableWord,
