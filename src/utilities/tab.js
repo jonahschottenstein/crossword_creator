@@ -6,6 +6,11 @@ import {
 	wordIsSelected,
 	getFirstBlankInWord,
 	createWordObjects,
+	getFirstAvailableWord,
+	getLastAvailableWord,
+	getPreviousAvailableWord,
+	getNextAvailableWord,
+	getRemainingAvailableWords,
 } from "./words.js";
 
 export const handleShiftTabKeyDirectionChange = (
