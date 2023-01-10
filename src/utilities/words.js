@@ -244,11 +244,8 @@ const cellHasLetter = (cell) => cell.letter.length > 0;
 }; */
 
 export const getAvailableWords = (direction, cells) => {
-	const words = getWords(direction, cells);
-	const wordsArray = Object.values(words);
-	const availableWords = wordsArray.filter(
-		(word) => !word.every(cellHasLetter)
-	);
+	const words = getWords2(direction, cells);
+	const availableWords = words.filter((word) => !word.every(cellHasLetter));
 	return availableWords;
 };
 
