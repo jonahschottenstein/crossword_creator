@@ -405,6 +405,42 @@ const isSameWord = (openWord, word) => {
 };
 const isSelectedWord = (word) => word.find((cell) => cell.isSelected);
 
+export const createWordObjects2 = (direction, cells) => {
+	const words = getWords2(direction, cells);
+	const openWords = getOpenWords(direction, cells);
+	const firstOpenWord = openWords[0];
+	const lastOpenWord = openWords[openWords.length - 1];
+	const wordObjects = words.map((word, index, array) => {
+		const selectedWordIndex = array.findIndex(isSelectedWord);
+		const previousOpenWord = array.findLast(
+			(word, index) => wordIsOpen(word) && index < selectedWordIndex
+		);
+		const nextOpenWord = array.find(
+			(word, index) => wordIsOpen(word) && index > selectedWordIndex
+		);
+
+		return {
+			word,
+			index,
+			direction,
+			clueNumber: word[0].number,
+			isOpen: wordIsOpen(word),
+			openWordIndex: wordIsOpen(word)
+				? openWords.findIndex((openWord) => isSameWord(openWord, word))
+				: null,
+			isFirstOpenWord: isSameWord(firstOpenWord, word),
+			isLastOpenWord: isSameWord(lastOpenWord, word),
+			isPreviousOpenWord:
+				previousOpenWord && isSameWord(previousOpenWord, word),
+			isNextOpenWord: nextOpenWord && isSameWord(nextOpenWord, word),
+			isSelected: index === selectedWordIndex,
+			firstBlankCell: word.find((cell) => !cellHasLetter(cell)) ?? null,
+		};
+	});
+
+	return wordObjects;
+};
+
 export const createWordObjects = (direction, cells) => {
 	const wordsArray = getWords2(direction, cells);
 	const availableWordsArray = getAvailableWords(direction, cells);
