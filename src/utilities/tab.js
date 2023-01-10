@@ -13,6 +13,19 @@ import {
 	getRemainingAvailableWords,
 } from "./words.js";
 
+export const handleTabDirectionChange = (e, direction, setDirection, cells) => {
+	const isShiftKeyPressed = e.shiftKey;
+	if (e.key !== "Tab") return;
+	e.preventDefault();
+
+	const remainingAvailableWords = getRemainingAvailableWords(direction, cells)[
+		isShiftKeyPressed ? "before" : "after"
+	];
+
+	if (remainingAvailableWords.length !== 0) return;
+	setDirection((d) => (d === "across" ? "down" : "across"));
+};
+
 export const handleShiftTabKeyDirectionChange = (
 	e,
 	direction,
