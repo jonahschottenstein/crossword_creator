@@ -69,7 +69,7 @@ const isSameWord = (openWord, word) => {
 	}
 };
 
-const isSelectedWord = (word) => word.find((cell) => cell.isSelected);
+export const isSelectedWord = (word) => word.find((cell) => cell.isSelected);
 
 /* Word Objects */
 const createWordObjects = (direction, cells) => {
@@ -121,7 +121,7 @@ export const getPreviousOpenWord = (direction, cells) =>
 export const getNextOpenWord = (direction, cells) =>
 	createWordObjects(direction, cells).find((obj) => obj.isNextOpenWord);
 
-const getSelectedWord = (direction, cells) =>
+export const getSelectedWord = (direction, cells) =>
 	createWordObjects(direction, cells).find((obj) => obj.isSelected);
 
 export const getRemainingOpenWords = (direction, cells) => {
