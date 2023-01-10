@@ -390,6 +390,15 @@ export const wordIsSelected = (wordIndex, direction, cells) => {
 	return selectedWordIndex === wordIndex;
 };
 
+const wordIsOpen = (word) => !word.every(cellHasLetter);
+const isSameWord = (openWord, word) => {
+	if (openWord.length !== word.length) return false;
+	for (let i = 0; i < openWord.length; i++) {
+		return openWord[i].id === word[i].id;
+	}
+};
+const isSelectedWord = (word) => word.find((cell) => cell.isSelected);
+
 export const createWordObjects = (direction, cells) => {
 	const wordsArray = getWords2(direction, cells);
 	const availableWordsArray = getAvailableWords(direction, cells);
