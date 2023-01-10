@@ -1,14 +1,8 @@
 import { Cell } from "./Cell.js";
-import {
-	getWords,
-	getSelectedWordObject,
-	isInSelectedWord,
-} from "../utilities/words.js";
+import { getSelectedWord, isInSelectedWord } from "../utilities/words.js";
 
 export const Board = (props) => {
-	const wordsObject = getWords(props.direction, props.cells);
-	const selectedWord = getSelectedWordObject(wordsObject).word;
-
+	const selectedWord = getSelectedWord(props.direction, props.cells)?.word;
 	const cells = props.cells.map((cell, index) => {
 		return (
 			<Cell
