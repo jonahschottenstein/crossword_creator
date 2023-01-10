@@ -509,3 +509,31 @@ export const getRemainingAvailableWords = (direction, cells) => {
 		),
 	};
 };
+
+export const getFirstOpenWord = (direction, cells) =>
+	createWordObjects2(direction, cells).find((obj) => obj.isFirstOpenWord);
+
+export const getLastOpenWord = (direction, cells) =>
+	createWordObjects2(direction, cells).find((obj) => obj.isLastOpenWord);
+
+export const getPreviousOpenWord = (direction, cells) =>
+	createWordObjects2(direction, cells).find((obj) => obj.isPreviousOpenWord);
+
+export const getNextOpenWord = (direction, cells) =>
+	createWordObjects2(direction, cells).find((obj) => obj.isNextOpenWord);
+
+const getSelectedWord2 = (direction, cells) =>
+	createWordObjects2(direction, cells).find((obj) => obj.isSelected);
+
+export const getRemainingOpenWords = (direction, cells) => {
+	return {
+		before: createWordObjects2(direction, cells).filter(
+			(obj) =>
+				obj.isAvailable && obj.index < getSelectedWord2(direction, cells).index
+		),
+		after: createWordObjects2(direction, cells).filter(
+			(obj) =>
+				obj.isAvailable && obj.index > getSelectedWord2(direction, cells).index
+		),
+	};
+};
