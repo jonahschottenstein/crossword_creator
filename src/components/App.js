@@ -18,12 +18,12 @@ export default function App() {
 	const [direction, setDirection] = useState("across");
 	const [cells, setCells] = useState(createCellObjects());
 	const [cellBlockSettings, setCellBlockSettings] = useState({
-		cellBlockInput: false,
-		symmetryInput: true,
+		cellBlockIsChecked: false,
+		symmetryIsChecked: true,
 	});
 
 	const setPuzzleDirection = (e) => {
-		if (cellBlockSettings.cellBlockInput === true) return;
+		if (cellBlockSettings.cellBlockIsChecked === true) return;
 		const selectedCellIndex = cells
 			.slice()
 			.findIndex((cell) => cell.isSelected);
@@ -35,7 +35,7 @@ export default function App() {
 	};
 
 	const setSelectedCell = (e) => {
-		if (cellBlockSettings.cellBlockInput === true) return;
+		if (cellBlockSettings.cellBlockIsChecked === true) return;
 		if (e.target.classList.contains("cell-block")) return;
 
 		const targetIndex = Number(e.target.dataset.index);
@@ -52,7 +52,7 @@ export default function App() {
 	};
 
 	const setCellBlock = (e) => {
-		if (cellBlockSettings.cellBlockInput === false) return;
+		if (cellBlockSettings.cellBlockIsChecked === false) return;
 
 		const targetIndex = Number(e.target.dataset.index);
 		setCells((prevState) => {
@@ -69,8 +69,8 @@ export default function App() {
 
 	const setSymmetricalCellBlock = (e) => {
 		/* Not sure if when targetCell is (not) a cellBlock and symmetricalCell is the opposite if it should toggle both or set them to be the same first. */
-		if (cellBlockSettings.symmetryInput === false) return;
-		if (cellBlockSettings.cellBlockInput === false) return;
+		if (cellBlockSettings.symmetryIsChecked === false) return;
+		if (cellBlockSettings.cellBlockIsChecked === false) return;
 
 		const numberOfCells = cells.length;
 		const lastCellIndex = numberOfCells - 1;
@@ -93,7 +93,7 @@ export default function App() {
 	};
 
 	const setCellNumbers = () => {
-		if (cellBlockSettings.cellBlockInput === false) return;
+		if (cellBlockSettings.cellBlockIsChecked === false) return;
 
 		setCells((prevState) => {
 			const numberedCells = getNumberedCells(prevState);
@@ -109,7 +109,7 @@ export default function App() {
 	};
 
 	const setClues = () => {
-		if (cellBlockSettings.cellBlockInput === false) return;
+		if (cellBlockSettings.cellBlockIsChecked === false) return;
 
 		setCells((prevState) => {
 			const newState = prevState.map((cell, index, array) => {
@@ -164,8 +164,8 @@ export default function App() {
 		handleTabMovement(e, direction, cells);
 	};
 
-	const removeCellSelection = (cellBlockInput) => {
-		if (cellBlockInput === false) return;
+	const removeCellSelection = (cellBlockIsChecked) => {
+		if (cellBlockIsChecked === false) return;
 		setCells((prevState) => {
 			const newState = prevState.map((cell) => {
 				if (cell.isSelected) {
@@ -182,7 +182,7 @@ export default function App() {
 		const name = e.target.name;
 		let settings = { ...cellBlockSettings };
 		settings[name] = !cellBlockSettings[name];
-		removeCellSelection(settings.cellBlockInput);
+		removeCellSelection(settings.cellBlockIsChecked);
 		setCellBlockSettings(settings);
 	};
 
@@ -193,8 +193,8 @@ export default function App() {
 	return (
 		<div className="App">
 			<CellBlockSettings
-				cellBlockInput={cellBlockSettings.cellBlockInput}
-				symmetryInput={cellBlockSettings.symmetryInput}
+				cellBlockIsChecked={cellBlockSettings.cellBlockIsChecked}
+				symmetryIsChecked={cellBlockSettings.symmetryIsChecked}
 				onChange={handleChange}
 			/>
 			<Board
