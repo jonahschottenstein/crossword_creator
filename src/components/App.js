@@ -5,10 +5,10 @@ import { setSelectedCell } from "../utilities/setSelectedCell.js";
 import { setCellBlock } from "../utilities/setCellBlock.js";
 import { setSymmetricalCellBlock } from "../utilities/setSymmetricalCellBlock.js";
 import { setCellNumbers } from "../utilities/setCellNumbers.js";
+import { setClues } from "../utilities/setClues.js";
 import { createCellObjects } from "../utilities/createCellObjects.js";
 import { Board } from "./Board.js";
 import { CellBlockSettings } from "./CellBlockSettings.js";
-import { isAcross, isDown } from "../utilities/numbers.js";
 import { ClueListsContainer } from "./ClueListsContainer";
 import {
 	handleArrowKeyDirectionChange,
@@ -27,32 +27,13 @@ export default function App() {
 		symmetryIsChecked: true,
 	});
 
-	const setClues = () => {
-		if (cellBlockSettings.cellBlockIsChecked === false) return;
-
-		setCells((prevState) => {
-			const newState = prevState.map((cell, index, array) => {
-				if (isAcross(array, cell) && isDown(array, cell)) {
-					return { ...cell, across: true, down: true };
-				} else if (isAcross(array, cell) && !isDown(array, cell)) {
-					return { ...cell, across: true, down: false };
-				} else if (!isAcross(array, cell) && isDown(array, cell)) {
-					return { ...cell, across: false, down: true };
-				} else {
-					return { ...cell, across: false, down: false };
-				}
-			});
-			return newState;
-		});
-	};
-
 	const handleClick = (e) => {
 		setDirectionOnClick(e, cells, setDirection);
 		setSelectedCell(e, setCells);
 		setCellBlock(e, setCells);
 		setSymmetricalCellBlock(e, cells, setCells);
 		setCellNumbers(setCells);
-		setClues();
+		setClues(setCells);
 	};
 
 	const setCellLetter = (e) => {
