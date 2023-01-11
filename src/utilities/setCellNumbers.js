@@ -1,3 +1,5 @@
+import { getNumberedCells } from "./numbers.js";
+
 export const setCellNumbers = (setCells) => {
 	setCells((prevState) => {
 		const numberedCells = getNumberedCells(prevState);
