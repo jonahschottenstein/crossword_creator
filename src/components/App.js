@@ -28,12 +28,16 @@ export default function App() {
 	});
 
 	const handleClick = (e) => {
-		setDirectionOnClick(e, cells, setDirection);
-		setSelectedCell(e, setCells);
-		setCellBlock(e, setCells);
-		setSymmetricalCellBlock(e, cells, setCells);
-		setCellNumbers(setCells);
-		setClues(setCells);
+		if (cellBlockSettings.cellBlockIsChecked) {
+			setCellBlock(e, setCells);
+			cellBlockSettings.symmetryIsChecked &&
+				setSymmetricalCellBlock(e, cells, setCells);
+			setCellNumbers(setCells);
+			setClues(setCells);
+		} else {
+			setDirectionOnClick(e, cells, setDirection);
+			setSelectedCell(e, setCells);
+		}
 	};
 
 	const setCellLetter = (e) => {
