@@ -6,6 +6,7 @@ import { setCellBlock } from "../utilities/setCellBlock.js";
 import { setSymmetricalCellBlock } from "../utilities/setSymmetricalCellBlock.js";
 import { setCellNumbers } from "../utilities/setCellNumbers.js";
 import { setClues } from "../utilities/setClues.js";
+import { setCellLetter } from "../utilities/setCellLetter.js";
 import { createCellObjects } from "../utilities/createCellObjects.js";
 import { Board } from "./Board.js";
 import { CellBlockSettings } from "./CellBlockSettings.js";
@@ -40,28 +41,8 @@ export default function App() {
 		}
 	};
 
-	const setCellLetter = (e) => {
-		const entryIsValid = (e) =>
-			!e.metaKey && !e.altKey && !e.ctrlKey && /\b[A-Za-z0-9]{1}\b/.test(e.key);
-		if (!entryIsValid(e)) return;
-
-		const getSelectedCell = (cell) => cell.isSelected === true;
-		const selectedCellIndex = cells.findIndex(getSelectedCell);
-
-		setCells((prevState) => {
-			const newState = prevState.map((cell) => {
-				if (cell.index === selectedCellIndex) {
-					return { ...cell, letter: e.key.toUpperCase() };
-				} else {
-					return cell;
-				}
-			});
-			return newState;
-		});
-	};
-
 	const handleKeyDown = (e) => {
-		setCellLetter(e);
+		setCellLetter(e, cells, setCells);
 		handleArrowKeyDirectionChange(e, direction, setDirection);
 		handleArrowKeyMovement(e, direction, cells);
 		handleTabDirectionChange(e, direction, setDirection, cells);
