@@ -1,5 +1,6 @@
 import "../App.css";
 import React, { useState } from "react";
+import { setDirectionOnClick } from "../utilities/direction.js";
 import { createCellObjects } from "../utilities/createCellObjects.js";
 import { Board } from "./Board.js";
 import { CellBlockSettings } from "./CellBlockSettings.js";
@@ -21,18 +22,6 @@ export default function App() {
 		cellBlockIsChecked: false,
 		symmetryIsChecked: true,
 	});
-
-	const setPuzzleDirection = (e) => {
-		if (cellBlockSettings.cellBlockIsChecked === true) return;
-		const selectedCellIndex = cells
-			.slice()
-			.findIndex((cell) => cell.isSelected);
-		const targetIndex = Number(e.target.dataset.index);
-		const selectedCellIsClicked = selectedCellIndex === targetIndex;
-
-		if (!selectedCellIsClicked) return;
-		setDirection((d) => (d === "across" ? "down" : "across"));
-	};
 
 	const setSelectedCell = (e) => {
 		if (cellBlockSettings.cellBlockIsChecked === true) return;
@@ -128,7 +117,7 @@ export default function App() {
 	};
 
 	const handleClick = (e) => {
-		setPuzzleDirection(e);
+		setDirectionOnClick(e, cells, setDirection);
 		setSelectedCell(e);
 		setCellBlock(e);
 		setSymmetricalCellBlock(e);
