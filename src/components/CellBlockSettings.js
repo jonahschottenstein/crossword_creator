@@ -7,14 +7,14 @@ export const CellBlockSettings = (props) => {
 				toggleSwitchId="cell-block-input"
 				text="Cell Block"
 				name="cellBlockInput"
-				isChecked={props.cellBlockInput}
+				isChecked={props.cellBlockIsChecked}
 				onChange={props.onChange}
 			/>
 			<ToggleSwitch
 				toggleSwitchId="symmetry-input"
 				text="Symmetry"
 				name="symmetryInput"
-				isChecked={props.symmetryInput}
+				isChecked={props.symmetryIsChecked}
 				onChange={props.onChange}
 			/>
 		</div>
