@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { setDirectionOnClick } from "../utilities/direction.js";
 import { setSelectedCell } from "../utilities/setSelectedCell.js";
 import { setCellBlock } from "../utilities/setCellBlock.js";
+import { setSymmetricalCellBlock } from "../utilities/setSymmetricalCellBlock.js";
 import { createCellObjects } from "../utilities/createCellObjects.js";
 import { Board } from "./Board.js";
 import { CellBlockSettings } from "./CellBlockSettings.js";
@@ -24,31 +25,6 @@ export default function App() {
 		cellBlockIsChecked: false,
 		symmetryIsChecked: true,
 	});
-
-	const setSymmetricalCellBlock = (e) => {
-		/* Not sure if when targetCell is (not) a cellBlock and symmetricalCell is the opposite if it should toggle both or set them to be the same first. */
-		if (cellBlockSettings.symmetryIsChecked === false) return;
-		if (cellBlockSettings.cellBlockIsChecked === false) return;
-
-		const numberOfCells = cells.length;
-		const lastCellIndex = numberOfCells - 1;
-		const centerCellIndex = Math.floor(numberOfCells / 2);
-		const targetIndex = Number(e.target.dataset.index);
-		const symmetricalCellIndex = lastCellIndex - targetIndex;
-
-		if (targetIndex !== centerCellIndex) {
-			setCells((prevState) => {
-				const newState = prevState.map((cell) => {
-					if (cell.index === symmetricalCellIndex) {
-						return { ...cell, isBlackSquare: !cell.isBlackSquare };
-					} else {
-						return cell;
-					}
-				});
-				return newState;
-			});
-		}
-	};
 
 	const setCellNumbers = () => {
 		if (cellBlockSettings.cellBlockIsChecked === false) return;
@@ -89,7 +65,7 @@ export default function App() {
 		setDirectionOnClick(e, cells, setDirection);
 		setSelectedCell(e, setCells);
 		setCellBlock(e, setCells);
-		setSymmetricalCellBlock(e);
+		setSymmetricalCellBlock(e, cells, setCells);
 		setCellNumbers(e);
 		setClues();
 	};
