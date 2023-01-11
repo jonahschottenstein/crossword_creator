@@ -1,4 +1,4 @@
-export const setSymmetricalCellBlock = (e, setCells) => {
+export const setSymmetricalCellBlock = (e, cells, setCells) => {
 	/* Not sure if when targetCell is (not) a cellBlock and symmetricalCell is the opposite if it should toggle both or set them to be the same first. */
 	const numberOfCells = cells.length;
 	const lastCellIndex = numberOfCells - 1;
