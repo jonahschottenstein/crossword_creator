@@ -1,6 +1,7 @@
 import "../App.css";
 import React, { useState } from "react";
 import { setDirectionOnClick } from "../utilities/direction.js";
+import { setSelectedCell } from "../utilities/setSelectedCell.js";
 import { createCellObjects } from "../utilities/createCellObjects.js";
 import { Board } from "./Board.js";
 import { CellBlockSettings } from "./CellBlockSettings.js";
@@ -22,23 +23,6 @@ export default function App() {
 		cellBlockIsChecked: false,
 		symmetryIsChecked: true,
 	});
-
-	const setSelectedCell = (e) => {
-		if (cellBlockSettings.cellBlockIsChecked === true) return;
-		if (e.target.classList.contains("cell-block")) return;
-
-		const targetIndex = Number(e.target.dataset.index);
-		setCells((prevState) => {
-			const newState = prevState.map((cell) => {
-				if (cell.index === targetIndex) {
-					return { ...cell, isSelected: true };
-				} else {
-					return { ...cell, isSelected: false };
-				}
-			});
-			return newState;
-		});
-	};
 
 	const setCellBlock = (e) => {
 		if (cellBlockSettings.cellBlockIsChecked === false) return;
@@ -118,7 +102,7 @@ export default function App() {
 
 	const handleClick = (e) => {
 		setDirectionOnClick(e, cells, setDirection);
-		setSelectedCell(e);
+		setSelectedCell(e, setCells);
 		setCellBlock(e);
 		setSymmetricalCellBlock(e);
 		setCellNumbers(e);
