@@ -7,6 +7,7 @@ import { setSymmetricalCellBlock } from "../utilities/setSymmetricalCellBlock.js
 import { setCellNumbers } from "../utilities/setCellNumbers.js";
 import { setClues } from "../utilities/setClues.js";
 import { setCellLetter } from "../utilities/setCellLetter.js";
+import { removeCellSelection } from "../utilities/removeCellSelection.js";
 import { createCellObjects } from "../utilities/createCellObjects.js";
 import { Board } from "./Board.js";
 import { CellBlockSettings } from "./CellBlockSettings.js";
@@ -49,25 +50,12 @@ export default function App() {
 		handleTabMovement(e, direction, cells);
 	};
 
-	const removeCellSelection = (cellBlockIsChecked) => {
-		if (cellBlockIsChecked === false) return;
-		setCells((prevState) => {
-			const newState = prevState.map((cell) => {
-				if (cell.isSelected) {
-					return { ...cell, isSelected: false };
-				} else {
-					return { ...cell };
-				}
-			});
-			return newState;
-		});
-	};
-
 	const handleToggleChange = (e) => {
+		removeCellSelection(setCells);
+
 		const name = e.target.name;
 		let settings = { ...cellBlockSettings };
 		settings[name] = !cellBlockSettings[name];
-		removeCellSelection(settings.cellBlockIsChecked);
 		setCellBlockSettings(settings);
 	};
 
