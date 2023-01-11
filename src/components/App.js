@@ -4,10 +4,11 @@ import { setDirectionOnClick } from "../utilities/direction.js";
 import { setSelectedCell } from "../utilities/setSelectedCell.js";
 import { setCellBlock } from "../utilities/setCellBlock.js";
 import { setSymmetricalCellBlock } from "../utilities/setSymmetricalCellBlock.js";
+import { setCellNumbers } from "../utilities/setCellNumbers.js";
 import { createCellObjects } from "../utilities/createCellObjects.js";
 import { Board } from "./Board.js";
 import { CellBlockSettings } from "./CellBlockSettings.js";
-import { getNumberedCells, isAcross, isDown } from "../utilities/numbers.js";
+import { isAcross, isDown } from "../utilities/numbers.js";
 import { ClueListsContainer } from "./ClueListsContainer";
 import {
 	handleArrowKeyDirectionChange,
@@ -26,21 +27,21 @@ export default function App() {
 		symmetryIsChecked: true,
 	});
 
-	const setCellNumbers = () => {
-		if (cellBlockSettings.cellBlockIsChecked === false) return;
+	// const setCellNumbers = () => {
+	// 	if (cellBlockSettings.cellBlockIsChecked === false) return;
 
-		setCells((prevState) => {
-			const numberedCells = getNumberedCells(prevState);
-			const newState = prevState.map((cell) => {
-				if (numberedCells.includes(cell)) {
-					return { ...cell, number: numberedCells.indexOf(cell) + 1 };
-				} else {
-					return { ...cell, number: null };
-				}
-			});
-			return newState;
-		});
-	};
+	// 	setCells((prevState) => {
+	// 		const numberedCells = getNumberedCells(prevState);
+	// 		const newState = prevState.map((cell) => {
+	// 			if (numberedCells.includes(cell)) {
+	// 				return { ...cell, number: numberedCells.indexOf(cell) + 1 };
+	// 			} else {
+	// 				return { ...cell, number: null };
+	// 			}
+	// 		});
+	// 		return newState;
+	// 	});
+	// };
 
 	const setClues = () => {
 		if (cellBlockSettings.cellBlockIsChecked === false) return;
@@ -66,7 +67,7 @@ export default function App() {
 		setSelectedCell(e, setCells);
 		setCellBlock(e, setCells);
 		setSymmetricalCellBlock(e, cells, setCells);
-		setCellNumbers(e);
+		setCellNumbers(setCells);
 		setClues();
 	};
 
