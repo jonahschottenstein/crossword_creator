@@ -7,17 +7,17 @@ import {
 } from "./words.js";
 import { getCellElement } from "./tab.js";
 
-const getNextDirection = (direction) =>
+export const getNextDirection = (direction) =>
 	direction === "across" ? "down" : "across";
 
-const getSelectedCell = (direction, cells) => {
+export const getSelectedCell = (direction, cells) => {
 	const selectedWord = getSelectedWord(direction, cells).word;
 	const selectedCell = selectedWord.find((cell) => cell.isSelected);
 
 	return selectedCell;
 };
 
-const getLastCellOfWord = (word) => word.findLast((cell) => cell);
+export const getLastCellOfWord = (word) => word.findLast((cell) => cell);
 
 const getNextCellInSelectedWord = (direction, cells) => {
 	const selectedWord = getSelectedWord(direction, cells).word;
@@ -95,7 +95,7 @@ const getNextCellToSelect = (direction, cells) => {
 	);
 };
 
-const selectCellElement = (cellElement) => {
+export const selectCellElement = (cellElement) => {
 	cellElement.click();
 	cellElement.focus({ preventScroll: true });
 };
