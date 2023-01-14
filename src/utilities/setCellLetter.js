@@ -1,4 +1,4 @@
-const entryIsValid = (e) =>
+export const entryIsValid = (e) =>
 	!e.metaKey && !e.altKey && !e.ctrlKey && /\b[A-Za-z0-9]{1}\b/.test(e.key);
 
 const getSelectedCell = (cell) => cell.isSelected;
