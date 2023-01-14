@@ -1,4 +1,6 @@
 export const handleArrowKeyDirectionChange = (e, direction, setDirection) => {
+	e.preventDefault();
+
 	if (direction === "down") {
 		if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
 			setDirection("across");
@@ -36,6 +38,8 @@ const getLastAvailableCell = (e, cellRowOrColumn) => {
 };
 
 export const handleArrowKeyMovement = (e, direction, cells) => {
+	e.preventDefault();
+
 	if (direction === "across") {
 		if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
 	} else {
