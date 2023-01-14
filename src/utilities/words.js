@@ -26,7 +26,7 @@ const getRowOrColumnEnd = (direction, cells, startCell) => {
 };
 
 /* Cell Descriptors */
-const cellHasLetter = (cell) => cell.letter.length > 0;
+export const cellHasLetter = (cell) => cell.letter.length > 0;
 
 export const isInSelectedWord = (selectedWord, cell) => {
 	return selectedWord && selectedWord.includes(cell);
@@ -53,7 +53,7 @@ export const getWords = (direction, cells) => {
 	return words;
 };
 
-const getOpenWords = (direction, cells) => {
+export const getOpenWords = (direction, cells) => {
 	const words = getWords(direction, cells);
 	const openWords = words.filter((word) => !word.every(cellHasLetter));
 	return openWords;
@@ -72,7 +72,7 @@ const isSameWord = (openWord, word) => {
 export const isSelectedWord = (word) => word.find((cell) => cell.isSelected);
 
 /* Word Objects */
-const createWordObjects = (direction, cells) => {
+export const createWordObjects = (direction, cells) => {
 	const words = getWords(direction, cells);
 	const openWords = getOpenWords(direction, cells);
 	const firstOpenWord = openWords[0];
