@@ -6,7 +6,11 @@ import { setCellBlock } from "../utilities/setCellBlock.js";
 import { setSymmetricalCellBlock } from "../utilities/setSymmetricalCellBlock.js";
 import { setCellNumbers } from "../utilities/setCellNumbers.js";
 import { setClues } from "../utilities/setClues.js";
-import { setCellLetter } from "../utilities/setCellLetter.js";
+import { entryIsValid, setCellLetter } from "../utilities/setCellLetter.js";
+import {
+	selectNextCellElement,
+	changeDirectionOnAddedLetter,
+} from "../utilities/letters.js";
 import { removeCellSelection } from "../utilities/removeCellSelection.js";
 import { createCellObjects } from "../utilities/createCellObjects.js";
 import { Board } from "./Board.js";
@@ -20,6 +24,7 @@ import {
 	handleTabDirectionChange,
 	handleTabMovement,
 } from "../utilities/tab.js";
+import { handleBackspace } from "../utilities/backspace.js";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -48,6 +53,15 @@ export default function App() {
 		handleArrowKeyMovement(e, direction, cells);
 		handleTabDirectionChange(e, direction, setDirection, cells);
 		handleTabMovement(e, direction, cells);
+
+		if (entryIsValid(e)) {
+			changeDirectionOnAddedLetter(direction, cells, setDirection);
+			selectNextCellElement(direction, cells);
+		}
+
+		if (e.key === "Backspace") {
+			handleBackspace(direction, setDirection, cells, setCells);
+		}
 	};
 
 	const handleToggleChange = (e) => {
