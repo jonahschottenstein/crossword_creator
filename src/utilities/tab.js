@@ -19,7 +19,7 @@ export const handleTabDirectionChange = (e, direction, setDirection, cells) => {
 	setDirection((d) => (d === "across" ? "down" : "across"));
 };
 
-const getCellElement = (cell) => {
+export const getCellElement = (cell) => {
 	const cellElements = document.getElementsByClassName("cell");
 	return cellElements[cell.index];
 };
