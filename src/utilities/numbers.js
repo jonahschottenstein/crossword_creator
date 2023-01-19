@@ -4,7 +4,7 @@ import {
 	cellInFirstColumn,
 	previousAcrossCellBlocked,
 	previousDownCellBlocked,
-} from "./cellDescriptors.js";
+} from "./helpers";
 
 export const getNumberedCells = (cells) => {
 	return cells.filter(
@@ -14,19 +14,5 @@ export const getNumberedCells = (cells) => {
 				cellInFirstColumn(cell) ||
 				previousAcrossCellBlocked(array, cell) ||
 				previousDownCellBlocked(array, cell))
-	);
-};
-
-export const isAcross = (array, cell) => {
-	return (
-		!isCellBlock(cell) &&
-		(cellInFirstColumn(cell) || previousAcrossCellBlocked(array, cell))
-	);
-};
-
-export const isDown = (array, cell) => {
-	return (
-		!isCellBlock(cell) &&
-		(cellInFirstRow(cell) || previousDownCellBlocked(array, cell))
 	);
 };

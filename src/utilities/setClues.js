@@ -1,4 +1,4 @@
-import { isAcross, isDown } from "../utilities/numbers.js";
+import { isAcross, isDown } from "./helpers";
 
 export const setClues = (setCells) => {
 	setCells((prevState) => {
