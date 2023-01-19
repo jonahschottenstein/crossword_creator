@@ -278,4 +278,70 @@ const selectCellElementOnLetterKey = (direction, cells) => {
 	if (!remainingWordBlanks.length && !openWordsAfter.length) {
 		setDirection((d) => (d === "across" ? "down" : "across"));
 	}
+}; */
+/* const changeDirectionOnLetterKey = (direction, setDirection, cells) => {
+	const selectedWord = getSelectedWord(direction, cells).word;
+	const selectedCell = getSelectedCell(direction, cells);
+	const selectedCellHasLetter = cellHasLetter(selectedCell);
+	const lastCellOfWord = getLastCellOfWord(selectedWord);
+	const remainingWordBlanks = getRemainingBlanksInWord(
+		direction,
+		cells
+	).getTotal();
+	// Think I'd like to get rid of "remainingWordBlanks"
+	const { openWordObjAfter } = getWordObj(direction, cells);
+
+	if (selectedCellHasLetter && !lastCellOfWord.isSelected) return;
+	if (!remainingWordBlanks.length && !openWordObjAfter) {
+		setDirection((d) => (d === "across" ? "down" : "across"));
+	}
+}; */
+
+// export const getCellBefore = (selectedCell, cellsArray) =>
+// 	cellsArray.findLast((cell) => cell1IsBeforeCell2(cell, selectedCell));
+
+/* const changeDirectionOnLetterKey = (direction, setDirection, cells) => {
+	const selectedCell = getSelectedCell(direction, cells);
+	const { selectedWordObj, openWordObjAfter } = getWordObj(direction, cells);
+	const { word: selectedWord } = selectedWordObj;
+	const { lastCell: lastCellOfSelectedWord } = selectedWordObj;
+	const wordBlankBefore = getBlankBefore(selectedCell, selectedWord);
+	const wordBlankAfter = getBlankAfter(selectedCell, selectedWord);
+
+	if (cellHasLetter(selectedCell) && !lastCellOfSelectedWord.isSelected) return;
+	if (!wordBlankBefore && !wordBlankAfter && !openWordObjAfter) {
+		setDirection((d) => (d === "across" ? "down" : "across"));
+	}
+}; */
+const changeDirectionOnLetterKey = (direction, setDirection, cells) => {
+	const selectedCell = getSelectedCell(cells);
+	const { selectedWordObj, openWordObjAfter } = getWordObj(direction, cells);
+	const { word: selectedWord } = selectedWordObj;
+	const { lastCell: lastCellOfSelectedWord } = selectedWordObj;
+	const blankBeforeInWord = getBlankBefore(selectedWord);
+	const blankAfterInWord = getBlankAfter(selectedWord);
+
+	if (cellHasLetter(selectedCell) && !lastCellOfSelectedWord.isSelected) return;
+
+	if (!blankBeforeInWord && !blankAfterInWord && !openWordObjAfter) {
+		changeDirection(setDirection);
+	}
+};
+
+/* export const handleLetterKey = (direction, setDirection, cells) => {
+	changeDirectionOnLetterKey(direction, setDirection, cells);
+	selectCellElementOnLetterKey(direction, cells);
+}; */
+export const handleLetterKey = (
+	e,
+	direction,
+	setDirection,
+	cells,
+	setCells
+) => {
+	if (!entryIsValid(e)) return;
+
+	setCellLetter(e, cells, setCells);
+	changeDirectionOnLetterKey(direction, setDirection, cells);
+	selectCellElementOnLetterKey(direction, cells);
 };
