@@ -1,3 +1,10 @@
+import {
+	cellHasLetter,
+	wordIsOpen,
+	isSameWord,
+	isSelectedWord,
+} from "./helpers";
+
 /* Get Cells */
 const getStartCells = (direction, cells) => {
 	const startCells = cells.filter((cell) => cell[direction] === true);
@@ -15,7 +22,7 @@ const getNextBlackSquare = (direction, cells, startCell) => {
 	return nextBlackSquare;
 };
 
-const getRowOrColumnEnd = (direction, cells, startCell) => {
+/* const getRowOrColumnEnd = (direction, cells, startCell) => {
 	const rowOrColumn = direction === "across" ? "row" : "column";
 	const rowOrColumnIndex = startCell[rowOrColumn];
 	const rowOrColumnCells = cells.filter(
@@ -23,6 +30,16 @@ const getRowOrColumnEnd = (direction, cells, startCell) => {
 	);
 	const rowOrColumnEnd = rowOrColumnCells[rowOrColumnCells.length - 1];
 	return rowOrColumnEnd;
+}; */
+const getGridSectionEnd = (direction, cells, startCell) => {
+	const gridSection = direction === "across" ? "row" : "column";
+	const gridSectionIndex = startCell[gridSection];
+	const gridSectionCells = cells.filter(
+		(cell) => cell[gridSection] === gridSectionIndex
+	);
+	const gridSectionEnd = gridSectionCells[gridSectionCells.length - 1];
+
+	return gridSectionEnd;
 };
 
 /* Cell Descriptors */
