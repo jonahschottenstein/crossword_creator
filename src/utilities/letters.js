@@ -229,19 +229,37 @@ const getNextCellOnLetterKey = (direction, cells) => {
 	);
 };
 
-export const selectCellElement = (cellElement) => {
+/* export const selectCellElement = (cellElement) => {
 	cellElement.click();
 	cellElement.focus({ preventScroll: true });
-};
+}; */
 
-export const selectNextCellElement = (direction, cells) => {
+/* export const selectCellElement = (cell) => {
+	const cellElement = getCellElement(cell);
+
+	cellElement.click();
+	cellElement.focus({ preventScroll: true });
+}; */
+
+/* export const selectNextCellElement = (direction, cells) => {
 	const nextCellToSelect = getNextCellToSelect(direction, cells);
 	const nextCellElement = getCellElement(nextCellToSelect);
 
 	selectCellElement(nextCellElement);
+}; */
+
+/* const selectCellElementOnLetterKey = (direction, cells) => {
+	const cellToSelect = getCellToSelectOnLetterKey(direction, cells);
+
+	selectCellElement(cellToSelect);
+}; */
+const selectCellElementOnLetterKey = (direction, cells) => {
+	const nextCell = getNextCellOnLetterKey(direction, cells);
+
+	selectCellElement(nextCell);
 };
 
-export const changeDirectionOnAddedLetter = (
+/* export const changeDirectionOnAddedLetter = (
 	direction,
 	cells,
 	setDirection
