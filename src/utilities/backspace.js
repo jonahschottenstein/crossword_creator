@@ -293,7 +293,20 @@ const selectCellElementOnBackspace = (direction, cells) => {
 	selectCellElement(nextCell);
 };
 
-export const handleBackspace = (direction, setDirection, cells, setCells) => {
+/* export const handleBackspace = (direction, setDirection, cells, setCells) => {
+	changeDirectionOnBackspace(direction, setDirection, cells);
+	deleteLetter(direction, cells, setCells);
+	selectCellElementOnBackspace(direction, cells);
+}; */
+export const handleBackspaceKey = (
+	e,
+	direction,
+	setDirection,
+	cells,
+	setCells
+) => {
+	if (e.key !== "Backspace") return;
+
 	changeDirectionOnBackspace(direction, setDirection, cells);
 	deleteLetter(direction, cells, setCells);
 	selectCellElementOnBackspace(direction, cells);
