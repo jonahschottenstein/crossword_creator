@@ -43,14 +43,15 @@ const getGridSectionEnd = (direction, cells, startCell) => {
 };
 
 /* Cell Descriptors */
-export const cellHasLetter = (cell) => cell.letter.length > 0;
+/* export const cellHasLetter = (cell) => cell.letter.length > 0;
 
 export const isInSelectedWord = (selectedWord, cell) => {
 	return selectedWord && selectedWord.includes(cell);
-};
+}; */
 
+// Don't know if better to have getWords & getOpenWords separate or if should have optional parameter
 /* Get Words */
-export const getWords = (direction, cells) => {
+/* export const getWords = (direction, cells) => {
 	const startCells = getStartCells(direction, cells);
 	const words = startCells.map((startCell) => {
 		const nextBlackSquare = getNextBlackSquare(direction, cells, startCell);
@@ -58,6 +59,25 @@ export const getWords = (direction, cells) => {
 		const wordEndIndex = nextBlackSquare
 			? nextBlackSquare.index - 1
 			: rowOrColumnEnd.index;
+		const word = cells.filter((cell, index) => {
+			return direction === "across"
+				? index >= startCell.index && index <= wordEndIndex
+				: index >= startCell.index &&
+						index <= wordEndIndex &&
+						cell.column === startCell.column;
+		});
+		return word;
+	});
+	return words;
+}; */
+export const getWords = (direction, cells) => {
+	const startCells = getStartCells(direction, cells);
+	const words = startCells.map((startCell) => {
+		const nextBlackSquare = getNextBlackSquare(direction, cells, startCell);
+		const gridSectionEnd = getGridSectionEnd(direction, cells, startCell);
+		const wordEndIndex = nextBlackSquare
+			? nextBlackSquare.index - 1
+			: gridSectionEnd.index;
 		const word = cells.filter((cell, index) => {
 			return direction === "across"
 				? index >= startCell.index && index <= wordEndIndex
