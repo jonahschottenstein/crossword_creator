@@ -106,3 +106,29 @@ const getNextOpenWordObj = (e, direction, cells) => {
 
 	return cellToSelect;
 }; */
+
+const changeDirectionOnTabKey = (e, direction, setDirection, cells) => {
+	if (e.key !== "Tab") return;
+	e.preventDefault();
+
+	const nextOpenWordObj = getNextOpenWordObj(e, direction, cells);
+
+	if (nextOpenWordObj) return;
+
+	changeDirection(setDirection);
+};
+
+const getNextCellOnTabKey = (e, direction, cells) => {
+	const nextDirection = getNextDirection(direction);
+	const initialOpenWordObjNextDirection = getInitialOpenWordObj(
+		e,
+		nextDirection,
+		cells
+	);
+	const nextOpenWordObj = getNextOpenWordObj(e, direction, cells);
+	const nextCell = nextOpenWordObj
+		? nextOpenWordObj.firstBlank
+		: initialOpenWordObjNextDirection.firstBlank;
+
+	return nextCell;
+};
