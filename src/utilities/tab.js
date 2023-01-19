@@ -1,12 +1,20 @@
+// import { getNextDirection, selectCellElement } from "./letters.js";
 import {
+	changeDirection,
+	getNextDirection,
+	selectCellElement,
+} from "./helpers";
+/* import {
 	getRemainingOpenWords,
 	getLastOpenWord,
 	getFirstOpenWord,
 	getPreviousOpenWord,
 	getNextOpenWord,
-} from "./words.js";
+	getWordObj,
+} from "./words.js"; */
+import { getWordObj } from "./words.js";
 
-export const handleTabDirectionChange = (e, direction, setDirection, cells) => {
+/* export const handleTabDirectionChange = (e, direction, setDirection, cells) => {
 	const isShiftKeyPressed = e.shiftKey;
 	if (e.key !== "Tab") return;
 	e.preventDefault();
@@ -17,14 +25,29 @@ export const handleTabDirectionChange = (e, direction, setDirection, cells) => {
 
 	if (remainingOpenWords.length !== 0) return;
 	setDirection((d) => (d === "across" ? "down" : "across"));
-};
+}; */
 
-export const getCellElement = (cell) => {
+/* const changeDirectionOnTabKey = (e, direction, setDirection, cells) => {
+	const isShiftKeyPressed = e.shiftKey;
+	if (e.key !== "Tab") return;
+	e.preventDefault();
+
+	const { openWordObjBefore, openWordObjAfter } = getWordObj(direction, cells);
+	const nextOpenWordObj = isShiftKeyPressed
+		? openWordObjBefore
+		: openWordObjAfter;
+
+	if (nextOpenWordObj) return;
+
+	setDirection((d) => (d === "across" ? "down" : "across"));
+}; */
+
+/* export const getCellElement = (cell) => {
 	const cellElements = document.getElementsByClassName("cell");
 	return cellElements[cell.index];
-};
+}; */
 
-export const handleTabMovement = (e, direction, cells) => {
+/* export const handleTabMovement = (e, direction, cells) => {
 	const isShiftKeyPressed = e.shiftKey;
 	if (e.key !== "Tab") return;
 	e.preventDefault();
@@ -51,4 +74,35 @@ export const handleTabMovement = (e, direction, cells) => {
 			preventScroll: true,
 		});
 	}
+}; */
+
+const getInitialOpenWordObj = (e, direction, cells) => {
+	const isShiftKeyPressed = e.shiftKey;
+	const { firstOpenWordObj, lastOpenWordObj } = getWordObj(direction, cells);
+
+	return isShiftKeyPressed ? lastOpenWordObj : firstOpenWordObj;
 };
+
+const getNextOpenWordObj = (e, direction, cells) => {
+	const isShiftKeyPressed = e.shiftKey;
+	const { openWordObjBefore, openWordObjAfter } = getWordObj(direction, cells);
+
+	return isShiftKeyPressed ? openWordObjBefore : openWordObjAfter;
+};
+
+/* const getCellToSelect = (e, direction, cells) => {
+	// const nextDirection = direction === "across" ? "down" : "across";
+	const nextDirection = getNextDirection(direction);
+	const initialOpenWordObjNextDirection = getInitialOpenWordObj(
+		e,
+		nextDirection,
+		cells
+	);
+	const nextOpenWordObj = getNextOpenWordObj(e, direction, cells);
+	// Could maybe do return nextOpenWordObj.firstBlank || initialOpenWordObjNextDirection.firstBlank
+	const cellToSelect = nextOpenWordObj
+		? nextOpenWordObj.firstBlank
+		: initialOpenWordObjNextDirection.firstBlank;
+
+	return cellToSelect;
+}; */
