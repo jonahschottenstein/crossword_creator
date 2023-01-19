@@ -132,3 +132,49 @@ const getNextCellOnTabKey = (e, direction, cells) => {
 
 	return nextCell;
 };
+
+/* const selectCellElementOnTabKey = (e, direction, cells) => {
+	if (e.key !== "Tab") return;
+	e.preventDefault();
+
+	const cellToSelect = getCellToSelect(e, direction, cells);
+
+	selectCellElement(cellToSelect);
+}; */
+const selectCellElementOnTabKey = (e, direction, cells) => {
+	if (e.key !== "Tab") return;
+	e.preventDefault();
+
+	const nextCell = getNextCellOnTabKey(e, direction, cells);
+
+	selectCellElement(nextCell);
+};
+/* export const handleTabMovement = (e, direction, cells) => {
+	const isShiftKeyPressed = e.shiftKey;
+	if (e.key !== "Tab") return;
+	e.preventDefault();
+
+	const nextDirection = direction === "across" ? "down" : "across";
+	const { firstOpenWordObj, lastOpenWordObj } = getWordObj(
+		nextDirection,
+		cells
+	);
+	const { openWordObjBefore, openWordObjAfter } = getWordObj(direction, cells);
+	const initialOpenWordObjNextDirection = isShiftKeyPressed
+		? lastOpenWordObj
+		: firstOpenWordObj;
+	const nextOpenWordObj = isShiftKeyPressed
+		? openWordObjBefore
+		: openWordObjAfter;
+	const cellToSelect = nextOpenWordObj
+		? nextOpenWordObj.firstBlank
+		: initialOpenWordObjNextDirection.firstBlank;
+
+	selectCellElement(cellToSelect);
+}; */
+
+export const handleTabKey = (e, direction, setDirection, cells) => {
+	// Maybe see if you can do "if (e.key !== "Tab") return;" and "e.preventDefault();" here and omit from all other functions
+	changeDirectionOnTabKey(e, direction, setDirection, cells);
+	selectCellElementOnTabKey(e, direction, cells);
+};
