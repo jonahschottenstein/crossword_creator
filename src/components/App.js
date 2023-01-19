@@ -6,25 +6,16 @@ import { setCellBlock } from "../utilities/setCellBlock.js";
 import { setSymmetricalCellBlock } from "../utilities/setSymmetricalCellBlock.js";
 import { setCellNumbers } from "../utilities/setCellNumbers.js";
 import { setClues } from "../utilities/setClues.js";
-import { entryIsValid, setCellLetter } from "../utilities/setCellLetter.js";
-import {
-	selectNextCellElement,
-	changeDirectionOnAddedLetter,
-} from "../utilities/letters.js";
+// import { entryIsValid, setCellLetter } from "../utilities/setCellLetter.js";
+import { handleLetterKey } from "../utilities/letters.js";
 import { removeCellSelection } from "../utilities/removeCellSelection.js";
 import { createCellObjects } from "../utilities/createCellObjects.js";
 import { Board } from "./Board.js";
 import { CellBlockSettings } from "./CellBlockSettings.js";
 import { ClueListsContainer } from "./ClueListsContainer";
-import {
-	handleArrowKeyDirectionChange,
-	handleArrowKeyMovement,
-} from "../utilities/arrows";
-import {
-	handleTabDirectionChange,
-	handleTabMovement,
-} from "../utilities/tab.js";
-import { handleBackspace } from "../utilities/backspace.js";
+import { handleArrowKeys } from "../utilities/arrows";
+import { handleTabKey } from "../utilities/tab.js";
+import { handleBackspaceKey } from "../utilities/backspace.js";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -48,20 +39,10 @@ export default function App() {
 	};
 
 	const handleKeyDown = (e) => {
-		setCellLetter(e, cells, setCells);
-		handleArrowKeyDirectionChange(e, direction, setDirection);
-		handleArrowKeyMovement(e, direction, cells);
-		handleTabDirectionChange(e, direction, setDirection, cells);
-		handleTabMovement(e, direction, cells);
-
-		if (entryIsValid(e)) {
-			changeDirectionOnAddedLetter(direction, cells, setDirection);
-			selectNextCellElement(direction, cells);
-		}
-
-		if (e.key === "Backspace") {
-			handleBackspace(direction, setDirection, cells, setCells);
-		}
+		handleArrowKeys(e, direction, setDirection, cells);
+		handleTabKey(e, direction, setDirection, cells);
+		handleLetterKey(e, direction, setDirection, cells, setCells);
+		handleBackspaceKey(e, direction, setDirection, cells, setCells);
 	};
 
 	const handleToggleChange = (e) => {
