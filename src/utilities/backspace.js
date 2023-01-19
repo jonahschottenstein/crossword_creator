@@ -274,14 +274,23 @@ const deleteLetter = (direction, cells, setCells) => {
 	});
 };
 
-const selectCellElementOnBackspace = (direction, cells) => {
+/* const selectCellElementOnBackspace = (direction, cells) => {
 	const selectedCell = getSelectedCell(direction, cells);
 	const cellToErase = getCellToErase(direction, cells);
-	const cellElement = getCellElement(cellToErase);
+	// const cellElement = getCellElement(cellToErase);
 
 	if (selectedCell.index === cellToErase.index) return;
 
-	selectCellElement(cellElement);
+	// selectCellElement(cellElement);
+	selectCellElement(cellToErase);
+}; */
+const selectCellElementOnBackspace = (direction, cells) => {
+	const selectedCell = getSelectedCell(cells);
+	const nextCell = getNextCellOnBackspaceKey(direction, cells);
+
+	if (selectedCell.index === nextCell.index) return;
+
+	selectCellElement(nextCell);
 };
 
 export const handleBackspace = (direction, setDirection, cells, setCells) => {
