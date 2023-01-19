@@ -1,22 +1,8 @@
 /* Get specific cell */
-
-/* export const getSelectedCell = (direction, cells) => {
-	const selectedWord = getSelectedWord(direction, cells).word;
-	const selectedCell = selectedWord.find((cell) => cell.isSelected);
-
-	return selectedCell;
-}; */
-
 export const getSelectedCell = (cells) => cells.find((cell) => cell.isSelected);
 
 const getSelectedCellIndex = (array) =>
 	array.findIndex((cell) => cell.isSelected);
-
-/* export const getCellBefore = (selectedCell, cellsArray) =>
-    cellsArray.findLast((cell) => cell1IsBeforeCell2(cell, selectedCell)); */
-
-/* export const getCellAfter = (selectedCell, cellsArray) =>
-	cellsArray.find((cell) => cell1IsBeforeCell2(selectedCell, cell)); */
 
 export const getCellBefore = (array) => {
 	const selectedCellIndex = getSelectedCellIndex(array);
@@ -31,16 +17,6 @@ export const getCellAfter = (array) => {
 
 	return cellAfter;
 };
-
-/* export const getBlankBefore = (selectedCell, cellsArray) =>
-	cellsArray.findLast(
-		(cell) => cell1IsBeforeCell2(cell, selectedCell) && !cell.letter
-	); */
-
-/* export const getBlankAfter = (selectedCell, cellsArray) =>
-	cellsArray.find(
-		(cell) => cell1IsBeforeCell2(selectedCell, cell) && !cell.letter
-	); */
 
 export const getBlankBefore = (array) => {
 	const selectedCellIndex = getSelectedCellIndex(array);
@@ -59,23 +35,6 @@ export const getBlankAfter = (array) => {
 
 	return blankAfter;
 };
-
-/* const getBlank = (cellsArray) => {
-	const selectedCell = cellsArray.find((cell) => cell.isSelected);
-
-	return {
-		before: cellsArray.findLast(
-			(cell) => cell1IsBeforeCell2(cell, selectedCell) && !cell.letter
-		),
-		after: cellsArray.find(
-			(cell) => cell1IsBeforeCell2(selectedCell, cell) && !cell.letter
-		),
-	};
-}; */
-
-/* Cell descriptors */
-
-// export const cell1IsBeforeCell2 = (cell1, cell2) => cell1.index < cell2.index;
 
 export const getCellIndex = (cell, array) => {
 	const cellId = cell.id;

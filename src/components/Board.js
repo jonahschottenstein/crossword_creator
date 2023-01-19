@@ -1,5 +1,4 @@
 import { Cell } from "./Cell.js";
-// import { getSelectedWord, isInSelectedWord } from "../utilities/words.js";
 import { getWordObj } from "../utilities/words.js";
 import { isInSelectedWord } from "../utilities/helpers.js";
 

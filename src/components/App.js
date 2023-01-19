@@ -6,7 +6,6 @@ import { setCellBlock } from "../utilities/setCellBlock.js";
 import { setSymmetricalCellBlock } from "../utilities/setSymmetricalCellBlock.js";
 import { setCellNumbers } from "../utilities/setCellNumbers.js";
 import { setClues } from "../utilities/setClues.js";
-// import { entryIsValid, setCellLetter } from "../utilities/setCellLetter.js";
 import { handleLetterKey } from "../utilities/letters.js";
 import { removeCellSelection } from "../utilities/removeCellSelection.js";
 import { createCellObjects } from "../utilities/createCellObjects.js";
