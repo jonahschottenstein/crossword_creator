@@ -257,6 +257,21 @@ const getNextCellOnBackspaceKey = (direction, cells) => {
 		});
 		return newState;
 	});
+}; */
+const deleteLetter = (direction, cells, setCells) => {
+	const nextCell = getNextCellOnBackspaceKey(direction, cells);
+	if (!cellHasLetter(nextCell)) return;
+
+	setCells((prevState) => {
+		const newState = prevState.map((cell) => {
+			if (cell.index === nextCell.index) {
+				return { ...cell, letter: "" };
+			} else {
+				return cell;
+			}
+		});
+		return newState;
+	});
 };
 
 const selectCellElementOnBackspace = (direction, cells) => {
