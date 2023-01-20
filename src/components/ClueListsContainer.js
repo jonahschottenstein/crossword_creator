@@ -5,8 +5,15 @@ export const ClueListsContainer = (props) => {
 		<div className="clue-lists-container">
 			<ClueList
 				direction="across"
-				clueNumbers={props.acrossClueNumbers}></ClueList>
-			<ClueList direction="down" clueNumbers={props.downClueNumbers}></ClueList>
+				clueNumbers={props.acrossClueNumbers}
+				clueProps={props.clueProps}
+				oppositeClueProps={props.oppositeClueProps}></ClueList>
+
+			<ClueList
+				direction="down"
+				clueNumbers={props.downClueNumbers}
+				clueProps={props.clueProps}
+				oppositeClueProps={props.oppositeClueProps}></ClueList>
 		</div>
 	);
 };
