@@ -7,13 +7,15 @@ export const ClueListsContainer = (props) => {
 				direction="across"
 				clueNumbers={props.acrossClueNumbers}
 				clueProps={props.clueProps}
-				oppositeClueProps={props.oppositeClueProps}></ClueList>
+				oppositeClueProps={props.oppositeClueProps}
+				onClick={props.onClick}></ClueList>
 
 			<ClueList
 				direction="down"
 				clueNumbers={props.downClueNumbers}
 				clueProps={props.clueProps}
-				oppositeClueProps={props.oppositeClueProps}></ClueList>
+				oppositeClueProps={props.oppositeClueProps}
+				onClick={props.onClick}></ClueList>
 		</div>
 	);
 };

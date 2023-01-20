@@ -19,6 +19,7 @@ export const ClueList = (props) => {
 									? "clue-list-item opposite-highlighted"
 									: "clue-list-item"
 							}
+							onClick={props.onClick}
 						/>
 					);
 				})}
