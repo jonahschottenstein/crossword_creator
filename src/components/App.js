@@ -9,12 +9,11 @@ import { setClues } from "../utilities/setClues.js";
 import { handleLetterKey } from "../utilities/letters.js";
 import { removeCellSelection } from "../utilities/removeCellSelection.js";
 import { createCellObjects } from "../utilities/createCellObjects.js";
-import { Board } from "./Board.js";
-import { CellBlockSettings } from "./CellBlockSettings.js";
 import { ClueListsContainer } from "./ClueListsContainer";
 import { handleArrowKeys } from "../utilities/arrows";
 import { handleTabKey } from "../utilities/tab.js";
 import { handleBackspaceKey } from "../utilities/backspace.js";
+import { BoardAndSettings } from "./BoardAndSettings";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -59,16 +58,14 @@ export default function App() {
 
 	return (
 		<div className="App">
-			<CellBlockSettings
-				cellBlockIsChecked={cellBlockSettings.cellBlockIsChecked}
-				symmetryIsChecked={cellBlockSettings.symmetryIsChecked}
-				onChange={handleChange}
-			/>
-			<Board
+			<BoardAndSettings
 				direction={direction}
 				cells={cells.slice()}
 				onClick={(e) => handleClick(e)}
 				onKeyDown={handleKeyDown}
+				cellBlockIsChecked={cellBlockSettings.cellBlockIsChecked}
+				symmetryIsChecked={cellBlockSettings.symmetryIsChecked}
+				onChange={handleChange}
 			/>
 			<ClueListsContainer
 				acrossClueNumbers={cells
