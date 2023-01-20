@@ -14,7 +14,11 @@ import { handleArrowKeys } from "../utilities/arrows";
 import { handleTabKey } from "../utilities/tab.js";
 import { handleBackspaceKey } from "../utilities/backspace.js";
 import { BoardAndSettings } from "./BoardAndSettings";
-import { getClueProps, scrollToLi } from "../utilities/clueListItems";
+import {
+	getClueProps,
+	scrollToLi,
+	selectCellElementOnLiClick,
+} from "../utilities/clueListItems";
 import { getNextDirection } from "../utilities/helpers";
 
 export default function App() {
@@ -36,6 +40,10 @@ export default function App() {
 			setDirectionOnClick(e, cells, setDirection);
 			setSelectedCell(e, setCells);
 		}
+	};
+
+	const handleLiClick = (e) => {
+		selectCellElementOnLiClick(e, direction, setDirection, cells);
 	};
 
 	const handleKeyDown = (e) => {
@@ -83,6 +91,7 @@ export default function App() {
 					.map((cell) => cell.number)}
 				clueProps={getClueProps(direction, cells)}
 				oppositeClueProps={getClueProps(getNextDirection(direction), cells)}
+				onClick={(e) => handleLiClick(e)}
 			/>
 		</div>
 	);
