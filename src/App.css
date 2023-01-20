@@ -265,6 +265,7 @@ input:checked + .slider:before {
 
 .cell > * {
 	pointer-events: none;
+	user-select: none;
 }
 
 .number {
@@ -335,6 +336,11 @@ ol {
 	cursor: pointer;
 	display: flex;
 	padding: 5px 1px;
+}
+
+.clue-list-item > * {
+	pointer-events: none;
+	user-select: none;
 }
 
 .opposite-highlighted {
