@@ -337,6 +337,10 @@ ol {
 	padding: 5px 1px;
 }
 
+.opposite-highlighted {
+	border-left-color: #a7d8ff;
+}
+
 .clue-list-item span {
 	line-height: 1.4;
 	margin-right: 5px;
