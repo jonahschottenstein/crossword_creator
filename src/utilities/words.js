@@ -109,7 +109,8 @@ const createWordObjs = (direction, cells) => {
 	return wordObjects;
 };
 
-const getWordObjs = (direction, cells) => createWordObjs(direction, cells);
+export const getWordObjs = (direction, cells) =>
+	createWordObjs(direction, cells);
 
 export const getWordObj = (direction, cells) => {
 	const wordObjs = getWordObjs(direction, cells);
