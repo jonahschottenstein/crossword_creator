@@ -14,6 +14,8 @@ import { handleArrowKeys } from "../utilities/arrows";
 import { handleTabKey } from "../utilities/tab.js";
 import { handleBackspaceKey } from "../utilities/backspace.js";
 import { BoardAndSettings } from "./BoardAndSettings";
+import { getClueProps, scrollToLi } from "../utilities/clueListItems";
+import { getNextDirection } from "../utilities/helpers";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -76,6 +78,8 @@ export default function App() {
 				downClueNumbers={cells
 					.filter((cell) => cell.isBlackSquare === false && cell.down === true)
 					.map((cell) => cell.number)}
+				clueProps={getClueProps(direction, cells)}
+				oppositeClueProps={getClueProps(getNextDirection(direction), cells)}
 			/>
 		</div>
 	);
