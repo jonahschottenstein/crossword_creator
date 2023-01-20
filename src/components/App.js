@@ -58,6 +58,9 @@ export default function App() {
 		handleToggleChange(e);
 	};
 
+	scrollToLi(direction, cells);
+	scrollToLi(getNextDirection(direction), cells);
+
 	return (
 		<div className="App">
 			<BoardAndSettings
