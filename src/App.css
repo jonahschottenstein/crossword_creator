@@ -387,6 +387,18 @@ ol {
 .dashboard-page {
 	border: solid green 1px;
 }
+.dashboard-page:has(.dashboard-stats-table) {
+	overflow-x: auto;
+}
+.dashboard-stats-table {
+	border-collapse: collapse;
+	width: max-content;
+}
+td {
+	border-bottom: solid 1px #ddd;
+	padding: 0.75rem;
+	text-align: left;
+}
 
 @media (max-width: 960px) {
 	.clue-lists-container {
