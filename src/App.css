@@ -363,6 +363,31 @@ ol {
 	margin-left: 5px;
 }
 
+/* Dashboard */
+.dashboard {
+	border: solid black 1px;
+	display: flex;
+	flex-direction: column;
+}
+.dashboard-header {
+	border: solid red 1px;
+	display: flex;
+}
+.dashboard-header-button-label {
+	border: solid purple 1px;
+	flex-grow: 1;
+}
+.dashboard-header-button {
+	flex-grow: 1;
+}
+.dashboard-page-container {
+	border: solid blue 1px;
+	flex-grow: 1;
+}
+.dashboard-page {
+	border: solid green 1px;
+}
+
 @media (max-width: 960px) {
 	.clue-lists-container {
 		flex-direction: column;
