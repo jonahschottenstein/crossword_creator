@@ -37,7 +37,7 @@ export const scrollToLi = (direction, cells) => {
 	if (!clueList || !clueLi) return;
 
 	clueList.scrollTo({
-		top: clueLi.offsetTop - 47,
+		top: clueLi.offsetTop - 74,
 		behavior: "smooth",
 	});
 };
