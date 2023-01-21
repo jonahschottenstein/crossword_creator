@@ -9,7 +9,6 @@ import { setClues } from "../utilities/setClues.js";
 import { handleLetterKey } from "../utilities/letters.js";
 import { removeCellSelection } from "../utilities/removeCellSelection.js";
 import { createCellObjects } from "../utilities/createCellObjects.js";
-import { ClueListsContainer } from "./ClueListsContainer";
 import { handleArrowKeys } from "../utilities/arrows";
 import { handleTabKey } from "../utilities/tab.js";
 import { handleBackspaceKey } from "../utilities/backspace.js";
@@ -20,6 +19,7 @@ import {
 	selectCellElementOnLiClick,
 } from "../utilities/clueListItems";
 import { getNextDirection } from "../utilities/helpers";
+import { Dashboard } from "./Dashboard";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -67,6 +67,10 @@ export default function App() {
 		handleToggleChange(e);
 	};
 
+	const handleDashChange = (e) => {
+		setVisibleDashPage(e.target.value);
+	};
+
 	scrollToLi(direction, cells);
 	scrollToLi(getNextDirection(direction), cells);
 
@@ -81,7 +85,11 @@ export default function App() {
 				symmetryIsChecked={cellBlockSettings.symmetryIsChecked}
 				onChange={handleChange}
 			/>
-			<ClueListsContainer
+			<Dashboard
+				direction={direction}
+				cells={cells.slice()}
+				visibleDashPage={visibleDashPage}
+				onChange={handleDashChange}
 				acrossClueNumbers={cells
 					.filter(
 						(cell) => cell.isBlackSquare === false && cell.across === true
