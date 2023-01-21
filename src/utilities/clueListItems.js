@@ -88,10 +88,23 @@ export const selectCellElementOnLiClick = (
 ) => {
 	const cellToSelect = getCellOnLiClick(e, cells);
 	const clueLiDirection = getClueLiDirection(e);
+	const wordToHighlight = getWordToHighlight(e, cells);
+	const firstCell = wordToHighlight.firstCell;
+	const firstCellIsSelected = firstCell.isSelected;
 
-	if (direction !== clueLiDirection) {
-		changeDirection(setDirection);
+	if (e.target.matches(".clue-list-item.highlighted")) {
+		if (firstCellIsSelected) return;
+		selectCellElement(firstCell);
+	} else {
+		if (direction !== clueLiDirection && !cellToSelect.isSelected) {
+			// 1. different clue number, different direction, different cellToSelect
+			changeDirection(setDirection);
+			selectCellElement(cellToSelect);
+		} else {
+			// 1. same clue number, same cellToSelect, different direction
+			// 2. different clue number, different cellToSelect, different direction (click opp. clue when !firstCell.isSelected)
+			// 3. different clue number, different cellToSelect, same direction
+			selectCellElement(cellToSelect);
+		}
 	}
-
-	selectCellElement(cellToSelect);
 };
