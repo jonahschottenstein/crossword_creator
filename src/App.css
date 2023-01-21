@@ -219,6 +219,10 @@ input:checked + .slider:before {
 	margin-left: 5px;
 } */
 
+* {
+	box-sizing: border-box;
+}
+
 .App {
 	display: flex;
 	font-family: sans-serif;
@@ -407,6 +411,7 @@ td {
 	.clue-list-wrapper {
 		height: calc(50% - 10px);
 		margin-bottom: 10px;
+		overflow-y: scroll;
 		width: 100%;
 	}
 }
