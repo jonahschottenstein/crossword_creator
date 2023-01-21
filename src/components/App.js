@@ -28,6 +28,7 @@ export default function App() {
 		cellBlockIsChecked: false,
 		symmetryIsChecked: true,
 	});
+	const [visibleDashPage, setVisibleDashPage] = useState("Stats");
 
 	const handleClick = (e) => {
 		if (cellBlockSettings.cellBlockIsChecked) {
