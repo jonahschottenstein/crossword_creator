@@ -1,9 +1,10 @@
 import {
+	cellHasLetter,
 	changeDirection,
 	getNextDirection,
 	selectCellElement,
 } from "./helpers";
-import { getWordObj } from "./words.js";
+import { getWordObj, getWordObjs } from "./words.js";
 
 const getInitialOpenWordObj = (e, direction, cells) => {
 	const isShiftKeyPressed = e.shiftKey;
@@ -12,12 +13,52 @@ const getInitialOpenWordObj = (e, direction, cells) => {
 	return isShiftKeyPressed ? lastOpenWordObj : firstOpenWordObj;
 };
 
+const getInitialWordObj = (e, direction, cells) => {
+	const isShiftKeyPressed = e.shiftKey;
+	const { firstWordObj, lastWordObj } = getWordObj(direction, cells);
+
+	return isShiftKeyPressed ? lastWordObj : firstWordObj;
+};
+
+const getFinalWordObj = (e, direction, cells) => {
+	const isShiftKeyPressed = e.shiftKey;
+	const { firstWordObj, lastWordObj } = getWordObj(direction, cells);
+
+	return isShiftKeyPressed ? firstWordObj : lastWordObj;
+};
+
 const getNextOpenWordObj = (e, direction, cells) => {
 	const isShiftKeyPressed = e.shiftKey;
 	const { openWordObjBefore, openWordObjAfter } = getWordObj(direction, cells);
 
 	return isShiftKeyPressed ? openWordObjBefore : openWordObjAfter;
 };
+
+const getNextWordObj = (e, direction, cells) => {
+	const isShiftKeyPressed = e.shiftKey;
+	const { wordObjBefore, wordObjAfter } = getWordObj(direction, cells);
+
+	return isShiftKeyPressed ? wordObjBefore : wordObjAfter;
+};
+
+const getWhiteSquares = (direction, cells) => {
+	const whiteSquares = getWordObjs(direction, cells)
+		.map((obj) => obj.word)
+		.flat();
+
+	return whiteSquares;
+};
+
+/* const changeDirectionOnTabKey = (e, direction, setDirection, cells) => {
+	if (e.key !== "Tab") return;
+	e.preventDefault();
+
+	const nextOpenWordObj = getNextOpenWordObj(e, direction, cells);
+
+	if (nextOpenWordObj) return;
+
+	changeDirection(setDirection);
+}; */
 
 const changeDirectionOnTabKey = (e, direction, setDirection, cells) => {
 	if (e.key !== "Tab") return;
