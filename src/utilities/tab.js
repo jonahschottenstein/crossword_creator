@@ -65,13 +65,16 @@ const changeDirectionOnTabKey = (e, direction, setDirection, cells) => {
 	e.preventDefault();
 
 	const nextOpenWordObj = getNextOpenWordObj(e, direction, cells);
+	const finalWordObj = getFinalWordObj(e, direction, cells);
+	const whiteSquares = getWhiteSquares(direction, cells);
 
 	if (nextOpenWordObj) return;
+	if (whiteSquares.every(cellHasLetter) && !finalWordObj.isSelected) return;
 
 	changeDirection(setDirection);
 };
 
-const getNextCellOnTabKey = (e, direction, cells) => {
+/* const getNextCellOnTabKey = (e, direction, cells) => {
 	const nextDirection = getNextDirection(direction);
 	const initialOpenWordObjNextDirection = getInitialOpenWordObj(
 		e,
@@ -84,6 +87,29 @@ const getNextCellOnTabKey = (e, direction, cells) => {
 		: initialOpenWordObjNextDirection.firstBlank;
 
 	return nextCell;
+}; */
+
+const getNextCellOnTabKey = (e, direction, cells) => {
+	const nextDirection = getNextDirection(direction);
+	const initialOpenWordObjNextDirection = getInitialOpenWordObj(
+		e,
+		nextDirection,
+		cells
+	);
+	const nextOpenWordObj = getNextOpenWordObj(e, direction, cells);
+	const nextWordObj = getNextWordObj(e, direction, cells);
+	const initialWordObjNextDirection = getInitialWordObj(
+		e,
+		nextDirection,
+		cells
+	);
+
+	return (
+		nextOpenWordObj?.firstBlank ||
+		initialOpenWordObjNextDirection?.firstBlank ||
+		nextWordObj?.firstCell ||
+		initialWordObjNextDirection.firstCell
+	);
 };
 
 const selectCellElementOnTabKey = (e, direction, cells) => {
