@@ -116,6 +116,20 @@ const selectCellElementOnTabKey = (e, direction, cells) => {
 	if (e.key !== "Tab") return;
 	e.preventDefault();
 
+	const nextDirection = getNextDirection(direction);
+	const initialOpenWordObjNextDirection = getInitialOpenWordObj(
+		e,
+		nextDirection,
+		cells
+	);
+	const nextOpenWordObj = getNextOpenWordObj(e, direction, cells);
+
+	if (
+		initialOpenWordObjNextDirection?.firstBlank.isSelected &&
+		!nextOpenWordObj
+	)
+		return;
+
 	const nextCell = getNextCellOnTabKey(e, direction, cells);
 
 	selectCellElement(nextCell);
