@@ -1,4 +1,4 @@
-import { getWordObj, getWordObjs } from "./words.js";
+import { getWordObj, getWhiteSquares } from "./words.js";
 import { setCellLetter } from "./setCellLetter.js";
 import {
 	cellHasLetter,
@@ -14,13 +14,10 @@ import {
 
 const getFirstBlank = (direction, cells) => {
 	const { firstOpenWordObj } = getWordObj(direction, cells);
-	// const { firstBlank } = firstOpenWordObj;
 	const firstBlank = firstOpenWordObj?.firstBlank;
 
 	return firstBlank;
 };
-
-// getWordObjs(direction, cells).map((obj) => obj.word).flat();
 
 const getFirstCell = (direction, cells) => {
 	const { firstWordObj } = getWordObj(direction, cells);
@@ -51,11 +48,8 @@ const getNextCellOnLetterKey = (direction, cells) => {
 		blankBeforeInWord && selectedWordObj.firstBlank;
 	const firstBlankInOpenWordAfter = openWordObjAfter?.firstBlank;
 	const firstBlankNextDirection = getFirstBlank(nextDirection, cells);
-	const cellAfter = getCellAfter(
-		getWordObjs(direction, cells)
-			.map((obj) => obj.word)
-			.flat()
-	);
+	const whiteSquares = getWhiteSquares(direction, cells);
+	const cellAfter = getCellAfter(whiteSquares);
 	const firstCellNextDirection = getFirstCell(nextDirection, cells);
 
 	return (
