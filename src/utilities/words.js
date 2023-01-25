@@ -128,3 +128,11 @@ export const getWordObj = (direction, cells) => {
 		selectedWordObj: findWordObj("isSelected"),
 	};
 };
+
+export const getWhiteSquares = (direction, cells) => {
+	const whiteSquares = getWordObjs(direction, cells)
+		.map((obj) => obj.word)
+		.flat();
+
+	return whiteSquares;
+};
