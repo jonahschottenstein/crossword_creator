@@ -1,4 +1,4 @@
-import { getWordObj } from "./words.js";
+import { getWordObj, getWordObjs } from "./words.js";
 import { setCellLetter } from "./setCellLetter.js";
 import {
 	cellHasLetter,
@@ -14,9 +14,19 @@ import {
 
 const getFirstBlank = (direction, cells) => {
 	const { firstOpenWordObj } = getWordObj(direction, cells);
-	const { firstBlank } = firstOpenWordObj;
+	// const { firstBlank } = firstOpenWordObj;
+	const firstBlank = firstOpenWordObj?.firstBlank;
 
 	return firstBlank;
+};
+
+// getWordObjs(direction, cells).map((obj) => obj.word).flat();
+
+const getFirstCell = (direction, cells) => {
+	const { firstWordObj } = getWordObj(direction, cells);
+	const { firstCell } = firstWordObj;
+
+	return firstCell;
 };
 
 const getNextCellFirstOptionOnLetterKey = (direction, cells) => {
@@ -41,12 +51,20 @@ const getNextCellOnLetterKey = (direction, cells) => {
 		blankBeforeInWord && selectedWordObj.firstBlank;
 	const firstBlankInOpenWordAfter = openWordObjAfter?.firstBlank;
 	const firstBlankNextDirection = getFirstBlank(nextDirection, cells);
+	const cellAfter = getCellAfter(
+		getWordObjs(direction, cells)
+			.map((obj) => obj.word)
+			.flat()
+	);
+	const firstCellNextDirection = getFirstCell(nextDirection, cells);
 
 	return (
 		firstOption ||
 		firstBlankBeforeInWord ||
 		firstBlankInOpenWordAfter ||
-		firstBlankNextDirection
+		firstBlankNextDirection ||
+		cellAfter ||
+		firstCellNextDirection
 	);
 };
 
@@ -63,11 +81,26 @@ const changeDirectionOnLetterKey = (direction, setDirection, cells) => {
 	const { lastCell: lastCellOfSelectedWord } = selectedWordObj;
 	const blankBeforeInWord = getBlankBefore(selectedWord);
 	const blankAfterInWord = getBlankAfter(selectedWord);
+	const nextDirection = getNextDirection(direction);
+	const firstBlankNextDirection = getFirstBlank(nextDirection, cells);
+	const { lastWordObj } = getWordObj(direction, cells);
+	const { lastCell: lastCellOfLastWord } = lastWordObj;
 
 	if (cellHasLetter(selectedCell) && !lastCellOfSelectedWord.isSelected) return;
 
+	// if (!blankBeforeInWord && !blankAfterInWord && !openWordObjAfter) {
+	// 	changeDirection(setDirection);
+	// }
+
+	// Need to make so when add letter to last blank the direction changes
+
 	if (!blankBeforeInWord && !blankAfterInWord && !openWordObjAfter) {
-		changeDirection(setDirection);
+		if (firstBlankNextDirection) {
+			changeDirection(setDirection);
+		} else {
+			if (!lastCellOfLastWord.isSelected) return;
+			changeDirection(setDirection);
+		}
 	}
 };
 
