@@ -78,7 +78,6 @@ const changeDirectionOnLetterKey = (direction, setDirection, cells) => {
 	const selectedCell = getSelectedCell(cells);
 	const { selectedWordObj, openWordObjAfter } = getWordObj(direction, cells);
 	const { word: selectedWord } = selectedWordObj;
-	const { lastCell: lastCellOfSelectedWord } = selectedWordObj;
 	const blankBeforeInWord = getBlankBefore(selectedWord);
 	const blankAfterInWord = getBlankAfter(selectedWord);
 	const nextDirection = getNextDirection(direction);
@@ -86,22 +85,15 @@ const changeDirectionOnLetterKey = (direction, setDirection, cells) => {
 	const { lastWordObj } = getWordObj(direction, cells);
 	const { lastCell: lastCellOfLastWord } = lastWordObj;
 
-	if (cellHasLetter(selectedCell) && !lastCellOfSelectedWord.isSelected) return;
-
-	// if (!blankBeforeInWord && !blankAfterInWord && !openWordObjAfter) {
-	// 	changeDirection(setDirection);
-	// }
-
-	// Need to make so when add letter to last blank the direction changes
-
-	if (!blankBeforeInWord && !blankAfterInWord && !openWordObjAfter) {
-		if (firstBlankNextDirection) {
-			changeDirection(setDirection);
-		} else {
-			if (!lastCellOfLastWord.isSelected) return;
-			changeDirection(setDirection);
-		}
+	if (blankBeforeInWord || blankAfterInWord || openWordObjAfter) return;
+	if (firstBlankNextDirection) {
+		if (cellHasLetter(selectedCell) && !selectedWordObj.lastCell?.isSelected)
+			return;
+	} else {
+		if (!lastCellOfLastWord.isSelected) return;
 	}
+
+	changeDirection(setDirection);
 };
 
 export const handleLetterKey = (
@@ -113,7 +105,21 @@ export const handleLetterKey = (
 ) => {
 	if (!entryIsValid(e)) return;
 
+	const nextDirection = getNextDirection(direction);
+	const firstBlankNextDirection = getFirstBlank(nextDirection, cells);
+	const { selectedWordObj, openWordObjAfter } = getWordObj(direction, cells);
+	const { word: selectedWord } = selectedWordObj;
+	const blankAfterInWord = getBlankAfter(selectedWord);
+
 	setCellLetter(e, cells, setCells);
 	changeDirectionOnLetterKey(direction, setDirection, cells);
+
+	if (
+		firstBlankNextDirection?.isSelected &&
+		!blankAfterInWord &&
+		!openWordObjAfter
+	)
+		return;
+
 	selectCellElementOnLetterKey(direction, cells);
 };
