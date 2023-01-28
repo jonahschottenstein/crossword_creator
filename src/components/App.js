@@ -85,6 +85,10 @@ export default function App() {
 		selectCellElementOnLiClick(e, direction, setDirection, cells);
 	};
 
+	const handleMatchClick = (e) => {
+		fillWord(e, direction, cells, setCells);
+	};
+
 	const handleKeyDown = (e) => {
 		handleArrowKeys(e, direction, setDirection, cells);
 		handleTabKey(e, direction, setDirection, cells);
@@ -139,6 +143,8 @@ export default function App() {
 				clueProps={getClueProps(direction, cells)}
 				oppositeClueProps={getClueProps(getNextDirection(direction), cells)}
 				onClick={(e) => handleLiClick(e)}
+				wordMatches={wordMatches}
+				onMatchClick={(e) => handleMatchClick(e)}
 			/>
 		</div>
 	);
