@@ -1,7 +1,7 @@
 export const Cell = (props) => {
 	return (
 		<div
-			id={`cell-${props.index}`}
+			id={props.id}
 			className={props.className}
 			data-index={props.index}
 			tabIndex={props.tabIndex}
