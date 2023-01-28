@@ -272,6 +272,20 @@ input:checked + .slider:before {
 	user-select: none;
 }
 
+.display-word-container {
+	display: flex;
+	justify-content: center;
+	padding: 1rem;
+}
+
+.display-cell {
+	aspect-ratio: 1 / 1;
+	border: solid black 0.5px;
+	flex-grow: 1;
+	max-width: 33.05px;
+	/* position: relative; */
+}
+
 .number {
 	font-size: 11px;
 	/* left: 3px; */
@@ -401,7 +415,11 @@ ol {
 .dashboard-page:has(.dashboard-stats-table) {
 	overflow-x: auto;
 }
-.dashboard-stats-table {
+/* .dashboard-stats-table {
+	border-collapse: collapse;
+	width: max-content;
+} */
+table {
 	border-collapse: collapse;
 	width: max-content;
 }
@@ -409,6 +427,34 @@ td {
 	border-bottom: solid 1px #ddd;
 	padding: 0.75rem;
 	text-align: left;
+}
+
+.match-table {
+	/* display: block; */
+	display: flex;
+	flex-direction: column;
+	height: 550px;
+	overflow-y: scroll;
+	width: 100%;
+}
+
+.match-table tr {
+	cursor: pointer;
+	display: table;
+	width: 100%;
+}
+
+.match-table tr > * {
+	pointer-events: none;
+}
+
+.match-table th {
+	padding: 0.75rem;
+}
+
+.match-table td {
+	text-align: center;
+	width: 50%;
 }
 
 @media (max-width: 960px) {
