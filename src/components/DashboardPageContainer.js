@@ -13,6 +13,8 @@ export const DashboardPageContainer = (props) => {
 				clueProps={props.clueProps}
 				oppositeClueProps={props.oppositeClueProps}
 				onClick={props.onClick}
+				wordMatches={props.wordMatches}
+				onMatchClick={props.onMatchClick}
 			/>
 		</div>
 	);
