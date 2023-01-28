@@ -9,6 +9,7 @@ export const Board = (props) => {
 		return (
 			<Cell
 				key={index}
+				id={`cell-${index}`}
 				className={
 					cell.isSelected
 						? "cell selected highlighted"
