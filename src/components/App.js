@@ -1,5 +1,5 @@
 import "../App.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { setDirectionOnClick } from "../utilities/direction.js";
 import { setSelectedCell } from "../utilities/setSelectedCell.js";
 import { setCellBlock } from "../utilities/setCellBlock.js";
@@ -18,8 +18,10 @@ import {
 	scrollToLi,
 	selectCellElementOnLiClick,
 } from "../utilities/clueListItems";
-import { getNextDirection } from "../utilities/helpers";
+import { cellHasLetter, getNextDirection } from "../utilities/helpers";
 import { Dashboard } from "./Dashboard";
+import { getWordMatches, fillWord } from "../utilities/fill";
+import { getWordObj } from "../utilities/words";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -29,6 +31,42 @@ export default function App() {
 		symmetryIsChecked: true,
 	});
 	const [visibleDashPage, setVisibleDashPage] = useState("Stats");
+	const [wordMatches, setWordMatches] = useState(null);
+
+	useEffect(() => {
+		const { selectedWordObj } = getWordObj(direction, cells);
+		const fetchWordList = async () => {
+			const wordLength = selectedWordObj?.word.length;
+
+			if (!selectedWordObj || wordLength < 3) {
+				if (!ignore) {
+					setWordMatches(null);
+				}
+			} else {
+				const resource = `./wordLists/${wordLength}-letter-words.json`;
+				const response = await fetch(resource);
+				const wordList = await response.json();
+				const wordMatches = await getWordMatches(selectedWordObj, wordList);
+
+				if (!ignore) {
+					if (!selectedWordObj.word.some(cellHasLetter)) {
+						const first500Matches = wordMatches.filter(
+							(word, index) => index < 500
+						);
+						setWordMatches(first500Matches);
+					} else {
+						setWordMatches(wordMatches);
+					}
+				}
+			}
+		};
+
+		let ignore = false;
+		fetchWordList();
+		return () => {
+			ignore = true;
+		};
+	}, [direction, cells]);
 
 	const handleClick = (e) => {
 		if (cellBlockSettings.cellBlockIsChecked) {
