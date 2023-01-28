@@ -1,5 +1,4 @@
 export const DashboardStatsTable = (props) => {
-	console.log(props);
 	return (
 		<table className="dashboard-stats-table">
 			<tbody>
