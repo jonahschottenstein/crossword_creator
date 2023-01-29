@@ -165,24 +165,50 @@ ol {
 	display: flex;
 	flex-direction: column;
 }
+
+.dashboard:has(.stats-page) .stats-button-label {
+	background-color: #a7d8ff;
+}
+
+.dashboard:has(.clues-page) .clues-button-label {
+	background-color: #a7d8ff;
+}
+
+.dashboard:has(.fill-page) .fill-button-label {
+	background-color: #a7d8ff;
+}
+
 .dashboard-header {
-	border: solid red 1px;
 	display: flex;
 }
+
 .dashboard-header-button-label {
-	border: solid purple 1px;
+	border: solid black 1px;
+	cursor: pointer;
 	flex-grow: 1;
+	padding: 5px;
+	position: relative;
+	text-transform: capitalize;
 }
+
 .dashboard-header-button {
 	flex-grow: 1;
+	height: 0;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 0;
 }
+
 .dashboard-page-container {
 	border: solid blue 1px;
 	flex-grow: 1;
 }
+
 .dashboard-page {
 	border: solid green 1px;
 }
+
 .dashboard-page:has(.dashboard-stats-table) {
 	overflow-x: auto;
 }
@@ -205,10 +231,23 @@ td {
 	width: 100%;
 }
 
+.match-table thead {
+	top: 0;
+	position: sticky;
+}
+
+.match-table thead th {
+	background-color: white;
+}
+
 .match-table tr {
 	cursor: pointer;
 	display: table;
 	width: 100%;
+}
+
+.match-table tbody tr:hover {
+	background-color: lightgray;
 }
 
 .match-table tr > * {
