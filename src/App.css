@@ -92,10 +92,9 @@
 }
 
 .clue-lists-container {
-	border: solid black 1px;
 	display: flex;
 	justify-content: space-around;
-	max-height: 625px;
+	max-height: 606.5px;
 	min-width: 230px;
 }
 
@@ -183,7 +182,7 @@ ol {
 }
 
 .dashboard-header-button-label {
-	border: solid black 1px;
+	border-bottom: solid black 1px;
 	cursor: pointer;
 	flex-grow: 1;
 	padding: 5px;
@@ -201,12 +200,9 @@ ol {
 }
 
 .dashboard-page-container {
-	border: solid blue 1px;
+	display: flex;
+	flex-direction: column;
 	flex-grow: 1;
-}
-
-.dashboard-page {
-	border: solid green 1px;
 }
 
 .dashboard-page:has(.dashboard-stats-table) {
@@ -226,7 +222,7 @@ td {
 .match-table {
 	display: flex;
 	flex-direction: column;
-	height: 550px;
+	max-height: 542.5px;
 	overflow-y: scroll;
 	width: 100%;
 }
