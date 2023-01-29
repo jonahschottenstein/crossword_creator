@@ -30,7 +30,7 @@ export default function App() {
 		cellBlockIsChecked: false,
 		symmetryIsChecked: true,
 	});
-	const [visibleDashPage, setVisibleDashPage] = useState("Stats");
+	const [visibleDashPage, setVisibleDashPage] = useState("stats");
 	const [wordMatches, setWordMatches] = useState(null);
 
 	useEffect(() => {
