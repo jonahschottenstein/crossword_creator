@@ -49,8 +49,11 @@ export default function App() {
 				const wordMatches = await getWordMatches(selectedWordObj, wordList);
 
 				if (!ignore) {
-					if (!selectedWordObj.word.some(cellHasLetter)) {
-						const first500Matches = wordMatches.filter(
+					if (
+						!selectedWordObj.word.some(cellHasLetter) ||
+						selectedWordObj.word.every(cellHasLetter)
+					) {
+						const first500Matches = wordList.filter(
 							(word, index) => index < 500
 						);
 						setWordMatches(first500Matches);
