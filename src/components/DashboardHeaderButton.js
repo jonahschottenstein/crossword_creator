@@ -1,8 +1,6 @@
 export const DashboardHeaderButton = (props) => {
 	return (
-		<label
-			className={"dashboard-header-button-label"}
-			htmlFor={props.buttonLabel}>
+		<label className={props.labelClassName} htmlFor={props.buttonLabel}>
 			<input
 				type={"radio"}
 				id={props.buttonLabel}

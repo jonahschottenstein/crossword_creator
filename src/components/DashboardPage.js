@@ -14,9 +14,9 @@ export const DashboardPage = (props) => {
 		pangram,
 	} = getStats(props.direction, props.cells);
 
-	if (props.visibleDashPage === "Stats") {
+	if (props.visibleDashPage === "stats") {
 		return (
-			<div className="dashboard-page">
+			<div className="dashboard-page stats-page">
 				<DashboardStatsTable
 					gridSize={gridSize}
 					totalWordCount={totalWordCount}
@@ -27,9 +27,9 @@ export const DashboardPage = (props) => {
 				/>
 			</div>
 		);
-	} else if (props.visibleDashPage === "Clues") {
+	} else if (props.visibleDashPage === "clues") {
 		return (
-			<div className="dashboard-page">
+			<div className="dashboard-page clues-page">
 				<ClueListsContainer
 					acrossClueNumbers={props.acrossClueNumbers}
 					downClueNumbers={props.downClueNumbers}
@@ -41,7 +41,7 @@ export const DashboardPage = (props) => {
 		);
 	} else {
 		return (
-			<div className="dashboard-page">
+			<div className="dashboard-page fill-page">
 				<div className="display-word-container">
 					{getWordObj(props.direction, props.cells).selectedWordObj?.word.map(
 						(cell, index) => {
