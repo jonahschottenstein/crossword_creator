@@ -122,7 +122,8 @@ ol {
 }
 
 .clue-list {
-	height: calc(100% - 28px);
+	/* height: calc(100% - 28px); */
+	height: calc(100% - 27px);
 	overflow-y: scroll;
 }
 
