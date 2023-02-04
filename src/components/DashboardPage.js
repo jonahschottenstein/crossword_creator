@@ -42,44 +42,115 @@ export const DashboardPage = (props) => {
 	} else {
 		return (
 			<div className="dashboard-page fill-page">
-				<div className="display-word-container">
-					{getWordObj(props.direction, props.cells).selectedWordObj?.word.map(
-						(cell, index) => {
-							return (
-								<Cell
-									key={index}
-									id={`display-cell-${index}`}
-									className={"cell display-cell"}
-									index={index}
-									tabIndex={cell.tabIndex}
-									number={cell.number}
-									letter={cell.letter}
-									isSelected={cell.isSelected}
-									isBlackSquare={cell.isBlackSquare}
-								/>
-							);
-						}
-					)}
-				</div>
-				<div className="match-table-container">
-					<table className="match-table">
-						<thead>
-							<tr>
-								<th>Word</th>
-								<th>Score</th>
-							</tr>
-						</thead>
-						<tbody>
-							{props.wordMatches?.map((obj) => (
-								<tr key={obj.word} onClick={props.onMatchClick}>
-									<td className="word-match-td">{obj.word}</td>
-									<td className="word-score-td">{obj.score}</td>
-								</tr>
-							))}
-						</tbody>
-					</table>
-				</div>
+				<DisplayWord direction={props.direction} cells={props.cells} />
+				<MatchTable
+					wordMatches={props.wordMatches}
+					onMatchClick={props.onMatchClick}
+				/>
 			</div>
 		);
 	}
 };
+
+const DisplayWord = ({ direction, cells }) => {
+	return (
+		<div className="display-word-container">
+			{getWordObj(direction, cells).selectedWordObj?.word.map((cell, index) => {
+				return (
+					<Cell
+						key={index}
+						id={`display-cell-${index}`}
+						className={"cell display-cell"}
+						index={index}
+						tabIndex={cell.tabIndex}
+						number={cell.number}
+						letter={cell.letter}
+						isSelected={cell.isSelected}
+						isBlackSquare={cell.isBlackSquare}
+					/>
+				);
+			})}
+		</div>
+	);
+};
+
+const MatchTable = ({ wordMatches, onMatchClick }) => {
+	return (
+		<div className="match-table-container">
+			<table className="match-table">
+				<thead>
+					<tr>
+						<th>Word</th>
+						<th>Score</th>
+					</tr>
+				</thead>
+				<tbody>
+					{wordMatches?.current?.map((wordMatch) => (
+						<MatchRow
+							key={wordMatch.word}
+							wordMatch={wordMatch}
+							onMatchClick={onMatchClick}
+						/>
+					))}
+				</tbody>
+				{wordMatches?.hasMatchesLeft ? (
+					<MatchTableFoot onMatchClick={onMatchClick} />
+				) : null}
+			</table>
+		</div>
+	);
+};
+
+const MatchRow = ({ wordMatch, onMatchClick }) => {
+	return (
+		<tr onClick={onMatchClick}>
+			<td className="word-match-td">{wordMatch.word}</td>
+			<td className="word-score-td">{wordMatch.score}</td>
+		</tr>
+	);
+};
+
+const MatchTableFoot = ({ onMatchClick }) => {
+	return (
+		<tfoot className="match-table-foot">
+			<tr>
+				<td>
+					<button className="show-more-button" onClick={onMatchClick}>
+						Show more
+					</button>
+				</td>
+			</tr>
+		</tfoot>
+	);
+};
+
+/* 
+	const noSelectedWordMessage = "Select an entry greater than three characters to view matches";
+	return (
+		<div className="dashboard-page fill-page">
+			{}
+		
+		</div>
+	)
+	if (!selectedWordObj) {
+		return 
+	}
+*/
+
+/* 
+	conditions:
+		- selected word:
+			- does not exist
+			- length < 3
+			- is empty
+			- is filled
+			- is partially filled (matchable)
+		- list:
+			- visible matches:
+				- exist
+				- don't exist
+			- more matches:
+				- exist
+				- don't exist
+
+ */
