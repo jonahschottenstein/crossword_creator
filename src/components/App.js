@@ -31,7 +31,10 @@ export default function App() {
 		symmetryIsChecked: true,
 	});
 	const [visibleDashPage, setVisibleDashPage] = useState("stats");
-	const [wordMatches, setWordMatches] = useState(null);
+	const [wordMatches, setWordMatches] = useState({
+		current: null,
+		hasMatchesLeft: false,
+	});
 
 	useEffect(() => {
 		const { selectedWordObj } = getWordObj(direction, cells);
