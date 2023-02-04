@@ -97,8 +97,30 @@ export default function App() {
 		selectCellElementOnLiClick(e, direction, setDirection, cells);
 	};
 
+	const showMoreWordMatches = async () => {
+		const { selectedWordObj } = getWordObj(direction, cells);
+		const wordList = await fetchWordList(selectedWordObj);
+		const newWordMatches = await getWordMatches(selectedWordObj, wordList);
+		const tableLength = getMatchesFromTable().length;
+		const next100Matches = getNext100Matches(newWordMatches, tableLength);
+		const currentMatches = [...wordMatches.current, ...next100Matches];
+		const hasMatchesLeft = areMatchesLeft(
+			newWordMatches,
+			currentMatches.length
+		);
+
+		setWordMatches({
+			current: currentMatches,
+			hasMatchesLeft: hasMatchesLeft,
+		});
+	};
+
 	const handleMatchClick = (e) => {
 		fillWord(e, direction, cells, setCells);
+
+		if (e.target.matches(".show-more-button")) {
+			showMoreWordMatches();
+		}
 	};
 
 	const handleKeyDown = (e) => {
