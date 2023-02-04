@@ -1,4 +1,14 @@
 import { getWordObj } from "./words";
+import { cellHasLetter } from "./helpers";
+
+export const fetchWordList = async (selectedWordObj) => {
+	const wordLength = selectedWordObj?.word.length;
+	const resource = `./wordLists/${wordLength}-letter-words.json`;
+	const response = await fetch(resource);
+	const wordList = await response.json();
+
+	return wordList;
+};
 
 const isAMatch = (lettersArray, wordString) =>
 	lettersArray.every(
@@ -19,6 +29,20 @@ export const getWordMatches = async (selectedWordObj, sameLengthWords) => {
 
 	return selectedWordMatches;
 };
+
+export const isMatchable = (word) =>
+	!word.every(cellHasLetter) && word.some(cellHasLetter);
+
+export const areMatchesLeft = (wordList, currentLength) =>
+	wordList.slice(currentLength).length > 0;
+
+export const getFirst100Matches = (wordList) => wordList.slice(0, 100);
+
+export const getNext100Matches = (wordMatches, tableLength) =>
+	wordMatches.slice(tableLength, tableLength + 100);
+
+export const getMatchesFromTable = () =>
+	document.querySelectorAll(".match-table tbody tr");
 
 export const fillWord = (e, direction, cells, setCells) => {
 	if (!e.target.matches(".match-table > tbody tr")) return;
