@@ -20,7 +20,16 @@ import {
 } from "../utilities/clueListItems";
 import { cellHasLetter, getNextDirection } from "../utilities/helpers";
 import { Dashboard } from "./Dashboard";
-import { getWordMatches, fillWord } from "../utilities/fill";
+import {
+	fetchWordList,
+	getWordMatches,
+	isMatchable,
+	areMatchesLeft,
+	getFirst100Matches,
+	getNext100Matches,
+	getMatchesFromTable,
+	fillWord,
+} from "../utilities/fill";
 import { getWordObj } from "../utilities/words";
 
 export default function App() {
@@ -37,38 +46,35 @@ export default function App() {
 	});
 
 	useEffect(() => {
-		const { selectedWordObj } = getWordObj(direction, cells);
-		const fetchWordList = async () => {
+		const startFetching = async () => {
+			setWordMatches({
+				current: null,
+				hasMatchesLeft: false,
+			});
+
+			const { selectedWordObj } = getWordObj(direction, cells);
 			const wordLength = selectedWordObj?.word.length;
 
-			if (!selectedWordObj || wordLength < 3) {
-				if (!ignore) {
-					setWordMatches(null);
-				}
-			} else {
-				const resource = `./wordLists/${wordLength}-letter-words.json`;
-				const response = await fetch(resource);
-				const wordList = await response.json();
-				const wordMatches = await getWordMatches(selectedWordObj, wordList);
-
-				if (!ignore) {
-					if (
-						!selectedWordObj.word.some(cellHasLetter) ||
-						selectedWordObj.word.every(cellHasLetter)
-					) {
-						const first500Matches = wordList.filter(
-							(word, index) => index < 500
-						);
-						setWordMatches(first500Matches);
-					} else {
-						setWordMatches(wordMatches);
-					}
-				}
+			if (!selectedWordObj || wordLength < 3) return;
+			if (!ignore) {
+				const wordList = await fetchWordList(selectedWordObj);
+				const newWordMatches = await getWordMatches(selectedWordObj, wordList);
+				const matchable = isMatchable(selectedWordObj.word);
+				const currentWordList = matchable ? newWordMatches : wordList;
+				const firstMatches = getFirst100Matches(currentWordList);
+				const hasMatchesLeft = areMatchesLeft(
+					currentWordList,
+					firstMatches.length
+				);
+				setWordMatches({
+					current: firstMatches,
+					hasMatchesLeft: hasMatchesLeft,
+				});
 			}
 		};
 
 		let ignore = false;
-		fetchWordList();
+		startFetching();
 		return () => {
 			ignore = true;
 		};
