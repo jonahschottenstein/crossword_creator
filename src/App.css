@@ -238,16 +238,19 @@ td {
 }
 
 .match-table tr {
-	cursor: pointer;
 	display: table;
 	width: 100%;
+}
+
+.match-table tbody tr {
+	cursor: pointer;
 }
 
 .match-table tbody tr:hover {
 	background-color: lightgray;
 }
 
-.match-table tr > * {
+.match-table tbody tr > * {
 	pointer-events: none;
 }
 
