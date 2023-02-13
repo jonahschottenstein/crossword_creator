@@ -29,6 +29,7 @@ import {
 	getNext100Matches,
 	getMatchesFromTable,
 	fillWord,
+	getTopMatches,
 } from "../utilities/fill";
 import { getWordObj } from "../utilities/words";
 
@@ -64,11 +65,19 @@ export default function App() {
 				);
 				const matchable = isMatchable(selectedWordObj.word);
 				const currentWordList = matchable ? newWordMatches : wordList;
+				const totalMatchCount = currentWordList.length;
+				console.log({ totalMatchCount });
 				const firstMatches = getFirst100Matches(currentWordList);
 				const hasMatchesLeft = areMatchesLeft(
 					currentWordList,
 					firstMatches.length
 				);
+				const topMatches = await getTopMatches(
+					currentWordList,
+					direction,
+					cells
+				);
+				console.log(topMatches);
 				setWordMatches({
 					current: firstMatches,
 					hasMatchesLeft: hasMatchesLeft,
