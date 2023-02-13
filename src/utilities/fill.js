@@ -1,5 +1,5 @@
-import { getWordObj } from "./words";
-import { cellHasLetter } from "./helpers";
+import { getWordObj, getWords } from "./words";
+import { cellHasLetter, getNextDirection } from "./helpers";
 
 export const fetchWordList = async (word) => {
 	const wordLength = word.length;
@@ -63,6 +63,117 @@ export const fillWord = (e, direction, cells, setCells) => {
 			return newState;
 		});
 	}
+};
+
+export const getCrossObjs = (direction, cells) => {
+	const { selectedWordObj } = getWordObj(direction, cells);
+	const selectedWord = selectedWordObj?.word;
+	const nextDirection = getNextDirection(direction, cells);
+	const words = getWords(nextDirection, cells);
+	const crossObjs = selectedWord.map((cell) => {
+		const crossingWord = words
+			.filter((word) => word.find((cell2) => cell2.id === cell.id))
+			.flat();
+		const cellIndex = crossingWord.findIndex((cell3) => cell3.id === cell.id);
+
+		return { crossingWord, cellIndex };
+	});
+
+	return crossObjs;
+};
+
+const getCrossingWords = (direction, cells) =>
+	getCrossObjs(direction, cells).map((obj) => obj.crossingWord);
+
+const getCrossingWordLists = async (direction, cells) => {
+	const crossingWords = getCrossingWords(direction, cells);
+	const crossingWordLists = await Promise.all(
+		crossingWords.map(async (word, index, array) => {
+			const crossingWordList = await fetchWordList(word);
+			const crossingWordMatches = await getWordMatches(word, crossingWordList);
+			if (crossingWordMatches.length < 1 && array[index].every(cellHasLetter)) {
+				return [
+					{
+						word: array[index].map((cell) => cell.letter).join(""),
+						score: "100",
+					},
+				];
+			}
+
+			return crossingWordMatches;
+		})
+	);
+
+	return crossingWordLists;
+};
+
+const getCrossOptionsLists = async (direction, cells) => {
+	const crossingWordLists = await getCrossingWordLists(direction, cells);
+	const crossOptionsLists = crossingWordLists.map((list, index) => {
+		const cellIdx = getCrossObjs(direction, cells)[index]["cellIndex"];
+		const letterList = list.map((obj) => obj.word[cellIdx]);
+
+		return [...new Set(letterList)];
+	});
+
+	return crossOptionsLists;
+};
+
+const getCurrentOptionsLists = (currentWordList, direction, cells) => {
+	const { selectedWordObj } = getWordObj(direction, cells);
+	const currentOptionsLists = [];
+
+	for (let i = 0; i < selectedWordObj?.word.length; i++) {
+		const currentLetterList = currentWordList.map(({ word }) => word[i]);
+		currentOptionsLists.push([...new Set(currentLetterList)]);
+	}
+
+	return currentOptionsLists;
+};
+
+const getMutualOptions = async (currentWordList, direction, cells) => {
+	const { selectedWordObj } = getWordObj(direction, cells);
+	const crossOptionsLists = await getCrossOptionsLists(direction, cells);
+	const currentOptionsLists = getCurrentOptionsLists(
+		currentWordList,
+		direction,
+		cells
+	);
+	const mutualOptions = [];
+
+	for (let i = 0; i < selectedWordObj?.word.length; i++) {
+		mutualOptions.push(
+			currentOptionsLists[i].filter((letter) =>
+				crossOptionsLists[i].includes(letter)
+			)
+		);
+	}
+
+	return mutualOptions;
+};
+
+const getMatchRegExp = async (currentWordList, direction, cells) => {
+	const mutualOptions = await getMutualOptions(
+		currentWordList,
+		direction,
+		cells
+	);
+	const formattedOptions = mutualOptions
+		.map((list) => list.join(""))
+		.map((letterBlock) => "[".concat(letterBlock, "]"))
+		.join("");
+	const matchRegExp = new RegExp(`${formattedOptions}`);
+
+	return matchRegExp;
+};
+
+export const getTopMatches = async (currentWordList, direction, cells) => {
+	const matchRegExp = await getMatchRegExp(currentWordList, direction, cells);
+	const topMatches = currentWordList.filter((obj) =>
+		matchRegExp.test(obj.word)
+	);
+
+	return topMatches;
 };
 
 /* 
