@@ -57,8 +57,11 @@ export default function App() {
 
 			if (!selectedWordObj || wordLength < 3) return;
 			if (!ignore) {
-				const wordList = await fetchWordList(selectedWordObj);
-				const newWordMatches = await getWordMatches(selectedWordObj, wordList);
+				const wordList = await fetchWordList(selectedWordObj?.word);
+				const newWordMatches = await getWordMatches(
+					selectedWordObj?.word,
+					wordList
+				);
 				const matchable = isMatchable(selectedWordObj.word);
 				const currentWordList = matchable ? newWordMatches : wordList;
 				const firstMatches = getFirst100Matches(currentWordList);
@@ -99,8 +102,11 @@ export default function App() {
 
 	const showMoreWordMatches = async () => {
 		const { selectedWordObj } = getWordObj(direction, cells);
-		const wordList = await fetchWordList(selectedWordObj);
-		const newWordMatches = await getWordMatches(selectedWordObj, wordList);
+		const wordList = await fetchWordList(selectedWordObj?.word);
+		const newWordMatches = await getWordMatches(
+			selectedWordObj?.word,
+			wordList
+		);
 		const tableLength = getMatchesFromTable().length;
 		const next100Matches = getNext100Matches(newWordMatches, tableLength);
 		const currentMatches = [...wordMatches.current, ...next100Matches];
