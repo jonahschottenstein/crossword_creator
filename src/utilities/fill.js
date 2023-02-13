@@ -1,8 +1,8 @@
 import { getWordObj } from "./words";
 import { cellHasLetter } from "./helpers";
 
-export const fetchWordList = async (selectedWordObj) => {
-	const wordLength = selectedWordObj?.word.length;
+export const fetchWordList = async (word) => {
+	const wordLength = word.length;
 	const resource = `./wordLists/${wordLength}-letter-words.json`;
 	const response = await fetch(resource);
 	const wordList = await response.json();
@@ -16,18 +16,17 @@ const isAMatch = (lettersArray, wordString) =>
 			array[index] === wordString[index] || array[index] === ""
 	);
 
-export const getWordMatches = async (selectedWordObj, sameLengthWords) => {
-	const selectedWord = selectedWordObj?.word;
-	if (!selectedWord) return;
-	if (selectedWord.length < 3) return;
-	const selectedWordLetters = selectedWord.map((cell) => cell.letter);
-	const selectedWordMatches = sameLengthWords.filter((obj) => {
+export const getWordMatches = async (word, sameLengthWords) => {
+	if (!word) return;
+	if (word.length < 3) return;
+	const wordLetters = word.map((cell) => cell.letter);
+	const wordMatches = sameLengthWords.filter((obj) => {
 		const testWord = obj.word;
-		if (isAMatch(selectedWordLetters, testWord)) return true;
+		if (isAMatch(wordLetters, testWord)) return true;
 		return false;
 	});
 
-	return selectedWordMatches;
+	return wordMatches;
 };
 
 export const isMatchable = (word) =>
