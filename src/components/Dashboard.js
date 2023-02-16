@@ -19,6 +19,8 @@ export const Dashboard = (props) => {
 				onClick={props.onClick}
 				wordMatches={props.wordMatches}
 				onMatchClick={props.onMatchClick}
+				matchFilterInput={props.matchFilterInput}
+				onMatchFilterChange={props.onMatchFilterChange}
 			/>
 		</div>
 	);
