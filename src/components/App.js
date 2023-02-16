@@ -30,6 +30,7 @@ import {
 	getMatchesFromTable,
 	fillWord,
 	getTopMatches,
+	getFilteredMatches,
 } from "../utilities/fill";
 import { getWordObj } from "../utilities/words";
 
@@ -68,9 +69,20 @@ export default function App() {
 				const currentWordList = matchable ? newWordMatches : wordList;
 				const totalMatchCount = currentWordList.length;
 				console.log({ totalMatchCount });
-				const firstMatches = getFirst100Matches(currentWordList);
+				const filteredMatches = getFilteredMatches(
+					matchFilterInput,
+					currentWordList
+				);
+				console.log(filteredMatches);
+
+				// const firstMatches = getFirst100Matches(currentWordList);
+				// const hasMatchesLeft = areMatchesLeft(
+				// 	currentWordList,
+				// 	firstMatches.length
+				// );
+				const firstMatches = getFirst100Matches(filteredMatches);
 				const hasMatchesLeft = areMatchesLeft(
-					currentWordList,
+					filteredMatches,
 					firstMatches.length
 				);
 				const topMatches = await getTopMatches(
@@ -91,7 +103,7 @@ export default function App() {
 		return () => {
 			ignore = true;
 		};
-	}, [direction, cells]);
+	}, [direction, cells, matchFilterInput]);
 
 	const handleClick = (e) => {
 		if (cellBlockSettings.cellBlockIsChecked) {
@@ -110,7 +122,7 @@ export default function App() {
 		selectCellElementOnLiClick(e, direction, setDirection, cells);
 	};
 
-	const showMoreWordMatches = async () => {
+	/* 	const showMoreWordMatches = async () => {
 		const { selectedWordObj } = getWordObj(direction, cells);
 		const wordList = await fetchWordList(selectedWordObj?.word);
 		const newWordMatches = await getWordMatches(
@@ -122,6 +134,31 @@ export default function App() {
 		const currentMatches = [...wordMatches.current, ...next100Matches];
 		const hasMatchesLeft = areMatchesLeft(
 			newWordMatches,
+			currentMatches.length
+		);
+
+		setWordMatches({
+			current: currentMatches,
+			hasMatchesLeft: hasMatchesLeft,
+		});
+	}; */
+	const showMoreWordMatches = async () => {
+		const { selectedWordObj } = getWordObj(direction, cells);
+		const wordList = await fetchWordList(selectedWordObj?.word);
+		const newWordMatches = await getWordMatches(
+			selectedWordObj?.word,
+			wordList
+		);
+		const filteredMatches = getFilteredMatches(
+			matchFilterInput,
+			newWordMatches
+		);
+		console.log(filteredMatches);
+		const tableLength = getMatchesFromTable().length;
+		const next100Matches = getNext100Matches(filteredMatches, tableLength);
+		const currentMatches = [...wordMatches.current, ...next100Matches];
+		const hasMatchesLeft = areMatchesLeft(
+			filteredMatches,
 			currentMatches.length
 		);
 
