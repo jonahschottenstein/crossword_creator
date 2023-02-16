@@ -163,6 +163,10 @@ export default function App() {
 		setVisibleDashPage(e.target.value);
 	};
 
+	const handleMatchFilterChange = (e) => {
+		setMatchFilterInput(e.target.value);
+	};
+
 	scrollToLi(direction, cells);
 	scrollToLi(getNextDirection(direction), cells);
 
@@ -195,6 +199,8 @@ export default function App() {
 				onClick={(e) => handleLiClick(e)}
 				wordMatches={wordMatches}
 				onMatchClick={(e) => handleMatchClick(e)}
+				onMatchFilterChange={handleMatchFilterChange}
+				matchFilterInput={matchFilterInput}
 			/>
 		</div>
 	);
