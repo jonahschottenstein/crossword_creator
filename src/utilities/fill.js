@@ -29,6 +29,23 @@ export const getWordMatches = async (word, sameLengthWords) => {
 	return wordMatches;
 };
 
+const getMatchFilterInput = (matchFilterInput) => {
+	try {
+		const matchRegExp = new RegExp(matchFilterInput, "i");
+		return matchRegExp;
+	} catch (error) {
+		console.log(error);
+		return /\w+/;
+	}
+};
+
+export const getFilteredMatches = (matchFilterInput, matches) => {
+	const matchRegExp = getMatchFilterInput(matchFilterInput);
+	const filteredMatches = matches.filter(({ word }) => matchRegExp.test(word));
+
+	return filteredMatches;
+};
+
 export const isMatchable = (word) =>
 	!word.every(cellHasLetter) && word.some(cellHasLetter);
 
