@@ -43,6 +43,10 @@ export const DashboardPage = (props) => {
 		return (
 			<div className="dashboard-page fill-page">
 				<DisplayWord direction={props.direction} cells={props.cells} />
+				<MatchFilter
+					matchFilterInput={props.matchFilterInput}
+					onMatchFilterChange={props.onMatchFilterChange}
+				/>
 				<MatchTable
 					wordMatches={props.wordMatches}
 					onMatchClick={props.onMatchClick}
@@ -70,6 +74,17 @@ const DisplayWord = ({ direction, cells }) => {
 					/>
 				);
 			})}
+		</div>
+	);
+};
+
+const MatchFilter = ({ matchFilterInput, onMatchFilterChange }) => {
+	return (
+		<div className="match-filter-container">
+			<input
+				className="match-filter"
+				value={matchFilterInput}
+				onChange={onMatchFilterChange}></input>
 		</div>
 	);
 };
