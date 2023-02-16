@@ -45,6 +45,7 @@ export default function App() {
 		current: null,
 		hasMatchesLeft: false,
 	});
+	const [matchFilterInput, setMatchFilterInput] = useState("");
 
 	useEffect(() => {
 		const startFetching = async () => {
