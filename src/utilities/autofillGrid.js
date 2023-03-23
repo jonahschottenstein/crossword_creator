@@ -150,3 +150,24 @@ const getOverlapOpts = (
 
 	return overlapOpts;
 };
+
+const isSameCell = (cell1, cell2) => cell1.id === cell2.id;
+
+const findSameCell = (searchedCells, compareCell) =>
+	searchedCells.find((searchedCell) => isSameCell(searchedCell, compareCell));
+
+const getWordObjsWithOverlapOpts = (wordObjs, overlapOpts) => {
+	const wordObjsWithOverlapOpts = wordObjs.map((wordObj) => {
+		const updatedWordCells = wordObj.wordCells.map((wordCell) => {
+			const sameCellOverlap = findSameCell(overlapOpts, wordCell);
+
+			return sameCellOverlap
+				? { ...wordCell, options: sameCellOverlap.options }
+				: wordCell;
+		});
+
+		return { ...wordObj, wordCells: updatedWordCells };
+	});
+
+	return wordObjsWithOverlapOpts;
+};
