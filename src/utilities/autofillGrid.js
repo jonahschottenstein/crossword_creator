@@ -1,3 +1,5 @@
+import { cellHasLetter } from "./helpers";
+
 const cache = {};
 const fetchWordListMemoized = async () => {
 	return async (word) => {
@@ -246,4 +248,24 @@ const getWordObjConstraints = (wordObjs) => {
 	});
 
 	return avgOptsPerCell;
+};
+
+const getUnfilledWordObjs = (wordObjs) =>
+	wordObjs.filter(({ wordCells }) =>
+		wordCells.some((wordCell) => !cellHasLetter(wordCell))
+	);
+
+const getNextWordToFill = (wordObjs) => {
+	const unfilledWordObjs = getUnfilledWordObjs(wordObjs);
+	const longUnfilledWordObjs = unfilledWordObjs.filter(
+		(wordObj) => wordObj.wordCells.length > 7
+	);
+	const wordObjsToConstrain =
+		longUnfilledWordObjs.length > 0 ? longUnfilledWordObjs : unfilledWordObjs;
+	const constraints = getWordObjConstraints(wordObjsToConstrain).sort(
+		(a, b) => a.avgOpts - b.avgOpts
+	);
+	const nextWordToFill = constraints[0];
+
+	return nextWordToFill?.wordObj;
 };
