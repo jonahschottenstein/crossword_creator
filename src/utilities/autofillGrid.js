@@ -156,6 +156,7 @@ const isSameCell = (cell1, cell2) => cell1.id === cell2.id;
 const findSameCell = (searchedCells, compareCell) =>
 	searchedCells.find((searchedCell) => isSameCell(searchedCell, compareCell));
 
+// getWordObjsWithOptsFromComp
 const getWordObjsWithOverlapOpts = (wordObjs, overlapOpts) => {
 	const wordObjsWithOverlapOpts = wordObjs.map((wordObj) => {
 		const updatedWordCells = wordObj.wordCells.map((wordCell) => {
@@ -194,4 +195,40 @@ const filterWordMatches = (wordObjs) => {
 	});
 
 	return wordObjsWithFilteredMatches;
+};
+
+const updateWordObjs = (wordObjsWithOptsFromMatches, overlapOpts) => {
+	const wordObjsWithOverlapOpts = getWordObjsWithOverlapOpts(
+		wordObjsWithOptsFromMatches,
+		overlapOpts
+	);
+	const wordObjsWithFilteredMatches = filterWordMatches(
+		wordObjsWithOverlapOpts
+	);
+
+	return wordObjsWithFilteredMatches;
+};
+
+const getUpdatedWordObjs = (acrossWordObjs, downWordObjs, formattedCells) => {
+	const acrossWordObjsWithOptsFromMatches = acrossWordObjs.map(
+		(acrossWordObj) => updateOptsFromMatches(acrossWordObj)
+	);
+	const downWordObjsWithOptsFromMatches = downWordObjs.map((downWordObj) =>
+		updateOptsFromMatches(downWordObj)
+	);
+	const overlapOpts = getOverlapOpts(
+		acrossWordObjsWithOptsFromMatches,
+		downWordObjsWithOptsFromMatches,
+		formattedCells
+	);
+	const acrossWordObjs = updateWordObjs(
+		acrossWordObjsWithOptsFromMatches,
+		overlapOpts
+	);
+	const downWordObjs = updateWordObjs(
+		downWordObjsWithOptsFromMatches,
+		overlapOpts
+	);
+
+	return { acrossWordObjs, downWordObjs };
 };
