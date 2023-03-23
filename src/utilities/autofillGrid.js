@@ -232,3 +232,18 @@ const getUpdatedWordObjs = (acrossWordObjs, downWordObjs, formattedCells) => {
 
 	return { acrossWordObjs, downWordObjs };
 };
+
+const getWordObjConstraints = (wordObjs) => {
+	const avgOptsPerCell = wordObjs.map((wordObj) => {
+		const cellOpts = wordObj.wordCells.map(({ options }) => options);
+		const optsTotal = cellOpts.reduce(
+			(accumulator, currentValue) => currentValue.length + accumulator,
+			0
+		);
+		const avgOpts = Math.round(optsTotal / wordObj.wordCells.length);
+
+		return { wordObj, avgOpts };
+	});
+
+	return avgOptsPerCell;
+};
