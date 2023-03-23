@@ -33,3 +33,27 @@ const getWordMatches = (word, sameLengthWords) => {
 
 	return wordMatches;
 };
+
+const getWordsWithMatches = async (words) => {
+	const getWordList = await fetchWordListMemoized();
+	const wordsWithMatches = await Promise.all(
+		words.map(async (word, index, array) => {
+			const wordList = await getWordList(word);
+			const wordMatches = getWordMatches(word, wordList);
+			if (wordMatches.length < 1 && array[index].every(cellHasLetter)) {
+				const wordMatches = [
+					{
+						word: array[index].map((cell) => cell.letter).join(""),
+						score: "101",
+					},
+				];
+
+				return { wordCells: word, wordMatches };
+			} else {
+				return { wordCells: word, wordMatches };
+			}
+		})
+	);
+
+	return wordsWithMatches;
+};
