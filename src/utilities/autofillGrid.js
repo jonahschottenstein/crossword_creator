@@ -57,3 +57,16 @@ const getWordsWithMatches = async (words) => {
 
 	return wordsWithMatches;
 };
+
+const formatCells = (cells) => {
+	const formattedCells = cells.map((cell) => {
+		if (!cell.isBlackSquare) {
+			const options = cell.letter ? [`${cell.letter}`] : [];
+			return { id: cell.id, letter: cell.letter, options };
+		} else {
+			return { id: cell.id, isBlackSquare: true };
+		}
+	});
+
+	return formattedCells;
+};
