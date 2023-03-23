@@ -113,3 +113,40 @@ const updateOptsFromMatches = (wordWithMatches) => {
 
 	return updatedWordWithMatches;
 };
+
+const getOptsFromWordObjs = (wordObjs, formattedCell) => {
+	const wordObj = wordObjs.find((wordObj) =>
+		wordObj.wordCells.find((wordCell) => wordCell.id === formattedCell.id)
+	);
+	const wordCellIndex = wordObj.wordCells.findIndex(
+		(wordCell) => wordCell.id === formattedCell.id
+	);
+	const opts = wordObj.wordCells[wordCellIndex].options;
+
+	return opts;
+};
+
+const getOverlapOpts = (
+	acrossWordsWithMatches,
+	downWordsWithMatches,
+	formattedCells
+) => {
+	const overlapOpts = formattedCells.map((formattedCell) => {
+		if (formattedCell.isBlackSquare) return formattedCell;
+		const acrossWordObjOpts = getOptsFromWordObjs(
+			acrossWordsWithMatches,
+			formattedCell
+		);
+		const downWordObjOpts = getOptsFromWordObjs(
+			downWordsWithMatches,
+			formattedCell
+		);
+		const opts = acrossWordObjOpts.filter((acrossOpt) =>
+			downWordObjOpts.includes(acrossOpt)
+		);
+
+		return { ...formattedCell, options: opts };
+	});
+
+	return overlapOpts;
+};
