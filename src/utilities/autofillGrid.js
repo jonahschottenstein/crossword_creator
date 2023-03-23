@@ -94,3 +94,22 @@ const getFormattedWords = (cells, formattedCells) => {
 
 	return { acrossWords, downWords };
 };
+
+const updateOptsFromMatches = (wordWithMatches) => {
+	const { wordCells, wordMatches } = wordWithMatches;
+	const wordCellsWithOpts = [];
+	for (let i = 0; i < wordCells.length; i++) {
+		const letters = wordMatches.map(({ word }) => word[i]);
+		const wordCellWithOpts = {
+			...wordCells[i],
+			options: [...new Set(letters)],
+		};
+		wordCellsWithOpts.push(wordCellWithOpts);
+	}
+	const updatedWordWithMatches = {
+		...wordWithMatches,
+		wordCells: wordCellsWithOpts,
+	};
+
+	return updatedWordWithMatches;
+};
