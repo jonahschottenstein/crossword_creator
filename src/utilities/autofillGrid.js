@@ -171,3 +171,27 @@ const getWordObjsWithOverlapOpts = (wordObjs, overlapOpts) => {
 
 	return wordObjsWithOverlapOpts;
 };
+
+const getLetterBlock = (opts) => `[${opts.join("")}]`;
+
+const getWordRegExp = (wordWithMatches) => {
+	const letterBlocks = wordWithMatches.wordCells.map((wordCell) =>
+		getLetterBlock(wordCell.options)
+	);
+	const wordRegExp = new RegExp(letterBlocks.join(""));
+
+	return wordRegExp;
+};
+
+const filterWordMatches = (wordObjs) => {
+	const wordObjsWithFilteredMatches = wordObjs.map((wordObj) => {
+		const wordRegExp = getWordRegExp(wordObj);
+		const filteredWordMatches = wordObj.wordMatches.filter(({ word }) =>
+			wordRegExp.test(word)
+		);
+
+		return { ...wordObj, wordMatches: filteredWordMatches };
+	});
+
+	return wordObjsWithFilteredMatches;
+};
