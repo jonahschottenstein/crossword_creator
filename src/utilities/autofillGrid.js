@@ -70,3 +70,27 @@ const formatCells = (cells) => {
 
 	return formattedCells;
 };
+
+const formatWords = (words, formattedCells) => {
+	const formattedWords = words.map((word) =>
+		word.map((cell) => {
+			const formattedCell = formattedCells.find(
+				(formattedCell) => formattedCell.id === cell.id
+			);
+
+			return formattedCell;
+		})
+	);
+
+	return formattedWords;
+};
+
+const getFormattedWords = (cells, formattedCells) => {
+	const initAcrossWords = getWords("across", cells);
+	const initDownWords = getWords("down", cells);
+	const formattedCellsSliced = formattedCells.slice();
+	const acrossWords = formatWords(initAcrossWords, formattedCellsSliced);
+	const downWords = formatWords(initDownWords, formattedCellsSliced);
+
+	return { acrossWords, downWords };
+};
