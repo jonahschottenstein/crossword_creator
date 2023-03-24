@@ -285,3 +285,24 @@ const getFilledWordObj = (wordWithMatches, matchIndex = 0) => {
 
 	return filledWordObj;
 };
+
+const isSameWord = (word1Cells, word2Cells) =>
+	word1Cells.every((word1Cell, index) =>
+		isSameCell(word1Cell, word2Cells[index])
+	);
+
+const getCrossingWordObjs = (filledWordObj, wordObjs) => {
+	const crossingWordObjs = wordObjs.filter(({ wordCells }) => {
+		if (isSameWord(filledWordObj.wordCells, wordCells)) return false;
+
+		return wordCells.find((wordCell) => {
+			const sameWordCell = filledWordObj.wordCells.find((filledWordCell) =>
+				isSameCell(filledWordCell, wordCell)
+			);
+
+			return sameWordCell ? true : false;
+		});
+	});
+
+	return crossingWordObjs;
+};
