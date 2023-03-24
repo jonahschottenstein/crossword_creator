@@ -325,3 +325,31 @@ const updateCrossingWordObjs = (filledWordObj, crossingWordObjs) => {
 
 	return updatedCrossingWordObjs;
 };
+
+const integrateWordObjs = (updatedWordObjs, baseWordObjs) => {
+	return baseWordObjs.map((baseWordObj) => {
+		const sameWordObj = updatedWordObjs.find(
+			({ wordCells: updatedWordCells }) =>
+				isSameWord(updatedWordCells, baseWordObj.wordCells)
+		);
+
+		return sameWordObj ?? baseWordObj;
+	});
+};
+
+const getIntegratedWordObjs = (
+	updatedWordObjs,
+	acrossWordObjs,
+	downWordObjs
+) => {
+	const acrossWordObjsIntegrated = integrateWordObjs(
+		updatedWordObjs,
+		acrossWordObjs
+	);
+	const downWordObjsIntegrated = integrateWordObjs(
+		updatedWordObjs,
+		downWordObjs
+	);
+
+	return { acrossWordObjsIntegrated, downWordObjsIntegrated };
+};
