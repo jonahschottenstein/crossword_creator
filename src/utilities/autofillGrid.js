@@ -269,3 +269,19 @@ const getNextWordToFill = (wordObjs) => {
 
 	return nextWordToFill?.wordObj;
 };
+
+const getFilledWordObj = (wordWithMatches, matchIndex = 0) => {
+	const { wordCells, wordMatches } = wordWithMatches;
+	const wordMatch = wordMatches[matchIndex];
+	const wordCellsFilled = wordCells.map((wordCell, index) => {
+		const letter = wordMatch.word[index];
+
+		return { ...wordCell, letter, options: [...letter] };
+	});
+	const filledWordObj = {
+		wordCells: wordCellsFilled,
+		wordMatches: [wordMatch],
+	};
+
+	return filledWordObj;
+};
