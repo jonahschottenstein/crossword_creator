@@ -306,3 +306,22 @@ const getCrossingWordObjs = (filledWordObj, wordObjs) => {
 
 	return crossingWordObjs;
 };
+
+const updateCrossingWordObjs = (filledWordObj, crossingWordObjs) => {
+	const { wordCells: filledWordCells } = filledWordObj;
+	const updatedCrossingWordObjs = crossingWordObjs.map((crossingWordObj) => {
+		const updatedCrossingWordCells = crossingWordObj.wordCells.map(
+			(crossingWordCell) => {
+				const sameWordCell = filledWordCells.find((filledWordCell) =>
+					isSameCell(filledWordCell, crossingWordCell)
+				);
+
+				return sameWordCell ?? crossingWordCell;
+			}
+		);
+
+		return { ...crossingWordObj, wordCells: updatedCrossingWordCells };
+	});
+
+	return updatedCrossingWordObjs;
+};
