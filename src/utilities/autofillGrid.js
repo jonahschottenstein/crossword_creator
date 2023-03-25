@@ -433,6 +433,16 @@ const gridIsFilled = (wordObjs) => wordObjs.every(wordCellsAreFilled);
 const everyWordObjHasMatch = (wordObjs) =>
 	wordObjs.every(({ wordMatches }) => wordMatches.length === 1);
 
+const updateGrid = (formattedCells, setCells) =>
+	setCells((prevState) => {
+		const newState = prevState.map((cell, index) => {
+			if (cell.isBlackSquare) return cell;
+			return { ...cell, letter: formattedCells[index].letter };
+		});
+
+		return newState;
+	});
+
 const autofillGrid = (
 	{
 		formattedCells,
