@@ -1,4 +1,5 @@
 import { cellHasLetter } from "./helpers";
+import { getWords } from "./words";
 
 const cache = {};
 const fetchWordListMemoized = async () => {
@@ -223,16 +224,19 @@ const getUpdatedWordObjs = (acrossWordObjs, downWordObjs, formattedCells) => {
 		downWordObjsWithOptsFromMatches,
 		formattedCells
 	);
-	const acrossWordObjs = updateWordObjs(
+	const updatedAcrossWordObjs = updateWordObjs(
 		acrossWordObjsWithOptsFromMatches,
 		overlapOpts
 	);
-	const downWordObjs = updateWordObjs(
+	const updatedDownWordObjs = updateWordObjs(
 		downWordObjsWithOptsFromMatches,
 		overlapOpts
 	);
 
-	return { acrossWordObjs, downWordObjs };
+	return {
+		acrossWordObjs: updatedAcrossWordObjs,
+		downWordObjs: updatedDownWordObjs,
+	};
 };
 
 const getWordObjConstraints = (wordObjs) => {
@@ -440,7 +444,12 @@ const autofillGrid = (
 		argsArr = [],
 	},
 	setCells
-) => {};
+) => {
+	const allWordObjs = [...acrossWordObjs, ...downWordObjs];
+	if (gridIsFilled(allWordObjs) && everyWordObjHasMatch(allWordObjs)) {
+		return { formattedCells, acrossWordObjs, downWordObjs };
+	}
+};
 
 export const initAutofillGrid = async (cells, setCells) => {
 	const formattedCells = formatCells(cells);
