@@ -429,3 +429,36 @@ const gridIsFilled = (wordObjs) => wordObjs.every(wordCellsAreFilled);
 
 const everyWordObjHasMatch = (wordObjs) =>
 	wordObjs.every(({ wordMatches }) => wordMatches.length === 1);
+
+const autofillGrid = (
+	{
+		formattedCells,
+		acrossWordObjs,
+		downWordObjs,
+		wordToFill,
+		wordMatchIndex = 0,
+		argsArr = [],
+	},
+	setCells
+) => {};
+
+export const initAutofillGrid = async (cells, setCells) => {
+	const formattedCells = formatCells(cells);
+	const { acrossWords, downWords } = getFormattedWords(cells, formattedCells);
+	const acrossWordsWithMatches = await getWordsWithMatches(acrossWords);
+	const downWordsWithMatches = await getWordsWithMatches(downWords);
+	const { acrossWordObjs, downWordObjs } = getUpdatedWordObjs(
+		acrossWordsWithMatches,
+		downWordsWithMatches,
+		formattedCells
+	);
+	const wordToFill = getNextWordToFill([...acrossWordObjs, ...downWordObjs]);
+	const argsObj = {
+		formattedCells,
+		acrossWordObjs,
+		downWordObjs,
+		wordToFill,
+	};
+	const autofilledGrid = autofillGrid(argsObj, setCells);
+	console.log({ autofilledGrid });
+};
