@@ -410,3 +410,19 @@ const updateWordMatchIndexOfArgs = (args) => {
 
 const getPreviousArgsArr = (argsArr, previousArgsIndex, updatedPreviousArgs) =>
 	argsArr.slice(0, previousArgsIndex).concat(updatedPreviousArgs);
+
+/* const backtrack = (previousArgs, previousArgsArr, setCells) => {
+    if (!previousArgs) return "(!previousArgs) No solutions found";
+
+    if (hasUntestedWordMatches(previousArgs.wordToFill, previousArgs.wordMatchIndex)) {
+        const updatedPreviousArgs = updateWordMatchIndexOfArgs(previousArgs);
+
+        return
+
+    }
+
+} */
+
+const wordCellsAreFilled = ({ wordCells }) => wordCells.every(cellHasLetter);
+
+const gridIsFilled = (wordObjs) => wordObjs.every(wordCellsAreFilled);
