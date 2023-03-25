@@ -361,9 +361,8 @@ const getIntegratedWordObjs = (
 const getCellsFromWordObjs = (wordObjs) =>
 	wordObjs.map(({ wordCells }) => wordCells).flat();
 
-const cellsHaveSameOpts = (cell1, cell2) => {
+const cellsHaveSameOpts = (cell1, cell2) =>
 	cell1.options.every((cell1Opt) => cell2.options.includes(cell1Opt));
-};
 
 const getUpdatedFormattedCells = (
 	formattedCells,
