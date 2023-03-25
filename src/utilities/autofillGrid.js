@@ -458,6 +458,52 @@ const autofillGrid = (
 	if (gridIsFilled(allWordObjs) && everyWordObjHasMatch(allWordObjs)) {
 		return { formattedCells, acrossWordObjs, downWordObjs };
 	}
+
+	const initialArgs = {
+		formattedCells,
+		acrossWordObjs,
+		downWordObjs,
+		wordToFill,
+		wordMatchIndex,
+	};
+	argsArr.push(initialArgs);
+	console.log(structuredClone(argsArr));
+
+	const filledWordObj = getFilledWordObj(wordToFill, wordMatchIndex);
+	const crossingWordObjs = getCrossingWordObjs(filledWordObj, allWordObjs);
+	const updatedCrossingWordObjs = updateCrossingWordObjs(
+		filledWordObj,
+		crossingWordObjs
+	);
+	const updatedCrossingWordObjsFiltered = filterWordMatches(
+		updatedCrossingWordObjs
+	);
+	const updatedCrossingWordObjsWithOptsFromMatches =
+		updatedCrossingWordObjsFiltered.map((wordObj) =>
+			updateOptsFromMatches(wordObj)
+		);
+	const { acrossWordObjsIntegrated, downWordObjsIntegrated } =
+		getIntegratedWordObjs(
+			[...updatedCrossingWordObjsWithOptsFromMatches, filledWordObj],
+			acrossWordObjs,
+			downWordObjs
+		);
+	const updatedWordObjs = getUpdatedWordObjs(
+		acrossWordObjsIntegrated,
+		downWordObjsIntegrated,
+		formattedCells
+	);
+	const allUpdatedWordObjs = [
+		...updatedWordObjs.acrossWordObjs,
+		...updatedWordObjs.downWordObjs,
+	];
+	const updatedFormattedCells = getUpdatedFormattedCells(
+		formattedCells,
+		updatedWordObjs.acrossWordObjs,
+		updatedWordObjs.downWordObjs
+	);
+
+	updateGrid(updatedFormattedCells, setCells);
 };
 
 export const initAutofillGrid = async (cells, setCells) => {
