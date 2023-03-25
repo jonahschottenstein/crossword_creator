@@ -416,6 +416,25 @@ const updateWordMatchIndexOfArgs = (args) => {
 const getPreviousArgsArr = (argsArr, previousArgsIndex, updatedPreviousArgs) =>
 	argsArr.slice(0, previousArgsIndex).concat(updatedPreviousArgs);
 
+const getPreviousData = (argsArr, wordToFill) => {
+	const previousArgsIndex = getPreviousArgsIndex(argsArr, wordToFill);
+	const previousArgs = argsArr[previousArgsIndex];
+	const updatedPreviousArgs =
+		previousArgs && updateWordMatchIndexOfArgs(previousArgs);
+	const previousArgsArr = getPreviousArgsArr(
+		argsArr,
+		previousArgsIndex,
+		updatedPreviousArgs
+	);
+
+	return {
+		previousArgsIndex,
+		previousArgs,
+		updatedPreviousArgs,
+		previousArgsArr,
+	};
+};
+
 /* const backtrack = (previousArgs, previousArgsArr, setCells) => {
     if (!previousArgs) return "(!previousArgs) No solutions found";
 
