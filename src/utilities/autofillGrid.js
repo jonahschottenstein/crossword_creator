@@ -396,3 +396,17 @@ const hasUntestedWordMatches = (wordObj, wordMatchIndex) =>
 
 const hasMatchlessWordObj = (wordObjs) =>
 	wordObjs.some(({ wordMatches }) => wordMatches.length < 1);
+
+const getPreviousArgsIndex = (argsArr, wordToFill) =>
+	argsArr.findLastIndex(
+		(argsObj) =>
+			!isSameWord(argsObj.wordToFill.wordCells, wordToFill.wordCells) &&
+			hasUntestedWordMatches(argsObj.wordToFill, argsObj.wordMatchIndex)
+	);
+
+const updateWordMatchIndexOfArgs = (args) => {
+	return { ...args, wordMatchIndex: args.wordMatchIndex + 1 };
+};
+
+const getPreviousArgsArr = (argsArr, previousArgsIndex, updatedPreviousArgs) =>
+	argsArr.slice(0, previousArgsIndex).concat(updatedPreviousArgs);
