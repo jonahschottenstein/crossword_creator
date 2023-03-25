@@ -393,3 +393,6 @@ const getUpdatedFormattedCells = (
 
 const hasUntestedWordMatches = (wordObj, wordMatchIndex) =>
 	wordMatchIndex < wordObj.wordMatches.length;
+
+const hasMatchlessWordObj = (wordObjs) =>
+	wordObjs.some(({ wordMatches }) => wordMatches.length < 1);
