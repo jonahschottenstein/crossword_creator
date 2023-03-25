@@ -310,8 +310,10 @@ const getCrossingWordObjs = (filledWordObj, wordObjs) => {
 
 	return crossingWordObjs;
 };
-
-const updateCrossingWordObjs = (filledWordObj, crossingWordObjs) => {
+const addFilledWordCellsToCrossingWordObjs = (
+	filledWordObj,
+	crossingWordObjs
+) => {
 	const { wordCells: filledWordCells } = filledWordObj;
 	const updatedCrossingWordObjs = crossingWordObjs.map((crossingWordObj) => {
 		const updatedCrossingWordCells = crossingWordObj.wordCells.map(
@@ -471,20 +473,17 @@ const autofillGrid = (
 
 	const filledWordObj = getFilledWordObj(wordToFill, wordMatchIndex);
 	const crossingWordObjs = getCrossingWordObjs(filledWordObj, allWordObjs);
-	const updatedCrossingWordObjs = updateCrossingWordObjs(
-		filledWordObj,
-		crossingWordObjs
+	const crossingWordObjsWithFilledWordCells =
+		addFilledWordCellsToCrossingWordObjs(filledWordObj, crossingWordObjs);
+	const crossingWordObjsFiltered = filterWordMatches(
+		crossingWordObjsWithFilledWordCells
 	);
-	const updatedCrossingWordObjsFiltered = filterWordMatches(
-		updatedCrossingWordObjs
+	const crossingWordObjsWithOptsFromMatches = crossingWordObjsFiltered.map(
+		(wordObj) => updateOptsFromMatches(wordObj)
 	);
-	const updatedCrossingWordObjsWithOptsFromMatches =
-		updatedCrossingWordObjsFiltered.map((wordObj) =>
-			updateOptsFromMatches(wordObj)
-		);
 	const { acrossWordObjsIntegrated, downWordObjsIntegrated } =
 		getIntegratedWordObjs(
-			[...updatedCrossingWordObjsWithOptsFromMatches, filledWordObj],
+			[...crossingWordObjsWithOptsFromMatches, filledWordObj],
 			acrossWordObjs,
 			downWordObjs
 		);
