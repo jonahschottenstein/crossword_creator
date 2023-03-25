@@ -353,3 +353,40 @@ const getIntegratedWordObjs = (
 
 	return { acrossWordObjsIntegrated, downWordObjsIntegrated };
 };
+
+const getCellsFromWordObjs = (wordObjs) =>
+	wordObjs.map(({ wordCells }) => wordCells).flat();
+
+const cellsHaveSameOpts = (cell1, cell2) => {
+	cell1.options.every((cell1Opt) => cell2.options.includes(cell1Opt));
+};
+
+const getUpdatedFormattedCells = (
+	formattedCells,
+	acrossWordObjs,
+	downWordObjs
+) => {
+	const updatedFormattedCells = formattedCells.map((formattedCell) => {
+		if (formattedCell.isBlackSquare) return formattedCell;
+
+		const acrossCells = getCellsFromWordObjs(acrossWordObjs);
+		const downCells = getCellsFromWordObjs(downWordObjs);
+		const sameAcrossCell = acrossCells.find((acrossCell) =>
+			isSameCell(acrossCell, formattedCell)
+		);
+		const sameDownCell = downCells.find((downCell) =>
+			isSameCell(downCell, formattedCell)
+		);
+		const cellsAgree =
+			sameAcrossCell.letter === sameDownCell.letter &&
+			cellsHaveSameOpts(sameAcrossCell, sameDownCell);
+
+		if (!cellsAgree) {
+			throw new Error("Cells don't agree");
+		} else {
+			return sameAcrossCell;
+		}
+	});
+
+	return updatedFormattedCells;
+};
