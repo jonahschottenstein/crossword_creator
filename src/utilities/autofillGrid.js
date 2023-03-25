@@ -426,3 +426,6 @@ const getPreviousArgsArr = (argsArr, previousArgsIndex, updatedPreviousArgs) =>
 const wordCellsAreFilled = ({ wordCells }) => wordCells.every(cellHasLetter);
 
 const gridIsFilled = (wordObjs) => wordObjs.every(wordCellsAreFilled);
+
+const everyWordObjHasMatch = (wordObjs) =>
+	wordObjs.every(({ wordMatches }) => wordMatches.length === 1);
