@@ -536,16 +536,53 @@ const autofillGrid = (
 	argsArr.push(initialArgs);
 	console.log(structuredClone(argsArr));
 
+	const previousData = getPreviousData(argsArr, wordToFill);
+
+	if (!hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
+		console.log("backtrack 2");
+		return backtrack(previousData.args, previousData.argsArr, setCells);
+	}
+
 	const filledWordObj = getFilledWordObj(wordToFill, wordMatchIndex);
 	const crossingWordObjs = getCrossingWordObjs(filledWordObj, allWordObjs);
 	const crossingWordObjsWithFilledWordCells =
 		addFilledWordCellsToCrossingWordObjs(filledWordObj, crossingWordObjs);
+
+	if (hasMatchlessWordObj(crossingWordObjsWithFilledWordCells)) {
+		return lookAhead(
+			{
+				wordToFill,
+				wordMatchIndex,
+				initialArgs,
+				argsArr,
+				previousArgs: previousData.args,
+				previousArgsArr: previousData.argsArr,
+			},
+			setCells
+		);
+	}
+
 	const crossingWordObjsFiltered = filterWordMatches(
 		crossingWordObjsWithFilledWordCells
 	);
 	const crossingWordObjsWithOptsFromMatches = crossingWordObjsFiltered.map(
 		(wordObj) => updateOptsFromMatches(wordObj)
 	);
+
+	if (hasMatchlessWordObj(crossingWordObjsWithOptsFromMatches)) {
+		return lookAhead(
+			{
+				wordToFill,
+				wordMatchIndex,
+				initialArgs,
+				argsArr,
+				previousArgs: previousData.args,
+				previousArgsArr: previousData.argsArr,
+			},
+			setCells
+		);
+	}
+
 	const { acrossWordObjsIntegrated, downWordObjsIntegrated } =
 		getIntegratedWordObjs(
 			[...crossingWordObjsWithOptsFromMatches, filledWordObj],
@@ -561,6 +598,21 @@ const autofillGrid = (
 		...updatedWordObjs.acrossWordObjs,
 		...updatedWordObjs.downWordObjs,
 	];
+
+	if (hasMatchlessWordObj(allUpdatedWordObjs)) {
+		return lookAhead(
+			{
+				wordToFill,
+				wordMatchIndex,
+				initialArgs,
+				argsArr,
+				previousArgs: previousData.args,
+				previousArgsArr: previousData.argsArr,
+			},
+			setCells
+		);
+	}
+
 	const updatedFormattedCells = getUpdatedFormattedCells(
 		formattedCells,
 		updatedWordObjs.acrossWordObjs,
@@ -568,6 +620,46 @@ const autofillGrid = (
 	);
 
 	updateGrid(updatedFormattedCells, setCells);
+
+	const nextWordToFill = getNextWordToFill(allUpdatedWordObjs);
+	console.log(structuredClone(nextWordToFill));
+
+	if (!nextWordToFill) {
+		if (gridIsFilled(allUpdatedWordObjs)) {
+			console.log("SOLUTION FOUND");
+
+			return { updatedFormattedCells, updatedWordObjs };
+		} else {
+			return "!nextWordToFill, not every cell has a letter";
+		}
+	} else {
+		if (!hasUntestedWordMatches(nextWordToFill, 0)) {
+			if (hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
+				return autofillGrid(
+					{
+						...updateWordMatchIndexOfArgs(initialArgs),
+						argsArr,
+					},
+					setCells
+				);
+			} else {
+				console.log("backtrack 3");
+				return backtrack(previousData.args, previousData.argsArr, setCells);
+			}
+		} else {
+			return autofillGrid(
+				{
+					formattedCells: updatedFormattedCells,
+					acrossWordObjs: updatedWordObjs.acrossWordObjs,
+					downWordObjs: updatedWordObjs.downWordObjs,
+					wordToFill: nextWordToFill,
+					wordMatchIndex: 0,
+					argsArr,
+				},
+				setCells
+			);
+		}
+	}
 };
 
 export const initAutofillGrid = async (cells, setCells) => {
@@ -587,6 +679,8 @@ export const initAutofillGrid = async (cells, setCells) => {
 		downWordObjs,
 		wordToFill,
 	};
+	console.time("autofillGrid");
 	const autofilledGrid = autofillGrid(argsObj, setCells);
 	console.log({ autofilledGrid });
+	console.timeEnd("autofillGrid");
 };
