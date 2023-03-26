@@ -510,6 +510,48 @@ const updateGrid = (formattedCells, setCells) =>
 		return newState;
 	});
 
+const handleNoNextWordToFill = (
+	allUpdatedWordObjs,
+	updatedFormattedCells,
+	updatedWordObjs
+) => {
+	if (gridIsFilled(allUpdatedWordObjs)) {
+		console.log("SOLUTION FOUND");
+
+		return { updatedFormattedCells, updatedWordObjs };
+	} else {
+		return "!nextWordToFill, not every cell has a letter";
+	}
+};
+
+const handleNextWordToFill = (
+	nextWordToFill,
+	autofillGridArgsObj,
+	{
+		wordToFill,
+		wordMatchIndex,
+		initialArgs,
+		argsArr,
+		previousArgs,
+		previousArgsArr,
+	},
+	setCells
+) => {
+	if (hasUntestedWordMatches(nextWordToFill, 0)) {
+		return autofillGrid(autofillGridArgsObj, setCells);
+	} else {
+		if (hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
+			return autofillGrid(
+				{ ...updateWordMatchIndexOfArgs(initialArgs), argsArr },
+				setCells
+			);
+		} else {
+			console.log("backtrack 3");
+			return backtrack(previousArgs, previousArgsArr);
+		}
+	}
+};
+
 const autofillGrid = (
 	{
 		formattedCells,
@@ -625,40 +667,32 @@ const autofillGrid = (
 	console.log(structuredClone(nextWordToFill));
 
 	if (!nextWordToFill) {
-		if (gridIsFilled(allUpdatedWordObjs)) {
-			console.log("SOLUTION FOUND");
-
-			return { updatedFormattedCells, updatedWordObjs };
-		} else {
-			return "!nextWordToFill, not every cell has a letter";
-		}
+		return handleNoNextWordToFill(
+			allUpdatedWordObjs,
+			updatedFormattedCells,
+			updatedWordObjs
+		);
 	} else {
-		if (!hasUntestedWordMatches(nextWordToFill, 0)) {
-			if (hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
-				return autofillGrid(
-					{
-						...updateWordMatchIndexOfArgs(initialArgs),
-						argsArr,
-					},
-					setCells
-				);
-			} else {
-				console.log("backtrack 3");
-				return backtrack(previousData.args, previousData.argsArr, setCells);
-			}
-		} else {
-			return autofillGrid(
-				{
-					formattedCells: updatedFormattedCells,
-					acrossWordObjs: updatedWordObjs.acrossWordObjs,
-					downWordObjs: updatedWordObjs.downWordObjs,
-					wordToFill: nextWordToFill,
-					wordMatchIndex: 0,
-					argsArr,
-				},
-				setCells
-			);
-		}
+		return handleNextWordToFill(
+			nextWordToFill,
+			{
+				formattedCells: updatedFormattedCells,
+				acrossWordObjs: updatedWordObjs.acrossWordObjs,
+				downWordObjs: updatedWordObjs.downWordObjs,
+				wordToFill: nextWordToFill,
+				wordMatchIndex: 0,
+				argsArr,
+			},
+			{
+				wordToFill,
+				wordMatchIndex,
+				initialArgs,
+				argsArr,
+				previousArgs: previousData.args,
+				previousArgsArr: previousData.argsArr,
+			},
+			setCells
+		);
 	}
 };
 
