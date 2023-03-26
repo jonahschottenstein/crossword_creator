@@ -465,6 +465,34 @@ const backtrack = (previousArgs, previousArgsArr, setCells) => {
 	}
 };
 
+const lookAhead = (
+	wordObjs,
+	{
+		wordToFill,
+		wordMatchIndex,
+		initialArgs,
+		argsArr,
+		previousArgs,
+		previousArgsArr,
+	},
+	setCells
+) => {
+	if (!hasMatchlessWordObj(wordObjs)) return;
+
+	if (hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
+		return autofillGrid(
+			{
+				...updateWordMatchIndexOfArgs(initialArgs),
+				argsArr,
+			},
+			setCells
+		);
+	} else {
+		console.log("lookAhead backtrack 1", { previousArgs });
+		return backtrack(previousArgs, previousArgsArr, setCells);
+	}
+};
+
 const wordCellsAreFilled = ({ wordCells }) => wordCells.every(cellHasLetter);
 
 const gridIsFilled = (wordObjs) => wordObjs.every(wordCellsAreFilled);
