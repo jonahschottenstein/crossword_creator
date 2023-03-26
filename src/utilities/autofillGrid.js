@@ -435,17 +435,35 @@ const getPreviousData = (currentArgsArr, wordToFill) => {
 	};
 };
 
-/* const backtrack = (previousArgs, previousArgsArr, setCells) => {
-    if (!previousArgs) return "(!previousArgs) No solutions found";
+const backtrack = (previousArgs, previousArgsArr, setCells) => {
+	if (!previousArgs) return "(!previousArgs) No solutions found";
 
-    if (hasUntestedWordMatches(previousArgs.wordToFill, previousArgs.wordMatchIndex)) {
-        const updatedPreviousArgs = updateWordMatchIndexOfArgs(previousArgs);
+	if (
+		hasUntestedWordMatches(previousArgs.wordToFill, previousArgs.wordMatchIndex)
+	) {
+		const updatedPreviousArgs = updateWordMatchIndexOfArgs(previousArgs);
 
-        return
+		return autofillGrid(
+			{ ...updatedPreviousArgs, argsArr: previousArgsArr },
+			setCells
+		);
+	} else {
+		const nextPreviousData = getPreviousData(
+			previousArgsArr,
+			previousArgs.wordToFill
+		);
+		if (nextPreviousData.argsIndex < 0)
+			return "(nextPreviousArgsIndex < 0) No solutions found";
 
-    }
-
-} */
+		return autofillGrid(
+			{
+				...nextPreviousData.updatedArgs,
+				argsArr: nextPreviousData.argsArr,
+			},
+			setCells
+		);
+	}
+};
 
 const wordCellsAreFilled = ({ wordCells }) => wordCells.every(cellHasLetter);
 
