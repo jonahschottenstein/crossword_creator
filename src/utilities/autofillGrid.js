@@ -552,6 +552,19 @@ const handleNextWordToFill = (
 	}
 };
 
+const getUpdatedCrossingWordObjs = (filledWordObj, crossingWordObjs) => {
+	const crossingWordObjsWithFilledWordCells =
+		addFilledWordCellsToCrossingWordObjs(filledWordObj, crossingWordObjs);
+	const crossingWordObjsFiltered = filterWordMatches(
+		crossingWordObjsWithFilledWordCells
+	);
+	const updatedCrossingWordObjs = crossingWordObjsFiltered.map(
+		updateOptsFromMatches
+	);
+
+	return updatedCrossingWordObjs;
+};
+
 const autofillGrid = (
 	{
 		formattedCells,
@@ -587,31 +600,12 @@ const autofillGrid = (
 
 	const filledWordObj = getFilledWordObj(wordToFill, wordMatchIndex);
 	const crossingWordObjs = getCrossingWordObjs(filledWordObj, allWordObjs);
-	const crossingWordObjsWithFilledWordCells =
-		addFilledWordCellsToCrossingWordObjs(filledWordObj, crossingWordObjs);
-
-	if (hasMatchlessWordObj(crossingWordObjsWithFilledWordCells)) {
-		return lookAhead(
-			{
-				wordToFill,
-				wordMatchIndex,
-				initialArgs,
-				argsArr,
-				previousArgs: previousData.args,
-				previousArgsArr: previousData.argsArr,
-			},
-			setCells
-		);
-	}
-
-	const crossingWordObjsFiltered = filterWordMatches(
-		crossingWordObjsWithFilledWordCells
-	);
-	const crossingWordObjsWithOptsFromMatches = crossingWordObjsFiltered.map(
-		(wordObj) => updateOptsFromMatches(wordObj)
+	const updatedCrossingWordObjs = getUpdatedCrossingWordObjs(
+		filledWordObj,
+		crossingWordObjs
 	);
 
-	if (hasMatchlessWordObj(crossingWordObjsWithOptsFromMatches)) {
+	if (hasMatchlessWordObj(updatedCrossingWordObjs)) {
 		return lookAhead(
 			{
 				wordToFill,
@@ -627,7 +621,7 @@ const autofillGrid = (
 
 	const { acrossWordObjsIntegrated, downWordObjsIntegrated } =
 		getIntegratedWordObjs(
-			[...crossingWordObjsWithOptsFromMatches, filledWordObj],
+			[...updatedCrossingWordObjs, filledWordObj],
 			acrossWordObjs,
 			downWordObjs
 		);
