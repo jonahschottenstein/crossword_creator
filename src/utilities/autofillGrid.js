@@ -466,7 +466,7 @@ const backtrack = (previousArgs, previousArgsArr, setCells) => {
 };
 
 const lookAhead = (
-	wordObjs,
+	// wordObjs,
 	{
 		wordToFill,
 		wordMatchIndex,
@@ -477,7 +477,7 @@ const lookAhead = (
 	},
 	setCells
 ) => {
-	if (!hasMatchlessWordObj(wordObjs)) return;
+	// if (!hasMatchlessWordObj(wordObjs)) return;
 
 	if (hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
 		return autofillGrid(
