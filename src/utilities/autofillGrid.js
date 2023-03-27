@@ -435,20 +435,18 @@ const getPreviousData = (currentArgsArr, wordToFill) => {
 	};
 };
 
-const tryNextWordMatch = (args, argsArr, setCells) => {
-	return autofillGrid(
-		{ ...updateWordMatchIndexOfArgs(args), argsArr: argsArr },
-		setCells
-	);
-};
-
 const backtrack = (previousArgs, previousArgsArr, setCells) => {
 	if (!previousArgs) return "(!previousArgs) No solutions found";
 
 	if (
 		hasUntestedWordMatches(previousArgs.wordToFill, previousArgs.wordMatchIndex)
 	) {
-		return tryNextWordMatch(previousArgs, previousArgsArr, setCells);
+		const updatedPreviousArgs = updateWordMatchIndexOfArgs(previousArgs);
+
+		return autofillGrid(
+			{ ...updatedPreviousArgs, argsArr: previousArgsArr },
+			setCells
+		);
 	} else {
 		const nextPreviousData = getPreviousData(
 			previousArgsArr,
@@ -482,7 +480,13 @@ const lookAhead = (
 	// if (!hasMatchlessWordObj(wordObjs)) return;
 
 	if (hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
-		return tryNextWordMatch(initialArgs, argsArr, setCells);
+		return autofillGrid(
+			{
+				...updateWordMatchIndexOfArgs(initialArgs),
+				argsArr,
+			},
+			setCells
+		);
 	} else {
 		console.log("lookAhead backtrack 1", { previousArgs });
 		return backtrack(previousArgs, previousArgsArr, setCells);
@@ -537,7 +541,10 @@ const handleNextWordToFill = (
 		return autofillGrid(autofillGridArgsObj, setCells);
 	} else {
 		if (hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
-			return tryNextWordMatch(initialArgs, argsArr, setCells);
+			return autofillGrid(
+				{ ...updateWordMatchIndexOfArgs(initialArgs), argsArr },
+				setCells
+			);
 		} else {
 			console.log("backtrack 3");
 			return backtrack(previousArgs, previousArgsArr);
