@@ -551,7 +551,7 @@ const handleNoNextWordToFill = (
 	}
 };
 
-const handleNextWordToFill = (
+/* const handleNextWordToFill = (
 	nextWordToFill,
 	autofillGridArgsObj,
 	{
@@ -577,7 +577,7 @@ const handleNextWordToFill = (
 			return backtrack(previousArgs, previousArgsArr);
 		}
 	}
-};
+}; */
 
 const getUpdatedCrossingWordObjs = (filledWordObj, crossingWordObjs) => {
 	const crossingWordObjsWithFilledWordCells =
@@ -622,7 +622,8 @@ const autofillGrid = (
 
 	if (!hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
 		console.log("backtrack 2");
-		return backtrack(previousData.args, previousData.argsArr, setCells);
+		// return backtrack(previousData.args, previousData.argsArr, setCells);
+		return backtrack2(previousData, setCells);
 	}
 
 	const filledWordObj = getFilledWordObj(wordToFill, wordMatchIndex);
@@ -633,15 +634,19 @@ const autofillGrid = (
 	);
 
 	if (hasMatchlessWordObj(updatedCrossingWordObjs)) {
-		return lookAhead(
-			{
-				wordToFill,
-				wordMatchIndex,
-				initialArgs,
-				argsArr,
-				previousArgs: previousData.args,
-				previousArgsArr: previousData.argsArr,
-			},
+		// return lookAhead(
+		// 	{
+		// 		wordToFill,
+		// 		wordMatchIndex,
+		// 		initialArgs,
+		// 		argsArr,
+		// 		previousArgs: previousData.args,
+		// 		previousArgsArr: previousData.argsArr,
+		// 	},
+		// 	setCells
+		// );
+		return lookAhead2(
+			{ wordToFill, wordMatchIndex, initialArgs, argsArr, previousData },
 			setCells
 		);
 	}
@@ -663,15 +668,19 @@ const autofillGrid = (
 	];
 
 	if (hasMatchlessWordObj(allUpdatedWordObjs)) {
-		return lookAhead(
-			{
-				wordToFill,
-				wordMatchIndex,
-				initialArgs,
-				argsArr,
-				previousArgs: previousData.args,
-				previousArgsArr: previousData.argsArr,
-			},
+		// return lookAhead(
+		// 	{
+		// 		wordToFill,
+		// 		wordMatchIndex,
+		// 		initialArgs,
+		// 		argsArr,
+		// 		previousArgs: previousData.args,
+		// 		previousArgsArr: previousData.argsArr,
+		// 	},
+		// 	setCells
+		// );
+		return lookAhead2(
+			{ wordToFill, wordMatchIndex, initialArgs, argsArr, previousData },
 			setCells
 		);
 	}
@@ -694,26 +703,44 @@ const autofillGrid = (
 			updatedWordObjs
 		);
 	} else {
-		return handleNextWordToFill(
-			nextWordToFill,
-			{
-				formattedCells: updatedFormattedCells,
-				acrossWordObjs: updatedWordObjs.acrossWordObjs,
-				downWordObjs: updatedWordObjs.downWordObjs,
-				wordToFill: nextWordToFill,
-				wordMatchIndex: 0,
-				argsArr,
-			},
-			{
-				wordToFill,
-				wordMatchIndex,
-				initialArgs,
-				argsArr,
-				previousArgs: previousData.args,
-				previousArgsArr: previousData.argsArr,
-			},
-			setCells
-		);
+		// return handleNextWordToFill(
+		// 	nextWordToFill,
+		// 	{
+		// 		formattedCells: updatedFormattedCells,
+		// 		acrossWordObjs: updatedWordObjs.acrossWordObjs,
+		// 		downWordObjs: updatedWordObjs.downWordObjs,
+		// 		wordToFill: nextWordToFill,
+		// 		wordMatchIndex: 0,
+		// 		argsArr,
+		// 	},
+		// 	{
+		// 		wordToFill,
+		// 		wordMatchIndex,
+		// 		initialArgs,
+		// 		argsArr,
+		// 		previousArgs: previousData.args,
+		// 		previousArgsArr: previousData.argsArr,
+		// 	},
+		// 	setCells
+		// );
+		if (hasUntestedWordMatches(nextWordToFill, 0)) {
+			return autofillGrid(
+				{
+					formattedCells: updatedFormattedCells,
+					acrossWordObjs: updatedWordObjs.acrossWordObjs,
+					downWordObjs: updatedWordObjs.downWordObjs,
+					wordToFill: nextWordToFill,
+					wordMatchIndex: 0,
+					argsArr,
+				},
+				setCells
+			);
+		} else {
+			return lookAhead2(
+				{ wordToFill, wordMatchIndex, initialArgs, argsArr, previousData },
+				setCells
+			);
+		}
 	}
 };
 
