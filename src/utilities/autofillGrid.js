@@ -474,7 +474,7 @@ const backtrack2 = (previousData, setCells) => {
 	);
 };
 
-const lookAhead = (
+/* const lookAhead = (
 	// wordObjs,
 	{
 		wordToFill,
@@ -499,6 +499,24 @@ const lookAhead = (
 	} else {
 		console.log("lookAhead backtrack 1", { previousArgs });
 		return backtrack(previousArgs, previousArgsArr, setCells);
+	}
+}; */
+
+const lookAhead2 = (
+	{ wordToFill, wordMatchIndex, initialArgs, argsArr, previousData },
+	setCells
+) => {
+	if (hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
+		return autofillGrid(
+			{
+				...updateWordMatchIndexOfArgs(initialArgs),
+				argsArr,
+			},
+			setCells
+		);
+	} else {
+		console.log("lookAhead backtrack2");
+		return backtrack2(previousData, setCells);
 	}
 };
 
