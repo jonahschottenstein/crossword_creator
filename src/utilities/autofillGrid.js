@@ -435,7 +435,7 @@ const getPreviousData = (currentArgsArr, wordToFill) => {
 	};
 };
 
-const backtrack = (previousArgs, previousArgsArr, setCells) => {
+/* const backtrack = (previousArgs, previousArgsArr, setCells) => {
 	if (!previousArgs) return "(!previousArgs) No solutions found";
 
 	if (
@@ -463,6 +463,15 @@ const backtrack = (previousArgs, previousArgsArr, setCells) => {
 			setCells
 		);
 	}
+}; */
+
+const backtrack2 = (previousData, setCells) => {
+	if (!previousData.args) return "(!previousArgs) No solutions found";
+
+	return autofillGrid(
+		{ ...previousData.updatedArgs, argsArr: previousData.argsArr },
+		setCells
+	);
 };
 
 const lookAhead = (
