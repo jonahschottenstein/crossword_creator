@@ -749,42 +749,49 @@ const handleNextWordToFill = async (
 		return backtrack2(previousData, setCells);
 	}
 
-	const filledWordObj = getFilledWordObj(wordToFill, wordMatchIndex);
-	const crossingWordObjs = getCrossingWordObjs(filledWordObj, allWordObjs);
-	const updatedCrossingWordObjs = getUpdatedCrossingWordObjs(
-		filledWordObj,
-		crossingWordObjs
-	);
+	// const filledWordObj = getFilledWordObj(wordToFill, wordMatchIndex);
+	// const crossingWordObjs = getCrossingWordObjs(filledWordObj, allWordObjs);
+	// const updatedCrossingWordObjs = getUpdatedCrossingWordObjs(
+	// 	filledWordObj,
+	// 	crossingWordObjs
+	// );
 
-	if (hasMatchlessWordObj(updatedCrossingWordObjs)) {
-		// return lookAhead(
-		// 	{
-		// 		wordToFill,
-		// 		wordMatchIndex,
-		// 		initialArgs,
-		// 		argsArr,
-		// 		previousArgs: previousData.args,
-		// 		previousArgsArr: previousData.argsArr,
-		// 	},
-		// 	setCells
-		// );
-		return lookAhead2(
-			{ wordToFill, wordMatchIndex, initialArgs, argsArr, previousData },
-			setCells
-		);
-	}
+	// if (hasMatchlessWordObj(updatedCrossingWordObjs)) {
+	// 	// return lookAhead(
+	// 	// 	{
+	// 	// 		wordToFill,
+	// 	// 		wordMatchIndex,
+	// 	// 		initialArgs,
+	// 	// 		argsArr,
+	// 	// 		previousArgs: previousData.args,
+	// 	// 		previousArgsArr: previousData.argsArr,
+	// 	// 	},
+	// 	// 	setCells
+	// 	// );
+	// 	return lookAhead2(
+	// 		{ wordToFill, wordMatchIndex, initialArgs, argsArr, previousData },
+	// 		setCells
+	// 	);
+	// }
 
-	const { acrossWordObjsIntegrated, downWordObjsIntegrated } =
-		getIntegratedWordObjs(
-			[...updatedCrossingWordObjs, filledWordObj],
-			acrossWordObjs,
-			downWordObjs
-		);
-	const updatedWordObjs = getUpdatedWordObjs(
-		acrossWordObjsIntegrated,
-		downWordObjsIntegrated,
-		formattedCells
-	);
+	// const { acrossWordObjsIntegrated, downWordObjsIntegrated } =
+	// 	getIntegratedWordObjs(
+	// 		[...updatedCrossingWordObjs, filledWordObj],
+	// 		acrossWordObjs,
+	// 		downWordObjs
+	// 	);
+	// const updatedWordObjs = getUpdatedWordObjs(
+	// 	acrossWordObjsIntegrated,
+	// 	downWordObjsIntegrated,
+	// 	formattedCells
+	// );
+	// const allUpdatedWordObjs = [
+	// 	...updatedWordObjs.acrossWordObjs,
+	// 	...updatedWordObjs.downWordObjs,
+	// ];
+
+	const updatedWordObjs = getUpdatedWordObjsWrapper(initialArgs);
+	console.log({ updatedWordObjs });
 	const allUpdatedWordObjs = [
 		...updatedWordObjs.acrossWordObjs,
 		...updatedWordObjs.downWordObjs,
@@ -865,6 +872,85 @@ const handleNextWordToFill = async (
 			);
 		}
 	}
+}; */
+
+const autofillGrid2 = async (
+	{
+		formattedCells,
+		acrossWordObjs,
+		downWordObjs,
+		wordToFill,
+		wordMatchIndex = 0,
+		argsArr = [],
+	},
+	setCells
+) => {
+	const allWordObjs = [...acrossWordObjs, ...downWordObjs];
+
+	if (gridIsFilled(allWordObjs) && everyWordObjHasMatch(allWordObjs)) {
+		return { formattedCells, acrossWordObjs, downWordObjs };
+	}
+
+	const initialArgs = {
+		formattedCells,
+		acrossWordObjs,
+		downWordObjs,
+		wordToFill,
+		wordMatchIndex,
+	};
+	argsArr.push(initialArgs);
+	console.log(`
+		argsArr.length: ${argsArr.length}
+		wordLength: ${wordToFill.wordCells.length},
+		firstCell: ${wordToFill.wordCells[0].id},
+		wordMatchIndex: ${wordMatchIndex},
+		wordMatchesCount: ${wordToFill.wordMatches.length}
+	`);
+
+	const previousData = getPreviousData(argsArr, wordToFill);
+
+	// if (!hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
+	// 	return backtrack3(previousData, setCells);
+	// }
+	if (
+		!hasUntestedWordMatches(wordToFill, wordMatchIndex) ||
+		wordMatchIndex > 100
+	) {
+		return await backtrack3(previousData, setCells);
+	}
+
+	const updatedWordObjs = await getUpdatedWordObjsWrapper(initialArgs);
+	console.log({ updatedWordObjs });
+	const allUpdatedWordObjs = [
+		...updatedWordObjs.acrossWordObjs,
+		...updatedWordObjs.downWordObjs,
+	];
+
+	if (hasMatchlessWordObj(allUpdatedWordObjs)) {
+		console.log(
+			`hasMatchlessWordObj(allUpdatedWordObjs): ${hasMatchlessWordObj(
+				allUpdatedWordObjs
+			)}`
+		);
+		return await lookAhead3({ initialArgs, argsArr, previousData }, setCells);
+	}
+
+	const updatedFormattedCells = getUpdatedFormattedCells(
+		formattedCells,
+		updatedWordObjs.acrossWordObjs,
+		updatedWordObjs.downWordObjs
+	);
+
+	await updateGrid(updatedFormattedCells, setCells);
+
+	const nextWordToFill = getNextWordToFill(allUpdatedWordObjs);
+
+	return await handleNextWordToFill(
+		{ updatedFormattedCells, updatedWordObjs, nextWordToFill },
+		{ initialArgs, previousData },
+		argsArr,
+		setCells
+	);
 };
 
 export const initAutofillGrid = async (cells, setCells) => {
