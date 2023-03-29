@@ -643,7 +643,47 @@ const getUpdatedCrossingWordObjs = async (filledWordObj, crossingWordObjs) => {
 	return updatedCrossingWordObjs;
 };
 
-const autofillGrid = (
+const getUpdatedWordObjsWrapper = async ({
+	formattedCells,
+	acrossWordObjs,
+	downWordObjs,
+	wordToFill,
+	wordMatchIndex,
+}) => {
+	const allWordObjs = [...acrossWordObjs, ...downWordObjs];
+	const filledWordObj = getFilledWordObj(wordToFill, wordMatchIndex);
+	const crossingWordObjs = getCrossingWordObjs(filledWordObj, allWordObjs);
+	console.log({ filledWordObj, crossingWordObjs });
+	const updatedCrossingWordObjs = await getUpdatedCrossingWordObjs(
+		filledWordObj,
+		crossingWordObjs
+	);
+	console.log({ updatedCrossingWordObjs });
+	const { acrossWordObjsIntegrated, downWordObjsIntegrated } =
+		getIntegratedWordObjs(
+			[...updatedCrossingWordObjs, filledWordObj],
+			acrossWordObjs,
+			downWordObjs
+		);
+	const updatedWordObjs = await getUpdatedWordObjs(
+		acrossWordObjsIntegrated,
+		downWordObjsIntegrated,
+		formattedCells
+	);
+	console.log({ updatedWordObjs });
+	console.log(
+		`hasMatchlessWordObj: 
+		(updatedCrossingWordObjs): ${hasMatchlessWordObj(updatedCrossingWordObjs)},
+		(updatedWordObjs): ${hasMatchlessWordObj([
+			...updatedWordObjs.acrossWordObjs,
+			...updatedWordObjs.downWordObjs,
+		])}`
+	);
+
+	return updatedWordObjs;
+};
+
+/* const autofillGrid = (
 	{
 		formattedCells,
 		acrossWordObjs,
