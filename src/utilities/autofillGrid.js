@@ -536,7 +536,7 @@ const backtrack3 = async (previousData, setCells) => {
 	}
 }; */
 
-const lookAhead2 = (
+/* const lookAhead2 = (
 	{ wordToFill, wordMatchIndex, initialArgs, argsArr, previousData },
 	setCells
 ) => {
@@ -551,6 +551,23 @@ const lookAhead2 = (
 	} else {
 		console.log("lookAhead backtrack2");
 		return backtrack2(previousData, setCells);
+	}
+}; */
+
+const lookAhead3 = async ({ initialArgs, argsArr, previousData }, setCells) => {
+	const { wordToFill, wordMatchIndex } = initialArgs;
+
+	if (hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
+		return await autofillGrid2(
+			{
+				...updateWordMatchIndexOfArgs(initialArgs),
+				argsArr: updateArgsArr(argsArr),
+			},
+			setCells
+		);
+	} else {
+		console.log("lookAhead3, backtrack3");
+		return await backtrack3(previousData, setCells);
 	}
 };
 
