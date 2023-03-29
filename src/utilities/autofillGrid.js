@@ -219,19 +219,23 @@ const filterWordMatches = async (wordObjs) => {
 	}
 };
 
-const updateWordObjs = (wordObjsWithOptsFromMatches, overlapOpts) => {
+const updateWordObjs = async (wordObjsWithOptsFromMatches, overlapOpts) => {
 	const wordObjsWithOverlapOpts = getWordObjsWithOverlapOpts(
 		wordObjsWithOptsFromMatches,
 		overlapOpts
 	);
-	const wordObjsWithFilteredMatches = filterWordMatches(
+	const wordObjsWithFilteredMatches = await filterWordMatches(
 		wordObjsWithOverlapOpts
 	);
 
 	return wordObjsWithFilteredMatches;
 };
 
-const getUpdatedWordObjs = (acrossWordObjs, downWordObjs, formattedCells) => {
+const getUpdatedWordObjs = async (
+	acrossWordObjs,
+	downWordObjs,
+	formattedCells
+) => {
 	const acrossWordObjsWithOptsFromMatches = acrossWordObjs.map(
 		(acrossWordObj) => updateOptsFromMatches(acrossWordObj)
 	);
@@ -243,11 +247,11 @@ const getUpdatedWordObjs = (acrossWordObjs, downWordObjs, formattedCells) => {
 		downWordObjsWithOptsFromMatches,
 		formattedCells
 	);
-	const updatedAcrossWordObjs = updateWordObjs(
+	const updatedAcrossWordObjs = await updateWordObjs(
 		acrossWordObjsWithOptsFromMatches,
 		overlapOpts
 	);
-	const updatedDownWordObjs = updateWordObjs(
+	const updatedDownWordObjs = await updateWordObjs(
 		downWordObjsWithOptsFromMatches,
 		overlapOpts
 	);
@@ -484,10 +488,19 @@ const getPreviousData = (currentArgsArr, wordToFill) => {
 	}
 }; */
 
-const backtrack2 = (previousData, setCells) => {
+/* const backtrack2 = (previousData, setCells) => {
 	if (!previousData.args) return "(!previousArgs) No solutions found";
 
 	return autofillGrid(
+		{ ...previousData.updatedArgs, argsArr: previousData.argsArr },
+		setCells
+	);
+}; */
+
+const backtrack3 = async (previousData, setCells) => {
+	if (!previousData.args) return "(!previousArgs) No solutions found";
+
+	return await autofillGrid2(
 		{ ...previousData.updatedArgs, argsArr: previousData.argsArr },
 		setCells
 	);
@@ -546,7 +559,7 @@ const gridIsFilled = (wordObjs) => wordObjs.every(wordCellsAreFilled);
 const everyWordObjHasMatch = (wordObjs) =>
 	wordObjs.every(({ wordMatches }) => wordMatches.length === 1);
 
-const updateGrid = (formattedCells, setCells) =>
+const updateGrid = async (formattedCells, setCells) =>
 	setCells((prevState) => {
 		const newState = prevState.map((cell, index) => {
 			if (cell.isBlackSquare) return cell;
@@ -598,10 +611,10 @@ const handleNoNextWordToFill = (
 	}
 }; */
 
-const getUpdatedCrossingWordObjs = (filledWordObj, crossingWordObjs) => {
+const getUpdatedCrossingWordObjs = async (filledWordObj, crossingWordObjs) => {
 	const crossingWordObjsWithFilledWordCells =
 		addFilledWordCellsToCrossingWordObjs(filledWordObj, crossingWordObjs);
-	const crossingWordObjsFiltered = filterWordMatches(
+	const crossingWordObjsFiltered = await filterWordMatches(
 		crossingWordObjsWithFilledWordCells
 	);
 	const updatedCrossingWordObjs = crossingWordObjsFiltered.map(
@@ -768,11 +781,12 @@ export const initAutofillGrid = async (cells, setCells) => {
 	const { acrossWords, downWords } = getFormattedWords(cells, formattedCells);
 	const acrossWordsWithMatches = await getWordsWithMatches(acrossWords);
 	const downWordsWithMatches = await getWordsWithMatches(downWords);
-	const { acrossWordObjs, downWordObjs } = getUpdatedWordObjs(
+	const { acrossWordObjs, downWordObjs } = await getUpdatedWordObjs(
 		acrossWordsWithMatches,
 		downWordsWithMatches,
 		formattedCells
 	);
+	console.log({ acrossWordObjs, downWordObjs });
 	const wordToFill = getNextWordToFill([...acrossWordObjs, ...downWordObjs]);
 	const argsObj = {
 		formattedCells,
@@ -780,8 +794,12 @@ export const initAutofillGrid = async (cells, setCells) => {
 		downWordObjs,
 		wordToFill,
 	};
-	console.time("autofillGrid");
-	const autofilledGrid = autofillGrid(argsObj, setCells);
-	console.log({ autofilledGrid });
-	console.timeEnd("autofillGrid");
+	// console.time("autofillGrid");
+	// const autofilledGrid = autofillGrid(argsObj, setCells);
+	// console.log({ autofilledGrid });
+	// console.timeEnd("autofillGrid");
+	console.time("autofillGrid2");
+	const autofilledGrid2 = await autofillGrid2(argsObj, setCells);
+	console.log({ autofilledGrid2 });
+	console.timeEnd("autofillGrid2");
 };
