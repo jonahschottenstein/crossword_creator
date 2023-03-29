@@ -458,6 +458,8 @@ const getPreviousData = (currentArgsArr, wordToFill) => {
 	};
 };
 
+const updateArgsArr = (argsArr) => argsArr.slice(0, -1);
+
 /* const backtrack = (previousArgs, previousArgsArr, setCells) => {
 	if (!previousArgs) return "(!previousArgs) No solutions found";
 
