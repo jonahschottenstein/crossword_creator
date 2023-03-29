@@ -187,7 +187,7 @@ const getWordRegExp = (wordWithMatches) => {
 	return wordRegExp;
 };
 
-const filterWordMatches = (wordObjs) => {
+/* const filterWordMatches = (wordObjs) => {
 	const wordObjsWithFilteredMatches = wordObjs.map((wordObj) => {
 		const wordRegExp = getWordRegExp(wordObj);
 		const filteredWordMatches = wordObj.wordMatches.filter(({ word }) =>
@@ -198,6 +198,25 @@ const filterWordMatches = (wordObjs) => {
 	});
 
 	return wordObjsWithFilteredMatches;
+}; */
+const filterWordMatches = async (wordObjs) => {
+	try {
+		const wordObjsWithFilteredMatches = await Promise.all(
+			wordObjs.map(async (wordObj) => {
+				const wordRegExp = getWordRegExp(wordObj);
+				const filteredWordMatches = await Promise.all(
+					wordObj.wordMatches.filter(({ word }) => wordRegExp.test(word))
+				);
+
+				return { ...wordObj, wordMatches: filteredWordMatches };
+			})
+		);
+
+		return wordObjsWithFilteredMatches;
+	} catch (error) {
+		console.log(error);
+		return;
+	}
 };
 
 const updateWordObjs = (wordObjsWithOptsFromMatches, overlapOpts) => {
