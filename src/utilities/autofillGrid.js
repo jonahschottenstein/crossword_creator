@@ -588,7 +588,7 @@ const updateGrid = async (formattedCells, setCells) =>
 		return newState;
 	});
 
-const handleNoNextWordToFill = (
+/* const handleNoNextWordToFill = (
 	allUpdatedWordObjs,
 	updatedFormattedCells,
 	updatedWordObjs
@@ -600,7 +600,7 @@ const handleNoNextWordToFill = (
 	} else {
 		return "!nextWordToFill, not every cell has a letter";
 	}
-};
+}; */
 
 /* const handleNextWordToFill = (
 	nextWordToFill,
@@ -681,6 +681,38 @@ const getUpdatedWordObjsWrapper = async ({
 	);
 
 	return updatedWordObjs;
+};
+
+const handleNextWordToFill = async (
+	{ updatedFormattedCells, updatedWordObjs, nextWordToFill },
+	{ initialArgs, previousData },
+	argsArr,
+	setCells
+) => {
+	const { acrossWordObjs, downWordObjs } = updatedWordObjs;
+
+	if (!nextWordToFill) {
+		const allUpdatedWordObjs = [...acrossWordObjs, ...downWordObjs];
+
+		if (!gridIsFilled(allUpdatedWordObjs)) return "!nextWordToFill";
+		return { updatedFormattedCells, updatedWordObjs };
+	} else {
+		if (hasUntestedWordMatches(nextWordToFill, 0)) {
+			return await autofillGrid2(
+				{
+					formattedCells: updatedFormattedCells,
+					acrossWordObjs: updatedWordObjs.acrossWordObjs,
+					downWordObjs: updatedWordObjs.downWordObjs,
+					wordToFill: nextWordToFill,
+					wordMatchIndex: 0,
+					argsArr,
+				},
+				setCells
+			);
+		} else {
+			return await lookAhead3({ initialArgs, argsArr, previousData }, setCells);
+		}
+	}
 };
 
 /* const autofillGrid = (
