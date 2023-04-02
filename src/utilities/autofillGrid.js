@@ -436,19 +436,21 @@ const updateWordMatchIndexOfArgs = (args) => {
 	return { ...args, wordMatchIndex: args.wordMatchIndex + 1 };
 };
 
-const getPreviousArgsArr = (argsArr, previousArgsIndex, updatedPreviousArgs) =>
-	argsArr.slice(0, previousArgsIndex).concat(updatedPreviousArgs);
+// const getPreviousArgsArr = (argsArr, previousArgsIndex, updatedPreviousArgs) =>
+// 	argsArr.slice(0, previousArgsIndex).concat(updatedPreviousArgs);
+const getPreviousArgsArr = (argsArr, previousArgsIndex) =>
+	argsArr.slice(0, previousArgsIndex);
 
 const getPreviousData = (currentArgsArr, wordToFill) => {
 	const previousArgsIndex = getPreviousArgsIndex(currentArgsArr, wordToFill);
 	const previousArgs = currentArgsArr[previousArgsIndex];
 	const updatedPreviousArgs =
 		previousArgs && updateWordMatchIndexOfArgs(previousArgs);
-	const previousArgsArr = getPreviousArgsArr(
-		currentArgsArr,
-		previousArgsIndex,
-		updatedPreviousArgs
-	);
+	// const previousArgsArr = getPreviousArgsArr(
+	// 	currentArgsArr,
+	// 	previousArgsIndex,
+	// 	updatedPreviousArgs
+	const previousArgsArr = getPreviousArgsArr(currentArgsArr, previousArgsIndex);
 
 	return {
 		argsIndex: previousArgsIndex,
