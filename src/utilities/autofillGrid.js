@@ -425,6 +425,9 @@ const hasUntestedWordMatches = (wordObj, wordMatchIndex) =>
 const hasMatchlessWordObj = (wordObjs) =>
 	wordObjs.some(({ wordMatches }) => wordMatches.length < 1);
 
+const getMatchlessWordObjs = (wordObjs) =>
+	wordObjs.filter(({ wordMatches }) => wordMatches.length < 1);
+
 const getPreviousArgsIndex = (argsArr, wordToFill) =>
 	argsArr.findLastIndex(
 		(argsObj) =>
