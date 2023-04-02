@@ -513,6 +513,16 @@ const backtrack3 = async (previousData, setCells) => {
 	);
 };
 
+const doIntersect = (wordObj1, wordObj2) => {
+	return wordObj1.wordCells.some((word1Cell) => {
+		const sameCell = wordObj2.wordCells.find(
+			(word2Cell) => word2Cell.id === word1Cell.id
+		);
+
+		return sameCell ? true : false;
+	});
+};
+
 /* const lookAhead = (
 	// wordObjs,
 	{
