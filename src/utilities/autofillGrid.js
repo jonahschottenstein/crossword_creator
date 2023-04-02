@@ -1181,7 +1181,49 @@ const autofillGrid2 = async (
 				allUpdatedWordObjs
 			)}`
 		);
-		return await lookAhead3({ initialArgs, argsArr, previousData }, setCells);
+		const matchlessWordObjs = getMatchlessWordObjs(allUpdatedWordObjs);
+		console.log({ matchlessWordObjs });
+		const causeIndexes = getMatchlessCauseIndexes(matchlessWordObjs, argsArr);
+		const causeIndex2 = causeIndexes
+			.slice()
+			.sort((a, b) => a - b)
+			.find((index) => index > -1);
+		const causeIndexes2 = getMatchlessCauseIndexes2(
+			matchlessWordObjs,
+			allUpdatedWordObjs,
+			argsArr
+		);
+		const causeIndex3 = causeIndexes2
+			.slice()
+			.sort((a, b) => a - b)
+			.findLast((index) => index > -1);
+		if (causeIndex2 || causeIndex3) {
+			console.log("CAUSE INDEX", { causeIndexes, causeIndex2 });
+			console.log({ causeIndexes2, causeIndex3 });
+			console.log("CI");
+		}
+		const potentialCauses = getPotentialCauses(matchlessWordObjs, argsArr);
+		console.log({ filledWordObj, potentialCauses });
+		console.log(
+			shouldJumpBack(matchlessWordObjs, filledWordObj, updatedCrossingWordObjs)
+		);
+		// return await lookAhead3({ initialArgs, argsArr, previousData }, setCells);
+		// return await jumpBack(causeIndex, argsArr, setCells);
+
+		if (
+			shouldJumpBack(
+				matchlessWordObjs,
+				filledWordObj,
+				updatedCrossingWordObjs
+			) &&
+			causeIndex3
+			// causeIndex2
+			// causeIndexes[0] > -1
+		) {
+			return await jumpBack(causeIndex3, argsArr, setCells);
+		} else {
+			return await lookAhead3({ initialArgs, argsArr, previousData }, setCells);
+		}
 	}
 
 	const updatedFormattedCells = getUpdatedFormattedCells(
