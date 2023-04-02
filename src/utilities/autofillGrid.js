@@ -534,6 +534,22 @@ const shouldJumpBack = (matchlessWordObjs, filledWordObj, crossingWordObjs) => {
 	return intersectionResults.some((result) => !result);
 };
 
+const jumpBack = async (causeIndex, currentArgsArr, setCells) => {
+	const jumpBackIndex = currentArgsArr.findLastIndex(
+		(argsObj, index) =>
+			index <= causeIndex &&
+			hasUntestedWordMatches(argsObj.wordToFill, argsObj.wordMatchIndex)
+	);
+	const jumpBackArgs = currentArgsArr[jumpBackIndex];
+	const updatedJumpBackArgs = updateWordMatchIndexOfArgs(jumpBackArgs);
+	const previousArgsArr = getPreviousArgsArr(currentArgsArr, jumpBackIndex);
+
+	return await autofillGrid2(
+		{ ...updatedJumpBackArgs, argsArr: previousArgsArr },
+		setCells
+	);
+};
+
 /* const lookAhead = (
 	// wordObjs,
 	{
