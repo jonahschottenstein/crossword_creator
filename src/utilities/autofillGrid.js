@@ -1244,7 +1244,7 @@ const autofillGrid2 = async (
 	);
 };
 
-export const initAutofillGrid = async (cells, setCells) => {
+export const initAutofillGrid = async (cells, setCells, setIsAutofilling) => {
 	const formattedCells = formatCells(cells);
 	const { acrossWords, downWords } = getFormattedWords(cells, formattedCells);
 	const acrossWordsWithMatches = await getWordsWithMatches(acrossWords);
@@ -1267,7 +1267,9 @@ export const initAutofillGrid = async (cells, setCells) => {
 	// console.log({ autofilledGrid });
 	// console.timeEnd("autofillGrid");
 	console.time("autofillGrid2");
+	setIsAutofilling(true);
 	const autofilledGrid2 = await autofillGrid2(argsObj, setCells);
 	console.log({ autofilledGrid2 });
+	setIsAutofilling(false);
 	console.timeEnd("autofillGrid2");
 };
