@@ -523,6 +523,17 @@ const doIntersect = (wordObj1, wordObj2) => {
 	});
 };
 
+const shouldJumpBack = (matchlessWordObjs, filledWordObj, crossingWordObjs) => {
+	const intersectionResults = matchlessWordObjs.map((matchlessWordObj) =>
+		[...crossingWordObjs, filledWordObj].some((wordObj) =>
+			doIntersect(wordObj, matchlessWordObj)
+		)
+	);
+	console.log({ intersectionResults });
+	// return intersectionResults.every((result) => !result);
+	return intersectionResults.some((result) => !result);
+};
+
 /* const lookAhead = (
 	// wordObjs,
 	{
