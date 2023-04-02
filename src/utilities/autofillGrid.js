@@ -967,6 +967,101 @@ const getConsoleGrid = (formattedCells) => {
 	}
 }; */
 
+/* const getMatchlessWordObjCauseIndex = (
+	matchlessWordObj,
+	allWordObjs,
+	argsArr
+) => {
+	// const causeArgsObj = argsArr.findIndex((argsObj) => {
+	const causeArgsObj = argsArr.findLastIndex((argsObj) => {
+		const argsChunk = [
+			...getCrossingWordObjs(argsObj.wordToFill, allWordObjs),
+			argsObj.wordToFill,
+		];
+		const argsCells = getCellsFromWordObjs(argsChunk);
+		const matchlessChunk = [
+			...getCrossingWordObjs(matchlessWordObj, allWordObjs),
+			matchlessWordObj,
+		];
+		const matchlessCells = getCellsFromWordObjs(matchlessChunk);
+		const isCause = argsCells.some((argsCell) =>
+			matchlessCells.find((matchlessCell) => matchlessCell.id === argsCell.id)
+		);
+		console.log(argsCells, matchlessCells, isCause);
+		console.log(
+			hasUntestedWordMatches(argsObj.wordToFill, argsObj.wordMatchIndex)
+		);
+
+		return isCause;
+	});
+
+	return causeArgsObj;
+}; */
+
+const getMatchlessCauseIndexes = (matchlessWordObjs, argsArr) => {
+	const causeIndexes = matchlessWordObjs.map((matchlessWordObj) => {
+		const causeIndex = argsArr.findIndex((argsObj) => {
+			const matchlessCells = getCellsFromWordObjs([matchlessWordObj]);
+			const fillWordCells = getCellsFromWordObjs([argsObj.wordToFill]);
+			const isCause = fillWordCells.some((fillWordCell) =>
+				matchlessCells.find((matchlessCell) =>
+					isSameCell(matchlessCell, fillWordCell)
+				)
+			);
+
+			return isCause;
+		});
+
+		return causeIndex;
+	});
+
+	return causeIndexes;
+};
+
+const getMatchlessCauseIndexes2 = (matchlessWordObjs, allWordObjs, argsArr) => {
+	const causeIndexes = matchlessWordObjs.map((matchlessWordObj) => {
+		const causeIndex = argsArr.findIndex((argsObj) => {
+			const matchlessCells = getCellsFromWordObjs([matchlessWordObj]);
+			const argsChunk = [
+				...getCrossingWordObjs(argsObj.wordToFill, allWordObjs),
+				argsObj.wordToFill,
+			];
+			const argsCells = getCellsFromWordObjs(argsChunk);
+			const isCause = argsCells.some((argsCell) =>
+				matchlessCells.find((matchlessCell) =>
+					isSameCell(matchlessCell, argsCell)
+				)
+			);
+
+			return isCause;
+		});
+
+		return causeIndex;
+	});
+
+	return causeIndexes;
+};
+
+const getPotentialCauses = (matchlessWordObjs, argsArr) => {
+	const allPotentialCauses = matchlessWordObjs.map((matchlessWordObj) => {
+		const potentialCauses = argsArr.filter((argsObj) => {
+			const matchlessCells = getCellsFromWordObjs([matchlessWordObj]);
+			const fillWordCells = getCellsFromWordObjs([argsObj.wordToFill]);
+			const isPotentialCause = fillWordCells.some((fillWordCell) =>
+				matchlessCells.find((matchlessCell) =>
+					isSameCell(matchlessCell, fillWordCell)
+				)
+			);
+
+			return isPotentialCause;
+		});
+
+		return potentialCauses;
+	});
+
+	return allPotentialCauses;
+};
+
 const autofillGrid2 = async (
 	{
 		formattedCells,
