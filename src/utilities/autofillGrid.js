@@ -648,7 +648,7 @@ const getUpdatedCrossingWordObjs = async (filledWordObj, crossingWordObjs) => {
 	return updatedCrossingWordObjs;
 };
 
-const getUpdatedWordObjsWrapper = async ({
+/* const getUpdatedWordObjsWrapper = async ({
 	formattedCells,
 	acrossWordObjs,
 	downWordObjs,
@@ -664,6 +664,36 @@ const getUpdatedWordObjsWrapper = async ({
 		crossingWordObjs
 	);
 	console.log({ updatedCrossingWordObjs });
+	const { acrossWordObjsIntegrated, downWordObjsIntegrated } =
+		getIntegratedWordObjs(
+			[...updatedCrossingWordObjs, filledWordObj],
+			acrossWordObjs,
+			downWordObjs
+		);
+	const updatedWordObjs = await getUpdatedWordObjs(
+		acrossWordObjsIntegrated,
+		downWordObjsIntegrated,
+		formattedCells
+	);
+	console.log({ updatedWordObjs });
+	console.log(
+		`hasMatchlessWordObj: 
+		(updatedCrossingWordObjs): ${hasMatchlessWordObj(updatedCrossingWordObjs)},
+		(updatedWordObjs): ${hasMatchlessWordObj([
+			...updatedWordObjs.acrossWordObjs,
+			...updatedWordObjs.downWordObjs,
+		])}`
+	);
+
+	return updatedWordObjs;
+}; */
+const getUpdatedWordObjsWrapper2 = async ({
+	formattedCells,
+	acrossWordObjs,
+	downWordObjs,
+	filledWordObj,
+	updatedCrossingWordObjs,
+}) => {
 	const { acrossWordObjsIntegrated, downWordObjsIntegrated } =
 		getIntegratedWordObjs(
 			[...updatedCrossingWordObjs, filledWordObj],
