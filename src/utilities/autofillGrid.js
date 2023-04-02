@@ -1147,7 +1147,28 @@ const autofillGrid2 = async (
 		return await backtrack3(previousData, setCells);
 	}
 
-	const updatedWordObjs = await getUpdatedWordObjsWrapper(initialArgs);
+	const filledWordObj = getFilledWordObj(wordToFill, wordMatchIndex);
+	const crossingWordObjs = getCrossingWordObjs(filledWordObj, allWordObjs);
+	console.log({ filledWordObj, crossingWordObjs });
+	const updatedCrossingWordObjs = await getUpdatedCrossingWordObjs(
+		filledWordObj,
+		crossingWordObjs
+	);
+	console.log({ updatedCrossingWordObjs });
+
+	if (hasMatchlessWordObj(updatedCrossingWordObjs)) {
+		console.log(`hasMatchlessWordObj(updatedCrossingWordObjs)`);
+		return await lookAhead3({ initialArgs, argsArr, previousData }, setCells);
+	}
+
+	// const updatedWordObjs = await getUpdatedWordObjsWrapper(initialArgs);
+	const updatedWordObjs = await getUpdatedWordObjsWrapper2({
+		formattedCells,
+		acrossWordObjs,
+		downWordObjs,
+		filledWordObj,
+		updatedCrossingWordObjs,
+	});
 	console.log({ updatedWordObjs });
 	const allUpdatedWordObjs = [
 		...updatedWordObjs.acrossWordObjs,
