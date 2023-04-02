@@ -1131,6 +1131,9 @@ const autofillGrid2 = async (
 		wordMatchIndex: ${wordMatchIndex},
 		wordMatchesCount: ${wordToFill.wordMatches.length}
 	`);
+	// console.log(structuredClone(argsArr));
+	console.timeLog("autofillGrid2");
+	console.log(getConsoleGrid(formattedCells));
 
 	const previousData = getPreviousData(argsArr, wordToFill);
 
@@ -1139,7 +1142,7 @@ const autofillGrid2 = async (
 	// }
 	if (
 		!hasUntestedWordMatches(wordToFill, wordMatchIndex) ||
-		wordMatchIndex > 100
+		wordMatchIndex > 50
 	) {
 		return await backtrack3(previousData, setCells);
 	}
