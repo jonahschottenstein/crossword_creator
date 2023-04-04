@@ -504,12 +504,13 @@ const updateArgsArr = (argsArr) => argsArr.slice(0, -1);
 	);
 }; */
 
-const backtrack3 = async (previousData, setCells) => {
+const backtrack3 = async (previousData, setCells, startTime) => {
 	if (!previousData.args) return "(!previousArgs) No solutions found";
 
 	return await autofillGrid2(
 		{ ...previousData.updatedArgs, argsArr: previousData.argsArr },
-		setCells
+		setCells,
+		startTime
 	);
 };
 
@@ -534,7 +535,7 @@ const shouldJumpBack = (matchlessWordObjs, filledWordObj, crossingWordObjs) => {
 	return intersectionResults.some((result) => !result);
 };
 
-const jumpBack = async (causeIndex, currentArgsArr, setCells) => {
+const jumpBack = async (causeIndex, currentArgsArr, setCells, startTime) => {
 	const jumpBackIndex = currentArgsArr.findLastIndex(
 		(argsObj, index) =>
 			index <= causeIndex &&
@@ -546,7 +547,8 @@ const jumpBack = async (causeIndex, currentArgsArr, setCells) => {
 
 	return await autofillGrid2(
 		{ ...updatedJumpBackArgs, argsArr: previousArgsArr },
-		setCells
+		setCells,
+		startTime
 	);
 };
 
@@ -596,7 +598,11 @@ const jumpBack = async (causeIndex, currentArgsArr, setCells) => {
 	}
 }; */
 
-const lookAhead3 = async ({ initialArgs, argsArr, previousData }, setCells) => {
+const lookAhead3 = async (
+	{ initialArgs, argsArr, previousData },
+	setCells,
+	startTime
+) => {
 	const { wordToFill, wordMatchIndex } = initialArgs;
 
 	if (hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
@@ -605,11 +611,12 @@ const lookAhead3 = async ({ initialArgs, argsArr, previousData }, setCells) => {
 				...updateWordMatchIndexOfArgs(initialArgs),
 				argsArr: updateArgsArr(argsArr),
 			},
-			setCells
+			setCells,
+			startTime
 		);
 	} else {
 		console.log("lookAhead3, backtrack3");
-		return await backtrack3(previousData, setCells);
+		return await backtrack3(previousData, setCells, startTime);
 	}
 };
 
@@ -759,7 +766,8 @@ const handleNextWordToFill = async (
 	{ updatedFormattedCells, updatedWordObjs, nextWordToFill },
 	{ initialArgs, previousData },
 	argsArr,
-	setCells
+	setCells,
+	startTime
 ) => {
 	const { acrossWordObjs, downWordObjs } = updatedWordObjs;
 
@@ -779,10 +787,15 @@ const handleNextWordToFill = async (
 					wordMatchIndex: 0,
 					argsArr,
 				},
-				setCells
+				setCells,
+				startTime
 			);
 		} else {
-			return await lookAhead3({ initialArgs, argsArr, previousData }, setCells);
+			return await lookAhead3(
+				{ initialArgs, argsArr, previousData },
+				setCells,
+				startTime
+			);
 		}
 	}
 };
@@ -1035,7 +1048,7 @@ const getConsoleGrid = (formattedCells) => {
 	return causeArgsObj;
 }; */
 
-const getMatchlessCauseIndexes = (matchlessWordObjs, argsArr) => {
+/* const getMatchlessCauseIndexes = (matchlessWordObjs, argsArr) => {
 	const causeIndexes = matchlessWordObjs.map((matchlessWordObj) => {
 		const causeIndex = argsArr.findIndex((argsObj) => {
 			const matchlessCells = getCellsFromWordObjs([matchlessWordObj]);
@@ -1053,7 +1066,7 @@ const getMatchlessCauseIndexes = (matchlessWordObjs, argsArr) => {
 	});
 
 	return causeIndexes;
-};
+}; */
 
 const getMatchlessCauseIndexes2 = (matchlessWordObjs, allWordObjs, argsArr) => {
 	const causeIndexes = matchlessWordObjs.map((matchlessWordObj) => {
@@ -1079,7 +1092,7 @@ const getMatchlessCauseIndexes2 = (matchlessWordObjs, allWordObjs, argsArr) => {
 	return causeIndexes;
 };
 
-const getPotentialCauses = (matchlessWordObjs, argsArr) => {
+/* const getPotentialCauses = (matchlessWordObjs, argsArr) => {
 	const allPotentialCauses = matchlessWordObjs.map((matchlessWordObj) => {
 		const potentialCauses = argsArr.filter((argsObj) => {
 			const matchlessCells = getCellsFromWordObjs([matchlessWordObj]);
@@ -1126,7 +1139,8 @@ const autofillGrid2 = async (
 		wordMatchIndex = 0,
 		argsArr = [],
 	},
-	setCells
+	setCells,
+	startTime
 ) => {
 	const allWordObjs = [...acrossWordObjs, ...downWordObjs];
 	const elapsedTime = Date.now() - startTime;
@@ -1171,7 +1185,7 @@ const autofillGrid2 = async (
 		!hasUntestedWordMatches(wordToFill, wordMatchIndex) ||
 		wordMatchIndex > 50
 	) {
-		return await backtrack3(previousData, setCells);
+		return await backtrack3(previousData, setCells, startTime);
 	}
 
 	const filledWordObj = getFilledWordObj(wordToFill, wordMatchIndex);
@@ -1185,7 +1199,11 @@ const autofillGrid2 = async (
 
 	if (hasMatchlessWordObj(updatedCrossingWordObjs)) {
 		console.log(`hasMatchlessWordObj(updatedCrossingWordObjs)`);
-		return await lookAhead3({ initialArgs, argsArr, previousData }, setCells);
+		return await lookAhead3(
+			{ initialArgs, argsArr, previousData },
+			setCells,
+			startTime
+		);
 	}
 
 	// const updatedWordObjs = await getUpdatedWordObjsWrapper(initialArgs);
@@ -1210,11 +1228,11 @@ const autofillGrid2 = async (
 		);
 		const matchlessWordObjs = getMatchlessWordObjs(allUpdatedWordObjs);
 		console.log({ matchlessWordObjs });
-		const causeIndexes = getMatchlessCauseIndexes(matchlessWordObjs, argsArr);
-		const causeIndex2 = causeIndexes
-			.slice()
-			.sort((a, b) => a - b)
-			.find((index) => index > -1);
+		// const causeIndexes = getMatchlessCauseIndexes(matchlessWordObjs, argsArr);
+		// const causeIndex2 = causeIndexes
+		// 	.slice()
+		// 	.sort((a, b) => a - b)
+		// 	.find((index) => index > -1);
 		const causeIndexes2 = getMatchlessCauseIndexes2(
 			matchlessWordObjs,
 			allUpdatedWordObjs,
@@ -1224,13 +1242,13 @@ const autofillGrid2 = async (
 			.slice()
 			.sort((a, b) => a - b)
 			.findLast((index) => index > -1);
-		if (causeIndex2 || causeIndex3) {
-			console.log("CAUSE INDEX", { causeIndexes, causeIndex2 });
+		if (causeIndex3) {
+			// console.log("CAUSE INDEX", { causeIndexes, causeIndex2 });
 			console.log({ causeIndexes2, causeIndex3 });
 			console.log("CI");
 		}
-		const potentialCauses = getPotentialCauses(matchlessWordObjs, argsArr);
-		console.log({ filledWordObj, potentialCauses });
+		// const potentialCauses = getPotentialCauses(matchlessWordObjs, argsArr);
+		// console.log({ filledWordObj, potentialCauses });
 		console.log(
 			shouldJumpBack(matchlessWordObjs, filledWordObj, updatedCrossingWordObjs)
 		);
@@ -1247,9 +1265,13 @@ const autofillGrid2 = async (
 			// causeIndex2
 			// causeIndexes[0] > -1
 		) {
-			return await jumpBack(causeIndex3, argsArr, setCells);
+			return await jumpBack(causeIndex3, argsArr, setCells, startTime);
 		} else {
-			return await lookAhead3({ initialArgs, argsArr, previousData }, setCells);
+			return await lookAhead3(
+				{ initialArgs, argsArr, previousData },
+				setCells,
+				startTime
+			);
 		}
 	}
 
@@ -1267,7 +1289,8 @@ const autofillGrid2 = async (
 		{ updatedFormattedCells, updatedWordObjs, nextWordToFill },
 		{ initialArgs, previousData },
 		argsArr,
-		setCells
+		setCells,
+		startTime
 	);
 };
 
@@ -1295,7 +1318,8 @@ export const initAutofillGrid = async (cells, setCells, setIsAutofilling) => {
 	// console.timeEnd("autofillGrid");
 	console.time("autofillGrid2");
 	setIsAutofilling(true);
-	const autofilledGrid2 = await autofillGrid2(argsObj, setCells);
+	const startTime = Date.now();
+	const autofilledGrid2 = await autofillGrid2(argsObj, setCells, startTime);
 	console.log({ autofilledGrid2 });
 	setIsAutofilling(false);
 	console.timeEnd("autofillGrid2");
