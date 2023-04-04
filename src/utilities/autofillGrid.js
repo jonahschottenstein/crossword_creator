@@ -98,7 +98,7 @@ const getFormattedWords = (cells, formattedCells) => {
 	return { acrossWords, downWords };
 };
 
-const updateOptsFromMatches = (wordWithMatches) => {
+/* const updateOptsFromMatches = (wordWithMatches) => {
 	const { wordCells, wordMatches } = wordWithMatches;
 	const wordCellsWithOpts = [];
 	for (let i = 0; i < wordCells.length; i++) {
@@ -109,6 +109,28 @@ const updateOptsFromMatches = (wordWithMatches) => {
 		};
 		wordCellsWithOpts.push(wordCellWithOpts);
 	}
+	const updatedWordWithMatches = {
+		...wordWithMatches,
+		wordCells: wordCellsWithOpts,
+	};
+
+	return updatedWordWithMatches;
+}; */
+
+const updateOptsFromMatches2 = (wordWithMatches) => {
+	const { wordCells, wordMatches } = wordWithMatches;
+	const wordCellsWithOpts = wordCells.map((wordCell, index) => {
+		const options = wordMatches.reduce((accumulator, { word }) => {
+			if (accumulator.includes(word[index])) return accumulator;
+			return [...accumulator, word[index]];
+		}, []);
+		const wordCellWithOpts = {
+			...wordCell,
+			options,
+		};
+
+		return wordCellWithOpts;
+	});
 	const updatedWordWithMatches = {
 		...wordWithMatches,
 		wordCells: wordCellsWithOpts,
@@ -237,10 +259,10 @@ const getUpdatedWordObjs = async (
 	formattedCells
 ) => {
 	const acrossWordObjsWithOptsFromMatches = acrossWordObjs.map(
-		(acrossWordObj) => updateOptsFromMatches(acrossWordObj)
+		(acrossWordObj) => updateOptsFromMatches2(acrossWordObj)
 	);
 	const downWordObjsWithOptsFromMatches = downWordObjs.map((downWordObj) =>
-		updateOptsFromMatches(downWordObj)
+		updateOptsFromMatches2(downWordObj)
 	);
 	const overlapOpts = getOverlapOpts(
 		acrossWordObjsWithOptsFromMatches,
@@ -734,7 +756,7 @@ const getUpdatedCrossingWordObjs = async (filledWordObj, crossingWordObjs) => {
 		crossingWordObjsWithFilledWordCells
 	);
 	const updatedCrossingWordObjs = crossingWordObjsFiltered.map(
-		updateOptsFromMatches
+		updateOptsFromMatches2
 	);
 
 	return updatedCrossingWordObjs;
