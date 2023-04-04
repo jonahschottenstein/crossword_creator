@@ -346,7 +346,8 @@ const sortByScrabbleScore = (wordMatches) => {
 
 const getFilledWordObj = (wordWithMatches, matchIndex = 0) => {
 	const { wordCells, wordMatches } = wordWithMatches;
-	const wordMatch = wordMatches[matchIndex];
+	const sortedWordMatches = sortByScrabbleScore(wordMatches);
+	const wordMatch = sortedWordMatches[matchIndex];
 	const wordCellsFilled = wordCells.map((wordCell, index) => {
 		const letter = wordMatch.word[index];
 
