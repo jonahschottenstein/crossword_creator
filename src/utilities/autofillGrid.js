@@ -1097,6 +1097,24 @@ const getPotentialCauses = (matchlessWordObjs, argsArr) => {
 	});
 
 	return allPotentialCauses;
+}; */
+
+const restartAutofill = async (argsArr, setCells) => {
+	const startArgsIndex = argsArr.findIndex(({ wordToFill, wordMatchIndex }) =>
+		hasUntestedWordMatches(wordToFill, wordMatchIndex)
+	);
+	const startArgs = argsArr[startArgsIndex];
+	const startArgsArr =
+		startArgsIndex === 0 ? [] : getPreviousArgsArr(argsArr, startArgsIndex);
+
+	return await autofillGrid2(
+		{
+			...updateWordMatchIndexOfArgs(startArgs),
+			argsArr: startArgsArr,
+		},
+		setCells,
+		Date.now()
+	);
 };
 
 const autofillGrid2 = async (
