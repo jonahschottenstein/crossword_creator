@@ -1129,6 +1129,15 @@ const autofillGrid2 = async (
 	setCells
 ) => {
 	const allWordObjs = [...acrossWordObjs, ...downWordObjs];
+	const elapsedTime = Date.now() - startTime;
+	console.log(elapsedTime);
+
+	if (elapsedTime > 30000) {
+		const unfilledWordObjs = getUnfilledWordObjs(allWordObjs);
+		if (unfilledWordObjs.length > argsArr.length) {
+			return await restartAutofill(argsArr, setCells);
+		}
+	}
 
 	if (gridIsFilled(allWordObjs) && everyWordObjHasMatch(allWordObjs)) {
 		return { formattedCells, acrossWordObjs, downWordObjs };
