@@ -41,6 +41,11 @@ import {
 	handleClueEditButtonClick,
 	handleClueTextareaBlur,
 } from "../utilities/handleClueLi";
+import {
+	handleClearFill,
+	handleFillGrid,
+	handleAddBlackSquares,
+} from "../utilities/gridHandlers";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -252,6 +257,17 @@ export default function App() {
 				onMatchClick={(e) => handleMatchClick(e)}
 				onMatchFilterChange={handleMatchFilterChange}
 				matchFilterInput={matchFilterInput}
+				clueListItemsData={clueListItemsData}
+				onClueLiTextareaChange={(e) => {
+					handleClueLiTextareaChange(e, setClueListItemsData);
+				}}
+				onClueEditButtonClick={(e) => {
+					handleClueEditButtonClick(e, setClueListItemsData);
+					e.stopPropagation();
+				}}
+				onClueTextareaBlur={(e) => {
+					handleClueTextareaBlur(e, setClueListItemsData);
+				}}
 			/>
 		</div>
 	);
