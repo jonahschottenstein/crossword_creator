@@ -36,6 +36,10 @@ export const DashboardPage = (props) => {
 					clueProps={props.clueProps}
 					oppositeClueProps={props.oppositeClueProps}
 					onClick={props.onClick}
+					clueListItemsData={props.clueListItemsData}
+					onClueLiTextareaChange={props.onClueLiTextareaChange}
+					onClueEditButtonClick={props.onClueEditButtonClick}
+					onClueTextareaBlur={props.onClueTextareaBlur}
 				/>
 			</div>
 		);

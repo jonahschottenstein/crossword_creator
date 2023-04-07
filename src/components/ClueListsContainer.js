@@ -8,14 +8,22 @@ export const ClueListsContainer = (props) => {
 				clueNumbers={props.acrossClueNumbers}
 				clueProps={props.clueProps}
 				oppositeClueProps={props.oppositeClueProps}
-				onClick={props.onClick}></ClueList>
+				onClick={props.onClick}
+				clueListItemsData={props.clueListItemsData}
+				onClueLiTextareaChange={props.onClueLiTextareaChange}
+				onClueEditButtonClick={props.onClueEditButtonClick}
+				onClueTextareaBlur={props.onClueTextareaBlur}></ClueList>
 
 			<ClueList
 				direction="down"
 				clueNumbers={props.downClueNumbers}
 				clueProps={props.clueProps}
 				oppositeClueProps={props.oppositeClueProps}
-				onClick={props.onClick}></ClueList>
+				onClick={props.onClick}
+				clueListItemsData={props.clueListItemsData}
+				onClueLiTextareaChange={props.onClueLiTextareaChange}
+				onClueEditButtonClick={props.onClueEditButtonClick}
+				onClueTextareaBlur={props.onClueTextareaBlur}></ClueList>
 		</div>
 	);
 };

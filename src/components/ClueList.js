@@ -9,6 +9,7 @@ export const ClueList = (props) => {
 					return (
 						<ClueListItem
 							key={`${number}-${props.direction}`}
+							name={`${number}-${props.direction}`}
 							clueLabel={number}
 							className={
 								props.clueProps.clueNumber === number &&
@@ -20,6 +21,14 @@ export const ClueList = (props) => {
 									: "clue-list-item"
 							}
 							onClick={props.onClick}
+							clueListItemDataObj={props.clueListItemsData[
+								props.direction
+							].find(
+								(dataObj) => dataObj.name === `${number}-${props.direction}`
+							)}
+							onClueLiTextareaChange={props.onClueLiTextareaChange}
+							onClueEditButtonClick={props.onClueEditButtonClick}
+							onClueTextareaBlur={props.onClueTextareaBlur}
 						/>
 					);
 				})}
