@@ -33,6 +33,14 @@ import {
 	getFilteredMatches,
 } from "../utilities/fill";
 import { getWordObj } from "../utilities/words";
+import { clearFill } from "../utilities/clearFill";
+import { initAutofillGrid } from "../utilities/autofillGrid";
+import { getClueListItemsData } from "../utilities/clueListItemsData";
+import {
+	handleClueLiTextareaChange,
+	handleClueEditButtonClick,
+	handleClueTextareaBlur,
+} from "../utilities/handleClueLi";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -47,8 +55,14 @@ export default function App() {
 		hasMatchesLeft: false,
 	});
 	const [matchFilterInput, setMatchFilterInput] = useState("");
+	const [isAutofilling, setIsAutofilling] = useState(false);
+	const [clueListItemsData, setClueListItemsData] = useState(
+		getClueListItemsData(cells)
+	);
 
 	useEffect(() => {
+		if (isAutofilling) return;
+
 		const startFetching = async () => {
 			setWordMatches({
 				current: null,
