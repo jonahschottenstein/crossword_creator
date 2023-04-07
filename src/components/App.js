@@ -18,7 +18,7 @@ import {
 	scrollToLi,
 	selectCellElementOnLiClick,
 } from "../utilities/clueListItems";
-import { cellHasLetter, getNextDirection } from "../utilities/helpers";
+import { getNextDirection } from "../utilities/helpers";
 import { Dashboard } from "./Dashboard";
 import {
 	fetchWordList,
@@ -33,8 +33,6 @@ import {
 	getFilteredMatches,
 } from "../utilities/fill";
 import { getWordObj } from "../utilities/words";
-import { clearFill } from "../utilities/clearFill";
-import { initAutofillGrid } from "../utilities/autofillGrid";
 import { getClueListItemsData } from "../utilities/clueListItemsData";
 import {
 	handleClueLiTextareaChange,
@@ -191,6 +189,7 @@ export default function App() {
 		fillWord(e, direction, cells, setCells);
 
 		if (e.target.matches(".show-more-button")) {
+			// Does this need "await"?
 			showMoreWordMatches();
 		}
 	};
@@ -226,8 +225,25 @@ export default function App() {
 	scrollToLi(direction, cells);
 	scrollToLi(getNextDirection(direction), cells);
 
+	console.log(clueListItemsData);
+
 	return (
 		<div className="App">
+			<button
+				id="clear-white-squares"
+				onClick={() => handleClearFill(setCells)}>
+				Clear Fill
+			</button>
+			<button
+				id="add-black-squares"
+				onClick={() => handleAddBlackSquares(setCells)}>
+				ABS
+			</button>
+			<button
+				id="fill-grid"
+				onClick={() => handleFillGrid(cells, setCells, setIsAutofilling)}>
+				Fill Grid
+			</button>
 			<BoardAndSettings
 				direction={direction}
 				cells={cells.slice()}
