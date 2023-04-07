@@ -43,7 +43,8 @@ export const scrollToLi = (direction, cells) => {
 	});
 };
 
-export const getClueLiNumber = (e) => {
+/* export const getClueLiNumber = (e) => {
+	console.log("getClueLiNumber", e.target);
 	if (!e.target.matches(".clue-list-item")) return;
 
 	const clueLiNumber = Number(
@@ -51,8 +52,26 @@ export const getClueLiNumber = (e) => {
 	);
 
 	return clueLiNumber;
+}; */
+export const getClueLiNumber = (e) => {
+	if (!e.target.matches(".clue-list-item")) return;
+
+	const clueLiNumber = Number(
+		e.target.closest(".clue-list-item").querySelector(".clue-label").textContent
+	);
+
+	return clueLiNumber;
 };
 
+/* export const getClueLiDirection = (e) => {
+	if (!e.target.matches(".clue-list-item")) return;
+
+	const closestWrapper = e.target.closest(".clue-list-wrapper");
+	const clueLiDirection =
+		closestWrapper.querySelector(".clue-list-title").textContent;
+
+	return clueLiDirection;
+}; */
 export const getClueLiDirection = (e) => {
 	if (!e.target.matches(".clue-list-item")) return;
 
@@ -78,7 +97,7 @@ export const getWordToHighlight = (e, cells) => {
 export const getCellOnLiClick = (e, cells) => {
 	const wordToHighlight = getWordToHighlight(e, cells);
 
-	return wordToHighlight.firstBlank || wordToHighlight.firstCell;
+	return wordToHighlight?.firstBlank || wordToHighlight?.firstCell;
 };
 
 export const selectCellElementOnLiClick = (
@@ -88,6 +107,9 @@ export const selectCellElementOnLiClick = (
 	cells
 ) => {
 	const cellToSelect = getCellOnLiClick(e, cells);
+
+	if (!cellToSelect) return;
+
 	const clueLiDirection = getClueLiDirection(e);
 	const wordToHighlight = getWordToHighlight(e, cells);
 	const firstCell = wordToHighlight.firstCell;
