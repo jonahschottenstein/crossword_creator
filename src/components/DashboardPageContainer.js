@@ -17,7 +17,6 @@ export const DashboardPageContainer = (props) => {
 				onMatchClick={props.onMatchClick}
 				matchFilterInput={props.matchFilterInput}
 				onMatchFilterChange={props.onMatchFilterChange}
-				clueListItemsData={props.clueListItemsData}
 				onClueLiTextareaChange={props.onClueLiTextareaChange}
 				onClueEditButtonClick={props.onClueEditButtonClick}
 				onClueTextareaBlur={props.onClueTextareaBlur}

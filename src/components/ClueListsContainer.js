@@ -5,22 +5,22 @@ export const ClueListsContainer = (props) => {
 		<div className="clue-lists-container">
 			<ClueList
 				direction="across"
+				cells={props.cells}
 				clueNumbers={props.acrossClueNumbers}
 				clueProps={props.clueProps}
 				oppositeClueProps={props.oppositeClueProps}
 				onClick={props.onClick}
-				clueListItemsData={props.clueListItemsData}
 				onClueLiTextareaChange={props.onClueLiTextareaChange}
 				onClueEditButtonClick={props.onClueEditButtonClick}
 				onClueTextareaBlur={props.onClueTextareaBlur}></ClueList>
 
 			<ClueList
 				direction="down"
+				cells={props.cells}
 				clueNumbers={props.downClueNumbers}
 				clueProps={props.clueProps}
 				oppositeClueProps={props.oppositeClueProps}
 				onClick={props.onClick}
-				clueListItemsData={props.clueListItemsData}
 				onClueLiTextareaChange={props.onClueLiTextareaChange}
 				onClueEditButtonClick={props.onClueEditButtonClick}
 				onClueTextareaBlur={props.onClueTextareaBlur}></ClueList>

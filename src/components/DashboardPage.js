@@ -31,12 +31,12 @@ export const DashboardPage = (props) => {
 		return (
 			<div className="dashboard-page clues-page">
 				<ClueListsContainer
+					cells={props.cells}
 					acrossClueNumbers={props.acrossClueNumbers}
 					downClueNumbers={props.downClueNumbers}
 					clueProps={props.clueProps}
 					oppositeClueProps={props.oppositeClueProps}
 					onClick={props.onClick}
-					clueListItemsData={props.clueListItemsData}
 					onClueLiTextareaChange={props.onClueLiTextareaChange}
 					onClueEditButtonClick={props.onClueEditButtonClick}
 					onClueTextareaBlur={props.onClueTextareaBlur}

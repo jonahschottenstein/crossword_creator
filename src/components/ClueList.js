@@ -11,6 +11,8 @@ export const ClueList = (props) => {
 							key={`${number}-${props.direction}`}
 							name={`${number}-${props.direction}`}
 							clueLabel={number}
+							cells={props.cells}
+							direction={props.direction}
 							className={
 								props.clueProps.clueNumber === number &&
 								props.clueProps.clueDirection === props.direction
@@ -21,11 +23,6 @@ export const ClueList = (props) => {
 									: "clue-list-item"
 							}
 							onClick={props.onClick}
-							clueListItemDataObj={props.clueListItemsData[
-								props.direction
-							].find(
-								(dataObj) => dataObj.name === `${number}-${props.direction}`
-							)}
 							onClueLiTextareaChange={props.onClueLiTextareaChange}
 							onClueEditButtonClick={props.onClueEditButtonClick}
 							onClueTextareaBlur={props.onClueTextareaBlur}
