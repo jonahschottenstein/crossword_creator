@@ -33,7 +33,6 @@ import {
 	getFilteredMatches,
 } from "../utilities/fill";
 import { getWordObj } from "../utilities/words";
-import { getClueListItemsData } from "../utilities/clueListItemsData";
 import {
 	handleClueLiTextareaChange,
 	handleClueEditButtonClick,
@@ -59,9 +58,6 @@ export default function App() {
 	});
 	const [matchFilterInput, setMatchFilterInput] = useState("");
 	const [isAutofilling, setIsAutofilling] = useState(false);
-	const [clueListItemsData, setClueListItemsData] = useState(
-		getClueListItemsData(cells)
-	);
 
 	useEffect(() => {
 		if (isAutofilling) return;
@@ -222,10 +218,12 @@ export default function App() {
 		setMatchFilterInput(e.target.value);
 	};
 
+	const handleClueText = (e) => {
+		setClueText(e, setCells);
+	};
+
 	scrollToLi(direction, cells);
 	scrollToLi(getNextDirection(direction), cells);
-
-	console.log(clueListItemsData);
 
 	return (
 		<div className="App">
@@ -273,16 +271,16 @@ export default function App() {
 				onMatchClick={(e) => handleMatchClick(e)}
 				onMatchFilterChange={handleMatchFilterChange}
 				matchFilterInput={matchFilterInput}
-				clueListItemsData={clueListItemsData}
 				onClueLiTextareaChange={(e) => {
-					handleClueLiTextareaChange(e, setClueListItemsData);
+					handleClueLiTextareaChange(e);
+					handleClueText(e);
 				}}
 				onClueEditButtonClick={(e) => {
-					handleClueEditButtonClick(e, setClueListItemsData);
+					handleClueEditButtonClick(e);
 					e.stopPropagation();
 				}}
 				onClueTextareaBlur={(e) => {
-					handleClueTextareaBlur(e, setClueListItemsData);
+					handleClueTextareaBlur(e);
 				}}
 			/>
 		</div>
