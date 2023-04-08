@@ -1,5 +1,3 @@
-import { setClueText, setIsEditing } from "./clueListItemsData";
-
 const autoExpand = (textarea) => {
 	textarea.style.height = "inherit";
 	const textareaStyles = window.getComputedStyle(textarea);
@@ -14,18 +12,15 @@ const autoExpand = (textarea) => {
 };
 
 const handleTextareaHeight = (e) => {
-	console.log("TEXTAREAHEIGHTCHANGE");
 	if (e.target.tagName.toLowerCase() !== "textarea") return;
 	autoExpand(e.target);
 };
 
-export const handleClueLiTextareaChange = (e, setClueListItemsData) => {
-	console.log("handleClueLiTextareaChange");
+export const handleClueLiTextareaChange = (e) => {
 	handleTextareaHeight(e);
-	setClueText(e, setClueListItemsData);
 };
 
-export const handleClueEditButtonClick = (e, setClueListItemsData) => {
+export const handleClueEditButtonClick = (e) => {
 	if (!e.target.matches(".edit-clue-button")) return;
 	const closestLi = e.target.closest(".clue-list-item");
 	const closestTextarea = closestLi.querySelector("textarea");
@@ -33,14 +28,11 @@ export const handleClueEditButtonClick = (e, setClueListItemsData) => {
 	closestTextarea.classList.add("accessible");
 	closestTextarea.click();
 	closestTextarea.focus();
-	setIsEditing(e, setClueListItemsData);
 	e.stopPropagation();
 };
 
-export const handleClueTextareaBlur = (e, setClueListItemsData) => {
+export const handleClueTextareaBlur = (e) => {
 	const closestLi = e.target.closest(".clue-list-item");
 	const closestTextarea = closestLi.querySelector("textarea");
 	closestTextarea.classList.remove("accessible");
-	console.log({ closestLi, closestTextarea });
-	setIsEditing(e, setClueListItemsData);
 };
