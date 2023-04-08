@@ -132,6 +132,8 @@ export default function App() {
 	};
 
 	const handleLiClick = (e) => {
+		if (cellBlockSettings.cellBlockIsChecked) return;
+
 		selectCellElementOnLiClick(e, direction, setDirection, cells);
 	};
 
