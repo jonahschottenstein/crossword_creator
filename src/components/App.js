@@ -43,6 +43,7 @@ import {
 	handleFillGrid,
 	handleAddBlackSquares,
 } from "../utilities/gridHandlers";
+import { setClueText } from "../utilities/setClueText";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -60,6 +61,7 @@ export default function App() {
 	const [isAutofilling, setIsAutofilling] = useState(false);
 
 	useEffect(() => {
+		// if (visibleDashPage !== "fill") return;
 		if (isAutofilling) return;
 
 		const startFetching = async () => {
@@ -81,12 +83,12 @@ export default function App() {
 				const matchable = isMatchable(selectedWordObj.word);
 				const currentWordList = matchable ? newWordMatches : wordList;
 				const totalMatchCount = currentWordList.length;
-				console.log({ totalMatchCount });
+				// console.log({ totalMatchCount });
 				const filteredMatches = getFilteredMatches(
 					matchFilterInput,
 					currentWordList
 				);
-				console.log(filteredMatches);
+				// console.log(filteredMatches);
 
 				// const firstMatches = getFirst100Matches(currentWordList);
 				// const hasMatchesLeft = areMatchesLeft(
@@ -125,6 +127,7 @@ export default function App() {
 				setSymmetricalCellBlock(e, cells, setCells);
 			setCellNumbers(setCells);
 			setClues(setCells);
+			setClueText(e, setCells);
 		} else {
 			setDirectionOnClick(e, cells, setDirection);
 			setSelectedCell(e, setCells);
@@ -168,7 +171,7 @@ export default function App() {
 			matchFilterInput,
 			newWordMatches
 		);
-		console.log(filteredMatches);
+		// console.log(filteredMatches);
 		const tableLength = getMatchesFromTable().length;
 		const next100Matches = getNext100Matches(filteredMatches, tableLength);
 		const currentMatches = [...wordMatches.current, ...next100Matches];
