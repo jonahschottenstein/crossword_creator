@@ -28,9 +28,11 @@ export const handleClueEditButtonClick = (e, setIsEditing) => {
 	// e.preventDefault() would maybe simplify things
 	const closestLi = e.target.closest(".clue-list-item");
 	const closestTextarea = closestLi.querySelector("textarea");
-	closestLi.click();
+	if (!closestLi.classList.contains("highlighted")) {
+		closestLi.click();
+	}
 	closestTextarea.classList.add("accessible");
-	closestTextarea.click();
+	// closestTextarea.click();
 	closestTextarea.focus();
 	e.stopPropagation();
 };
