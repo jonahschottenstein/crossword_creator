@@ -241,6 +241,14 @@ const filterWordMatches = async (wordObjs) => {
 	}
 };
 
+const getWordsOnBoard = (wordObjs) =>
+	wordObjs
+		.filter(
+			(wordObj) =>
+				wordCellsAreFilled(wordObj) && wordObj.wordMatches.length === 1
+		)
+		.map((wordObj) => wordObj.wordMatches[0].word);
+
 const updateWordObjs = async (wordObjsWithOptsFromMatches, overlapOpts) => {
 	const wordObjsWithOverlapOpts = getWordObjsWithOverlapOpts(
 		wordObjsWithOptsFromMatches,
@@ -258,6 +266,7 @@ const getUpdatedWordObjs = async (
 	downWordObjs,
 	formattedCells
 ) => {
+	console.log([...getWordsOnBoard(acrossWordObjs)]);
 	const acrossWordObjsWithOptsFromMatches = acrossWordObjs.map(
 		(acrossWordObj) => updateOptsFromMatches2(acrossWordObj)
 	);
@@ -1212,6 +1221,7 @@ const autofillGrid2 = async (
 	setCells,
 	startTime
 ) => {
+	// NEED TO ADD wordsOnBoard ARRAY SO DUPLICATE WORDS AREN'T USED
 	const allWordObjs = [...acrossWordObjs, ...downWordObjs];
 	const elapsedTime = Date.now() - startTime;
 	console.log(elapsedTime);
