@@ -59,6 +59,7 @@ export default function App() {
 	});
 	const [matchFilterInput, setMatchFilterInput] = useState("");
 	const [isAutofilling, setIsAutofilling] = useState(false);
+	const [isEditing, setIsEditing] = useState(null);
 
 	useEffect(() => {
 		// if (visibleDashPage !== "fill") return;
