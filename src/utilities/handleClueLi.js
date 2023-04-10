@@ -20,8 +20,12 @@ export const handleClueLiTextareaChange = (e) => {
 	handleTextareaHeight(e);
 };
 
-export const handleClueEditButtonClick = (e) => {
+export const handleClueEditButtonClick = (e, setIsEditing) => {
 	if (!e.target.matches(".edit-clue-button")) return;
+
+	setIsEditing(e.target.name);
+
+	// e.preventDefault() would maybe simplify things
 	const closestLi = e.target.closest(".clue-list-item");
 	const closestTextarea = closestLi.querySelector("textarea");
 	closestLi.click();
