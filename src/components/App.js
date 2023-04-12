@@ -44,6 +44,7 @@ import {
 	handleAddBlackSquares,
 } from "../utilities/gridHandlers";
 import { setClueText } from "../utilities/setClueText";
+import { setShadedCell } from "../utilities/setShadedCell";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -122,6 +123,19 @@ export default function App() {
 		};
 	}, [direction, cells, matchFilterInput]);
 
+	/* const handleClick = (e) => {
+		if (cellBlockSettings.cellBlockIsChecked) {
+			setCellBlock(e, setCells);
+			cellBlockSettings.symmetryIsChecked &&
+				setSymmetricalCellBlock(e, cells, setCells);
+			setCellNumbers(setCells);
+			setClues(setCells);
+			setClueText(e, setCells);
+		} else {
+			setDirectionOnClick(e, cells, setDirection);
+			setSelectedCell(e, setCells);
+		}
+	}; */
 	const handleClick = (e) => {
 		if (cellBlockSettings.cellBlockIsChecked) {
 			setCellBlock(e, setCells);
@@ -130,6 +144,8 @@ export default function App() {
 			setCellNumbers(setCells);
 			setClues(setCells);
 			setClueText(e, setCells);
+		} else if (cellBlockSettings.shadedCellIsChecked) {
+			setShadedCell(e, setCells);
 		} else {
 			setDirectionOnClick(e, cells, setDirection);
 			setSelectedCell(e, setCells);
@@ -204,11 +220,26 @@ export default function App() {
 		handleBackspaceKey(e, direction, setDirection, cells, setCells);
 	};
 
-	const handleToggleChange = (e) => {
+	/* const handleToggleChange = (e) => {
 		removeCellSelection(setCells);
 
 		const name = e.target.name;
 		let settings = { ...cellBlockSettings };
+		settings[name] = !cellBlockSettings[name];
+		setCellBlockSettings(settings);
+	}; */
+	const handleToggleChange = (e) => {
+		removeCellSelection(setCells);
+
+		const CELL_BLOCK_NAME = "cellBlockIsChecked";
+		const SHADED_NAME = "shadedCellIsChecked";
+		const name = e.target.name;
+		let settings = { ...cellBlockSettings };
+		if (name === CELL_BLOCK_NAME) {
+			settings[SHADED_NAME] = false;
+		} else if (name === SHADED_NAME) {
+			settings[CELL_BLOCK_NAME] = false;
+		}
 		settings[name] = !cellBlockSettings[name];
 		setCellBlockSettings(settings);
 	};
