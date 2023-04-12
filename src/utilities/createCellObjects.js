@@ -60,6 +60,7 @@ export const createCellObjects = () => {
 				down: isDown,
 				letter: "",
 				isSelected: false,
+				isShaded: false,
 				isBlackSquare: false,
 				clueText,
 				getClueLabel(direction) {

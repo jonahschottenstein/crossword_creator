@@ -3,7 +3,12 @@ export const setCellBlock = (e, setCells) => {
 	setCells((prevState) => {
 		const newState = prevState.map((cell) => {
 			if (cell.index === targetIndex) {
-				return { ...cell, isBlackSquare: !cell.isBlackSquare, letter: "" };
+				return {
+					...cell,
+					isBlackSquare: !cell.isBlackSquare,
+					letter: "",
+					isShaded: false,
+				};
 			} else {
 				return cell;
 			}
