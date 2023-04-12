@@ -30,8 +30,14 @@ export const handleClueEditButtonClick = (e) => {
 	closestTextarea.focus();
 };
 
-export const handleClueTextareaBlur = (e) => {
+export const handleClueDoneButtonClick = (e, setIsEditing) => {
+	setIsEditing(null);
+
 	const closestLi = e.target.closest(".clue-list-item");
 	const closestTextarea = closestLi.querySelector("textarea");
 	closestTextarea.classList.remove("accessible");
+	const selectedCellElement = document.querySelector(".cell.selected");
+	if (selectedCellElement) {
+		selectedCellElement.focus();
+	}
 };
