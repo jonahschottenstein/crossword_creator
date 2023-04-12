@@ -17,6 +17,13 @@ export const CellBlockSettings = (props) => {
 				isChecked={props.symmetryIsChecked}
 				onChange={props.onChange}
 			/>
+			<ToggleSwitch
+				toggleSwitchId="shaded-cell-input"
+				text="Gray"
+				name="shadedCellIsChecked"
+				isChecked={props.shadedCellIsChecked}
+				onChange={props.onChange}
+			/>
 		</div>
 	);
 };
