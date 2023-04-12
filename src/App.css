@@ -79,6 +79,10 @@
 	width: 100%;
 }
 
+.shaded {
+	background-color: #dcdcdc;
+}
+
 .highlighted {
 	background-color: #a7d8ff;
 }
