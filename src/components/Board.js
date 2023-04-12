@@ -2,6 +2,22 @@ import { Cell } from "./Cell.js";
 import { getWordObj } from "../utilities/words.js";
 import { isInSelectedWord } from "../utilities/helpers.js";
 
+const getCellClassName = (cell, selectedWord) => {
+	let className = "cell";
+	if (cell.isBlackSquare) return className.concat(" ", "cell-block");
+	if (cell.isSelected) {
+		className = className.concat(" ", "selected");
+	}
+	if (isInSelectedWord(selectedWord, cell)) {
+		className = className.concat(" ", "highlighted");
+	}
+	if (cell.isShaded) {
+		className = className.concat(" ", "shaded");
+	}
+
+	return className;
+};
+
 export const Board = (props) => {
 	const { selectedWordObj } = getWordObj(props.direction, props.cells);
 	const selectedWord = selectedWordObj?.word;
@@ -10,15 +26,16 @@ export const Board = (props) => {
 			<Cell
 				key={index}
 				id={`cell-${index}`}
-				className={
-					cell.isSelected
-						? "cell selected highlighted"
-						: isInSelectedWord(selectedWord, cell)
-						? "cell highlighted"
-						: cell.isBlackSquare
-						? "cell cell-block"
-						: "cell"
-				}
+				// className={
+				// 	cell.isSelected
+				// 		? "cell selected highlighted"
+				// 		: isInSelectedWord(selectedWord, cell)
+				// 		? "cell highlighted"
+				// 		: cell.isBlackSquare
+				// 		? "cell cell-block"
+				// 		: "cell"
+				// }
+				className={getCellClassName(cell, selectedWord)}
 				index={index}
 				tabIndex={cell.tabIndex}
 				number={cell.number}
