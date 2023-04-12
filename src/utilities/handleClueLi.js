@@ -41,3 +41,18 @@ export const handleClueDoneButtonClick = (e, setIsEditing) => {
 		selectedCellElement.focus();
 	}
 };
+export const handleClueTextareaFocus = (e, setIsEditing) => {
+	console.log("textareaFocus");
+	setIsEditing(e.target.getAttribute("name"));
+};
+
+export const handleClueTextareaBlur = (e, setIsEditing) => {
+	console.log("BLUR");
+	// setIsEditing(null);
+	const closestLi = e.target.closest(".clue-list-item");
+	// const closestTextarea = closestLi.querySelector("textarea");
+	// closestTextarea.classList.remove("accessible");
+	const doneButton = closestLi.querySelector(".clue-done-button");
+	console.log({ doneButton });
+	doneButton.click();
+};
