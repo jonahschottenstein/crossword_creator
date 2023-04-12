@@ -20,21 +20,14 @@ export const handleClueLiTextareaChange = (e) => {
 	handleTextareaHeight(e);
 };
 
-export const handleClueEditButtonClick = (e, setIsEditing) => {
-	if (!e.target.matches(".edit-clue-button")) return;
-
-	setIsEditing(e.target.name);
-
-	// e.preventDefault() would maybe simplify things
+export const handleClueEditButtonClick = (e) => {
 	const closestLi = e.target.closest(".clue-list-item");
 	const closestTextarea = closestLi.querySelector("textarea");
 	if (!closestLi.classList.contains("highlighted")) {
 		closestLi.click();
 	}
 	closestTextarea.classList.add("accessible");
-	// closestTextarea.click();
 	closestTextarea.focus();
-	e.stopPropagation();
 };
 
 export const handleClueTextareaBlur = (e) => {
