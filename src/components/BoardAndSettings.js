@@ -6,6 +6,7 @@ export const BoardAndSettings = (props) => {
 			<CellBlockSettings
 				cellBlockIsChecked={props.cellBlockIsChecked}
 				symmetryIsChecked={props.symmetryIsChecked}
+				shadedCellIsChecked={props.shadedCellIsChecked}
 				onChange={props.onChange}
 			/>
 			<Board

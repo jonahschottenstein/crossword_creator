@@ -287,6 +287,7 @@ export default function App() {
 				onKeyDown={handleKeyDown}
 				cellBlockIsChecked={cellBlockSettings.cellBlockIsChecked}
 				symmetryIsChecked={cellBlockSettings.symmetryIsChecked}
+				shadedCellIsChecked={cellBlockSettings.shadedCellIsChecked}
 				onChange={handleChange}
 			/>
 			<Dashboard
