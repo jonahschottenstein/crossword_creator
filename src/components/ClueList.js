@@ -25,7 +25,10 @@ export const ClueList = (props) => {
 							onClick={props.onClick}
 							onClueLiTextareaChange={props.onClueLiTextareaChange}
 							onClueEditButtonClick={props.onClueEditButtonClick}
+							onClueDoneButtonClick={props.onClueDoneButtonClick}
+							onClueTextareaFocus={props.onClueTextareaFocus}
 							onClueTextareaBlur={props.onClueTextareaBlur}
+							isEditing={props.isEditing}
 						/>
 					);
 				})}

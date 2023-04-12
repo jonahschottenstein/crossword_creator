@@ -12,7 +12,10 @@ export const ClueListsContainer = (props) => {
 				onClick={props.onClick}
 				onClueLiTextareaChange={props.onClueLiTextareaChange}
 				onClueEditButtonClick={props.onClueEditButtonClick}
-				onClueTextareaBlur={props.onClueTextareaBlur}></ClueList>
+				onClueDoneButtonClick={props.onClueDoneButtonClick}
+				onClueTextareaFocus={props.onClueTextareaFocus}
+				onClueTextareaBlur={props.onClueTextareaBlur}
+				isEditing={props.isEditing}></ClueList>
 
 			<ClueList
 				direction="down"
@@ -23,7 +26,10 @@ export const ClueListsContainer = (props) => {
 				onClick={props.onClick}
 				onClueLiTextareaChange={props.onClueLiTextareaChange}
 				onClueEditButtonClick={props.onClueEditButtonClick}
-				onClueTextareaBlur={props.onClueTextareaBlur}></ClueList>
+				onClueDoneButtonClick={props.onClueDoneButtonClick}
+				onClueTextareaFocus={props.onClueTextareaFocus}
+				onClueTextareaBlur={props.onClueTextareaBlur}
+				isEditing={props.isEditing}></ClueList>
 		</div>
 	);
 };

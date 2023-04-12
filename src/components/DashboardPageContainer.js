@@ -19,7 +19,10 @@ export const DashboardPageContainer = (props) => {
 				onMatchFilterChange={props.onMatchFilterChange}
 				onClueLiTextareaChange={props.onClueLiTextareaChange}
 				onClueEditButtonClick={props.onClueEditButtonClick}
+				onClueDoneButtonClick={props.onClueDoneButtonClick}
+				onClueTextareaFocus={props.onClueTextareaFocus}
 				onClueTextareaBlur={props.onClueTextareaBlur}
+				isEditing={props.isEditing}
 			/>
 		</div>
 	);

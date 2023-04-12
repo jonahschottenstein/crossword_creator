@@ -37,6 +37,8 @@ import {
 	handleClueLiTextareaChange,
 	handleClueEditButtonClick,
 	handleClueTextareaBlur,
+	handleClueDoneButtonClick,
+	handleClueTextareaFocus,
 } from "../utilities/handleClueLi";
 import {
 	handleClearFill,
@@ -315,12 +317,16 @@ export default function App() {
 					handleClueText(e);
 				}}
 				onClueEditButtonClick={(e) => {
-					handleClueEditButtonClick(e);
-					e.stopPropagation();
+					handleClueEditButtonClick(e, setIsEditing);
 				}}
+				onClueDoneButtonClick={(e) => {
+					handleClueDoneButtonClick(e, setIsEditing);
+				}}
+				onClueTextareaFocus={(e) => handleClueTextareaFocus(e, setIsEditing)}
 				onClueTextareaBlur={(e) => {
-					handleClueTextareaBlur(e);
+					handleClueTextareaBlur(e, setIsEditing);
 				}}
+				isEditing={isEditing}
 			/>
 		</div>
 	);
