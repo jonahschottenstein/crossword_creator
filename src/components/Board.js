@@ -45,6 +45,7 @@ export const Board = (props) => {
 				letter={cell.letter}
 				isSelected={cell.isSelected}
 				isShaded={cell.isShaded}
+				isCircled={cell.isCircled}
 				isBlackSquare={cell.isBlackSquare}
 				onClick={props.onClick}
 				onKeyDown={props.onKeyDown}
