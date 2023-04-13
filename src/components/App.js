@@ -291,6 +291,7 @@ export default function App() {
 				cellBlockIsChecked={cellBlockSettings.cellBlockIsChecked}
 				symmetryIsChecked={cellBlockSettings.symmetryIsChecked}
 				shadedCellIsChecked={cellBlockSettings.shadedCellIsChecked}
+				circleIsChecked={cellBlockSettings.circleIsChecked}
 				onChange={handleChange}
 			/>
 			<Dashboard
