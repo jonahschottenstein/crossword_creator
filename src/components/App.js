@@ -47,6 +47,7 @@ import {
 } from "../utilities/gridHandlers";
 import { setClueText } from "../utilities/setClueText";
 import { setShadedCell } from "../utilities/setShadedCell";
+import { setCircledCell } from "../utilities/setCircledCell";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -139,7 +140,7 @@ export default function App() {
 			setSelectedCell(e, setCells);
 		}
 	}; */
-	const handleClick = (e) => {
+	/* 	const handleClick = (e) => {
 		if (cellBlockSettings.cellBlockIsChecked) {
 			setCellBlock(e, setCells);
 			cellBlockSettings.symmetryIsChecked &&
@@ -149,9 +150,42 @@ export default function App() {
 			setClueText(e, setCells);
 		} else if (cellBlockSettings.shadedCellIsChecked) {
 			setShadedCell(e, setCells);
+		} else if (cellBlockSettings.circleIsChecked) {
+			setCircledCell(e, setCells);
 		} else {
 			setDirectionOnClick(e, cells, setDirection);
 			setSelectedCell(e, setCells);
+		}
+	}; */
+	const handleClick = (e) => {
+		const {
+			cellBlockIsChecked,
+			symmetryIsChecked,
+			shadedCellIsChecked,
+			circleIsChecked,
+		} = cellBlockSettings;
+		if (cellBlockIsChecked) {
+			setCellBlock(e, setCells);
+			symmetryIsChecked && setSymmetricalCellBlock(e, cells, setCells);
+			setCellNumbers(setCells);
+			setClues(setCells);
+			setClueText(e, setCells);
+
+			return;
+		}
+
+		if (!shadedCellIsChecked && !circleIsChecked) {
+			setDirectionOnClick(e, cells, setDirection);
+			setSelectedCell(e, setCells);
+
+			return;
+		}
+
+		if (shadedCellIsChecked) {
+			setShadedCell(e, setCells);
+		}
+		if (circleIsChecked) {
+			setCircledCell(e, setCells);
 		}
 	};
 
