@@ -121,11 +121,28 @@ export default function App() {
 		};
 
 		let ignore = false;
+
+		const handleBlurOnClick = (e) => {
+			if (!isEditing) return;
+			const textarea = document.querySelector(
+				`.clue-textarea[name="${isEditing}"]`
+			);
+			const li = textarea.closest(".clue-list-item");
+			const liName = li.getAttribute("name");
+			const liSelector = `.clue-list-item[name="${liName}"]`;
+
+			if (e.target.matches(`${liSelector}, ${liSelector} *`)) return;
+
+			setIsEditing(null);
+			textarea.classList.remove("accessible");
+		};
+		document.addEventListener("click", handleBlurOnClick);
 		startFetching();
 		return () => {
 			ignore = true;
+			document.removeEventListener("click", handleBlurOnClick);
 		};
-	}, [direction, cells, matchFilterInput, isAutofilling]);
+	}, [direction, cells, matchFilterInput, isAutofilling, isEditing]);
 
 	/* const handleClick = (e) => {
 		if (cellBlockSettings.cellBlockIsChecked) {
