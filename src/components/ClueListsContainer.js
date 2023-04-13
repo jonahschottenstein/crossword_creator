@@ -15,7 +15,7 @@ export const ClueListsContainer = (props) => {
 				onClueDoneButtonClick={props.onClueDoneButtonClick}
 				onClueTextareaFocus={props.onClueTextareaFocus}
 				onClueTextareaBlur={props.onClueTextareaBlur}
-				isEditing={props.isEditing}></ClueList>
+				activeTextarea={props.activeTextarea}></ClueList>
 
 			<ClueList
 				direction="down"
@@ -29,7 +29,7 @@ export const ClueListsContainer = (props) => {
 				onClueDoneButtonClick={props.onClueDoneButtonClick}
 				onClueTextareaFocus={props.onClueTextareaFocus}
 				onClueTextareaBlur={props.onClueTextareaBlur}
-				isEditing={props.isEditing}></ClueList>
+				activeTextarea={props.activeTextarea}></ClueList>
 		</div>
 	);
 };

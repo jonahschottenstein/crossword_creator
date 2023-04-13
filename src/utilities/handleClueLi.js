@@ -30,8 +30,8 @@ export const handleClueEditButtonClick = (e) => {
 	closestTextarea.focus();
 };
 
-export const handleClueDoneButtonClick = (e, setIsEditing) => {
-	setIsEditing(null);
+export const handleClueDoneButtonClick = (e, setActiveTextarea) => {
+	setActiveTextarea(null);
 
 	const closestLi = e.target.closest(".clue-list-item");
 	const closestTextarea = closestLi.querySelector("textarea");
@@ -41,14 +41,14 @@ export const handleClueDoneButtonClick = (e, setIsEditing) => {
 		selectedCellElement.focus();
 	}
 };
-export const handleClueTextareaFocus = (e, setIsEditing) => {
+export const handleClueTextareaFocus = (e, setActiveTextarea) => {
 	console.log("textareaFocus");
-	setIsEditing(e.target.getAttribute("name"));
+	setActiveTextarea(e.target.getAttribute("name"));
 };
 
-export const handleClueTextareaBlur = (e, setIsEditing) => {
+export const handleClueTextareaBlur = (e, setActiveTextarea) => {
 	console.log("BLUR");
-	// setIsEditing(null);
+	// setActiveTextarea(null);
 	const closestLi = e.target.closest(".clue-list-item");
 	// const closestTextarea = closestLi.querySelector("textarea");
 	// closestTextarea.classList.remove("accessible");

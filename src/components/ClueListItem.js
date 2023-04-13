@@ -19,7 +19,7 @@ export const ClueListItem = (props) => {
 					// onBlur={props.onClueTextareaBlur}
 				></textarea>
 
-				{`${props.name}-textarea` === props.isEditing ? (
+				{`${props.name}-textarea` === props.activeTextarea ? (
 					<button
 						className="clue-done-button accessible"
 						onClick={props.onClueDoneButtonClick}>

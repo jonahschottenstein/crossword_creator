@@ -26,7 +26,7 @@ export const Dashboard = (props) => {
 				onClueDoneButtonClick={props.onClueDoneButtonClick}
 				onClueTextareaFocus={props.onClueTextareaFocus}
 				onClueTextareaBlur={props.onClueTextareaBlur}
-				isEditing={props.isEditing}
+				activeTextarea={props.activeTextarea}
 			/>
 		</div>
 	);

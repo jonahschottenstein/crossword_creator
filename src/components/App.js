@@ -65,7 +65,7 @@ export default function App() {
 	});
 	const [matchFilterInput, setMatchFilterInput] = useState("");
 	const [isAutofilling, setIsAutofilling] = useState(false);
-	const [isEditing, setIsEditing] = useState(null);
+	const [activeTextarea, setActiveTextarea] = useState(null);
 
 	useEffect(() => {
 		// if (visibleDashPage !== "fill") return;
@@ -123,9 +123,9 @@ export default function App() {
 		let ignore = false;
 
 		const handleBlurOnClick = (e) => {
-			if (!isEditing) return;
+			if (!activeTextarea) return;
 			const textarea = document.querySelector(
-				`.clue-textarea[name="${isEditing}"]`
+				`.clue-textarea[name="${activeTextarea}"]`
 			);
 			const li = textarea.closest(".clue-list-item");
 			const liName = li.getAttribute("name");
@@ -133,7 +133,7 @@ export default function App() {
 
 			if (e.target.matches(`${liSelector}, ${liSelector} *`)) return;
 
-			setIsEditing(null);
+			setActiveTextarea(null);
 			textarea.classList.remove("accessible");
 		};
 		document.addEventListener("click", handleBlurOnClick);
@@ -142,7 +142,7 @@ export default function App() {
 			ignore = true;
 			document.removeEventListener("click", handleBlurOnClick);
 		};
-	}, [direction, cells, matchFilterInput, isAutofilling, isEditing]);
+	}, [direction, cells, matchFilterInput, isAutofilling, activeTextarea]);
 
 	/* const handleClick = (e) => {
 		if (cellBlockSettings.cellBlockIsChecked) {
@@ -372,16 +372,18 @@ export default function App() {
 					handleClueText(e);
 				}}
 				onClueEditButtonClick={(e) => {
-					handleClueEditButtonClick(e, setIsEditing);
+					handleClueEditButtonClick(e, setActiveTextarea);
 				}}
 				onClueDoneButtonClick={(e) => {
-					handleClueDoneButtonClick(e, setIsEditing);
+					handleClueDoneButtonClick(e, setActiveTextarea);
 				}}
-				onClueTextareaFocus={(e) => handleClueTextareaFocus(e, setIsEditing)}
+				onClueTextareaFocus={(e) =>
+					handleClueTextareaFocus(e, setActiveTextarea)
+				}
 				onClueTextareaBlur={(e) => {
-					handleClueTextareaBlur(e, setIsEditing);
+					handleClueTextareaBlur(e, setActiveTextarea);
 				}}
-				isEditing={isEditing}
+				activeTextarea={activeTextarea}
 			/>
 		</div>
 	);
