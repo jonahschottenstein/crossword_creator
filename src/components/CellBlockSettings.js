@@ -24,6 +24,13 @@ export const CellBlockSettings = (props) => {
 				isChecked={props.shadedCellIsChecked}
 				onChange={props.onChange}
 			/>
+			<ToggleSwitch
+				toggleSwitchId="circle-input"
+				text="Circle"
+				name="circleIsChecked"
+				isChecked={props.circleIsChecked}
+				onChange={props.onChange}
+			/>
 		</div>
 	);
 };
