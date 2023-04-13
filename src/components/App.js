@@ -270,11 +270,13 @@ export default function App() {
 
 		const CELL_BLOCK_NAME = "cellBlockIsChecked";
 		const SHADED_NAME = "shadedCellIsChecked";
+		const CIRCLED_NAME = "circleIsChecked";
 		const name = e.target.name;
 		let settings = { ...cellBlockSettings };
 		if (name === CELL_BLOCK_NAME) {
 			settings[SHADED_NAME] = false;
-		} else if (name === SHADED_NAME) {
+			settings[CIRCLED_NAME] = false;
+		} else if (name === SHADED_NAME || name === CIRCLED_NAME) {
 			settings[CELL_BLOCK_NAME] = false;
 		}
 		settings[name] = !cellBlockSettings[name];
