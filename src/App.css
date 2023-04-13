@@ -79,6 +79,16 @@
 	width: 100%;
 }
 
+.circle {
+	border: solid black 0.5px;
+	border-radius: 50%;
+	bottom: 0;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
 .shaded {
 	background-color: #dcdcdc;
 }
