@@ -55,6 +55,7 @@ export default function App() {
 		cellBlockIsChecked: false,
 		symmetryIsChecked: true,
 		shadedCellIsChecked: false,
+		circleIsChecked: false,
 	});
 	const [visibleDashPage, setVisibleDashPage] = useState("stats");
 	const [wordMatches, setWordMatches] = useState({
