@@ -125,7 +125,7 @@ export default function App() {
 		return () => {
 			ignore = true;
 		};
-	}, [direction, cells, matchFilterInput]);
+	}, [direction, cells, matchFilterInput, isAutofilling]);
 
 	/* const handleClick = (e) => {
 		if (cellBlockSettings.cellBlockIsChecked) {
