@@ -8,6 +8,7 @@ export const setCellBlock = (e, setCells) => {
 					isBlackSquare: !cell.isBlackSquare,
 					letter: "",
 					isShaded: false,
+					isCircled: false,
 				};
 			} else {
 				return cell;

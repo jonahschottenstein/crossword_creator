@@ -10,7 +10,13 @@ export const setSymmetricalCellBlock = (e, cells, setCells) => {
 		setCells((prevState) => {
 			const newState = prevState.map((cell) => {
 				if (cell.index === symmetricalCellIndex) {
-					return { ...cell, isBlackSquare: !cell.isBlackSquare };
+					return {
+						...cell,
+						isBlackSquare: !cell.isBlackSquare,
+						letter: "",
+						isShaded: false,
+						isCircled: false,
+					};
 				} else {
 					return cell;
 				}
