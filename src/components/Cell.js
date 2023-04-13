@@ -7,8 +7,18 @@ export const Cell = (props) => {
 			tabIndex={props.tabIndex}
 			onClick={props.onClick}
 			onKeyDown={props.onKeyDown}>
-			<div className="number">{props.number}</div>
-			<div className="letter">{props.letter}</div>
+			{/circled/.test(props.className) ? (
+				<>
+					<div className="circle"></div>
+					<div className="number">{props.number}</div>
+					<div className="letter">{props.letter}</div>
+				</>
+			) : (
+				<>
+					<div className="number">{props.number}</div>
+					<div className="letter">{props.letter}</div>
+				</>
+			)}
 		</div>
 	);
 };
