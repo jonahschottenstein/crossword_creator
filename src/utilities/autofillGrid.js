@@ -27,11 +27,10 @@ const isAMatch = (lettersArray, wordString) =>
 const getWordMatches = (word, sameLengthWords) => {
 	if (!word) return;
 	if (word.length < 3) return;
+	// Should maybe use throw/try/catch ^
 	const wordLetters = word.map((cell) => cell.letter);
-	const wordMatches = sameLengthWords.filter((obj) => {
-		const testWord = obj.word;
-		if (isAMatch(wordLetters, testWord) && !/\d+/.test(testWord)) return true;
-		return false;
+	const wordMatches = sameLengthWords.filter(({ word: testWord }) => {
+		return isAMatch(wordLetters, testWord) && !/\d+/.test(testWord);
 	});
 
 	return wordMatches;
