@@ -14,6 +14,9 @@ const getCellClassName = (cell, selectedWord) => {
 	if (cell.isShaded) {
 		className = className.concat(" ", "shaded");
 	}
+	if (cell.isCircled) {
+		className = className.concat(" ", "circled");
+	}
 
 	return className;
 };
