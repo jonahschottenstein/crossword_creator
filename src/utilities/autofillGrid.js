@@ -412,9 +412,29 @@ const sortByScrabbleScore = (wordMatches) => {
 	return sortedWordMatches;
 };
 
-const getFilledWordObj = (wordWithMatches, matchIndex = 0) => {
+/* const getFilledWordObj = (wordWithMatches, matchIndex = 0) => {
 	const { wordCells, wordMatches } = wordWithMatches;
 	const sortedWordMatches = sortByScrabbleScore(wordMatches);
+	const wordMatch = sortedWordMatches[matchIndex];
+	const wordCellsFilled = wordCells.map((wordCell, index) => {
+		const letter = wordMatch.word[index];
+
+		return { ...wordCell, letter, options: [...letter] };
+	});
+	const filledWordObj = {
+		wordCells: wordCellsFilled,
+		wordMatches: [wordMatch],
+	};
+
+	return filledWordObj;
+}; */
+const getFilledWordObj = (wordWithMatches, wordsOnBoard, matchIndex = 0) => {
+	const { wordCells, wordMatches } = wordWithMatches;
+	const wordMatchesFiltered = wordMatches.filter(({ word }) =>
+		isNotOnBoard(word, wordsOnBoard)
+	);
+	// const sortedWordMatches = sortByScrabbleScore(wordMatches);
+	const sortedWordMatches = sortByScrabbleScore(wordMatchesFiltered);
 	const wordMatch = sortedWordMatches[matchIndex];
 	const wordCellsFilled = wordCells.map((wordCell, index) => {
 		const letter = wordMatch.word[index];
