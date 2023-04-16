@@ -97,25 +97,6 @@ const getFormattedWords = (cells, formattedCells) => {
 	return { acrossWords, downWords };
 };
 
-/* const updateOptsFromMatches = (wordWithMatches) => {
-	const { wordCells, wordMatches } = wordWithMatches;
-	const wordCellsWithOpts = [];
-	for (let i = 0; i < wordCells.length; i++) {
-		const letters = wordMatches.map(({ word }) => word[i]);
-		const wordCellWithOpts = {
-			...wordCells[i],
-			options: [...new Set(letters)],
-		};
-		wordCellsWithOpts.push(wordCellWithOpts);
-	}
-	const updatedWordWithMatches = {
-		...wordWithMatches,
-		wordCells: wordCellsWithOpts,
-	};
-
-	return updatedWordWithMatches;
-}; */
-
 const updateOptsFromMatches2 = (wordWithMatches) => {
 	const { wordCells, wordMatches } = wordWithMatches;
 	const wordCellsWithOpts = wordCells.map((wordCell, index) => {
@@ -180,7 +161,6 @@ const isSameCell = (cell1, cell2) => cell1.id === cell2.id;
 const findSameCell = (searchedCells, compareCell) =>
 	searchedCells.find((searchedCell) => isSameCell(searchedCell, compareCell));
 
-// getWordObjsWithOptsFromComp
 const getWordObjsWithOverlapOpts = (wordObjs, overlapOpts) => {
 	const wordObjsWithOverlapOpts = wordObjs.map((wordObj) => {
 		const updatedWordCells = wordObj.wordCells.map((wordCell) => {
@@ -224,50 +204,13 @@ const wordObjHasWord = (wordObj, word) =>
 const wordIsAvailable = (word, wordsOnBoard, wordObj) =>
 	isNotOnBoard(word, wordsOnBoard) || wordObjHasWord(wordObj, word);
 
-/* const filterWordMatches = (wordObjs) => {
-	const wordObjsWithFilteredMatches = wordObjs.map((wordObj) => {
-		const wordRegExp = getWordRegExp(wordObj);
-		const filteredWordMatches = wordObj.wordMatches.filter(({ word }) =>
-			wordRegExp.test(word)
-		);
-
-		return { ...wordObj, wordMatches: filteredWordMatches };
-	});
-
-	return wordObjsWithFilteredMatches;
-}; */
-/* const filterWordMatches = async (wordObjs) => {
-	try {
-		const wordObjsWithFilteredMatches = await Promise.all(
-			wordObjs.map(async (wordObj) => {
-				const wordRegExp = getWordRegExp(wordObj);
-				const filteredWordMatches = await Promise.all(
-					wordObj.wordMatches.filter(({ word }) => wordRegExp.test(word))
-				);
-
-				return { ...wordObj, wordMatches: filteredWordMatches };
-			})
-		);
-
-		return wordObjsWithFilteredMatches;
-	} catch (error) {
-		console.log(error);
-		return;
-	}
-}; */
 const filterWordMatches = async (wordObjs, wordsOnBoard) => {
 	try {
-		console.log("filterWordMatches", { wordsOnBoard });
 		const wordObjsWithFilteredMatches = await Promise.all(
 			wordObjs.map(async (wordObj) => {
 				const wordRegExp = getWordRegExp(wordObj);
 				const filteredWordMatches = await Promise.all(
 					wordObj.wordMatches.filter(({ word }) => {
-						if (wordsOnBoard.includes(word)) {
-							console.log("wordObjHasWord", wordObjHasWord(wordObj, word));
-							console.log("INCLUDES", word, wordObj);
-						}
-						// return wordRegExp.test(word);
 						return (
 							wordRegExp.test(word) &&
 							wordIsAvailable(word, wordsOnBoard, wordObj)
@@ -291,7 +234,6 @@ const updateWordObjs = async (
 	overlapOpts,
 	wordsOnBoard
 ) => {
-	console.log("updateWordObjs", { wordsOnBoard });
 	const wordObjsWithOverlapOpts = getWordObjsWithOverlapOpts(
 		wordObjsWithOptsFromMatches,
 		overlapOpts
@@ -420,28 +362,11 @@ const sortByScrabbleScore = (wordMatches) => {
 	return sortedWordMatches;
 };
 
-/* const getFilledWordObj = (wordWithMatches, matchIndex = 0) => {
-	const { wordCells, wordMatches } = wordWithMatches;
-	const sortedWordMatches = sortByScrabbleScore(wordMatches);
-	const wordMatch = sortedWordMatches[matchIndex];
-	const wordCellsFilled = wordCells.map((wordCell, index) => {
-		const letter = wordMatch.word[index];
-
-		return { ...wordCell, letter, options: [...letter] };
-	});
-	const filledWordObj = {
-		wordCells: wordCellsFilled,
-		wordMatches: [wordMatch],
-	};
-
-	return filledWordObj;
-}; */
 const getFilledWordObj = (wordWithMatches, wordsOnBoard, matchIndex = 0) => {
 	const { wordCells, wordMatches } = wordWithMatches;
 	const wordMatchesFiltered = wordMatches.filter(({ word }) =>
 		isNotOnBoard(word, wordsOnBoard)
 	);
-	// const sortedWordMatches = sortByScrabbleScore(wordMatches);
 	const sortedWordMatches = sortByScrabbleScore(wordMatchesFiltered);
 	const wordMatch = sortedWordMatches[matchIndex];
 	const wordCellsFilled = wordCells.map((wordCell, index) => {
@@ -477,6 +402,7 @@ const getCrossingWordObjs = (filledWordObj, wordObjs) => {
 
 	return crossingWordObjs;
 };
+
 const addFilledWordCellsToCrossingWordObjs = (
 	filledWordObj,
 	crossingWordObjs
@@ -583,8 +509,6 @@ const updateWordMatchIndexOfArgs = (args) => {
 	return { ...args, wordMatchIndex: args.wordMatchIndex + 1 };
 };
 
-// const getPreviousArgsArr = (argsArr, previousArgsIndex, updatedPreviousArgs) =>
-// 	argsArr.slice(0, previousArgsIndex).concat(updatedPreviousArgs);
 const getPreviousArgsArr = (argsArr, previousArgsIndex) =>
 	argsArr.slice(0, previousArgsIndex);
 
@@ -593,10 +517,6 @@ const getPreviousData = (currentArgsArr, wordToFill) => {
 	const previousArgs = currentArgsArr[previousArgsIndex];
 	const updatedPreviousArgs =
 		previousArgs && updateWordMatchIndexOfArgs(previousArgs);
-	// const previousArgsArr = getPreviousArgsArr(
-	// 	currentArgsArr,
-	// 	previousArgsIndex,
-	// 	updatedPreviousArgs
 	const previousArgsArr = getPreviousArgsArr(currentArgsArr, previousArgsIndex);
 
 	return {
@@ -608,45 +528,6 @@ const getPreviousData = (currentArgsArr, wordToFill) => {
 };
 
 const updateArgsArr = (argsArr) => argsArr.slice(0, -1);
-
-/* const backtrack = (previousArgs, previousArgsArr, setCells) => {
-	if (!previousArgs) return "(!previousArgs) No solutions found";
-
-	if (
-		hasUntestedWordMatches(previousArgs.wordToFill, previousArgs.wordMatchIndex)
-	) {
-		const updatedPreviousArgs = updateWordMatchIndexOfArgs(previousArgs);
-
-		return autofillGrid(
-			{ ...updatedPreviousArgs, argsArr: previousArgsArr },
-			setCells
-		);
-	} else {
-		const nextPreviousData = getPreviousData(
-			previousArgsArr,
-			previousArgs.wordToFill
-		);
-		if (nextPreviousData.argsIndex < 0)
-			return "(nextPreviousArgsIndex < 0) No solutions found";
-
-		return autofillGrid(
-			{
-				...nextPreviousData.updatedArgs,
-				argsArr: nextPreviousData.argsArr,
-			},
-			setCells
-		);
-	}
-}; */
-
-/* const backtrack2 = (previousData, setCells) => {
-	if (!previousData.args) return "(!previousArgs) No solutions found";
-
-	return autofillGrid(
-		{ ...previousData.updatedArgs, argsArr: previousData.argsArr },
-		setCells
-	);
-}; */
 
 const backtrack3 = async (previousData, setCells, startTime) => {
 	if (!previousData.args) return "(!previousArgs) No solutions found";
@@ -696,52 +577,6 @@ const jumpBack = async (causeIndex, currentArgsArr, setCells, startTime) => {
 	);
 };
 
-/* const lookAhead = (
-	// wordObjs,
-	{
-		wordToFill,
-		wordMatchIndex,
-		initialArgs,
-		argsArr,
-		previousArgs,
-		previousArgsArr,
-	},
-	setCells
-) => {
-	// if (!hasMatchlessWordObj(wordObjs)) return;
-
-	if (hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
-		return autofillGrid(
-			{
-				...updateWordMatchIndexOfArgs(initialArgs),
-				argsArr,
-			},
-			setCells
-		);
-	} else {
-		console.log("lookAhead backtrack 1", { previousArgs });
-		return backtrack(previousArgs, previousArgsArr, setCells);
-	}
-}; */
-
-/* const lookAhead2 = (
-	{ wordToFill, wordMatchIndex, initialArgs, argsArr, previousData },
-	setCells
-) => {
-	if (hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
-		return autofillGrid(
-			{
-				...updateWordMatchIndexOfArgs(initialArgs),
-				argsArr,
-			},
-			setCells
-		);
-	} else {
-		console.log("lookAhead backtrack2");
-		return backtrack2(previousData, setCells);
-	}
-}; */
-
 const lookAhead3 = async (
 	{ initialArgs, argsArr, previousData },
 	setCells,
@@ -781,60 +616,6 @@ const updateGrid = async (formattedCells, setCells) =>
 		return newState;
 	});
 
-/* const handleNoNextWordToFill = (
-	allUpdatedWordObjs,
-	updatedFormattedCells,
-	updatedWordObjs
-) => {
-	if (gridIsFilled(allUpdatedWordObjs)) {
-		console.log("SOLUTION FOUND");
-
-		return { updatedFormattedCells, updatedWordObjs };
-	} else {
-		return "!nextWordToFill, not every cell has a letter";
-	}
-}; */
-
-/* const handleNextWordToFill = (
-	nextWordToFill,
-	autofillGridArgsObj,
-	{
-		wordToFill,
-		wordMatchIndex,
-		initialArgs,
-		argsArr,
-		previousArgs,
-		previousArgsArr,
-	},
-	setCells
-) => {
-	if (hasUntestedWordMatches(nextWordToFill, 0)) {
-		return autofillGrid(autofillGridArgsObj, setCells);
-	} else {
-		if (hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
-			return autofillGrid(
-				{ ...updateWordMatchIndexOfArgs(initialArgs), argsArr },
-				setCells
-			);
-		} else {
-			console.log("backtrack 3");
-			return backtrack(previousArgs, previousArgsArr);
-		}
-	}
-}; */
-
-/* const getUpdatedCrossingWordObjs = async (filledWordObj, crossingWordObjs) => {
-	const crossingWordObjsWithFilledWordCells =
-		addFilledWordCellsToCrossingWordObjs(filledWordObj, crossingWordObjs);
-	const crossingWordObjsFiltered = await filterWordMatches(
-		crossingWordObjsWithFilledWordCells
-	);
-	const updatedCrossingWordObjs = crossingWordObjsFiltered.map(
-		updateOptsFromMatches2
-	);
-
-	return updatedCrossingWordObjs;
-}; */
 const getUpdatedCrossingWordObjs = async (
 	filledWordObj,
 	crossingWordObjs,
@@ -853,45 +634,6 @@ const getUpdatedCrossingWordObjs = async (
 	return updatedCrossingWordObjs;
 };
 
-/* const getUpdatedWordObjsWrapper = async ({
-	formattedCells,
-	acrossWordObjs,
-	downWordObjs,
-	wordToFill,
-	wordMatchIndex,
-}) => {
-	const allWordObjs = [...acrossWordObjs, ...downWordObjs];
-	const filledWordObj = getFilledWordObj(wordToFill, wordMatchIndex);
-	const crossingWordObjs = getCrossingWordObjs(filledWordObj, allWordObjs);
-	console.log({ filledWordObj, crossingWordObjs });
-	const updatedCrossingWordObjs = await getUpdatedCrossingWordObjs(
-		filledWordObj,
-		crossingWordObjs
-	);
-	console.log({ updatedCrossingWordObjs });
-	const { acrossWordObjsIntegrated, downWordObjsIntegrated } =
-		getIntegratedWordObjs(
-			[...updatedCrossingWordObjs, filledWordObj],
-			acrossWordObjs,
-			downWordObjs
-		);
-	const updatedWordObjs = await getUpdatedWordObjs(
-		acrossWordObjsIntegrated,
-		downWordObjsIntegrated,
-		formattedCells
-	);
-	console.log({ updatedWordObjs });
-	console.log(
-		`hasMatchlessWordObj: 
-		(updatedCrossingWordObjs): ${hasMatchlessWordObj(updatedCrossingWordObjs)},
-		(updatedWordObjs): ${hasMatchlessWordObj([
-			...updatedWordObjs.acrossWordObjs,
-			...updatedWordObjs.downWordObjs,
-		])}`
-	);
-
-	return updatedWordObjs;
-}; */
 const getUpdatedWordObjsWrapper2 = async ({
 	formattedCells,
 	acrossWordObjs,
@@ -1021,216 +763,6 @@ const getConsoleGrid = (formattedCells) => {
 	return consoleGrid;
 };
 
-/* const autofillGrid = (
-	{
-		formattedCells,
-		acrossWordObjs,
-		downWordObjs,
-		wordToFill,
-		wordMatchIndex = 0,
-		argsArr = [],
-	},
-	setCells
-) => {
-	const allWordObjs = [...acrossWordObjs, ...downWordObjs];
-	if (gridIsFilled(allWordObjs) && everyWordObjHasMatch(allWordObjs)) {
-		return { formattedCells, acrossWordObjs, downWordObjs };
-	}
-
-	const initialArgs = {
-		formattedCells,
-		acrossWordObjs,
-		downWordObjs,
-		wordToFill,
-		wordMatchIndex,
-	};
-	argsArr.push(initialArgs);
-	console.log(structuredClone(argsArr));
-
-	const previousData = getPreviousData(argsArr, wordToFill);
-
-	if (!hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
-		console.log("backtrack 2");
-		// return backtrack(previousData.args, previousData.argsArr, setCells);
-		return backtrack2(previousData, setCells);
-	}
-
-	// const filledWordObj = getFilledWordObj(wordToFill, wordMatchIndex);
-	// const crossingWordObjs = getCrossingWordObjs(filledWordObj, allWordObjs);
-	// const updatedCrossingWordObjs = getUpdatedCrossingWordObjs(
-	// 	filledWordObj,
-	// 	crossingWordObjs
-	// );
-
-	// if (hasMatchlessWordObj(updatedCrossingWordObjs)) {
-	// 	// return lookAhead(
-	// 	// 	{
-	// 	// 		wordToFill,
-	// 	// 		wordMatchIndex,
-	// 	// 		initialArgs,
-	// 	// 		argsArr,
-	// 	// 		previousArgs: previousData.args,
-	// 	// 		previousArgsArr: previousData.argsArr,
-	// 	// 	},
-	// 	// 	setCells
-	// 	// );
-	// 	return lookAhead2(
-	// 		{ wordToFill, wordMatchIndex, initialArgs, argsArr, previousData },
-	// 		setCells
-	// 	);
-	// }
-
-	// const { acrossWordObjsIntegrated, downWordObjsIntegrated } =
-	// 	getIntegratedWordObjs(
-	// 		[...updatedCrossingWordObjs, filledWordObj],
-	// 		acrossWordObjs,
-	// 		downWordObjs
-	// 	);
-	// const updatedWordObjs = getUpdatedWordObjs(
-	// 	acrossWordObjsIntegrated,
-	// 	downWordObjsIntegrated,
-	// 	formattedCells
-	// );
-	// const allUpdatedWordObjs = [
-	// 	...updatedWordObjs.acrossWordObjs,
-	// 	...updatedWordObjs.downWordObjs,
-	// ];
-
-	const updatedWordObjs = getUpdatedWordObjsWrapper(initialArgs);
-	console.log({ updatedWordObjs });
-	const allUpdatedWordObjs = [
-		...updatedWordObjs.acrossWordObjs,
-		...updatedWordObjs.downWordObjs,
-	];
-
-	if (hasMatchlessWordObj(allUpdatedWordObjs)) {
-		// return lookAhead(
-		// 	{
-		// 		wordToFill,
-		// 		wordMatchIndex,
-		// 		initialArgs,
-		// 		argsArr,
-		// 		previousArgs: previousData.args,
-		// 		previousArgsArr: previousData.argsArr,
-		// 	},
-		// 	setCells
-		// );
-		return lookAhead2(
-			{ wordToFill, wordMatchIndex, initialArgs, argsArr, previousData },
-			setCells
-		);
-	}
-
-	const updatedFormattedCells = getUpdatedFormattedCells(
-		formattedCells,
-		updatedWordObjs.acrossWordObjs,
-		updatedWordObjs.downWordObjs
-	);
-
-	updateGrid(updatedFormattedCells, setCells);
-
-	const nextWordToFill = getNextWordToFill(allUpdatedWordObjs);
-	console.log(structuredClone(nextWordToFill));
-
-	if (!nextWordToFill) {
-		return handleNoNextWordToFill(
-			allUpdatedWordObjs,
-			updatedFormattedCells,
-			updatedWordObjs
-		);
-	} else {
-		// return handleNextWordToFill(
-		// 	nextWordToFill,
-		// 	{
-		// 		formattedCells: updatedFormattedCells,
-		// 		acrossWordObjs: updatedWordObjs.acrossWordObjs,
-		// 		downWordObjs: updatedWordObjs.downWordObjs,
-		// 		wordToFill: nextWordToFill,
-		// 		wordMatchIndex: 0,
-		// 		argsArr,
-		// 	},
-		// 	{
-		// 		wordToFill,
-		// 		wordMatchIndex,
-		// 		initialArgs,
-		// 		argsArr,
-		// 		previousArgs: previousData.args,
-		// 		previousArgsArr: previousData.argsArr,
-		// 	},
-		// 	setCells
-		// );
-		if (hasUntestedWordMatches(nextWordToFill, 0)) {
-			return autofillGrid(
-				{
-					formattedCells: updatedFormattedCells,
-					acrossWordObjs: updatedWordObjs.acrossWordObjs,
-					downWordObjs: updatedWordObjs.downWordObjs,
-					wordToFill: nextWordToFill,
-					wordMatchIndex: 0,
-					argsArr,
-				},
-				setCells
-			);
-		} else {
-			return lookAhead2(
-				{ wordToFill, wordMatchIndex, initialArgs, argsArr, previousData },
-				setCells
-			);
-		}
-	}
-}; */
-
-/* const getMatchlessWordObjCauseIndex = (
-	matchlessWordObj,
-	allWordObjs,
-	argsArr
-) => {
-	// const causeArgsObj = argsArr.findIndex((argsObj) => {
-	const causeArgsObj = argsArr.findLastIndex((argsObj) => {
-		const argsChunk = [
-			...getCrossingWordObjs(argsObj.wordToFill, allWordObjs),
-			argsObj.wordToFill,
-		];
-		const argsCells = getCellsFromWordObjs(argsChunk);
-		const matchlessChunk = [
-			...getCrossingWordObjs(matchlessWordObj, allWordObjs),
-			matchlessWordObj,
-		];
-		const matchlessCells = getCellsFromWordObjs(matchlessChunk);
-		const isCause = argsCells.some((argsCell) =>
-			matchlessCells.find((matchlessCell) => matchlessCell.id === argsCell.id)
-		);
-		console.log(argsCells, matchlessCells, isCause);
-		console.log(
-			hasUntestedWordMatches(argsObj.wordToFill, argsObj.wordMatchIndex)
-		);
-
-		return isCause;
-	});
-
-	return causeArgsObj;
-}; */
-
-/* const getMatchlessCauseIndexes = (matchlessWordObjs, argsArr) => {
-	const causeIndexes = matchlessWordObjs.map((matchlessWordObj) => {
-		const causeIndex = argsArr.findIndex((argsObj) => {
-			const matchlessCells = getCellsFromWordObjs([matchlessWordObj]);
-			const fillWordCells = getCellsFromWordObjs([argsObj.wordToFill]);
-			const isCause = fillWordCells.some((fillWordCell) =>
-				matchlessCells.find((matchlessCell) =>
-					isSameCell(matchlessCell, fillWordCell)
-				)
-			);
-
-			return isCause;
-		});
-
-		return causeIndex;
-	});
-
-	return causeIndexes;
-}; */
-
 const getMatchlessCauseIndexes2 = (matchlessWordObjs, allWordObjs, argsArr) => {
 	const causeIndexes = matchlessWordObjs.map((matchlessWordObj) => {
 		const causeIndex = argsArr.findIndex((argsObj) => {
@@ -1254,26 +786,6 @@ const getMatchlessCauseIndexes2 = (matchlessWordObjs, allWordObjs, argsArr) => {
 
 	return causeIndexes;
 };
-
-/* const getPotentialCauses = (matchlessWordObjs, argsArr) => {
-	const allPotentialCauses = matchlessWordObjs.map((matchlessWordObj) => {
-		const potentialCauses = argsArr.filter((argsObj) => {
-			const matchlessCells = getCellsFromWordObjs([matchlessWordObj]);
-			const fillWordCells = getCellsFromWordObjs([argsObj.wordToFill]);
-			const isPotentialCause = fillWordCells.some((fillWordCell) =>
-				matchlessCells.find((matchlessCell) =>
-					isSameCell(matchlessCell, fillWordCell)
-				)
-			);
-
-			return isPotentialCause;
-		});
-
-		return potentialCauses;
-	});
-
-	return allPotentialCauses;
-}; */
 
 const restartAutofill = async (argsArr, setCells) => {
 	const startArgsIndex = argsArr.findIndex(({ wordToFill, wordMatchIndex }) =>
@@ -1305,7 +817,6 @@ const autofillGrid2 = async (
 	setCells,
 	startTime
 ) => {
-	// NEED TO ADD wordsOnBoard ARRAY SO DUPLICATE WORDS AREN'T USED
 	const allWordObjs = [...acrossWordObjs, ...downWordObjs];
 	const elapsedTime = Date.now() - startTime;
 	console.log(elapsedTime);
@@ -1336,15 +847,11 @@ const autofillGrid2 = async (
 		wordMatchIndex: ${wordMatchIndex},
 		wordMatchesCount: ${wordToFill.wordMatches.length}
 	`);
-	// console.log(structuredClone(argsArr));
 	console.timeLog("autofillGrid2");
 	console.log(getConsoleGrid(formattedCells));
 
 	const previousData = getPreviousData(argsArr, wordToFill);
 
-	// if (!hasUntestedWordMatches(wordToFill, wordMatchIndex)) {
-	// 	return backtrack3(previousData, setCells);
-	// }
 	if (
 		!hasUntestedWordMatches(wordToFill, wordMatchIndex) ||
 		wordMatchIndex > 50
@@ -1376,7 +883,6 @@ const autofillGrid2 = async (
 		);
 	}
 
-	// const updatedWordObjs = await getUpdatedWordObjsWrapper(initialArgs);
 	const updatedWordObjs = await getUpdatedWordObjsWrapper2({
 		formattedCells,
 		acrossWordObjs,
@@ -1399,11 +905,6 @@ const autofillGrid2 = async (
 		);
 		const matchlessWordObjs = getMatchlessWordObjs(allUpdatedWordObjs);
 		console.log({ matchlessWordObjs });
-		// const causeIndexes = getMatchlessCauseIndexes(matchlessWordObjs, argsArr);
-		// const causeIndex2 = causeIndexes
-		// 	.slice()
-		// 	.sort((a, b) => a - b)
-		// 	.find((index) => index > -1);
 		const causeIndexes2 = getMatchlessCauseIndexes2(
 			matchlessWordObjs,
 			allUpdatedWordObjs,
@@ -1414,17 +915,12 @@ const autofillGrid2 = async (
 			.sort((a, b) => a - b)
 			.findLast((index) => index > -1);
 		if (causeIndex3) {
-			// console.log("CAUSE INDEX", { causeIndexes, causeIndex2 });
 			console.log({ causeIndexes2, causeIndex3 });
 			console.log("CI");
 		}
-		// const potentialCauses = getPotentialCauses(matchlessWordObjs, argsArr);
-		// console.log({ filledWordObj, potentialCauses });
 		console.log(
 			shouldJumpBack(matchlessWordObjs, filledWordObj, updatedCrossingWordObjs)
 		);
-		// return await lookAhead3({ initialArgs, argsArr, previousData }, setCells);
-		// return await jumpBack(causeIndex, argsArr, setCells);
 
 		if (
 			shouldJumpBack(
@@ -1433,8 +929,6 @@ const autofillGrid2 = async (
 				updatedCrossingWordObjs
 			) &&
 			causeIndex3
-			// causeIndex2
-			// causeIndexes[0] > -1
 		) {
 			return await jumpBack(causeIndex3, argsArr, setCells, startTime);
 		} else {
@@ -1489,10 +983,6 @@ export const initAutofillGrid = async (cells, setCells, setIsAutofilling) => {
 		downWordObjs,
 		wordToFill,
 	};
-	// console.time("autofillGrid");
-	// const autofilledGrid = autofillGrid(argsObj, setCells);
-	// console.log({ autofilledGrid });
-	// console.timeEnd("autofillGrid");
 	console.time("autofillGrid2");
 	setIsAutofilling(true);
 	const startTime = Date.now();
