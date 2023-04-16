@@ -216,6 +216,14 @@ const getWordsOnBoard = (wordObjs) =>
 		)
 		.map((wordObj) => wordObj.wordMatches[0].word);
 
+const isNotOnBoard = (word, wordsOnBoard) => !wordsOnBoard.includes(word);
+
+const wordObjHasWord = (wordObj, word) =>
+	wordObj.wordCells.every((wordCell, index) => wordCell.letter === word[index]);
+
+const wordIsAvailable = (word, wordsOnBoard, wordObj) =>
+	isNotOnBoard(word, wordsOnBoard) || wordObjHasWord(wordObj, word);
+
 /* const filterWordMatches = (wordObjs) => {
 	const wordObjsWithFilteredMatches = wordObjs.map((wordObj) => {
 		const wordRegExp = getWordRegExp(wordObj);
