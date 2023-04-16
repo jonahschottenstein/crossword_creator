@@ -286,13 +286,19 @@ const filterWordMatches = async (wordObjs, wordsOnBoard) => {
 	}
 };
 
-const updateWordObjs = async (wordObjsWithOptsFromMatches, overlapOpts) => {
+const updateWordObjs = async (
+	wordObjsWithOptsFromMatches,
+	overlapOpts,
+	wordsOnBoard
+) => {
+	console.log("updateWordObjs", { wordsOnBoard });
 	const wordObjsWithOverlapOpts = getWordObjsWithOverlapOpts(
 		wordObjsWithOptsFromMatches,
 		overlapOpts
 	);
 	const wordObjsWithFilteredMatches = await filterWordMatches(
-		wordObjsWithOverlapOpts
+		wordObjsWithOverlapOpts,
+		wordsOnBoard
 	);
 
 	return wordObjsWithFilteredMatches;
@@ -301,9 +307,9 @@ const updateWordObjs = async (wordObjsWithOptsFromMatches, overlapOpts) => {
 const getUpdatedWordObjs = async (
 	acrossWordObjs,
 	downWordObjs,
-	formattedCells
+	formattedCells,
+	wordsOnBoard
 ) => {
-	console.log([...getWordsOnBoard(acrossWordObjs)]);
 	const acrossWordObjsWithOptsFromMatches = acrossWordObjs.map(
 		(acrossWordObj) => updateOptsFromMatches2(acrossWordObj)
 	);
@@ -317,11 +323,13 @@ const getUpdatedWordObjs = async (
 	);
 	const updatedAcrossWordObjs = await updateWordObjs(
 		acrossWordObjsWithOptsFromMatches,
-		overlapOpts
+		overlapOpts,
+		wordsOnBoard
 	);
 	const updatedDownWordObjs = await updateWordObjs(
 		downWordObjsWithOptsFromMatches,
-		overlapOpts
+		overlapOpts,
+		wordsOnBoard
 	);
 
 	return {
@@ -815,11 +823,28 @@ const updateGrid = async (formattedCells, setCells) =>
 	}
 }; */
 
-const getUpdatedCrossingWordObjs = async (filledWordObj, crossingWordObjs) => {
+/* const getUpdatedCrossingWordObjs = async (filledWordObj, crossingWordObjs) => {
 	const crossingWordObjsWithFilledWordCells =
 		addFilledWordCellsToCrossingWordObjs(filledWordObj, crossingWordObjs);
 	const crossingWordObjsFiltered = await filterWordMatches(
 		crossingWordObjsWithFilledWordCells
+	);
+	const updatedCrossingWordObjs = crossingWordObjsFiltered.map(
+		updateOptsFromMatches2
+	);
+
+	return updatedCrossingWordObjs;
+}; */
+const getUpdatedCrossingWordObjs = async (
+	filledWordObj,
+	crossingWordObjs,
+	wordsOnBoard
+) => {
+	const crossingWordObjsWithFilledWordCells =
+		addFilledWordCellsToCrossingWordObjs(filledWordObj, crossingWordObjs);
+	const crossingWordObjsFiltered = await filterWordMatches(
+		crossingWordObjsWithFilledWordCells,
+		wordsOnBoard
 	);
 	const updatedCrossingWordObjs = crossingWordObjsFiltered.map(
 		updateOptsFromMatches2
@@ -873,6 +898,7 @@ const getUpdatedWordObjsWrapper2 = async ({
 	downWordObjs,
 	filledWordObj,
 	updatedCrossingWordObjs,
+	wordsOnBoard,
 }) => {
 	const { acrossWordObjsIntegrated, downWordObjsIntegrated } =
 		getIntegratedWordObjs(
@@ -883,7 +909,8 @@ const getUpdatedWordObjsWrapper2 = async ({
 	const updatedWordObjs = await getUpdatedWordObjs(
 		acrossWordObjsIntegrated,
 		downWordObjsIntegrated,
-		formattedCells
+		formattedCells,
+		wordsOnBoard
 	);
 	console.log({ updatedWordObjs });
 	console.log(
@@ -1325,12 +1352,18 @@ const autofillGrid2 = async (
 		return await backtrack3(previousData, setCells, startTime);
 	}
 
-	const filledWordObj = getFilledWordObj(wordToFill, wordMatchIndex);
+	const wordsOnBoard = getWordsOnBoard(allWordObjs);
+	const filledWordObj = getFilledWordObj(
+		wordToFill,
+		wordsOnBoard,
+		wordMatchIndex
+	);
 	const crossingWordObjs = getCrossingWordObjs(filledWordObj, allWordObjs);
 	console.log({ filledWordObj, crossingWordObjs });
 	const updatedCrossingWordObjs = await getUpdatedCrossingWordObjs(
 		filledWordObj,
-		crossingWordObjs
+		crossingWordObjs,
+		wordsOnBoard
 	);
 	console.log({ updatedCrossingWordObjs });
 
@@ -1350,6 +1383,7 @@ const autofillGrid2 = async (
 		downWordObjs,
 		filledWordObj,
 		updatedCrossingWordObjs,
+		wordsOnBoard,
 	});
 	console.log({ updatedWordObjs });
 	const allUpdatedWordObjs = [
@@ -1436,10 +1470,16 @@ export const initAutofillGrid = async (cells, setCells, setIsAutofilling) => {
 	const { acrossWords, downWords } = getFormattedWords(cells, formattedCells);
 	const acrossWordsWithMatches = await getWordsWithMatches(acrossWords);
 	const downWordsWithMatches = await getWordsWithMatches(downWords);
+	const wordsOnBoard = getWordsOnBoard([
+		...acrossWordsWithMatches,
+		...downWordsWithMatches,
+	]);
+	console.log("initAutofillGrid", { wordsOnBoard });
 	const { acrossWordObjs, downWordObjs } = await getUpdatedWordObjs(
 		acrossWordsWithMatches,
 		downWordsWithMatches,
-		formattedCells
+		formattedCells,
+		wordsOnBoard
 	);
 	console.log({ acrossWordObjs, downWordObjs });
 	const wordToFill = getNextWordToFill([...acrossWordObjs, ...downWordObjs]);
