@@ -208,6 +208,14 @@ const getWordRegExp = (wordWithMatches) => {
 	return wordRegExp;
 };
 
+const getWordsOnBoard = (wordObjs) =>
+	wordObjs
+		.filter(
+			(wordObj) =>
+				wordCellsAreFilled(wordObj) && wordObj.wordMatches.length === 1
+		)
+		.map((wordObj) => wordObj.wordMatches[0].word);
+
 /* const filterWordMatches = (wordObjs) => {
 	const wordObjsWithFilteredMatches = wordObjs.map((wordObj) => {
 		const wordRegExp = getWordRegExp(wordObj);
