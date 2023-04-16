@@ -236,7 +236,7 @@ const wordIsAvailable = (word, wordsOnBoard, wordObj) =>
 
 	return wordObjsWithFilteredMatches;
 }; */
-const filterWordMatches = async (wordObjs) => {
+/* const filterWordMatches = async (wordObjs) => {
 	try {
 		const wordObjsWithFilteredMatches = await Promise.all(
 			wordObjs.map(async (wordObj) => {
@@ -254,15 +254,37 @@ const filterWordMatches = async (wordObjs) => {
 		console.log(error);
 		return;
 	}
-};
+}; */
+const filterWordMatches = async (wordObjs, wordsOnBoard) => {
+	try {
+		console.log("filterWordMatches", { wordsOnBoard });
+		const wordObjsWithFilteredMatches = await Promise.all(
+			wordObjs.map(async (wordObj) => {
+				const wordRegExp = getWordRegExp(wordObj);
+				const filteredWordMatches = await Promise.all(
+					wordObj.wordMatches.filter(({ word }) => {
+						if (wordsOnBoard.includes(word)) {
+							console.log("wordObjHasWord", wordObjHasWord(wordObj, word));
+							console.log("INCLUDES", word, wordObj);
+						}
+						// return wordRegExp.test(word);
+						return (
+							wordRegExp.test(word) &&
+							wordIsAvailable(word, wordsOnBoard, wordObj)
+						);
+					})
+				);
 
-const getWordsOnBoard = (wordObjs) =>
-	wordObjs
-		.filter(
-			(wordObj) =>
-				wordCellsAreFilled(wordObj) && wordObj.wordMatches.length === 1
-		)
-		.map((wordObj) => wordObj.wordMatches[0].word);
+				return { ...wordObj, wordMatches: filteredWordMatches };
+			})
+		);
+
+		return wordObjsWithFilteredMatches;
+	} catch (error) {
+		console.log(error);
+		return;
+	}
+};
 
 const updateWordObjs = async (wordObjsWithOptsFromMatches, overlapOpts) => {
 	const wordObjsWithOverlapOpts = getWordObjsWithOverlapOpts(
