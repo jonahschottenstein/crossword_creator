@@ -1,7 +1,10 @@
-export const setShadedCell = (e, setCells) => {
+export const setShadedCell = (
+	e,
+	setCells,
+	targetIndex = Number(e.target.dataset.index)
+) => {
 	if (e.target.classList.contains("cell-block")) return;
 
-	const targetIndex = Number(e.target.dataset.index);
 	setCells((prevState) => {
 		const newState = prevState.map((cell) => {
 			if (cell.index === targetIndex) {
