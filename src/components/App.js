@@ -213,7 +213,9 @@ export default function App() {
 	};
 
 	const handleLiClick = (e) => {
-		if (cellBlockSettings.cellBlockIsChecked) return;
+		const { cellBlockIsChecked, shadedCellIsChecked, circleIsChecked } =
+			cellBlockSettings;
+		if (cellBlockIsChecked || shadedCellIsChecked || circleIsChecked) return;
 
 		selectCellElementOnLiClick(e, direction, setDirection, cells);
 	};
