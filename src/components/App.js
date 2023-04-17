@@ -48,6 +48,7 @@ import {
 import { setClueText } from "../utilities/setClueText";
 import { setShadedCell } from "../utilities/setShadedCell";
 import { setCircledCell } from "../utilities/setCircledCell";
+import { setSymmetricalCellStyle } from "../utilities/setSymmetricalCellStyle";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -183,7 +184,8 @@ export default function App() {
 		} = cellBlockSettings;
 		if (cellBlockIsChecked) {
 			setCellBlock(e, setCells);
-			symmetryIsChecked && setSymmetricalCellBlock(e, cells, setCells);
+			symmetryIsChecked &&
+				setSymmetricalCellStyle(e, cells, setCells, setCellBlock);
 			setCellNumbers(setCells);
 			setClues(setCells);
 			setClueText(e, setCells);
@@ -200,9 +202,13 @@ export default function App() {
 
 		if (shadedCellIsChecked) {
 			setShadedCell(e, setCells);
+			symmetryIsChecked &&
+				setSymmetricalCellStyle(e, cells, setCells, setShadedCell);
 		}
 		if (circleIsChecked) {
 			setCircledCell(e, setCells);
+			symmetryIsChecked &&
+				setSymmetricalCellStyle(e, cells, setCells, setCircledCell);
 		}
 	};
 
