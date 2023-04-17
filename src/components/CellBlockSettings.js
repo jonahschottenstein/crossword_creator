@@ -4,21 +4,21 @@ export const CellBlockSettings = (props) => {
 	return (
 		<div className="cell-block-settings">
 			<ToggleSwitch
-				toggleSwitchId="cell-block-input"
-				text="Cell Block"
-				iconText="square"
-				iconClassName="material-icons"
-				name="cellBlockIsChecked"
-				isChecked={props.cellBlockIsChecked}
-				onChange={props.onChange}
-			/>
-			<ToggleSwitch
 				toggleSwitchId="symmetry-input"
 				text="Symmetry"
 				iconText="balance"
 				iconClassName="material-icons"
 				name="symmetryIsChecked"
 				isChecked={props.symmetryIsChecked}
+				onChange={props.onChange}
+			/>
+			<ToggleSwitch
+				toggleSwitchId="cell-block-input"
+				text="Cell Block"
+				iconText="square"
+				iconClassName="material-icons"
+				name="cellBlockIsChecked"
+				isChecked={props.cellBlockIsChecked}
 				onChange={props.onChange}
 			/>
 			<ToggleSwitch
