@@ -296,7 +296,7 @@ ol {
 
 table {
 	border-collapse: collapse;
-	width: max-content;
+	/* width: max-content; */
 }
 td {
 	border-bottom: solid 1px #ddd;
