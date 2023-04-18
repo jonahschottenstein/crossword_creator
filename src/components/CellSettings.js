@@ -2,7 +2,7 @@ import { ToggleSwitch } from "./ToggleSwitch.js";
 
 export const CellSettings = (props) => {
 	return (
-		<div className="cell-block-settings">
+		<div className="cell-settings">
 			<ToggleSwitch
 				toggleSwitchId="symmetry-input"
 				text="Symmetry"

@@ -22,7 +22,7 @@
 	min-width: fit-content;
 }
 
-.cell-block-settings {
+.cell-settings {
 	border: solid black 1px;
 	display: flex;
 	justify-content: space-evenly;
