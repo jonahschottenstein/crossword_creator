@@ -53,7 +53,7 @@ import { setSymmetricalCellStyle } from "../utilities/setSymmetricalCellStyle";
 export default function App() {
 	const [direction, setDirection] = useState("across");
 	const [cells, setCells] = useState(createCellObjects());
-	const [cellBlockSettings, setCellBlockSettings] = useState({
+	const [cellSettings, setCellSettings] = useState({
 		cellBlockIsChecked: false,
 		symmetryIsChecked: true,
 		shadedCellIsChecked: false,
@@ -146,9 +146,9 @@ export default function App() {
 	}, [direction, cells, matchFilterInput, isAutofilling, activeTextarea]);
 
 	/* const handleClick = (e) => {
-		if (cellBlockSettings.cellBlockIsChecked) {
+		if (cellSettings.cellBlockIsChecked) {
 			setCellBlock(e, setCells);
-			cellBlockSettings.symmetryIsChecked &&
+			cellSettings.symmetryIsChecked &&
 				setSymmetricalCellBlock(e, cells, setCells);
 			setCellNumbers(setCells);
 			setClues(setCells);
@@ -159,16 +159,16 @@ export default function App() {
 		}
 	}; */
 	/* 	const handleClick = (e) => {
-		if (cellBlockSettings.cellBlockIsChecked) {
+		if (cellSettings.cellBlockIsChecked) {
 			setCellBlock(e, setCells);
-			cellBlockSettings.symmetryIsChecked &&
+			cellSettings.symmetryIsChecked &&
 				setSymmetricalCellBlock(e, cells, setCells);
 			setCellNumbers(setCells);
 			setClues(setCells);
 			setClueText(e, setCells);
-		} else if (cellBlockSettings.shadedCellIsChecked) {
+		} else if (cellSettings.shadedCellIsChecked) {
 			setShadedCell(e, setCells);
-		} else if (cellBlockSettings.circleIsChecked) {
+		} else if (cellSettings.circleIsChecked) {
 			setCircledCell(e, setCells);
 		} else {
 			setDirectionOnClick(e, cells, setDirection);
@@ -181,7 +181,7 @@ export default function App() {
 			symmetryIsChecked,
 			shadedCellIsChecked,
 			circleIsChecked,
-		} = cellBlockSettings;
+		} = cellSettings;
 		if (cellBlockIsChecked) {
 			setCellBlock(e, setCells);
 			symmetryIsChecked &&
@@ -214,7 +214,7 @@ export default function App() {
 
 	const handleLiClick = (e) => {
 		const { cellBlockIsChecked, shadedCellIsChecked, circleIsChecked } =
-			cellBlockSettings;
+			cellSettings;
 		if (cellBlockIsChecked || shadedCellIsChecked || circleIsChecked) return;
 
 		selectCellElementOnLiClick(e, direction, setDirection, cells);
@@ -286,9 +286,9 @@ export default function App() {
 		removeCellSelection(setCells);
 
 		const name = e.target.name;
-		let settings = { ...cellBlockSettings };
-		settings[name] = !cellBlockSettings[name];
-		setCellBlockSettings(settings);
+		let settings = { ...cellSettings };
+		settings[name] = !cellSettings[name];
+		setCellSettings(settings);
 	}; */
 	const handleToggleChange = (e) => {
 		removeCellSelection(setCells);
@@ -297,15 +297,15 @@ export default function App() {
 		const SHADED_NAME = "shadedCellIsChecked";
 		const CIRCLED_NAME = "circleIsChecked";
 		const name = e.target.name;
-		let settings = { ...cellBlockSettings };
+		let settings = { ...cellSettings };
 		if (name === CELL_BLOCK_NAME) {
 			settings[SHADED_NAME] = false;
 			settings[CIRCLED_NAME] = false;
 		} else if (name === SHADED_NAME || name === CIRCLED_NAME) {
 			settings[CELL_BLOCK_NAME] = false;
 		}
-		settings[name] = !cellBlockSettings[name];
-		setCellBlockSettings(settings);
+		settings[name] = !cellSettings[name];
+		setCellSettings(settings);
 	};
 
 	const handleChange = (e) => {
@@ -344,10 +344,10 @@ export default function App() {
 				cells={cells.slice()}
 				onClick={(e) => handleClick(e)}
 				onKeyDown={handleKeyDown}
-				cellBlockIsChecked={cellBlockSettings.cellBlockIsChecked}
-				symmetryIsChecked={cellBlockSettings.symmetryIsChecked}
-				shadedCellIsChecked={cellBlockSettings.shadedCellIsChecked}
-				circleIsChecked={cellBlockSettings.circleIsChecked}
+				cellBlockIsChecked={cellSettings.cellBlockIsChecked}
+				symmetryIsChecked={cellSettings.symmetryIsChecked}
+				shadedCellIsChecked={cellSettings.shadedCellIsChecked}
+				circleIsChecked={cellSettings.circleIsChecked}
 				onChange={handleChange}
 			/>
 			<Dashboard
