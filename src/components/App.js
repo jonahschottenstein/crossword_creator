@@ -339,11 +339,6 @@ export default function App() {
 				onClick={() => handleAddBlackSquares(setCells)}>
 				ABS
 			</button>
-			<button
-				id="fill-grid"
-				onClick={() => handleFillGrid(cells, setCells, setIsAutofilling)}>
-				Fill Grid
-			</button>
 			<BoardAndSettings
 				direction={direction}
 				cells={cells.slice()}
