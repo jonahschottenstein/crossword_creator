@@ -49,6 +49,11 @@ export const DashboardPage = (props) => {
 	} else {
 		return (
 			<div className="dashboard-page fill-page">
+				<button
+					id="autofill-grid-button"
+					onClick={props.onAutofillGridButtonClick}>
+					Autofill Grid
+				</button>
 				<DisplayWord direction={props.direction} cells={props.cells} />
 				<MatchFilter
 					matchFilterInput={props.matchFilterInput}

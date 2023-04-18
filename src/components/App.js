@@ -392,6 +392,9 @@ export default function App() {
 					handleClueTextareaBlur(e, setActiveTextarea);
 				}}
 				activeTextarea={activeTextarea}
+				onAutofillGridButtonClick={() =>
+					handleFillGrid(cells, setCells, setIsAutofilling)
+				}
 			/>
 		</div>
 	);
