@@ -9,6 +9,7 @@ export const BoardAndSettings = (props) => {
 				shadedCellIsChecked={props.shadedCellIsChecked}
 				circleIsChecked={props.circleIsChecked}
 				onChange={props.onChange}
+				onClearFillButtonClick={props.onClearFillButtonClick}
 			/>
 			<Board
 				direction={props.direction}

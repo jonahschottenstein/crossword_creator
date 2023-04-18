@@ -349,6 +349,7 @@ export default function App() {
 				shadedCellIsChecked={cellSettings.shadedCellIsChecked}
 				circleIsChecked={cellSettings.circleIsChecked}
 				onChange={handleChange}
+				onClearFillButtonClick={() => handleClearFill(setCells)}
 			/>
 			<Dashboard
 				direction={direction}
