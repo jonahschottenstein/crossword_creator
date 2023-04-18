@@ -1,9 +1,9 @@
-import { CellBlockSettings } from "./CellBlockSettings";
+import { CellSettings } from "./CellSettings";
 import { Board } from "./Board";
 export const BoardAndSettings = (props) => {
 	return (
 		<div className="board-and-settings">
-			<CellBlockSettings
+			<CellSettings
 				cellBlockIsChecked={props.cellBlockIsChecked}
 				symmetryIsChecked={props.symmetryIsChecked}
 				shadedCellIsChecked={props.shadedCellIsChecked}

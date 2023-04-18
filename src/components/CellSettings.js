@@ -1,6 +1,6 @@
 import { ToggleSwitch } from "./ToggleSwitch.js";
 
-export const CellBlockSettings = (props) => {
+export const CellSettings = (props) => {
 	return (
 		<div className="cell-block-settings">
 			<ToggleSwitch
