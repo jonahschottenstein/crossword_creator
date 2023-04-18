@@ -3,6 +3,11 @@ import { ToggleSwitch } from "./ToggleSwitch.js";
 export const CellSettings = (props) => {
 	return (
 		<div className="cell-settings">
+			<div className="cell-settings-buttons">
+				<button id="clear-fill-button" onClick={props.onClearFillButtonClick}>
+					Clear Fill
+				</button>
+			</div>
 			<div className="cell-settings-toggles">
 				<ToggleSwitch
 					toggleSwitchId="symmetry-input"
