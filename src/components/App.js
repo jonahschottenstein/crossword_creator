@@ -330,11 +330,6 @@ export default function App() {
 	return (
 		<div className="App">
 			<button
-				id="clear-white-squares"
-				onClick={() => handleClearFill(setCells)}>
-				Clear Fill
-			</button>
-			<button
 				id="add-black-squares"
 				onClick={() => handleAddBlackSquares(setCells)}>
 				ABS
