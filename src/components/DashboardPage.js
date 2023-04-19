@@ -49,6 +49,9 @@ export const DashboardPage = (props) => {
 	} else {
 		return (
 			<div className="dashboard-page fill-page">
+				<button id="clear-fill-button" onClick={props.onClearFillButtonClick}>
+					Clear Fill
+				</button>
 				<button
 					id="autofill-grid-button"
 					onClick={props.onAutofillGridButtonClick}>
