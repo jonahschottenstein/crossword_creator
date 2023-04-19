@@ -49,6 +49,7 @@ import { setClueText } from "../utilities/setClueText";
 import { setShadedCell } from "../utilities/setShadedCell";
 import { setCircledCell } from "../utilities/setCircledCell";
 import { setSymmetricalCellStyle } from "../utilities/setSymmetricalCellStyle";
+import { gridOptions } from "../utilities/gridOptions";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -323,6 +324,12 @@ export default function App() {
 
 	const handleClueText = (e) => {
 		setClueText(e, setCells);
+	};
+
+	const handleGridOptionClick = (e) => {
+		const buttonIndex = e.target.name.match(/\d+$/);
+		setCells(() => gridOptions[buttonIndex]);
+		setCellSettings({ ...cellSettings, newPuzzleIsChecked: false });
 	};
 
 	scrollToLi(direction, cells);
