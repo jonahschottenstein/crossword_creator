@@ -346,11 +346,6 @@ export default function App() {
 
 	return (
 		<div className="App">
-			<button
-				id="add-black-squares"
-				onClick={() => handleAddBlackSquares(setCells)}>
-				ABS
-			</button>
 			<BoardAndSettings
 				direction={direction}
 				cells={cells.slice()}
