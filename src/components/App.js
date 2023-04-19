@@ -58,6 +58,7 @@ export default function App() {
 		symmetryIsChecked: true,
 		shadedCellIsChecked: false,
 		circleIsChecked: false,
+		newPuzzleIsChecked: false,
 	});
 	const [visibleDashPage, setVisibleDashPage] = useState("stats");
 	const [wordMatches, setWordMatches] = useState({
