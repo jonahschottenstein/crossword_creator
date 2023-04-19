@@ -10,6 +10,10 @@ export const BoardAndSettings = (props) => {
 				circleIsChecked={props.circleIsChecked}
 				onChange={props.onChange}
 				onClearFillButtonClick={props.onClearFillButtonClick}
+				gridOptions={props.gridOptions}
+				onGridOptionClick={props.onGridOptionClick}
+				newPuzzleIsChecked={props.newPuzzleIsChecked}
+				onNewPuzzleBlur={props.onNewPuzzleBlur}
 			/>
 			<Board
 				direction={props.direction}

@@ -356,7 +356,12 @@ export default function App() {
 				shadedCellIsChecked={cellSettings.shadedCellIsChecked}
 				circleIsChecked={cellSettings.circleIsChecked}
 				onChange={handleChange}
-				onClearFillButtonClick={() => handleClearFill(setCells)}
+				gridOptions={gridOptions}
+				newPuzzleIsChecked={cellSettings.newPuzzleIsChecked}
+				onGridOptionClick={(e) => {
+					handleGridOptionClick(e);
+				}}
+				onNewPuzzleBlur={(e) => handleNewPuzzleBlur(e)}
 			/>
 			<Dashboard
 				direction={direction}
