@@ -332,6 +332,15 @@ export default function App() {
 		setCellSettings({ ...cellSettings, newPuzzleIsChecked: false });
 	};
 
+	const handleNewPuzzleBlur = (e) => {
+		if (
+			!e.target.matches(".grid-options-background") &&
+			!e.target.matches(".grid-options-header > .exit-button")
+		)
+			return;
+		setCellSettings({ ...cellSettings, newPuzzleIsChecked: false });
+	};
+
 	scrollToLi(direction, cells);
 	scrollToLi(getNextDirection(direction), cells);
 
