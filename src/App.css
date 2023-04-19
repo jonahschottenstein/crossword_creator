@@ -25,7 +25,15 @@
 .cell-settings {
 	border: solid black 1px;
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: space-between;
+}
+
+.cell-settings-toggles {
+	display: flex;
+}
+
+.toggle-switch-wrapper {
+	margin: 3px;
 }
 
 /* .toggle-switch-label {
@@ -35,6 +43,7 @@
 
 .toggle-switch-label {
 	border-bottom: solid white 5px;
+	cursor: pointer;
 	display: flex;
 	margin: 1px;
 	padding: 3px;
