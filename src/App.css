@@ -356,6 +356,96 @@ td {
 	width: 50%;
 }
 
+.grid-options-background {
+	background-color: rgba(0, 0, 0, 0.5);
+	bottom: 0;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 1;
+}
+
+.grid-options-background > *:not(.grid-options-container) {
+	pointer-events: none;
+	user-select: none;
+}
+
+.grid-options-container {
+	background-color: white;
+	border-radius: 0.25rem;
+	left: 50%;
+	padding: 0.5rem;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 1;
+}
+
+.grid-options-header {
+	display: flex;
+	flex-direction: column-reverse;
+}
+
+.grid-options-header > h2 {
+	margin: auto;
+}
+
+.grid-options-header > .exit-button {
+	border: 0;
+	border-radius: 50%;
+	height: 40px;
+	margin-left: auto;
+	cursor: pointer;
+	text-align: center;
+	width: 40px;
+}
+
+.exit-button > * {
+	pointer-events: none;
+	user-select: none;
+}
+
+.grid-options {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	overflow-y: scroll;
+	padding: 0.5rem;
+}
+
+.grid-option {
+	margin: 0.5rem;
+	padding: 0.5rem;
+}
+
+.grid-option > * {
+	pointer-events: none;
+	user-select: none;
+}
+
+.grid-option-board {
+	border: solid black 1px;
+	display: grid;
+	grid-template-rows: repeat(15, 15px);
+	grid-template-columns: repeat(15, 15px);
+}
+
+.grid-option-cell {
+	border: solid black 1px;
+	position: relative;
+}
+
+.grid-option-number {
+	font-size: 6px;
+	left: 6%;
+	position: absolute;
+	top: 6%;
+}
+
+.display-none {
+	display: none;
+}
+
 @media (max-width: 960px) {
 	.clue-lists-container {
 		flex-direction: column;
