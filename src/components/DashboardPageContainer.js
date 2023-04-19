@@ -24,6 +24,7 @@ export const DashboardPageContainer = (props) => {
 				onClueTextareaBlur={props.onClueTextareaBlur}
 				activeTextarea={props.activeTextarea}
 				onAutofillGridButtonClick={props.onAutofillGridButtonClick}
+				onClearFillButtonClick={props.onClearFillButtonClick}
 			/>
 		</div>
 	);

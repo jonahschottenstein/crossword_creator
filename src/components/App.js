@@ -403,6 +403,7 @@ export default function App() {
 				onAutofillGridButtonClick={() =>
 					handleFillGrid(cells, setCells, setIsAutofilling)
 				}
+				onClearFillButtonClick={() => handleClearFill(setCells)}
 			/>
 		</div>
 	);
