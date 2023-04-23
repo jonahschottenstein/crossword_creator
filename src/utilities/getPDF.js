@@ -1,3 +1,5 @@
+import { getWordObjs } from "./words";
+
 const getXOffset = (paperWidth = 215.9, gridWidth = 120) => {
 	return (paperWidth - gridWidth) / 2;
 };
@@ -20,4 +22,17 @@ const getSquareCoords = (
 	}
 
 	return arr;
+};
+
+const getClues = (direction, cells) => {
+	const wordObjs = getWordObjs(direction, cells);
+	const clues = wordObjs.map((wordObj) => {
+		const clueNumber = wordObj.clueNumber;
+		const clueText = wordObj.firstCell.clueText[direction].trim();
+		const answer = wordObj.word.map((cell) => cell.letter).join("");
+
+		return { clueNumber, clueText, answer };
+	});
+
+	return clues;
 };
