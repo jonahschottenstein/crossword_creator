@@ -86,3 +86,12 @@ const createHeader = (
 	doc.text(city + ", " + state + " " + zipCode, margin, 20);
 	doc.text(email, margin, 25);
 };
+
+const getClueSpacingData = ({ clueNumber, clueText }, doc) => {
+	const splitSize = 109; // Seems about where it is for NYT
+	const clueNumberWidth = doc.getTextWidth(`${clueNumber}`);
+	const clueTextWidth = doc.getTextWidth(clueText);
+	const textLinesCount = Math.ceil(clueTextWidth / splitSize);
+
+	return { splitSize, clueNumberWidth, clueTextWidth, textLinesCount };
+};
