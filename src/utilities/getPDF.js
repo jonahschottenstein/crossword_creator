@@ -73,3 +73,16 @@ const createGrid = (doc, coords, cells) => {
 		return doc;
 	});
 };
+
+const createHeader = (
+	doc,
+	{ firstName, lastName, address, city, state, zipCode, email },
+	margin = 13
+) => {
+	doc.setFontSize(13.75);
+	doc.setFont("times", "normal", "700");
+	doc.text(firstName + " " + lastName, margin, 10);
+	doc.text(address, margin, 15);
+	doc.text(city + ", " + state + " " + zipCode, margin, 20);
+	doc.text(email, margin, 25);
+};
