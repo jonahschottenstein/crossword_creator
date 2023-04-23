@@ -36,3 +36,40 @@ const getClues = (direction, cells) => {
 
 	return clues;
 };
+
+const createGrid = (doc, coords, cells) => {
+	coords.map(({ x, y }, index) => {
+		const cell = cells[index];
+
+		if (cell.isBlackSquare) {
+			doc.setFillColor(0);
+			return doc.rect(x, y, 8, 8, "FD");
+		}
+		if (cell.isShaded) {
+			doc.setFillColor("#DCDCDC");
+			doc.rect(x, y, 8, 8, "FD");
+		} else {
+			doc.setFillColor(255);
+			doc.rect(x, y, 8, 8, "FD");
+		}
+		if (cell.isCircled) {
+			doc.circle(x + 4, y + 4, 4);
+		}
+		if (cell.number) {
+			if (cell.isCircled) {
+				const fillColor = cell.isShaded ? "#DCDCDC" : 255;
+				const lineWidth = doc.getLineWidth();
+				doc.setFillColor(fillColor);
+				doc.rect(x + lineWidth / 2, y + lineWidth / 2, 4, 4, "F");
+			}
+			doc.setFontSize(7);
+			doc.text(`${cell.number}`, x + 0.5, y + 2.5);
+		}
+		if (cell.letter) {
+			doc.setFontSize(15);
+			doc.text(`${cell.letter}`, x + 4, y + 7, { align: "center" });
+		}
+
+		return doc;
+	});
+};
