@@ -95,3 +95,19 @@ const getClueSpacingData = ({ clueNumber, clueText }, doc) => {
 
 	return { splitSize, clueNumberWidth, clueTextWidth, textLinesCount };
 };
+
+const createClue = (
+	{ clueNumber, clueText, answer },
+	doc,
+	yPos,
+	margin = 13
+) => {
+	const { splitSize, clueNumberWidth } = getClueSpacingData(
+		{ clueNumber, clueText },
+		doc
+	);
+	const newClueText = doc.splitTextToSize(clueText, splitSize);
+	doc.text(`${clueNumber}`, margin, yPos);
+	doc.text(newClueText, margin + clueNumberWidth + 1, yPos);
+	doc.text(answer, 88 + 47.95, yPos);
+};
