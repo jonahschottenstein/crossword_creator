@@ -162,3 +162,37 @@ const createClueLists = (
 		}
 	});
 };
+
+export const getPDF = (
+	jsPDF,
+	cells,
+	{ firstName, lastName, address, city, state, zipCode, email }
+) => {
+	let doc = new jsPDF({ format: "letter" });
+	doc.setDrawColor(0);
+	doc.setLineWidth(0.25);
+
+	const coords = getSquareCoords();
+	createGrid(doc, coords, cells);
+	createHeader(doc, {
+		firstName,
+		lastName,
+		address,
+		city,
+		state,
+		zipCode,
+		email,
+	});
+
+	doc.addPage();
+	doc.setPage(2);
+
+	doc.setFont("times", "normal", "400");
+	doc.setFontSize(12);
+
+	const acrossClues = getClues("across", cells);
+	const downClues = getClues("down", cells);
+	createClueLists(acrossClues, downClues, doc);
+
+	doc.save("letter.pdf");
+};
