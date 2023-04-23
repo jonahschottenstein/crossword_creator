@@ -111,3 +111,54 @@ const createClue = (
 	doc.text(newClueText, margin + clueNumberWidth + 1, yPos);
 	doc.text(answer, 88 + 47.95, yPos);
 };
+
+const createClueLists = (
+	acrossClues,
+	downClues,
+	doc,
+	paperHeight = 279.4,
+	margin = 13
+) => {
+	let yPos = margin;
+	doc.text("ACROSS", margin, yPos);
+
+	acrossClues.map(({ clueNumber, clueText, answer }) => {
+		yPos += 10;
+		if (yPos >= paperHeight - margin) {
+			doc.addPage();
+			yPos = margin;
+		}
+		createClue({ clueNumber, clueText, answer }, doc, yPos);
+		const { textLinesCount } = getClueSpacingData(
+			{ clueNumber, clueText },
+			doc
+		);
+		if (textLinesCount > 1) {
+			yPos = yPos + (textLinesCount - 1) * 5;
+		}
+	});
+
+	if (yPos + 20 >= paperHeight - margin) {
+		doc.addPage();
+		yPos = margin;
+	} else {
+		yPos += 20;
+	}
+
+	doc.text("DOWN", margin, yPos);
+	downClues.map(({ clueNumber, clueText, answer }) => {
+		yPos += 10;
+		if (yPos >= paperHeight - margin) {
+			doc.addPage();
+			yPos = margin;
+		}
+		createClue({ clueNumber, clueText, answer }, doc, yPos);
+		const { textLinesCount } = getClueSpacingData(
+			{ clueNumber, clueText },
+			doc
+		);
+		if (textLinesCount > 1) {
+			yPos = yPos + (textLinesCount - 1) * 5;
+		}
+	});
+};
