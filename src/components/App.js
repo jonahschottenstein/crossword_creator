@@ -391,6 +391,7 @@ export default function App() {
 			<div className="export-and-save">
 				<Popup
 					isOpen={isOpen.submissionInfoPopup}
+					popupClassName="submission-info-popup"
 					popupName={"submissionInfoPopup"}
 					openButtonClassName="material-icons"
 					openPopupButtonText="file_download"
