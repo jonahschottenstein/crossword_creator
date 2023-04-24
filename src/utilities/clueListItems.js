@@ -37,8 +37,9 @@ export const scrollToLi = (direction, cells) => {
 	if (!clueList || !clueLi) return;
 
 	clueList.scrollTo({
+		top: clueLi.offsetTop - 110,
 		// top: clueLi.offsetTop - 74,
-		top: clueLi.offsetTop - 77,
+		// top: clueLi.offsetTop - 77,
 		behavior: "smooth",
 	});
 };
