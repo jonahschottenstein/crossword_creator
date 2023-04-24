@@ -40,6 +40,15 @@
 	z-index: 1;
 }
 
+.exit-button {
+	align-self: flex-end;
+}
+
+.popup > h2 {
+	align-self: flex-start;
+	margin: 0 0 0 1rem;
+}
+
 .submission-info-wrapper {
 	align-items: center;
 	background-color: white;
