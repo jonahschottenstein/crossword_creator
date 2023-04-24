@@ -82,6 +82,7 @@ export default function App() {
 		puzzleTitle: "",
 	});
 	const [isOpen, setIsOpen] = useState({
+		gridOptionsPopup: false,
 		submissionInfoPopup: false,
 	});
 
