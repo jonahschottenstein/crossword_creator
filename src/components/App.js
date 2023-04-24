@@ -78,6 +78,9 @@ export default function App() {
 		zipCode: "",
 		email: "",
 	});
+	const [isOpen, setIsOpen] = useState({
+		personalInfoPopup: false,
+	});
 
 	useEffect(() => {
 		// if (visibleDashPage !== "fill") return;
