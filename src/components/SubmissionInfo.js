@@ -31,7 +31,7 @@ export const SubmissionInfo = (props) => {
 						key={key}
 						labelFor={hyphenatedName}
 						labelText={labelText}
-						type="text"
+						type={key === "email" ? "email" : "text"}
 						name={key}
 						id={hyphenatedName}
 						value={props.submissionInfo[key]}
