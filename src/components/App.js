@@ -347,7 +347,10 @@ export default function App() {
 	const handleGridOptionClick = (e) => {
 		const buttonIndex = e.target.name.match(/\d+$/);
 		setCells(() => gridOptions[buttonIndex]);
-		setCellSettings({ ...cellSettings, newPuzzleIsChecked: false });
+		setIsOpen({
+			...isOpen,
+			gridOptionsPopup: false,
+		});
 	};
 
 	const handleNewPuzzleBlur = (e) => {
