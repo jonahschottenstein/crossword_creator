@@ -79,6 +79,7 @@ export default function App() {
 		state: "",
 		zipCode: "",
 		email: "",
+		puzzleTitle: "",
 	});
 	const [isOpen, setIsOpen] = useState({
 		submissionInfoPopup: false,
