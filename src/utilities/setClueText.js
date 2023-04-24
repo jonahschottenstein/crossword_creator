@@ -1,3 +1,14 @@
+const getCellLabel = (cell, direction) => {
+	const dir = direction.toLowerCase();
+	if (cell.isBlackSquare) return undefined;
+	if (cell.number === null) return undefined;
+	if (dir !== "across" && dir !== "down") return undefined;
+	if (dir === "across" && !cell.across) return undefined;
+	if (dir === "down" && !cell.down) return undefined;
+
+	return `${cell.number}-${dir}`;
+};
+
 export const setClueText = (e, setCells) => {
 	setCells((prevState) => {
 		const newState = prevState.map((cell) => {
@@ -10,7 +21,7 @@ export const setClueText = (e, setCells) => {
 					.closest(".clue-list-item")
 					.getAttribute("name");
 				const clueDirection = liLabel.match(/\w+$/)[0];
-				const cellLabel = cell.getClueLabel(clueDirection);
+				const cellLabel = getCellLabel(cell, clueDirection);
 				if (cellLabel === liLabel) {
 					const newClueText = {
 						...cell.clueText,
