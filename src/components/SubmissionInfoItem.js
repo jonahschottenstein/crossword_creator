@@ -1,8 +1,8 @@
-export const PersonalInfoItem = (props) => {
+export const SubmissionInfoItem = (props) => {
 	if (props.name === "state") {
 		return (
-			<div className="personal-info-item">
-				<label htmlFor={props.labelFor} className="personal-info-label">
+			<div className="submission-info-item">
+				<label htmlFor={props.labelFor} className="submission-info-label">
 					{props.labelText + ":"}
 				</label>
 				<select
@@ -67,8 +67,8 @@ export const PersonalInfoItem = (props) => {
 		);
 	} else {
 		return (
-			<div className="personal-info-item">
-				<label htmlFor={props.labelFor} className="personal-info-label">
+			<div className="submission-info-item">
+				<label htmlFor={props.labelFor} className="submission-info-label">
 					{props.labelText + ":"}
 				</label>
 				<input

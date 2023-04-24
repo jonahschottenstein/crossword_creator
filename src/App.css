@@ -40,7 +40,7 @@
 	z-index: 1;
 }
 
-.personal-info-wrapper {
+.submission-info-wrapper {
 	align-items: center;
 	background-color: white;
 	border: solid black 1px;
@@ -55,27 +55,27 @@
 	z-index: 1;
 }
 
-.personal-info-wrapper > h3 {
+.submission-info-wrapper > h3 {
 	margin: 0;
 }
 
-.personal-info {
+.submission-info {
 	display: flex;
 	flex-direction: column;
 	padding: 1rem;
 	width: 200px;
 }
 
-.personal-info-item {
+.submission-info-item {
 	display: flex;
 	flex-direction: column;
 }
 
-.personal-info-label {
+.submission-info-label {
 	text-align: left;
 }
 
-.personal-info > *:not(.submit-info-button) {
+.submission-info > *:not(.submit-info-button) {
 	margin-bottom: 1rem;
 }
 

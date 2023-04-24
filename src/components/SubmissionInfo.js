@@ -1,5 +1,5 @@
 import { getPDF } from "../utilities/getPDF";
-import { PersonalInfoItem } from "./PersonalInfoItem";
+import { SubmissionInfoItem } from "./SubmissionInfoItem";
 
 const styleHyphenFormat = (propertyName) => {
 	const upperToHyphenLower = (match, offset) => {
@@ -17,31 +17,31 @@ const styleTitleFormat = (hyphenatedName) => {
 	return hyphenatedName.replace(/\w+/g, capitalize).replace("-", " ");
 };
 
-export const PersonalInfo = (props) => {
-	const personalInfoKeys = Object.keys(props.personalInfo);
+export const SubmissionInfo = (props) => {
+	const submissionInfoKeys = Object.keys(props.submissionInfo);
 
 	return (
-		<div className="personal-info">
-			{personalInfoKeys.map((key) => {
+		<div className="submission-info">
+			{submissionInfoKeys.map((key) => {
 				const hyphenatedName = styleHyphenFormat(key);
 				const labelText = styleTitleFormat(hyphenatedName);
 
 				return (
-					<PersonalInfoItem
+					<SubmissionInfoItem
 						key={key}
 						labelFor={hyphenatedName}
 						labelText={labelText}
 						type="text"
 						name={key}
 						id={hyphenatedName}
-						value={props.personalInfo[key]}
+						value={props.submissionInfo[key]}
 						onChange={props.onChange}
 					/>
 				);
 			})}
 			<button
 				className="submit-info-button"
-				onClick={() => getPDF(props.jsPDF, props.cells, props.personalInfo)}>
+				onClick={() => getPDF(props.jsPDF, props.cells, props.submissionInfo)}>
 				Download
 			</button>
 		</div>

@@ -50,7 +50,7 @@ import { setShadedCell } from "../utilities/setShadedCell";
 import { setCircledCell } from "../utilities/setCircledCell";
 import { setSymmetricalCellStyle } from "../utilities/setSymmetricalCellStyle";
 import { gridOptions } from "../utilities/gridOptions";
-import { PersonalInfo } from "./PersonalInfo";
+import { SubmissionInfo } from "./SubmissionInfo";
 import { Popup } from "./Popup";
 
 export default function App() {
@@ -71,7 +71,7 @@ export default function App() {
 	const [matchFilterInput, setMatchFilterInput] = useState("");
 	const [isAutofilling, setIsAutofilling] = useState(false);
 	const [activeTextarea, setActiveTextarea] = useState(null);
-	const [personalInfo, setPersonalInfo] = useState({
+	const [submissionInfo, setSubmissionInfo] = useState({
 		firstName: "",
 		lastName: "",
 		address: "",
@@ -81,7 +81,7 @@ export default function App() {
 		email: "",
 	});
 	const [isOpen, setIsOpen] = useState({
-		personalInfoPopup: false,
+		submissionInfoPopup: false,
 	});
 
 	const { jsPDF } = window.jspdf;
@@ -358,8 +358,8 @@ export default function App() {
 	};
 
 	const handleInfoChange = (e) => {
-		setPersonalInfo({
-			...personalInfo,
+		setSubmissionInfo({
+			...submissionInfo,
 			[e.target.name]: e.target.value,
 		});
 	};
@@ -385,15 +385,15 @@ export default function App() {
 		<div className="App">
 			<div className="export-and-save">
 				<Popup
-					isOpen={isOpen.personalInfoPopup}
-					popupName={"personalInfoPopup"}
+					isOpen={isOpen.submissionInfoPopup}
+					popupName={"submissionInfoPopup"}
 					openButtonClassName="material-icons"
 					openPopupButtonText="file_download"
-					popupHeading="Personal Info"
+					popupHeading="Submission Info"
 					onOpenClick={(e) => handleIsOpen(e)}
 					onCloseClick={(e) => handleIsClosed(e)}>
-					<PersonalInfo
-						personalInfo={personalInfo}
+					<SubmissionInfo
+						submissionInfo={submissionInfo}
 						cells={cells}
 						jsPDF={jsPDF}
 						onChange={(e) => handleInfoChange(e)}
