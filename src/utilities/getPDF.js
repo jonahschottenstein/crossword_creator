@@ -166,7 +166,7 @@ const createClueLists = (
 export const getPDF = (
 	jsPDF,
 	cells,
-	{ firstName, lastName, address, city, state, zipCode, email }
+	{ firstName, lastName, address, city, state, zipCode, email, puzzleTitle }
 ) => {
 	let doc = new jsPDF({ format: "letter" });
 	doc.setDrawColor(0);
@@ -194,5 +194,12 @@ export const getPDF = (
 	const downClues = getClues("down", cells);
 	createClueLists(acrossClues, downClues, doc);
 
-	doc.save("letter.pdf");
+	const formattedTitle = puzzleTitle
+		.trim()
+		.replaceAll(
+			/\w+/g,
+			(match) => match.charAt(0).toUpperCase() + match.slice(1)
+		)
+		.replaceAll(/\s+/g, "");
+	doc.save(`${lastName}_${formattedTitle}.pdf`);
 };
