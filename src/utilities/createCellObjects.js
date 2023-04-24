@@ -64,16 +64,6 @@ export const createCellObjects = () => {
 				isCircled: false,
 				isBlackSquare: false,
 				clueText,
-				getClueLabel(direction) {
-					const dir = direction.toLowerCase();
-					if (this.isBlackSquare) return undefined;
-					if (this.number === null) return undefined;
-					if (dir !== "across" && dir !== "down") return undefined;
-					if (dir === "across" && !this.across) return undefined;
-					if (dir === "down" && !this.down) return undefined;
-
-					return `${this.number}-${dir}`;
-				},
 			};
 		}
 	);
