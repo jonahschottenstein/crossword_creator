@@ -1,3 +1,4 @@
+import { ExitButton } from "./ExitButton";
 import { GridOption } from "./GridOption";
 
 export const GridOptionsContainer = (props) => {
@@ -8,11 +9,7 @@ export const GridOptionsContainer = (props) => {
 		<div className={containerClassName}>
 			<header className="grid-options-header">
 				<h2>Grid Templates</h2>
-				<button
-					className="material-icons exit-button"
-					onClick={props.onNewPuzzleBlur}>
-					close
-				</button>
+				<ExitButton onClick={props.onNewPuzzleBlur} />
 			</header>
 			<div className="grid-options">
 				{props.gridOptions.map((gridOption, index) => {
