@@ -50,6 +50,8 @@ import { setShadedCell } from "../utilities/setShadedCell";
 import { setCircledCell } from "../utilities/setCircledCell";
 import { setSymmetricalCellStyle } from "../utilities/setSymmetricalCellStyle";
 import { gridOptions } from "../utilities/gridOptions";
+import { PersonalInfo } from "./PersonalInfo";
+import { Popup } from "./Popup";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -81,6 +83,8 @@ export default function App() {
 	const [isOpen, setIsOpen] = useState({
 		personalInfoPopup: false,
 	});
+
+	const { jsPDF } = window.jspdf;
 
 	useEffect(() => {
 		// if (visibleDashPage !== "fill") return;
@@ -379,65 +383,86 @@ export default function App() {
 
 	return (
 		<div className="App">
-			<BoardAndSettings
-				direction={direction}
-				cells={cells.slice()}
-				onClick={(e) => handleClick(e)}
-				onKeyDown={handleKeyDown}
-				cellBlockIsChecked={cellSettings.cellBlockIsChecked}
-				symmetryIsChecked={cellSettings.symmetryIsChecked}
-				shadedCellIsChecked={cellSettings.shadedCellIsChecked}
-				circleIsChecked={cellSettings.circleIsChecked}
-				onChange={handleChange}
-				gridOptions={gridOptions}
-				newPuzzleIsChecked={cellSettings.newPuzzleIsChecked}
-				onGridOptionClick={(e) => {
-					handleGridOptionClick(e);
-				}}
-				onNewPuzzleBlur={(e) => handleNewPuzzleBlur(e)}
-			/>
-			<Dashboard
-				direction={direction}
-				cells={cells.slice()}
-				visibleDashPage={visibleDashPage}
-				onChange={handleDashChange}
-				acrossClueNumbers={cells
-					.filter(
-						(cell) => cell.isBlackSquare === false && cell.across === true
-					)
-					.map((cell) => cell.number)}
-				downClueNumbers={cells
-					.filter((cell) => cell.isBlackSquare === false && cell.down === true)
-					.map((cell) => cell.number)}
-				clueProps={getClueProps(direction, cells)}
-				oppositeClueProps={getClueProps(getNextDirection(direction), cells)}
-				onClick={(e) => handleLiClick(e)}
-				wordMatches={wordMatches}
-				onMatchClick={(e) => handleMatchClick(e)}
-				onMatchFilterChange={handleMatchFilterChange}
-				matchFilterInput={matchFilterInput}
-				onClueLiTextareaChange={(e) => {
-					handleClueLiTextareaChange(e);
-					handleClueText(e);
-				}}
-				onClueEditButtonClick={(e) => {
-					handleClueEditButtonClick(e, setActiveTextarea);
-				}}
-				onClueDoneButtonClick={(e) => {
-					handleClueDoneButtonClick(e, setActiveTextarea);
-				}}
-				onClueTextareaFocus={(e) =>
-					handleClueTextareaFocus(e, setActiveTextarea)
-				}
-				onClueTextareaBlur={(e) => {
-					handleClueTextareaBlur(e, setActiveTextarea);
-				}}
-				activeTextarea={activeTextarea}
-				onAutofillGridButtonClick={() =>
-					handleFillGrid(cells, setCells, setIsAutofilling)
-				}
-				onClearFillButtonClick={() => handleClearFill(setCells)}
-			/>
+			<div className="export-and-save">
+				<Popup
+					isOpen={isOpen.personalInfoPopup}
+					popupName={"personalInfoPopup"}
+					openButtonClassName="material-icons"
+					openPopupButtonText="file_download"
+					popupHeading="Personal Info"
+					onOpenClick={(e) => handleIsOpen(e)}
+					onCloseClick={(e) => handleIsClosed(e)}>
+					<PersonalInfo
+						personalInfo={personalInfo}
+						cells={cells}
+						jsPDF={jsPDF}
+						onChange={(e) => handleInfoChange(e)}
+					/>
+				</Popup>
+			</div>
+			<div className="app-content">
+				<BoardAndSettings
+					direction={direction}
+					cells={cells.slice()}
+					onClick={(e) => handleClick(e)}
+					onKeyDown={handleKeyDown}
+					cellBlockIsChecked={cellSettings.cellBlockIsChecked}
+					symmetryIsChecked={cellSettings.symmetryIsChecked}
+					shadedCellIsChecked={cellSettings.shadedCellIsChecked}
+					circleIsChecked={cellSettings.circleIsChecked}
+					onChange={handleChange}
+					gridOptions={gridOptions}
+					newPuzzleIsChecked={cellSettings.newPuzzleIsChecked}
+					onGridOptionClick={(e) => {
+						handleGridOptionClick(e);
+					}}
+					onNewPuzzleBlur={(e) => handleNewPuzzleBlur(e)}
+				/>
+				<Dashboard
+					direction={direction}
+					cells={cells.slice()}
+					visibleDashPage={visibleDashPage}
+					onChange={handleDashChange}
+					acrossClueNumbers={cells
+						.filter(
+							(cell) => cell.isBlackSquare === false && cell.across === true
+						)
+						.map((cell) => cell.number)}
+					downClueNumbers={cells
+						.filter(
+							(cell) => cell.isBlackSquare === false && cell.down === true
+						)
+						.map((cell) => cell.number)}
+					clueProps={getClueProps(direction, cells)}
+					oppositeClueProps={getClueProps(getNextDirection(direction), cells)}
+					onClick={(e) => handleLiClick(e)}
+					wordMatches={wordMatches}
+					onMatchClick={(e) => handleMatchClick(e)}
+					onMatchFilterChange={handleMatchFilterChange}
+					matchFilterInput={matchFilterInput}
+					onClueLiTextareaChange={(e) => {
+						handleClueLiTextareaChange(e);
+						handleClueText(e);
+					}}
+					onClueEditButtonClick={(e) => {
+						handleClueEditButtonClick(e, setActiveTextarea);
+					}}
+					onClueDoneButtonClick={(e) => {
+						handleClueDoneButtonClick(e, setActiveTextarea);
+					}}
+					onClueTextareaFocus={(e) =>
+						handleClueTextareaFocus(e, setActiveTextarea)
+					}
+					onClueTextareaBlur={(e) => {
+						handleClueTextareaBlur(e, setActiveTextarea);
+					}}
+					activeTextarea={activeTextarea}
+					onAutofillGridButtonClick={() =>
+						handleFillGrid(cells, setCells, setIsAutofilling)
+					}
+					onClearFillButtonClick={() => handleClearFill(setCells)}
+				/>
+			</div>
 		</div>
 	);
 }
