@@ -249,7 +249,8 @@ ol {
 
 .clue-list {
 	/* height: calc(100% - 28px); */
-	height: calc(100% - 27px);
+	/* height: calc(100% - 27px); */
+	height: calc(100% - 29px);
 	overflow-y: scroll;
 }
 
@@ -375,6 +376,10 @@ ol {
 	overflow-x: auto;
 }
 
+.clues-page {
+	overflow-y: hidden;
+}
+
 table {
 	border-collapse: collapse;
 	/* width: max-content; */
@@ -385,11 +390,16 @@ td {
 	text-align: left;
 }
 
+.match-table-container {
+	max-height: 501px;
+	overflow-y: scroll;
+}
+
 .match-table {
 	display: flex;
 	flex-direction: column;
-	max-height: 542.5px;
-	overflow-y: scroll;
+	/* max-height: 542.5px;
+	overflow-y: scroll; */
 	width: 100%;
 }
 
