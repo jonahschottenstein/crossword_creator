@@ -75,7 +75,7 @@ export const SubmissionInfoItem = (props) => {
 					type={props.type}
 					name={props.name}
 					id={props.id}
-					pattern={props.name === "zipCode" ? "d{5,5}" : null}
+					pattern={props.name === "zipCode" ? "\\d{5,5}" : null}
 					value={props.value}
 					onChange={props.onChange}></input>
 				{props.name === "puzzleTitle" ? (
