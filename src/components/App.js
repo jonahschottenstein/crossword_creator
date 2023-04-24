@@ -69,6 +69,15 @@ export default function App() {
 	const [matchFilterInput, setMatchFilterInput] = useState("");
 	const [isAutofilling, setIsAutofilling] = useState(false);
 	const [activeTextarea, setActiveTextarea] = useState(null);
+	const [personalInfo, setPersonalInfo] = useState({
+		firstName: "",
+		lastName: "",
+		address: "",
+		city: "",
+		state: "",
+		zipCode: "",
+		email: "",
+	});
 
 	useEffect(() => {
 		// if (visibleDashPage !== "fill") return;
