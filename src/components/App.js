@@ -353,6 +353,27 @@ export default function App() {
 		setCellSettings({ ...cellSettings, newPuzzleIsChecked: false });
 	};
 
+	const handleInfoChange = (e) => {
+		setPersonalInfo({
+			...personalInfo,
+			[e.target.name]: e.target.value,
+		});
+	};
+
+	const handleIsOpen = (e) => {
+		setIsOpen({
+			...isOpen,
+			[e.target.name]: true,
+		});
+	};
+
+	const handleIsClosed = (e) => {
+		setIsOpen({
+			...isOpen,
+			[e.target.name]: false,
+		});
+	};
+
 	scrollToLi(direction, cells);
 	scrollToLi(getNextDirection(direction), cells);
 
