@@ -88,6 +88,17 @@
 	margin-bottom: 1rem;
 }
 
+.puzzle-title-help {
+	font-size: 12px;
+	text-align: left;
+}
+
+.submit-info-button {
+	background-color: black;
+	color: white;
+	height: 30px;
+}
+
 .app-content {
 	display: flex;
 	flex-direction: row;
