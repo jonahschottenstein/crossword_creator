@@ -4,9 +4,10 @@
 
 .App {
 	display: flex;
+	flex-direction: column;
 	font-family: sans-serif;
 	height: 100vh;
-	justify-content: space-around;
+	/* justify-content: space-around; */
 	margin: auto;
 	max-height: 660px;
 	max-width: 1132px;
