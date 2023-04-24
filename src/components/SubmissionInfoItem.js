@@ -78,6 +78,12 @@ export const SubmissionInfoItem = (props) => {
 					pattern={props.name === "zipCode" ? "d{5,5}" : null}
 					value={props.value}
 					onChange={props.onChange}></input>
+				{props.name === "puzzleTitle" ? (
+					<span className="puzzle-title-help">
+						(Puzzle titles can be the theme revealers for daily themed puzzles
+						or marquee entries for themeless puzzles)
+					</span>
+				) : null}
 			</div>
 		);
 	}
