@@ -1,16 +1,24 @@
-import { NewPuzzle } from "./NewPuzzle.js";
+import { GridOptions } from "./GridOptions.js";
+import { Popup } from "./Popup.js";
 import { ToggleSwitch } from "./ToggleSwitch.js";
 
 export const CellSettings = (props) => {
 	return (
 		<div className="cell-settings">
-			<NewPuzzle
-				gridOptions={props.gridOptions}
-				onGridOptionClick={props.onGridOptionClick}
-				newPuzzleIsChecked={props.newPuzzleIsChecked}
-				onChange={props.onChange}
-				onNewPuzzleBlur={props.onNewPuzzleBlur}
-			/>
+			<Popup
+				isOpen={props.isOpen}
+				popupClassName={props.popupClassName}
+				popupName={props.popupName}
+				openButtonClassName={props.openButtonClassName}
+				openPopupButtonText={props.openPopupButtonText}
+				popupHeading={props.popupHeading}
+				onOpenClick={props.onOpenClick}
+				onCloseClick={props.onCloseClick}>
+				<GridOptions
+					gridOptions={props.gridOptions}
+					onGridOptionClick={props.onGridOptionClick}
+				/>
+			</Popup>
 			<div className="cell-settings-toggles">
 				<ToggleSwitch
 					toggleSwitchId="symmetry-input"
