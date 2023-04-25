@@ -267,6 +267,7 @@ ol {
 }
 
 .clue-list-title {
+	background-color: white;
 	border-bottom: 1px solid #e6e6e6;
 	font-size: 14px;
 	font-weight: bold;
@@ -554,5 +555,9 @@ td {
 		margin-bottom: 10px;
 		overflow-y: scroll;
 		width: 100%;
+	}
+	.clue-list-title {
+		position: sticky;
+		top: 0;
 	}
 }
