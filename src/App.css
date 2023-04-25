@@ -42,15 +42,14 @@
 
 .exit-button {
 	align-self: flex-end;
+	cursor: pointer;
+	padding: 0;
+	user-select: none;
 }
 
 .popup > h2 {
 	align-self: flex-start;
 	margin: 0 0 0 1rem;
-}
-
-button[name="gridOptionsPopup"] {
-	padding: 0;
 }
 
 .submission-info-wrapper {
@@ -500,21 +499,6 @@ td {
 
 .grid-options-header > h2 {
 	margin: auto;
-}
-
-.grid-options-header > .exit-button {
-	border: 0;
-	border-radius: 50%;
-	height: 40px;
-	margin-left: auto;
-	cursor: pointer;
-	text-align: center;
-	width: 40px;
-}
-
-.exit-button > * {
-	pointer-events: none;
-	user-select: none;
 }
 
 .grid-options {
