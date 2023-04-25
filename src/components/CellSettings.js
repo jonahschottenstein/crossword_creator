@@ -1,17 +1,34 @@
 import { GridOptions } from "./GridOptions.js";
 import { Popup } from "./Popup.js";
+import { SubmissionInfo } from "./SubmissionInfo.js";
 import { ToggleSwitch } from "./ToggleSwitch.js";
 
 export const CellSettings = (props) => {
 	return (
 		<div className="cell-settings">
 			<Popup
-				isOpen={props.isOpen}
-				popupClassName={props.popupClassName}
-				popupName={props.popupName}
-				openButtonClassName={props.openButtonClassName}
-				openPopupButtonText={props.openPopupButtonText}
-				popupHeading={props.popupHeading}
+				isOpen={props.isOpen.submissionInfoPopup}
+				popupClassName={props.popupClassName.submissionInfo}
+				popupName={props.popupName.submissionInfo}
+				openButtonClassName={props.openButtonClassName.submissionInfo}
+				openButtonText={props.openButtonText.submissionInfo}
+				popupHeading={props.popupHeading.submissionInfo}
+				onOpenClick={props.onOpenClick}
+				onCloseClick={props.onCloseClick}>
+				<SubmissionInfo
+					submissionInfo={props.submissionInfo}
+					cells={props.cells}
+					jsPDF={props.jsPDF}
+					onInfoChange={props.onInfoChange}
+				/>
+			</Popup>
+			<Popup
+				isOpen={props.isOpen.gridOptionsPopup}
+				popupClassName={props.popupClassName.gridOptions}
+				popupName={props.popupName.gridOptions}
+				openButtonClassName={props.openButtonClassName.gridOptions}
+				openButtonText={props.openButtonText.gridOptions}
+				popupHeading={props.popupHeading.gridOptions}
 				onOpenClick={props.onOpenClick}
 				onCloseClick={props.onCloseClick}>
 				<GridOptions
