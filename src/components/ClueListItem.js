@@ -21,16 +21,16 @@ export const ClueListItem = (props) => {
 
 				{`${props.name}-textarea` === props.activeTextarea ? (
 					<button
-						className="clue-done-button accessible"
+						className="material-icons clue-done-button accessible"
 						onClick={props.onClueDoneButtonClick}>
-						Done
+						done
 					</button>
 				) : (
 					<button
-						className="edit-clue-button accessible"
+						className="material-icons edit-clue-button accessible"
 						name={`${props.name}-edit-button`}
 						onClick={props.onClueEditButtonClick}>
-						Edit
+						edit
 					</button>
 				)}
 			</span>
