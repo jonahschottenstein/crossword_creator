@@ -18,10 +18,14 @@ export const BoardAndSettings = (props) => {
 				popupClassName={props.popupClassName}
 				popupName={props.popupName}
 				openButtonClassName={props.openButtonClassName}
-				openPopupButtonText={props.openPopupButtonText}
+				openButtonText={props.openButtonText}
 				popupHeading={props.popupHeading}
 				onOpenClick={props.onOpenClick}
 				onCloseClick={props.onCloseClick}
+				submissionInfo={props.submissionInfo}
+				jsPDF={props.jsPDF}
+				cells={props.cells}
+				onInfoChange={props.onInfoChange}
 			/>
 			<Board
 				direction={props.direction}

@@ -405,14 +405,32 @@ export default function App() {
 						handleGridOptionClick(e);
 					}}
 					onNewPuzzleBlur={(e) => handleNewPuzzleBlur(e)}
-					isOpen={isOpen.gridOptionsPopup}
-					popupClassName="grid-options-popup"
-					popupName="gridOptionsPopup"
-					openButtonClassName="material-icons"
-					openPopupButtonText="grid_on"
-					popupHeading="Grid Options"
+					isOpen={isOpen}
+					popupClassName={{
+						gridOptions: "grid-options-popup",
+						submissionInfo: "submission-info-popup",
+					}}
+					popupName={{
+						gridOptions: "gridOptionsPopup",
+						submissionInfo: "submissionInfoPopup",
+					}}
+					openButtonClassName={{
+						gridOptions: "material-icons open-grid-options-button",
+						submissionInfo: "material-icons open-submission-info-button",
+					}}
+					openButtonText={{
+						gridOptions: "grid_on",
+						submissionInfo: "file_download",
+					}}
+					popupHeading={{
+						gridOptions: "Grid Options",
+						submissionInfo: "Submission Info",
+					}}
 					onOpenClick={(e) => handleIsOpen(e)}
 					onCloseClick={(e) => handleIsClosed(e)}
+					submissionInfo={submissionInfo}
+					jsPDF={jsPDF}
+					onInfoChange={(e) => handleInfoChange(e)}
 				/>
 				<Dashboard
 					direction={direction}

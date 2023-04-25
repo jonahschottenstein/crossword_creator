@@ -12,7 +12,7 @@ export const Popup = (props) => {
 				className={props.openButtonClassName}
 				name={props.popupName}
 				onClick={props.onOpenClick}>
-				{props.openPopupButtonText}
+				{props.openButtonText}
 			</button>
 			<div className={overlayClassName}>
 				<div className={popupClassName}>

@@ -35,7 +35,7 @@ export const SubmissionInfo = (props) => {
 						name={key}
 						id={hyphenatedName}
 						value={props.submissionInfo[key]}
-						onChange={props.onChange}
+						onChange={props.onInfoChange}
 					/>
 				);
 			})}
