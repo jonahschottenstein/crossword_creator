@@ -388,24 +388,6 @@ export default function App() {
 
 	return (
 		<div className="App">
-			<div className="export-and-save">
-				<Popup
-					isOpen={isOpen.submissionInfoPopup}
-					popupClassName="submission-info-popup"
-					popupName={"submissionInfoPopup"}
-					openButtonClassName="material-icons"
-					openPopupButtonText="file_download"
-					popupHeading="Submission Info"
-					onOpenClick={(e) => handleIsOpen(e)}
-					onCloseClick={(e) => handleIsClosed(e)}>
-					<SubmissionInfo
-						submissionInfo={submissionInfo}
-						cells={cells}
-						jsPDF={jsPDF}
-						onChange={(e) => handleInfoChange(e)}
-					/>
-				</Popup>
-			</div>
 			<div className="app-content">
 				<BoardAndSettings
 					direction={direction}
