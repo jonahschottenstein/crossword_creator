@@ -312,14 +312,17 @@ ol {
 	margin-left: 5px;
 }
 
-.edit-clue-button {
+.clue-list-item button {
+	padding: 0;
+}
+
+/* .edit-clue-button {
 	font-size: 13.3333px;
 	opacity: 1;
 	overflow: hidden;
 	padding: 1px 6px;
-	/* transition: width 0.5s ease-out, padding 0.5s ease-out, opacity 0.5s ease-out; */
 	width: 38.98px;
-}
+} */
 
 .isEditing {
 	/* display: none; */
