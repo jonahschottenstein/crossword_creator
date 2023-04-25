@@ -147,13 +147,8 @@
 	margin: 3px;
 }
 
-/* .toggle-switch-label {
-	display: flex;
-	padding: 5px;
-} */
-
 .toggle-switch-label {
-	border-bottom: solid white 5px;
+	border-radius: 0.25rem;
 	cursor: pointer;
 	display: flex;
 	margin: 1px;
@@ -161,15 +156,19 @@
 }
 
 .toggle-switch-label:hover {
-	border-bottom: solid #a7d8ff 5px;
+	background-color: #dcdcdc;
 	margin: 1px;
 	padding: 3px;
 }
 
 .toggle-switch-label:has(.toggle-switch-input:checked) {
-	border-bottom: solid #a7d8ff 5px;
+	background-color: #a7d8ff;
 	margin: 1px;
 	padding: 3px;
+}
+
+.toggle-switch {
+	height: 1.5rem;
 }
 
 .invisible {
@@ -242,6 +241,8 @@
 
 .shaded-color {
 	color: #dcdcdc;
+	outline: solid black 1px;
+	outline-offset: -4px;
 }
 
 .highlighted {
