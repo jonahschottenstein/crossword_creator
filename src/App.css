@@ -52,7 +52,17 @@
 	margin: 0 0 0 1rem;
 }
 
-button[name="gridOptionsPopup"] {
+.popup-wrapper[name="gridOptionsPopup"] {
+	margin: 0 auto 0 0.5rem;
+}
+
+.open-submission-info-button {
+	background-color: black;
+	border-radius: 4px;
+	color: white;
+	padding: 0;
+}
+.open-grid-options-button {
 	padding: 0;
 }
 
