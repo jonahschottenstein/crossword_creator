@@ -394,13 +394,9 @@ export default function App() {
 					cells={cells.slice()}
 					onClick={(e) => handleClick(e)}
 					onKeyDown={handleKeyDown}
-					cellBlockIsChecked={cellSettings.cellBlockIsChecked}
-					symmetryIsChecked={cellSettings.symmetryIsChecked}
-					shadedCellIsChecked={cellSettings.shadedCellIsChecked}
-					circleIsChecked={cellSettings.circleIsChecked}
+					cellSettings={cellSettings}
 					onChange={handleChange}
 					gridOptions={gridOptions}
-					newPuzzleIsChecked={cellSettings.newPuzzleIsChecked}
 					onGridOptionClick={(e) => {
 						handleGridOptionClick(e);
 					}}

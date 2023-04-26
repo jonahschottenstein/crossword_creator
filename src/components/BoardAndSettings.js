@@ -4,15 +4,11 @@ export const BoardAndSettings = (props) => {
 	return (
 		<div className="board-and-settings">
 			<CellSettings
-				cellBlockIsChecked={props.cellBlockIsChecked}
-				symmetryIsChecked={props.symmetryIsChecked}
-				shadedCellIsChecked={props.shadedCellIsChecked}
-				circleIsChecked={props.circleIsChecked}
+				cellSettings={props.cellSettings}
 				onChange={props.onChange}
 				onClearFillButtonClick={props.onClearFillButtonClick}
 				gridOptions={props.gridOptions}
 				onGridOptionClick={props.onGridOptionClick}
-				newPuzzleIsChecked={props.newPuzzleIsChecked}
 				onNewPuzzleBlur={props.onNewPuzzleBlur}
 				isOpen={props.isOpen}
 				popupClassName={props.popupClassName}
