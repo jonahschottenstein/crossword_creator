@@ -43,7 +43,7 @@ export const CellSettings = (props) => {
 					iconText="balance"
 					iconClassName="material-icons"
 					name="symmetryIsChecked"
-					isChecked={props.symmetryIsChecked}
+					isChecked={props.cellSettings.symmetryIsChecked}
 					onChange={props.onChange}
 				/>
 				<ToggleSwitch
@@ -52,7 +52,7 @@ export const CellSettings = (props) => {
 					iconText="square"
 					iconClassName="material-icons"
 					name="cellBlockIsChecked"
-					isChecked={props.cellBlockIsChecked}
+					isChecked={props.cellSettings.cellBlockIsChecked}
 					onChange={props.onChange}
 				/>
 				<ToggleSwitch
@@ -61,7 +61,7 @@ export const CellSettings = (props) => {
 					iconText="square"
 					iconClassName="material-icons shaded-color"
 					name="shadedCellIsChecked"
-					isChecked={props.shadedCellIsChecked}
+					isChecked={props.cellSettings.shadedCellIsChecked}
 					onChange={props.onChange}
 				/>
 				<ToggleSwitch
@@ -70,7 +70,7 @@ export const CellSettings = (props) => {
 					iconText="circle"
 					iconClassName="material-icons-outlined"
 					name="circleIsChecked"
-					isChecked={props.circleIsChecked}
+					isChecked={props.cellSettings.circleIsChecked}
 					onChange={props.onChange}
 				/>
 			</div>
