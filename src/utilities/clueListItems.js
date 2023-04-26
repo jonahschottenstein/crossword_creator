@@ -30,7 +30,7 @@ const getClueLi = (direction, cells) => {
 	return clueLi;
 };
 
-export const scrollToLi = (direction, cells) => {
+/* export const scrollToLi = (direction, cells) => {
 	const clueList = getClueList(direction);
 	const clueLi = getClueLi(direction, cells);
 
@@ -42,6 +42,24 @@ export const scrollToLi = (direction, cells) => {
 		// top: clueLi.offsetTop - 77,
 		behavior: "smooth",
 	});
+}; */
+export const scrollToLi = (direction, cells) => {
+	const clueList = getClueList(direction);
+	const clueLi = getClueLi(direction, cells);
+
+	if (!clueList || !clueLi) return;
+
+	if (window.innerWidth >= 961 || direction === "across") {
+		clueList.scrollTo({
+			top: clueLi.offsetTop - 78,
+			behavior: "smooth",
+		});
+	} else {
+		clueList.scrollTo({
+			top: clueLi.offsetTop - 382,
+			behavior: "smooth",
+		});
+	}
 };
 
 /* export const getClueLiNumber = (e) => {
