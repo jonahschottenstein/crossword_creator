@@ -8,8 +8,6 @@ export const DashboardPageContainer = (props) => {
 				cells={props.cells}
 				visibleDashPage={props.visibleDashPage}
 				pageTitle={props.visibleDashPage}
-				clueProps={props.clueProps}
-				oppositeClueProps={props.oppositeClueProps}
 				onClick={props.onClick}
 				wordMatches={props.wordMatches}
 				onMatchClick={props.onMatchClick}

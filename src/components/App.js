@@ -413,8 +413,6 @@ export default function App() {
 					cells={cells.slice()}
 					visibleDashPage={visibleDashPage}
 					onChange={handleDashChange}
-					clueProps={getClueProps(direction, cells)}
-					oppositeClueProps={getClueProps(getNextDirection(direction), cells)}
 					onClick={(e) => handleLiClick(e)}
 					wordMatches={wordMatches}
 					onMatchClick={(e) => handleMatchClick(e)}

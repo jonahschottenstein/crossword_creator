@@ -12,8 +12,6 @@ export const Dashboard = (props) => {
 				direction={props.direction}
 				cells={props.cells}
 				visibleDashPage={props.visibleDashPage}
-				clueProps={props.clueProps}
-				oppositeClueProps={props.oppositeClueProps}
 				onClick={props.onClick}
 				wordMatches={props.wordMatches}
 				onMatchClick={props.onMatchClick}

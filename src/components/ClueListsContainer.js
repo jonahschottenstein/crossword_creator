@@ -10,11 +10,10 @@ export const ClueListsContainer = (props) => {
 	return (
 		<div className="clue-lists-container">
 			<ClueList
-				direction="across"
+				direction={props.direction}
+				listDirection="across"
 				cells={props.cells}
 				clueNumbers={getClueNumbers(props.cells, "across")}
-				clueProps={props.clueProps}
-				oppositeClueProps={props.oppositeClueProps}
 				onClick={props.onClick}
 				onClueLiTextareaChange={props.onClueLiTextareaChange}
 				onClueEditButtonClick={props.onClueEditButtonClick}
@@ -24,11 +23,10 @@ export const ClueListsContainer = (props) => {
 				activeTextarea={props.activeTextarea}></ClueList>
 
 			<ClueList
-				direction="down"
+				direction={props.direction}
+				listDirection="down"
 				cells={props.cells}
 				clueNumbers={getClueNumbers(props.cells, "down")}
-				clueProps={props.clueProps}
-				oppositeClueProps={props.oppositeClueProps}
 				onClick={props.onClick}
 				onClueLiTextareaChange={props.onClueLiTextareaChange}
 				onClueEditButtonClick={props.onClueEditButtonClick}

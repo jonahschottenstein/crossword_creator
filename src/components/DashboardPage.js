@@ -31,9 +31,8 @@ export const DashboardPage = (props) => {
 		return (
 			<div className="dashboard-page clues-page">
 				<ClueListsContainer
+					direction={props.direction}
 					cells={props.cells}
-					clueProps={props.clueProps}
-					oppositeClueProps={props.oppositeClueProps}
 					onClick={props.onClick}
 					onClueLiTextareaChange={props.onClueLiTextareaChange}
 					onClueEditButtonClick={props.onClueEditButtonClick}
