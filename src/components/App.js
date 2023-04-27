@@ -56,6 +56,8 @@ import { DashboardPageContainer } from "./DashboardPageContainer";
 import { DashboardHeader } from "./DashboardHeader";
 import { DashboardHeaderButton } from "./DashboardHeaderButton";
 import { DashboardPage } from "./DashboardPage";
+import { CellSettings } from "./CellSettings";
+import { Board } from "./Board";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -394,25 +396,29 @@ export default function App() {
 	return (
 		<div className="App">
 			<div className="app-content">
-				<BoardAndSettings
-					direction={direction}
-					cells={cells.slice()}
-					onClick={(e) => handleClick(e)}
-					onKeyDown={handleKeyDown}
-					cellSettings={cellSettings}
-					onChange={handleToggleChange}
-					gridOptions={gridOptions}
-					onGridOptionClick={(e) => {
-						handleGridOptionClick(e);
-					}}
-					onNewPuzzleBlur={(e) => handleNewPuzzleBlur(e)}
-					isOpen={isOpen}
-					onOpenClick={(e) => handleIsOpen(e)}
-					onCloseClick={(e) => handleIsClosed(e)}
-					submissionInfo={submissionInfo}
-					jsPDF={jsPDF}
-					onInfoChange={(e) => handleInfoChange(e)}
-				/>
+				<BoardAndSettings>
+					<CellSettings
+						cells={cells}
+						cellSettings={cellSettings}
+						onChange={handleToggleChange}
+						gridOptions={gridOptions}
+						onGridOptionClick={(e) => {
+							handleGridOptionClick(e);
+						}}
+						isOpen={isOpen}
+						onOpenClick={(e) => handleIsOpen(e)}
+						onCloseClick={(e) => handleIsClosed(e)}
+						submissionInfo={submissionInfo}
+						jsPDF={jsPDF}
+						onInfoChange={(e) => handleInfoChange(e)}
+					/>
+					<Board
+						direction={direction}
+						cells={cells}
+						onClick={(e) => handleClick(e)}
+						onKeyDown={handleKeyDown}
+					/>
+				</BoardAndSettings>
 				<Dashboard>
 					<DashboardHeader>
 						{["stats", "clues", "fill"].map((buttonLabel) => {
