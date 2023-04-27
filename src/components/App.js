@@ -29,7 +29,7 @@ import {
 	getNext100Matches,
 	getMatchesFromTable,
 	fillWord,
-	getTopMatches,
+	// getTopMatches,
 	getFilteredMatches,
 } from "../utilities/fill";
 import { getWordObj } from "../utilities/words";
@@ -52,6 +52,10 @@ import { setSymmetricalCellStyle } from "../utilities/setSymmetricalCellStyle";
 import { gridOptions } from "../utilities/gridOptions";
 import { SubmissionInfo } from "./SubmissionInfo";
 import { Popup } from "./Popup";
+import { DashboardPageContainer } from "./DashboardPageContainer";
+import { DashboardHeader } from "./DashboardHeader";
+import { DashboardHeaderButton } from "./DashboardHeaderButton";
+import { DashboardPage } from "./DashboardPage";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -110,7 +114,7 @@ export default function App() {
 				);
 				const matchable = isMatchable(selectedWordObj.word);
 				const currentWordList = matchable ? newWordMatches : wordList;
-				const totalMatchCount = currentWordList.length;
+				// const totalMatchCount = currentWordList.length;
 				// console.log({ totalMatchCount });
 				const filteredMatches = getFilteredMatches(
 					matchFilterInput,
@@ -128,12 +132,13 @@ export default function App() {
 					filteredMatches,
 					firstMatches.length
 				);
-				const topMatches = await getTopMatches(
-					currentWordList,
-					direction,
-					cells
-				);
-				console.log(topMatches);
+				// const topMatches = await getTopMatches(
+				// 	currentWordList,
+				// 	direction,
+				// 	cells
+				// );
+				// getTopMatches causes error when clicking on word intersecting word with less than 3 letters
+				// console.log(topMatches);
 				setWordMatches({
 					current: firstMatches,
 					hasMatchesLeft: hasMatchesLeft,
@@ -408,38 +413,54 @@ export default function App() {
 					jsPDF={jsPDF}
 					onInfoChange={(e) => handleInfoChange(e)}
 				/>
-				<Dashboard
-					direction={direction}
-					cells={cells.slice()}
-					visibleDashPage={visibleDashPage}
-					onChange={handleDashChange}
-					onClick={(e) => handleLiClick(e)}
-					wordMatches={wordMatches}
-					onMatchClick={(e) => handleMatchClick(e)}
-					onMatchFilterChange={handleMatchFilterChange}
-					matchFilterInput={matchFilterInput}
-					onClueLiTextareaChange={(e) => {
-						handleClueLiTextareaChange(e);
-						handleClueText(e);
-					}}
-					onClueEditButtonClick={(e) => {
-						handleClueEditButtonClick(e, setActiveTextarea);
-					}}
-					onClueDoneButtonClick={(e) => {
-						handleClueDoneButtonClick(e, setActiveTextarea);
-					}}
-					onClueTextareaFocus={(e) =>
-						handleClueTextareaFocus(e, setActiveTextarea)
-					}
-					onClueTextareaBlur={(e) => {
-						handleClueTextareaBlur(e, setActiveTextarea);
-					}}
-					activeTextarea={activeTextarea}
-					onAutofillGridButtonClick={() =>
-						handleFillGrid(cells, setCells, setIsAutofilling)
-					}
-					onClearFillButtonClick={() => handleClearFill(setCells)}
-				/>
+				<Dashboard>
+					<DashboardHeader>
+						{["stats", "clues", "fill"].map((buttonLabel) => {
+							return (
+								<DashboardHeaderButton
+									key={buttonLabel}
+									buttonLabel={buttonLabel}
+									labelClassName={`dashboard-header-button-label ${buttonLabel}-button-label`}
+									visibleDashPage={visibleDashPage}
+									onChange={handleDashChange}
+								/>
+							);
+						})}
+					</DashboardHeader>
+					<DashboardPageContainer>
+						<DashboardPage
+							direction={direction}
+							cells={cells}
+							visibleDashPage={visibleDashPage}
+							onClick={(e) => handleLiClick(e)}
+							wordMatches={wordMatches}
+							onMatchClick={(e) => handleMatchClick(e)}
+							matchFilterInput={matchFilterInput}
+							onMatchFilterChange={handleMatchFilterChange}
+							onClueLiTextareaChange={(e) => {
+								handleClueLiTextareaChange(e);
+								handleClueText(e);
+							}}
+							onClueEditButtonClick={(e) => {
+								handleClueEditButtonClick(e, setActiveTextarea);
+							}}
+							onClueDoneButtonClick={(e) => {
+								handleClueDoneButtonClick(e, setActiveTextarea);
+							}}
+							onClueTextareaFocus={(e) =>
+								handleClueTextareaFocus(e, setActiveTextarea)
+							}
+							onClueTextareaBlur={(e) => {
+								handleClueTextareaBlur(e, setActiveTextarea);
+							}}
+							activeTextarea={activeTextarea}
+							onAutofillGridButtonClick={() =>
+								handleFillGrid(cells, setCells, setIsAutofilling)
+							}
+							onClearFillButtonClick={() => handleClearFill(setCells)}
+						/>
+					</DashboardPageContainer>
+				</Dashboard>
 			</div>
 		</div>
 	);
