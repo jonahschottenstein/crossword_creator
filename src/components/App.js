@@ -395,7 +395,7 @@ export default function App() {
 					onClick={(e) => handleClick(e)}
 					onKeyDown={handleKeyDown}
 					cellSettings={cellSettings}
-					onChange={handleChange}
+					onChange={handleToggleChange}
 					gridOptions={gridOptions}
 					onGridOptionClick={(e) => {
 						handleGridOptionClick(e);
