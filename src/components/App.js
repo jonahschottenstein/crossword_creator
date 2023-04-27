@@ -58,6 +58,7 @@ import { DashboardHeaderButton } from "./DashboardHeaderButton";
 import { DashboardPage } from "./DashboardPage";
 import { CellSettings } from "./CellSettings";
 import { Board } from "./Board";
+import { fetchWordListMemoized } from "../utilities/autofillGrid";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -109,7 +110,9 @@ export default function App() {
 
 			if (!selectedWordObj || wordLength < 3) return;
 			if (!ignore) {
-				const wordList = await fetchWordList(selectedWordObj?.word);
+				// const wordList = await fetchWordList(selectedWordObj?.word);
+				const getWordList = await fetchWordListMemoized();
+				const wordList = await getWordList(selectedWordObj?.word);
 				const newWordMatches = await getWordMatches(
 					selectedWordObj?.word,
 					wordList

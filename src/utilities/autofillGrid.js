@@ -2,7 +2,7 @@ import { cellHasLetter } from "./helpers";
 import { getWords } from "./words";
 
 const cache = {};
-const fetchWordListMemoized = async () => {
+export const fetchWordListMemoized = async () => {
 	return async (word) => {
 		const wordLength = word.length;
 		if (wordLength in cache) {
