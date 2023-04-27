@@ -1,24 +1,32 @@
+import { getClueProps } from "../utilities/clueListItems.js";
+import { getNextDirection } from "../utilities/helpers.js";
 import { ClueListItem } from "./ClueListItem.js";
 
 export const ClueList = (props) => {
+	const clueProps = getClueProps(props.direction, props.cells);
+	const oppositeClueProps = getClueProps(
+		getNextDirection(props.direction),
+		props.cells
+	);
+
 	return (
 		<div className="clue-list-wrapper">
-			<h3 className="clue-list-title">{props.direction}</h3>
-			<ol id={`${props.direction}-clue-list`} className="clue-list">
+			<h3 className="clue-list-title">{props.listDirection}</h3>
+			<ol id={`${props.listDirection}-clue-list`} className="clue-list">
 				{props.clueNumbers.map((number) => {
 					return (
 						<ClueListItem
-							key={`${number}-${props.direction}`}
-							name={`${number}-${props.direction}`}
+							key={`${number}-${props.listDirection}`}
+							name={`${number}-${props.listDirection}`}
 							clueLabel={number}
 							cells={props.cells}
-							direction={props.direction}
+							direction={props.listDirection}
 							className={
-								props.clueProps.clueNumber === number &&
-								props.clueProps.clueDirection === props.direction
+								clueProps.clueNumber === number &&
+								clueProps.clueDirection === props.listDirection
 									? "clue-list-item highlighted"
-									: props.oppositeClueProps.clueNumber === number &&
-									  props.oppositeClueProps.clueDirection === props.direction
+									: oppositeClueProps.clueNumber === number &&
+									  oppositeClueProps.clueDirection === props.listDirection
 									? "clue-list-item opposite-highlighted"
 									: "clue-list-item"
 							}
