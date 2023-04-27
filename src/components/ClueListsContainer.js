@@ -1,12 +1,18 @@
 import { ClueList } from "./ClueList.js";
 
+const getClueNumbers = (cells, direction) => {
+	return cells
+		.filter((cell) => !cell.isBlackSquare && cell[direction])
+		.map((cell) => cell.number);
+};
+
 export const ClueListsContainer = (props) => {
 	return (
 		<div className="clue-lists-container">
 			<ClueList
 				direction="across"
 				cells={props.cells}
-				clueNumbers={props.acrossClueNumbers}
+				clueNumbers={getClueNumbers(props.cells, "across")}
 				clueProps={props.clueProps}
 				oppositeClueProps={props.oppositeClueProps}
 				onClick={props.onClick}
@@ -20,7 +26,7 @@ export const ClueListsContainer = (props) => {
 			<ClueList
 				direction="down"
 				cells={props.cells}
-				clueNumbers={props.downClueNumbers}
+				clueNumbers={getClueNumbers(props.cells, "down")}
 				clueProps={props.clueProps}
 				oppositeClueProps={props.oppositeClueProps}
 				onClick={props.onClick}
