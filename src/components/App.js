@@ -413,16 +413,6 @@ export default function App() {
 					cells={cells.slice()}
 					visibleDashPage={visibleDashPage}
 					onChange={handleDashChange}
-					acrossClueNumbers={cells
-						.filter(
-							(cell) => cell.isBlackSquare === false && cell.across === true
-						)
-						.map((cell) => cell.number)}
-					downClueNumbers={cells
-						.filter(
-							(cell) => cell.isBlackSquare === false && cell.down === true
-						)
-						.map((cell) => cell.number)}
 					clueProps={getClueProps(direction, cells)}
 					oppositeClueProps={getClueProps(getNextDirection(direction), cells)}
 					onClick={(e) => handleLiClick(e)}

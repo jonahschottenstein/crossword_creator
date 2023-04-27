@@ -32,8 +32,6 @@ export const DashboardPage = (props) => {
 			<div className="dashboard-page clues-page">
 				<ClueListsContainer
 					cells={props.cells}
-					acrossClueNumbers={props.acrossClueNumbers}
-					downClueNumbers={props.downClueNumbers}
 					clueProps={props.clueProps}
 					oppositeClueProps={props.oppositeClueProps}
 					onClick={props.onClick}

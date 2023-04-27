@@ -12,8 +12,6 @@ export const Dashboard = (props) => {
 				direction={props.direction}
 				cells={props.cells}
 				visibleDashPage={props.visibleDashPage}
-				acrossClueNumbers={props.acrossClueNumbers}
-				downClueNumbers={props.downClueNumbers}
 				clueProps={props.clueProps}
 				oppositeClueProps={props.oppositeClueProps}
 				onClick={props.onClick}
