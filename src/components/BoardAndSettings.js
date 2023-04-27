@@ -11,11 +11,6 @@ export const BoardAndSettings = (props) => {
 				onGridOptionClick={props.onGridOptionClick}
 				onNewPuzzleBlur={props.onNewPuzzleBlur}
 				isOpen={props.isOpen}
-				popupClassName={props.popupClassName}
-				popupName={props.popupName}
-				openButtonClassName={props.openButtonClassName}
-				openButtonText={props.openButtonText}
-				popupHeading={props.popupHeading}
 				onOpenClick={props.onOpenClick}
 				onCloseClick={props.onCloseClick}
 				submissionInfo={props.submissionInfo}

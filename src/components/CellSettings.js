@@ -8,11 +8,11 @@ export const CellSettings = (props) => {
 		<div className="cell-settings">
 			<Popup
 				isOpen={props.isOpen.submissionInfoPopup}
-				popupClassName={props.popupClassName.submissionInfo}
-				popupName={props.popupName.submissionInfo}
-				openButtonClassName={props.openButtonClassName.submissionInfo}
-				openButtonText={props.openButtonText.submissionInfo}
-				popupHeading={props.popupHeading.submissionInfo}
+				popupClassName="submission-info-popup"
+				popupName="submissionInfoPopup"
+				openButtonClassName="material-icons open-submission-info-button"
+				openButtonText="file_download"
+				popupHeading="Submission Info"
 				onOpenClick={props.onOpenClick}
 				onCloseClick={props.onCloseClick}>
 				<SubmissionInfo
@@ -24,11 +24,11 @@ export const CellSettings = (props) => {
 			</Popup>
 			<Popup
 				isOpen={props.isOpen.gridOptionsPopup}
-				popupClassName={props.popupClassName.gridOptions}
-				popupName={props.popupName.gridOptions}
-				openButtonClassName={props.openButtonClassName.gridOptions}
-				openButtonText={props.openButtonText.gridOptions}
-				popupHeading={props.popupHeading.gridOptions}
+				popupClassName="grid-options-popup"
+				popupName="gridOptionsPopup"
+				openButtonClassName="material-icons open-grid-options-button"
+				openButtonText="grid_on"
+				popupHeading="Grid Options"
 				onOpenClick={props.onOpenClick}
 				onCloseClick={props.onCloseClick}>
 				<GridOptions
