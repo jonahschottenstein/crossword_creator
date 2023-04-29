@@ -59,15 +59,20 @@ export const isAfterSelectedCell = (cell, array) => {
 
 export const isCellBlock = (cell) => cell.isBlackSquare;
 
-export const cellInFirstRow = (cell) => cell.index < 15;
+// export const cellInFirstRow = (cell) => cell.index < 15;
+export const cellInFirstRow = (cell, gridWidth = 15) => cell.index < gridWidth;
 
-export const cellInFirstColumn = (cell) => cell.index % 15 === 0;
+// export const cellInFirstColumn = (cell) => cell.index % 15 === 0;
+export const cellInFirstColumn = (cell, gridHeight = 15) =>
+	cell.index % gridHeight === 0;
 
 export const previousAcrossCellBlocked = (cellsArray, cell) =>
 	cellsArray[cell.index - 1].isBlackSquare;
 
-export const previousDownCellBlocked = (cellsArray, cell) =>
-	cellsArray[cell.index - 15].isBlackSquare;
+// export const previousDownCellBlocked = (cellsArray, cell) =>
+// 	cellsArray[cell.index - 15].isBlackSquare;
+export const previousDownCellBlocked = (cellsArray, cell, gridHeight = 15) =>
+	cellsArray[cell.index - gridHeight].isBlackSquare;
 
 export const isAcross = (array, cell) => {
 	return (
