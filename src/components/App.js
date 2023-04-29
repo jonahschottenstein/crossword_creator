@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { setDirectionOnClick } from "../utilities/direction.js";
 import { setSelectedCell } from "../utilities/setSelectedCell.js";
 import { setCellBlock } from "../utilities/setCellBlock.js";
-import { setSymmetricalCellBlock } from "../utilities/setSymmetricalCellBlock.js";
 import { setCellNumbers } from "../utilities/setCellNumbers.js";
 import { setClues } from "../utilities/setClues.js";
 import { handleLetterKey } from "../utilities/letters.js";
@@ -14,7 +13,6 @@ import { handleTabKey } from "../utilities/tab.js";
 import { handleBackspaceKey } from "../utilities/backspace.js";
 import { BoardAndSettings } from "./BoardAndSettings";
 import {
-	getClueProps,
 	scrollToLi,
 	selectCellElementOnLiClick,
 } from "../utilities/clueListItems";
@@ -40,18 +38,12 @@ import {
 	handleClueDoneButtonClick,
 	handleClueTextareaFocus,
 } from "../utilities/handleClueLi";
-import {
-	handleClearFill,
-	handleFillGrid,
-	handleAddBlackSquares,
-} from "../utilities/gridHandlers";
+import { handleClearFill, handleFillGrid } from "../utilities/gridHandlers";
 import { setClueText } from "../utilities/setClueText";
 import { setShadedCell } from "../utilities/setShadedCell";
 import { setCircledCell } from "../utilities/setCircledCell";
 import { setSymmetricalCellStyle } from "../utilities/setSymmetricalCellStyle";
 import { gridOptions } from "../utilities/gridOptions";
-import { SubmissionInfo } from "./SubmissionInfo";
-import { Popup } from "./Popup";
 import { DashboardPageContainer } from "./DashboardPageContainer";
 import { DashboardHeader } from "./DashboardHeader";
 import { DashboardHeaderButton } from "./DashboardHeaderButton";
@@ -96,7 +88,6 @@ export default function App() {
 	const { jsPDF } = window.jspdf;
 
 	useEffect(() => {
-		// if (visibleDashPage !== "fill") return;
 		if (isAutofilling) return;
 
 		const startFetching = async () => {
@@ -175,36 +166,6 @@ export default function App() {
 		};
 	}, [direction, cells, matchFilterInput, isAutofilling, activeTextarea]);
 
-	/* const handleClick = (e) => {
-		if (cellSettings.cellBlockIsChecked) {
-			setCellBlock(e, setCells);
-			cellSettings.symmetryIsChecked &&
-				setSymmetricalCellBlock(e, cells, setCells);
-			setCellNumbers(setCells);
-			setClues(setCells);
-			setClueText(e, setCells);
-		} else {
-			setDirectionOnClick(e, cells, setDirection);
-			setSelectedCell(e, setCells);
-		}
-	}; */
-	/* 	const handleClick = (e) => {
-		if (cellSettings.cellBlockIsChecked) {
-			setCellBlock(e, setCells);
-			cellSettings.symmetryIsChecked &&
-				setSymmetricalCellBlock(e, cells, setCells);
-			setCellNumbers(setCells);
-			setClues(setCells);
-			setClueText(e, setCells);
-		} else if (cellSettings.shadedCellIsChecked) {
-			setShadedCell(e, setCells);
-		} else if (cellSettings.circleIsChecked) {
-			setCircledCell(e, setCells);
-		} else {
-			setDirectionOnClick(e, cells, setDirection);
-			setSelectedCell(e, setCells);
-		}
-	}; */
 	const handleClick = (e) => {
 		const {
 			cellBlockIsChecked,
@@ -250,26 +211,6 @@ export default function App() {
 		selectCellElementOnLiClick(e, direction, setDirection, cells);
 	};
 
-	/* 	const showMoreWordMatches = async () => {
-		const { selectedWordObj } = getWordObj(direction, cells);
-		const wordList = await fetchWordList(selectedWordObj?.word);
-		const newWordMatches = await getWordMatches(
-			selectedWordObj?.word,
-			wordList
-		);
-		const tableLength = getMatchesFromTable().length;
-		const next100Matches = getNext100Matches(newWordMatches, tableLength);
-		const currentMatches = [...wordMatches.current, ...next100Matches];
-		const hasMatchesLeft = areMatchesLeft(
-			newWordMatches,
-			currentMatches.length
-		);
-
-		setWordMatches({
-			current: currentMatches,
-			hasMatchesLeft: hasMatchesLeft,
-		});
-	}; */
 	const showMoreWordMatches = async () => {
 		const { selectedWordObj } = getWordObj(direction, cells);
 		const wordList = await fetchWordList(selectedWordObj?.word);
@@ -281,7 +222,6 @@ export default function App() {
 			matchFilterInput,
 			newWordMatches
 		);
-		// console.log(filteredMatches);
 		const tableLength = getMatchesFromTable().length;
 		const next100Matches = getNext100Matches(filteredMatches, tableLength);
 		const currentMatches = [...wordMatches.current, ...next100Matches];
@@ -312,14 +252,6 @@ export default function App() {
 		handleBackspaceKey(e, direction, setDirection, cells, setCells);
 	};
 
-	/* const handleToggleChange = (e) => {
-		removeCellSelection(setCells);
-
-		const name = e.target.name;
-		let settings = { ...cellSettings };
-		settings[name] = !cellSettings[name];
-		setCellSettings(settings);
-	}; */
 	const handleToggleChange = (e) => {
 		removeCellSelection(setCells);
 
@@ -336,10 +268,6 @@ export default function App() {
 		}
 		settings[name] = !cellSettings[name];
 		setCellSettings(settings);
-	};
-
-	const handleChange = (e) => {
-		handleToggleChange(e);
 	};
 
 	const handleDashChange = (e) => {
@@ -361,15 +289,6 @@ export default function App() {
 			...isOpen,
 			gridOptionsPopup: false,
 		});
-	};
-
-	const handleNewPuzzleBlur = (e) => {
-		if (
-			!e.target.matches(".grid-options-background") &&
-			!e.target.matches(".grid-options-header > .exit-button")
-		)
-			return;
-		setCellSettings({ ...cellSettings, newPuzzleIsChecked: false });
 	};
 
 	const handleInfoChange = (e) => {

@@ -7,7 +7,6 @@
 	flex-direction: column;
 	font-family: sans-serif;
 	height: 100vh;
-	/* justify-content: space-around; */
 	margin: auto;
 	max-height: 660px;
 	max-width: 1132px;
@@ -276,7 +275,6 @@
 	height: calc(100% - 40px);
 	/* if you don't want a gap between Dashboard border and end of list: height: calc(100% - 19px); */
 	margin: 0;
-	/* max-height: 267px; */
 	overflow-y: scroll;
 	padding: 0;
 }
@@ -290,43 +288,7 @@
 	text-align: start;
 	text-transform: uppercase;
 }
-/* 
-.clue-lists-container {
-	display: flex;
-	justify-content: space-around;
-	max-height: 606.5px;
-	min-width: 230px;
-}
 
-ol {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-}
-
-.clue-list-wrapper {
-	flex: 1;
-	font-size: 14px;
-	padding-left: 10px;
-	width: 47%;
-}
-
-.clue-list-title {
-	background-color: white;
-	border-bottom: 1px solid #e6e6e6;
-	font-size: 14px;
-	font-weight: bold;
-	line-height: 2;
-	margin: 0;
-	text-align: start;
-	text-transform: uppercase;
-}
-
-.clue-list {
-	height: calc(100% - 29px);
-	overflow-y: scroll;
-}
- */
 .clue-list-item {
 	border-left: 10px solid rgba(0, 0, 0, 0);
 	cursor: pointer;
@@ -363,14 +325,6 @@ ol {
 	height: fit-content;
 	padding: 0;
 }
-
-/* .edit-clue-button {
-	font-size: 13.3333px;
-	opacity: 1;
-	overflow: hidden;
-	padding: 1px 6px;
-	width: 38.98px;
-} */
 
 .isEditing {
 	/* display: none; */
@@ -446,9 +400,7 @@ ol {
 .dashboard-page-container {
 	display: flex;
 	flex-direction: column;
-	/* flex-grow: 1; */
 	flex: 1;
-	/* height: 100%; */
 	height: 95%;
 	/* would like to try to find a way to get height to be 100%, but this is what's working for now */
 }
@@ -466,7 +418,6 @@ ol {
 
 table {
 	border-collapse: collapse;
-	/* width: max-content; */
 }
 td {
 	border-bottom: solid 1px #ddd;
@@ -482,8 +433,6 @@ td {
 .match-table {
 	display: flex;
 	flex-direction: column;
-	/* max-height: 542.5px;
-	overflow-y: scroll; */
 	width: 100%;
 }
 
@@ -596,22 +545,6 @@ td {
 .display-none {
 	display: none;
 }
-
-/* @media (max-width: 960px) {
-	.clue-lists-container {
-		flex-direction: column;
-	}
-	.clue-list-wrapper {
-		height: calc(50% - 10px);
-		margin-bottom: 10px;
-		overflow-y: scroll;
-		width: 100%;
-	}
-	.clue-list-title {
-		position: sticky;
-		top: 0;
-	}
-} */
 
 @media (min-width: 961px) {
 	.clue-lists-container {
