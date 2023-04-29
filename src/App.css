@@ -360,6 +360,7 @@ ol {
 }
 
 .clue-list-item button {
+	height: fit-content;
 	padding: 0;
 }
 
