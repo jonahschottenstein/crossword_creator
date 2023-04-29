@@ -29,24 +29,11 @@ export const Board = (props) => {
 			<Cell
 				key={index}
 				id={`cell-${index}`}
-				// className={
-				// 	cell.isSelected
-				// 		? "cell selected highlighted"
-				// 		: isInSelectedWord(selectedWord, cell)
-				// 		? "cell highlighted"
-				// 		: cell.isBlackSquare
-				// 		? "cell cell-block"
-				// 		: "cell"
-				// }
 				className={getCellClassName(cell, selectedWord)}
 				index={index}
 				tabIndex={cell.tabIndex}
 				number={cell.number}
 				letter={cell.letter}
-				isSelected={cell.isSelected}
-				isShaded={cell.isShaded}
-				isCircled={cell.isCircled}
-				isBlackSquare={cell.isBlackSquare}
 				onClick={props.onClick}
 				onKeyDown={props.onKeyDown}
 			/>
