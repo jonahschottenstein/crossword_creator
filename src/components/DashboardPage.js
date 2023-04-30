@@ -49,6 +49,8 @@ export const DashboardPage = (props) => {
 	} else {
 		const selectedWord = getWordObj(props.direction, props.cells)
 			.selectedWordObj?.word;
+		const MIN_WORD_LENGTH = 3;
+
 		return (
 			<div className="dashboard-page fill-page">
 				<button id="clear-fill-button" onClick={props.onClearFillButtonClick}>
@@ -60,7 +62,7 @@ export const DashboardPage = (props) => {
 					Autofill Grid
 				</button>
 
-				{!selectedWord || selectedWord.length < 3 ? (
+				{!selectedWord || selectedWord.length < MIN_WORD_LENGTH ? (
 					<p>{"Select an entry greater than two characters to view matches"}</p>
 				) : (
 					<>
