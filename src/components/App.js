@@ -38,6 +38,7 @@ import {
 	handleClueDoneButtonClick,
 	handleClueTextareaFocus,
 	handleEnterKeyDown,
+	autoExpand,
 } from "../utilities/handleClueLi";
 import { handleClearFill, handleFillGrid } from "../utilities/gridHandlers";
 import { setClueText } from "../utilities/setClueText";
@@ -159,11 +160,19 @@ export default function App() {
 			setActiveTextarea(null);
 			textarea.classList.remove("accessible");
 		};
+		const handleTextareasOnResize = () => {
+			const textareas = document.querySelectorAll(".clue-textarea");
+			textareas.forEach((textarea) => {
+				autoExpand(textarea);
+			});
+		};
 		document.addEventListener("click", handleBlurOnClick);
+		window.addEventListener("resize", handleTextareasOnResize);
 		startFetching();
 		return () => {
 			ignore = true;
 			document.removeEventListener("click", handleBlurOnClick);
+			window.removeEventListener("resize", handleTextareasOnResize);
 		};
 	}, [direction, cells, matchFilterInput, isAutofilling, activeTextarea]);
 
