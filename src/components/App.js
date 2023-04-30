@@ -37,6 +37,7 @@ import {
 	handleClueTextareaBlur,
 	handleClueDoneButtonClick,
 	handleClueTextareaFocus,
+	handleEnterKeyDown,
 } from "../utilities/handleClueLi";
 import { handleClearFill, handleFillGrid } from "../utilities/gridHandlers";
 import { setClueText } from "../utilities/setClueText";
@@ -374,6 +375,9 @@ export default function App() {
 							}}
 							onClueDoneButtonClick={(e) => {
 								handleClueDoneButtonClick(e, setActiveTextarea);
+							}}
+							onKeyDown={(e) => {
+								handleEnterKeyDown(e, setActiveTextarea);
 							}}
 							onClueTextareaFocus={(e) =>
 								handleClueTextareaFocus(e, setActiveTextarea)

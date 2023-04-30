@@ -34,6 +34,7 @@ export const ClueList = (props) => {
 							onClueLiTextareaChange={props.onClueLiTextareaChange}
 							onClueEditButtonClick={props.onClueEditButtonClick}
 							onClueDoneButtonClick={props.onClueDoneButtonClick}
+							onKeyDown={props.onKeyDown}
 							onClueTextareaFocus={props.onClueTextareaFocus}
 							onClueTextareaBlur={props.onClueTextareaBlur}
 							activeTextarea={props.activeTextarea}
