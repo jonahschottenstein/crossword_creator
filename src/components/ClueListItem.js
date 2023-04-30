@@ -18,7 +18,7 @@ export const ClueListItem = (props) => {
 					onFocus={props.onClueTextareaFocus}
 					// onBlur={props.onClueTextareaBlur}
 					onKeyDown={props.onKeyDown}
-					maxLength="320"></textarea>
+					maxLength="240"></textarea>
 
 				{`${props.name}-textarea` === props.activeTextarea ? (
 					<button
