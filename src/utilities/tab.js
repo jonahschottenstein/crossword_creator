@@ -42,9 +42,6 @@ const getNextWordObj = (e, direction, cells) => {
 };
 
 const changeDirectionOnTabKey = (e, direction, setDirection, cells) => {
-	if (e.key !== "Tab") return;
-	e.preventDefault();
-
 	const nextOpenWordObj = getNextOpenWordObj(e, direction, cells);
 	const finalWordObj = getFinalWordObj(e, direction, cells);
 	const whiteSquares = getWhiteSquares(direction, cells);
@@ -79,9 +76,6 @@ const getNextCellOnTabKey = (e, direction, cells) => {
 };
 
 const selectCellElementOnTabKey = (e, direction, cells) => {
-	if (e.key !== "Tab") return;
-	e.preventDefault();
-
 	const nextDirection = getNextDirection(direction);
 	const initialOpenWordObjNextDirection = getInitialOpenWordObj(
 		e,
@@ -102,7 +96,9 @@ const selectCellElementOnTabKey = (e, direction, cells) => {
 };
 
 export const handleTabKey = (e, direction, setDirection, cells) => {
-	// Maybe see if you can do "if (e.key !== "Tab") return;" and "e.preventDefault();" here and omit from all other functions
+	if (e.key !== "Tab") return;
+	e.preventDefault();
+
 	changeDirectionOnTabKey(e, direction, setDirection, cells);
 	selectCellElementOnTabKey(e, direction, cells);
 };
