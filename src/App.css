@@ -1,3 +1,9 @@
+:root {
+	--highlight-color: #a7d8ff;
+	--select-color: #ffda00;
+	--shade-color: #dcdcdc;
+}
+
 * {
 	box-sizing: border-box;
 }
@@ -160,13 +166,13 @@
 }
 
 .toggle-switch-label:hover {
-	background-color: #dcdcdc;
+	background-color: var(--shade-color);
 	margin: 1px;
 	padding: 3px;
 }
 
 .toggle-switch-label:has(.toggle-switch-input:checked) {
-	background-color: #a7d8ff;
+	background-color: var(--highlight-color);
 	margin: 1px;
 	padding: 3px;
 }
@@ -240,21 +246,21 @@
 }
 
 .shaded {
-	background-color: #dcdcdc;
+	background-color: var(--shade-color);
 }
 
 .shaded-color {
-	color: #dcdcdc;
+	color: var(--shade-color);
 	outline: solid black 1px;
 	outline-offset: -4px;
 }
 
 .highlighted {
-	background-color: #a7d8ff;
+	background-color: var(--highlight-color);
 }
 
 .selected {
-	background-color: #ffda00;
+	background-color: var(--select-color);
 }
 
 .cell-block {
@@ -302,7 +308,7 @@
 }
 
 .opposite-highlighted {
-	border-left-color: #a7d8ff;
+	border-left-color: var(--highlight-color);
 }
 
 .clue-list-item span {
@@ -364,15 +370,15 @@
 }
 
 .dashboard:has(.stats-page) .stats-button-label {
-	background-color: #a7d8ff;
+	background-color: var(--highlight-color);
 }
 
 .dashboard:has(.clues-page) .clues-button-label {
-	background-color: #a7d8ff;
+	background-color: var(--highlight-color);
 }
 
 .dashboard:has(.fill-page) .fill-button-label {
-	background-color: #a7d8ff;
+	background-color: var(--highlight-color);
 }
 
 .dashboard-header {
