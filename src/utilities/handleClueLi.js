@@ -1,11 +1,14 @@
 export const autoExpand = (textarea) => {
 	textarea.style.height = "inherit";
 	const textareaStyles = window.getComputedStyle(textarea);
+	// const height =
+	// 	parseInt(textareaStyles.getPropertyValue("border-top-width"), 10) +
+	// 	parseInt(textareaStyles.getPropertyValue("padding-top"), 10) +
+	// 	textarea.scrollHeight +
+	// 	parseInt(textareaStyles.getPropertyValue("padding-bottom"), 10) +
+	// 	parseInt(textareaStyles.getPropertyValue("border-bottom-width"), 10);
 	const height =
-		parseInt(textareaStyles.getPropertyValue("border-top-width"), 10) +
-		parseInt(textareaStyles.getPropertyValue("padding-top"), 10) +
 		textarea.scrollHeight +
-		parseInt(textareaStyles.getPropertyValue("padding-bottom"), 10) +
 		parseInt(textareaStyles.getPropertyValue("border-bottom-width"), 10);
 
 	textarea.style.height = height + "px";
