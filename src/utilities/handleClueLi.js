@@ -41,6 +41,13 @@ export const handleClueDoneButtonClick = (e, setActiveTextarea) => {
 		selectedCellElement.focus();
 	}
 };
+
+export const handleEnterKeyDown = (e, setActiveTextarea) => {
+	if (e.key !== "Enter") return;
+
+	handleClueDoneButtonClick(e, setActiveTextarea);
+};
+
 export const handleClueTextareaFocus = (e, setActiveTextarea) => {
 	console.log("textareaFocus");
 	setActiveTextarea(e.target.getAttribute("name"));
