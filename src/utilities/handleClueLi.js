@@ -1,4 +1,4 @@
-const autoExpand = (textarea) => {
+export const autoExpand = (textarea) => {
 	textarea.style.height = "inherit";
 	const textareaStyles = window.getComputedStyle(textarea);
 	const height =
