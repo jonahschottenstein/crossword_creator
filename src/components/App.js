@@ -223,7 +223,8 @@ export default function App() {
 
 	const showMoreWordMatches = async () => {
 		const { selectedWordObj } = getWordObj(direction, cells);
-		const wordList = await fetchWordList(selectedWordObj?.word);
+		const getWordList = await fetchWordListMemoized();
+		const wordList = await getWordList(selectedWordObj?.word);
 		const newWordMatches = await getWordMatches(
 			selectedWordObj?.word,
 			wordList
