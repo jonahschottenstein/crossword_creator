@@ -19,7 +19,6 @@ import {
 import { getNextDirection } from "../utilities/helpers";
 import { Dashboard } from "./Dashboard";
 import {
-	fetchWordList,
 	getWordMatches,
 	isMatchable,
 	areMatchesLeft,
@@ -29,7 +28,7 @@ import {
 	fillWord,
 	// getTopMatches,
 	getFilteredMatches,
-} from "../utilities/fill";
+} from "../utilities/gridFill";
 import { getWordObj } from "../utilities/words";
 import {
 	handleClueLiTextareaChange,
