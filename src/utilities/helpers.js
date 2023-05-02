@@ -36,41 +36,16 @@ export const getBlankAfter = (array) => {
 	return blankAfter;
 };
 
-export const getCellIndex = (cell, array) => {
-	const cellId = cell.id;
-	const cellIndex = array.findIndex((cell) => cell.id === cellId);
-
-	return cellIndex;
-};
-
-export const isBeforeSelectedCell = (cell, array) => {
-	const selectedCellIndex = getSelectedCellIndex(array);
-	const cellIndex = getCellIndex(cell, array);
-
-	return cellIndex < selectedCellIndex;
-};
-
-export const isAfterSelectedCell = (cell, array) => {
-	const selectedCellIndex = getSelectedCellIndex(array);
-	const cellIndex = getCellIndex(cell, array);
-
-	return selectedCellIndex < cellIndex;
-};
-
 export const isCellBlock = (cell) => cell.isBlackSquare;
 
-// export const cellInFirstRow = (cell) => cell.index < 15;
 export const cellInFirstRow = (cell, gridWidth = 15) => cell.index < gridWidth;
 
-// export const cellInFirstColumn = (cell) => cell.index % 15 === 0;
 export const cellInFirstColumn = (cell, gridHeight = 15) =>
 	cell.index % gridHeight === 0;
 
 export const previousAcrossCellBlocked = (cellsArray, cell) =>
 	cellsArray[cell.index - 1].isBlackSquare;
 
-// export const previousDownCellBlocked = (cellsArray, cell) =>
-// 	cellsArray[cell.index - 15].isBlackSquare;
 export const previousDownCellBlocked = (cellsArray, cell, gridHeight = 15) =>
 	cellsArray[cell.index - gridHeight].isBlackSquare;
 
