@@ -1,3 +1,4 @@
+//? Not sure if this is the best way to do this
 const blankGrid = [
 	{
 		"id": "cell-0",

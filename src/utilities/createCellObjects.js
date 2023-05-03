@@ -30,6 +30,7 @@ const GRID_CELLS_SPAN = 15;
 	return cellsArray;
 }; */
 
+// TODO: export const createCellObjects = (cellsPerRow = 15, cellsPerColumn = cellsPerRow) => {}. If you do this, cellsCount (i.e., NUMBER_OF_CELLS) should be calculated inside the function
 export const createCellObjects = () => {
 	let numberedCells = [];
 	const cellsArray = Array.from(Array(NUMBER_OF_CELLS).keys()).map(

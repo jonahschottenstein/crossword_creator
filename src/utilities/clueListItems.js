@@ -48,13 +48,15 @@ export const scrollToLi = (direction, cells) => {
 	const clueLi = getClueLi(direction, cells);
 
 	if (!clueList || !clueLi) return;
-
+	// TODO: const MEDIA_QUERY_MIN_WIDTH = 961
 	if (window.innerWidth >= 961 || direction === "across") {
+		// TODO: const OFFSET_CORRECTION = 78
 		clueList.scrollTo({
 			top: clueLi.offsetTop - 78,
 			behavior: "smooth",
 		});
 	} else {
+		// TODO: const OFFSET_CORRECTION = 382
 		clueList.scrollTo({
 			top: clueLi.offsetTop - 382,
 			behavior: "smooth",
@@ -105,7 +107,6 @@ export const getWordToHighlight = (e, cells) => {
 	const clueLiNumber = getClueLiNumber(e);
 	const clueLiDirection = getClueLiDirection(e);
 	const wordObjs = getWordObjs(clueLiDirection, cells);
-
 	const wordToHighlight = wordObjs.find(
 		(obj) => obj.clueNumber === clueLiNumber
 	);

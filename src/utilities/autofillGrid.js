@@ -18,16 +18,19 @@ export const fetchWordListMemoized = async () => {
 	};
 };
 
+//* Checks if a wordMatch can fill an entry
 const isAMatch = (lettersArray, wordString) =>
 	lettersArray.every(
 		(letter, index, array) =>
 			array[index] === wordString[index] || array[index] === ""
 	);
 
+//* Gets array of all wordMatches that can fill an entry
 const getWordMatches = (word, sameLengthWords) => {
 	if (!word) return;
+	// TODO: const MIN_WORD_LENGTH = 3;
 	if (word.length < 3) return;
-	// Should maybe use throw/try/catch ^
+	//? Should maybe use throw/try/catch ^
 	const wordLetters = word.map((cell) => cell.letter);
 	const wordMatches = sameLengthWords.filter(({ word: testWord }) => {
 		return isAMatch(wordLetters, testWord) && !/\d+/.test(testWord);
@@ -36,12 +39,14 @@ const getWordMatches = (word, sameLengthWords) => {
 	return wordMatches;
 };
 
+//* Gets array of objects with each object containing an entry's cells and the entry's possible wordMatches
 const getWordsWithMatches = async (words) => {
 	const getWordList = await fetchWordListMemoized();
 	const wordsWithMatches = await Promise.all(
 		words.map(async (word, index, array) => {
 			const wordList = await getWordList(word);
 			const wordMatches = getWordMatches(word, wordList);
+			//* If an entry is filled with a word not in the word list, adds the word to the word list
 			if (wordMatches.length < 1 && array[index].every(cellHasLetter)) {
 				const wordMatches = [
 					{
@@ -60,6 +65,7 @@ const getWordsWithMatches = async (words) => {
 	return wordsWithMatches;
 };
 
+//* Removes uninvolved cell properties and adds options property, which stores letters that could possibly fill the cell
 const formatCells = (cells) => {
 	const formattedCells = cells.map((cell) => {
 		if (!cell.isBlackSquare) {
@@ -73,6 +79,7 @@ const formatCells = (cells) => {
 	return formattedCells;
 };
 
+//* Recreates words with formatted cells
 const formatWords = (words, formattedCells) => {
 	const formattedWords = words.map((word) =>
 		word.map((cell) => {
@@ -97,6 +104,7 @@ const getFormattedWords = (cells, formattedCells) => {
 	return { acrossWords, downWords };
 };
 
+//* For each wordCell, if its options array does not include the wordMatch's letter at the same index, adds it to options
 const updateOptsFromMatches = (wordWithMatches) => {
 	const { wordCells, wordMatches } = wordWithMatches;
 	const wordCellsWithOpts = wordCells.map((wordCell, index) => {
@@ -131,6 +139,8 @@ const getOptsFromWordObjs = (wordObjs, formattedCell) => {
 	return opts;
 };
 
+//* For each cell in the grid, sets its across and down options to include only the letters that are both across and down options
+//? Function name may be misleading. Might think this only returns options and not the cells too
 const getOverlapOpts = (
 	acrossWordsWithMatches,
 	downWordsWithMatches,
@@ -161,6 +171,7 @@ const isSameCell = (cell1, cell2) => cell1.id === cell2.id;
 const findSameCell = (searchedCells, compareCell) =>
 	searchedCells.find((searchedCell) => isSameCell(searchedCell, compareCell));
 
+//* Recreates wordObjs with cells whose across and down options are equal
 const getWordObjsWithOverlapOpts = (wordObjs, overlapOpts) => {
 	const wordObjsWithOverlapOpts = wordObjs.map((wordObj) => {
 		const updatedWordCells = wordObj.wordCells.map((wordCell) => {
@@ -177,6 +188,7 @@ const getWordObjsWithOverlapOpts = (wordObjs, overlapOpts) => {
 	return wordObjsWithOverlapOpts;
 };
 
+//* Creates a regular expression character class using a cell's options
 const getLetterBlock = (opts) => `[${opts.join("")}]`;
 
 const getWordRegExp = (wordWithMatches) => {
@@ -201,9 +213,14 @@ const isNotOnBoard = (word, wordsOnBoard) => !wordsOnBoard.includes(word);
 const wordObjHasWord = (wordObj, word) =>
 	wordObj.wordCells.every((wordCell, index) => wordCell.letter === word[index]);
 
+//* wordObjhasWord is used for cases where each of an entry's cells has a letter, but only because the entries intersecting it were filled. For example, a three-letter across word could be filled because each of its intersecting down words was filled
+// TODO: Might have to make a change for potential instances where a word is already on the board, and the entry's crossing letters also form this word
 const wordIsAvailable = (word, wordsOnBoard, wordObj) =>
 	isNotOnBoard(word, wordsOnBoard) || wordObjHasWord(wordObj, word);
 
+//? Not sure try...catch is appropriate here
+//? Not sure second await Promise.all is necessary. Although, I think I remember that it helped with speed
+//? Should wordRegExp.test(word) be moved to wordIsAvailable?
 const filterWordMatches = async (wordObjs, wordsOnBoard) => {
 	try {
 		const wordObjsWithFilteredMatches = await Promise.all(
@@ -280,6 +297,7 @@ const getUpdatedWordObjs = async (
 	};
 };
 
+//? Would getAvgOptsPerCell be a clearer function name?
 const getWordObjConstraints = (wordObjs) => {
 	const avgOptsPerCell = wordObjs.map((wordObj) => {
 		const cellOpts = wordObj.wordCells.map(({ options }) => options);
@@ -300,8 +318,11 @@ const getUnfilledWordObjs = (wordObjs) =>
 		wordCells.some((wordCell) => !cellHasLetter(wordCell))
 	);
 
+//* First attempts to get an unfilled wordObj whose word is greater than 7 letters. If none of those exist, it attempts to get the unfilled wordObj with the fewest possible matches
 const getNextWordToFill = (wordObjs) => {
 	const unfilledWordObjs = getUnfilledWordObjs(wordObjs);
+	// TODO: const MIN_LONG_WORD_LENGTH = 8
+	// TODO: wordObj.wordCells.length >= MIN_LONG_WORD_LENGTH
 	const longUnfilledWordObjs = unfilledWordObjs.filter(
 		(wordObj) => wordObj.wordCells.length > 7
 	);
@@ -316,6 +337,7 @@ const getNextWordToFill = (wordObjs) => {
 };
 
 const getWordMatchScrabbleScore = (wordMatch) => {
+	//? Should letterValues be kept outside of the function? Or should useMemo be used? (letterValues is also used in stats.js)
 	const letterValues = {
 		A: 1,
 		B: 3,
@@ -362,6 +384,7 @@ const sortByScrabbleScore = (wordMatches) => {
 	return sortedWordMatches;
 };
 
+//* Uses sortByScrabbleScore because low-score Scrabble tiles have more commonplace letters. If more commonplace letters are used, it is more likely that intersecting entries will be easier to fill, and therefore, the board should be easier to fill
 const getFilledWordObj = (wordWithMatches, wordsOnBoard, matchIndex = 0) => {
 	const { wordCells, wordMatches } = wordWithMatches;
 	const wordMatchesFiltered = wordMatches.filter(({ word }) =>
@@ -480,6 +503,7 @@ const getUpdatedFormattedCells = (
 			cellsHaveSameOpts(sameAcrossCell, sameDownCell);
 
 		if (!cellsAgree) {
+			//? Is it appropriate to throw an error here?
 			throw new Error("Cells don't agree");
 		} else {
 			return sameAcrossCell;
@@ -498,6 +522,7 @@ const hasMatchlessWordObj = (wordObjs) =>
 const getMatchlessWordObjs = (wordObjs) =>
 	wordObjs.filter(({ wordMatches }) => wordMatches.length < 1);
 
+//* Gets the args obj index that precedes the current args obj and still has wordMatches that have not yet been tried
 const getPreviousArgsIndex = (argsArr, wordToFill) =>
 	argsArr.findLastIndex(
 		(argsObj) =>
@@ -509,6 +534,7 @@ const updateWordMatchIndexOfArgs = (args) => {
 	return { ...args, wordMatchIndex: args.wordMatchIndex + 1 };
 };
 
+//* Removes all args objs from argsArr that came after previousArgsIndex
 const getPreviousArgsArr = (argsArr, previousArgsIndex) =>
 	argsArr.slice(0, previousArgsIndex);
 
@@ -527,9 +553,11 @@ const getPreviousData = (currentArgsArr, wordToFill) => {
 	};
 };
 
+//* Removes the last args obj from argsArr so argsArr only has one args obj per wordToFill
 const updateArgsArr = (argsArr) => argsArr.slice(0, -1);
 
 const backtrack = async (previousData, setCells, startTime) => {
+	//? Should try...catch be used here?
 	if (!previousData.args) return "(!previousArgs) No solutions found";
 
 	return await autofillGrid(
@@ -549,6 +577,7 @@ const doIntersect = (wordObj1, wordObj2) => {
 	});
 };
 
+//* Tests whether any of the recently updated wordObjs intersect the word obj with zero matches. If they do, it is worth trying to fill the same wordToFill with different wordMatches. If they don't, it is unlikely that trying a different wordMatch for the wordToFill will affect the word obj with zero matches. Therefore, it makes sense to jump back to an args obj preceding the cause of the word obj with zero matches
 const shouldJumpBack = (matchlessWordObjs, filledWordObj, crossingWordObjs) => {
 	const intersectionResults = matchlessWordObjs.map((matchlessWordObj) =>
 		[...crossingWordObjs, filledWordObj].some((wordObj) =>
@@ -577,6 +606,7 @@ const jumpBack = async (causeIndex, currentArgsArr, setCells, startTime) => {
 	);
 };
 
+//* If wordToFill has untested wordMatches, try to fill the same wordToFill with the next untested wordMatch. If it doesn't have untested wordMatches, backtrack
 const lookAhead = async (
 	{ initialArgs, argsArr, previousData },
 	setCells,
@@ -599,6 +629,7 @@ const lookAhead = async (
 	}
 };
 
+// TODO: Check previous functions to see if this could be used in any of them. Feel like there were instances where this could have been used
 const wordCellsAreFilled = ({ wordCells }) => wordCells.every(cellHasLetter);
 
 const gridIsFilled = (wordObjs) => wordObjs.every(wordCellsAreFilled);
@@ -634,6 +665,7 @@ const getUpdatedCrossingWordObjs = async (
 	return updatedCrossingWordObjs;
 };
 
+// TODO: Rename function name
 const getUpdatedWordObjsWrapper = async ({
 	formattedCells,
 	acrossWordObjs,
@@ -667,6 +699,9 @@ const getUpdatedWordObjsWrapper = async ({
 	return updatedWordObjs;
 };
 
+// TODO: Rename function name
+//* If there is no nextWordToFill and gridIsFilled, return cells and wordObjs
+//* If there is a nextWordToFill, autofillGrid or lookAhead
 const handleNextWordToFill = async (
 	{ updatedFormattedCells, updatedWordObjs, nextWordToFill },
 	{ initialArgs, previousData },
@@ -678,7 +713,7 @@ const handleNextWordToFill = async (
 
 	if (!nextWordToFill) {
 		const allUpdatedWordObjs = [...acrossWordObjs, ...downWordObjs];
-
+		//? Would this be an appropriate use of try...catch?
 		if (!gridIsFilled(allUpdatedWordObjs)) return "!nextWordToFill";
 		return { updatedFormattedCells, updatedWordObjs };
 	} else {
@@ -763,6 +798,7 @@ const getConsoleGrid = (formattedCells) => {
 	return consoleGrid;
 };
 
+//* For each word obj with zero matches, find each argsArr index where at least one of the args obj's wordToFill or crossingWordObjs intersects the word obj with zero matches
 const getMatchlessCauseIndexes = (matchlessWordObjs, allWordObjs, argsArr) => {
 	const causeIndexes = matchlessWordObjs.map((matchlessWordObj) => {
 		const causeIndex = argsArr.findIndex((argsObj) => {
@@ -787,6 +823,7 @@ const getMatchlessCauseIndexes = (matchlessWordObjs, allWordObjs, argsArr) => {
 	return causeIndexes;
 };
 
+//* Restart autofill, starting with the first wordToFill that has untested wordMatches
 const restartAutofill = async (argsArr, setCells) => {
 	const startArgsIndex = argsArr.findIndex(({ wordToFill, wordMatchIndex }) =>
 		hasUntestedWordMatches(wordToFill, wordMatchIndex)
@@ -821,6 +858,7 @@ const autofillGrid = async (
 	const elapsedTime = Date.now() - startTime;
 	console.log(elapsedTime);
 
+	// TODO: const MSECS_BEFORE_RESTART = 30000
 	if (elapsedTime > 30000) {
 		const unfilledWordObjs = getUnfilledWordObjs(allWordObjs);
 		if (unfilledWordObjs.length > argsArr.length) {
@@ -851,7 +889,7 @@ const autofillGrid = async (
 	console.log(getConsoleGrid(formattedCells));
 
 	const previousData = getPreviousData(argsArr, wordToFill);
-
+	// TODO: const INDEXES_BEFORE_BACKTRACK = 50
 	if (
 		!hasUntestedWordMatches(wordToFill, wordMatchIndex) ||
 		wordMatchIndex > 50
@@ -905,6 +943,7 @@ const autofillGrid = async (
 		);
 		const matchlessWordObjs = getMatchlessWordObjs(allUpdatedWordObjs);
 		console.log({ matchlessWordObjs });
+		// TODO: Remove numbers from causeIndex variable names
 		const causeIndexes2 = getMatchlessCauseIndexes(
 			matchlessWordObjs,
 			allUpdatedWordObjs,

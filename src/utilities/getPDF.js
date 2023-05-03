@@ -79,6 +79,9 @@ const createHeader = (
 	{ firstName, lastName, address, city, state, zipCode, email },
 	margin = 13
 ) => {
+	// TODO: initialYCoord = 10;
+	// TODO: lineHeight = 5;
+	// TODO: initialYCoord + (lineHeight * n)
 	doc.setFontSize(13.75);
 	doc.setFont("times", "normal", "700");
 	doc.text(firstName + " " + lastName, margin, 10);
@@ -109,6 +112,7 @@ const createClue = (
 	const newClueText = doc.splitTextToSize(clueText, splitSize);
 	doc.text(`${clueNumber}`, margin, yPos);
 	doc.text(newClueText, margin + clueNumberWidth + 1, yPos);
+	//? Where did these numbers come from? Figure out and assign variables
 	doc.text(answer, 88 + 47.95, yPos);
 };
 
@@ -193,7 +197,7 @@ export const getPDF = (
 	const acrossClues = getClues("across", cells);
 	const downClues = getClues("down", cells);
 	createClueLists(acrossClues, downClues, doc);
-
+	//? Should formatTitle() be extracted as a function?
 	const formattedTitle = puzzleTitle
 		.trim()
 		.replaceAll(

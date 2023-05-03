@@ -14,7 +14,7 @@ const changeDirectionOnBackspace = (direction, setDirection, cells) => {
 
 	if (cellHasLetter(selectedCell)) return;
 	if (!firstCell.isSelected) return;
-
+	// TODO: Replace setDirection with changeDirection from helpers.js
 	setDirection((d) => (d === "across" ? "down" : "across"));
 };
 
@@ -32,6 +32,7 @@ const getNextCellOnBackspaceKey = (direction, cells) => {
 	const cellBefore = getCellBefore(cellsArray);
 	const lastCellNextDirection = getLastCell(nextDirection, cells);
 
+	//? Would return cellHasLetter(selectedCell) ? selectedCell : cellBefore || lastCellNextDirection be better?
 	if (cellHasLetter(selectedCell)) return selectedCell;
 
 	return cellBefore || lastCellNextDirection;

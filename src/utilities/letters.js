@@ -26,6 +26,7 @@ const getFirstCell = (direction, cells) => {
 	return firstCell;
 };
 
+// TODO: Rename function name to getNextCellFirstOpt(ion)
 const getNextCellFirstOptionOnLetterKey = (direction, cells) => {
 	const selectedCell = getSelectedCell(cells);
 	const selectedCellHasLetter = cellHasLetter(selectedCell);

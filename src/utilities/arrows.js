@@ -24,6 +24,7 @@ const getSelectedColumn = (cells) => {
 	return cells.filter((cell) => cell.column === selectedCell.column);
 };
 
+//? Should this be two functions?
 const getGridSectionCells = (direction, cells) => {
 	const selectedRow = getSelectedRow(cells);
 	const selectedColumn = getSelectedColumn(cells);

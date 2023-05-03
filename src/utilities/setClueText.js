@@ -1,3 +1,4 @@
+//? Would this be an appropriate time to use try...catch?
 const getCellLabel = (cell, direction) => {
 	if (cell.isBlackSquare) return undefined;
 	if (cell.number === null) return undefined;
