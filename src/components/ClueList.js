@@ -22,6 +22,7 @@ export const ClueList = (props) => {
 							cells={props.cells}
 							direction={props.listDirection}
 							className={
+								//? Is it better to put this in a function outside of the component?
 								clueProps.clueNumber === number &&
 								clueProps.clueDirection === props.listDirection
 									? "clue-list-item highlighted"

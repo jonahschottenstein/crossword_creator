@@ -160,6 +160,7 @@ export const SubmissionInfoItem = (props) => {
 					<option value="WY">WY</option>
 				</select>
 			) : (
+				//* Email pattern regular expression source: https://www.w3schools.com/tags/att_input_pattern.asp
 				<>
 					<input
 						type={props.type}

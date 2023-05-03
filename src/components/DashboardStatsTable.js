@@ -1,4 +1,5 @@
 export const DashboardStatsTable = (props) => {
+	//? Should <tr>s and/or <td>s be components?
 	return (
 		<table className="dashboard-stats-table">
 			<tbody>
