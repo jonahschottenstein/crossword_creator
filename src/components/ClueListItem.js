@@ -38,5 +38,3 @@ export const ClueListItem = (props) => {
 		</li>
 	);
 };
-
-ClueListItem.defaultProps = { clueText: "Clue text" };
