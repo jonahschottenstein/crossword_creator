@@ -47,7 +47,7 @@ export const handleClueDoneButtonClick = (e, setActiveTextarea) => {
 
 export const handleEnterKeyDown = (e, setActiveTextarea) => {
 	if (e.key !== "Enter") return;
-
+	e.preventDefault();
 	handleClueDoneButtonClick(e, setActiveTextarea);
 };
 

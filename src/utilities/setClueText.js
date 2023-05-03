@@ -1,7 +1,7 @@
 const getCellLabel = (cell, direction) => {
-	const dir = direction.toLowerCase();
 	if (cell.isBlackSquare) return undefined;
 	if (cell.number === null) return undefined;
+	const dir = direction.toLowerCase();
 	if (dir !== "across" && dir !== "down") return undefined;
 	if (dir === "across" && !cell.across) return undefined;
 	if (dir === "down" && !cell.down) return undefined;
