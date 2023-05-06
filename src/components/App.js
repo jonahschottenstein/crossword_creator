@@ -99,8 +99,9 @@ export default function App() {
 
 			const { selectedWordObj } = getWordObj(direction, cells);
 			const wordLength = selectedWordObj?.word.length;
+			const MIN_WORD_LENGTH = 3;
 
-			if (!selectedWordObj || wordLength < 3) return;
+			if (!selectedWordObj || wordLength < MIN_WORD_LENGTH) return;
 			if (!ignore) {
 				// const wordList = await fetchWordList(selectedWordObj?.word);
 				const getWordList = await fetchWordListMemoized();
