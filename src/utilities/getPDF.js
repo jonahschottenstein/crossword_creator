@@ -1,5 +1,10 @@
 import { getWordObjs } from "./words";
 
+//? Should these values have consts?
+// TODO: PAPER_WIDTH = 215.9
+// TODO: PAPER_HEIGHT = 279.4
+// TODO: GRID_WIDTH = 120
+// TODO: GRID_HEIGHT = 120
 const getXOffset = (paperWidth = 215.9, gridWidth = 120) => {
 	return (paperWidth - gridWidth) / 2;
 };
