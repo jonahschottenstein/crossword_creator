@@ -331,14 +331,14 @@ export default function App() {
 		setClueText(e, setCells);
 	}; */
 
-	const handleGridOptionClick = (e) => {
+	/* const handleGridOptionClick = (e) => {
 		const buttonIndex = e.target.name.match(/\d+$/);
 		setCells(() => gridOptions[buttonIndex]);
 		setIsOpen({
 			...isOpen,
 			gridOptionsPopup: false,
 		});
-	};
+	}; */
 
 	const handleInfoChange = (e) => {
 		setSubmissionInfo({
