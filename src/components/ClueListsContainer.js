@@ -1,3 +1,5 @@
+import { useEffect, useState } from "react";
+import { autoExpand } from "../utilities/handleClueLi.js";
 import { ClueList } from "./ClueList.js";
 
 const getClueNumbers = (cells, direction) => {
@@ -38,35 +40,27 @@ export const ClueListsContainer = (props) => {
 			window.removeEventListener("resize", handleTextareasOnResize);
 		};
 	});
+
 	return (
 		<div className="clue-lists-container">
 			<ClueList
 				direction={props.direction}
 				listDirection="across"
 				cells={props.cells}
+				setCells={props.setCells}
 				clueNumbers={getClueNumbers(props.cells, "across")}
 				onClick={props.onClick}
-				onClueLiTextareaChange={props.onClueLiTextareaChange}
-				onClueEditButtonClick={props.onClueEditButtonClick}
-				onClueDoneButtonClick={props.onClueDoneButtonClick}
-				onKeyDown={props.onKeyDown}
-				onClueTextareaFocus={props.onClueTextareaFocus}
-				onClueTextareaBlur={props.onClueTextareaBlur}
-				activeTextarea={props.activeTextarea}></ClueList>
+				activeTextarea={activeTextarea}
+				setActiveTextarea={setActiveTextarea}></ClueList>
 
 			<ClueList
 				direction={props.direction}
 				listDirection="down"
 				cells={props.cells}
+				setCells={props.setCells}
 				clueNumbers={getClueNumbers(props.cells, "down")}
-				onClick={props.onClick}
-				onClueLiTextareaChange={props.onClueLiTextareaChange}
-				onClueEditButtonClick={props.onClueEditButtonClick}
-				onClueDoneButtonClick={props.onClueDoneButtonClick}
-				onKeyDown={props.onKeyDown}
-				onClueTextareaFocus={props.onClueTextareaFocus}
-				onClueTextareaBlur={props.onClueTextareaBlur}
-				activeTextarea={props.activeTextarea}></ClueList>
+				activeTextarea={activeTextarea}
+				setActiveTextarea={setActiveTextarea}></ClueList>
 		</div>
 	);
 };

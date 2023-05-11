@@ -30,7 +30,9 @@ export const ClueList = (props) => {
 							key={`${number}-${props.listDirection}`}
 							name={`${number}-${props.listDirection}`}
 							clueLabel={number}
-							cells={props.cells}
+							clueText={getClueText(props.cells, number, props.listDirection)}
+							// cells={props.cells}
+							setCells={props.setCells}
 							direction={props.listDirection}
 							className={
 								//? Is it better to put this in a function outside of the component?
@@ -42,14 +44,16 @@ export const ClueList = (props) => {
 									? "clue-list-item opposite-highlighted"
 									: "clue-list-item"
 							}
-							onClick={props.onClick}
-							onClueLiTextareaChange={props.onClueLiTextareaChange}
-							onClueEditButtonClick={props.onClueEditButtonClick}
-							onClueDoneButtonClick={props.onClueDoneButtonClick}
-							onKeyDown={props.onKeyDown}
-							onClueTextareaFocus={props.onClueTextareaFocus}
-							onClueTextareaBlur={props.onClueTextareaBlur}
+							// onClick={props.onClick}
+							// onClick={handleLiClick}
+							// onClueLiTextareaChange={props.onClueLiTextareaChange}
+							// onClueEditButtonClick={props.onClueEditButtonClick}
+							// onClueDoneButtonClick={props.onClueDoneButtonClick}
+							// onKeyDown={props.onKeyDown}
+							// onClueTextareaFocus={props.onClueTextareaFocus}
+							// onClueTextareaBlur={props.onClueTextareaBlur}
 							activeTextarea={props.activeTextarea}
+							setActiveTextarea={props.setActiveTextarea}
 						/>
 					);
 				})}
