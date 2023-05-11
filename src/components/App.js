@@ -347,19 +347,19 @@ export default function App() {
 		});
 	};
 
-	const handleIsOpen = (e) => {
+	/* const handleIsOpen = (e) => {
 		setIsOpen({
 			...isOpen,
 			[e.target.name]: true,
 		});
-	};
+	}; */
 
-	const handleIsClosed = (e) => {
+	/* const handleIsClosed = (e) => {
 		setIsOpen({
 			...isOpen,
 			[e.target.name]: false,
 		});
-	};
+	}; */
 
 	scrollToLi(direction, cells);
 	scrollToLi(getNextDirection(direction), cells);
