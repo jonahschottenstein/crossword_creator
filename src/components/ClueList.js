@@ -20,7 +20,10 @@ export const ClueList = (props) => {
 	return (
 		<div className="clue-list-wrapper">
 			<h3 className="clue-list-title">{props.listDirection}</h3>
-			<ol id={`${props.listDirection}-clue-list`} className="clue-list">
+			<ol
+				id={`${props.listDirection}-clue-list`}
+				className="clue-list"
+				onClick={props.onClick}>
 				{props.clueNumbers.map((number) => {
 					return (
 						<ClueListItem
