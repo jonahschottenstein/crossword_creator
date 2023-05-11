@@ -340,12 +340,12 @@ export default function App() {
 		});
 	}; */
 
-	const handleInfoChange = (e) => {
+	/* const handleInfoChange = (e) => {
 		setSubmissionInfo({
 			...submissionInfo,
 			[e.target.name]: e.target.value,
 		});
-	};
+	}; */
 
 	/* const handleIsOpen = (e) => {
 		setIsOpen({
