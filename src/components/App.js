@@ -1,5 +1,5 @@
 import "../App.css";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { setDirectionOnClick } from "../utilities/direction.js";
 import { setSelectedCell } from "../utilities/setSelectedCell.js";
 import { setCellBlock } from "../utilities/setCellBlock.js";
@@ -176,7 +176,7 @@ export default function App() {
 		};
 	}, [direction, cells, matchFilterInput, isAutofilling]);
 
-	const handleClick = (e) => {
+	/* const handleClick = (e) => {
 		const {
 			cellBlockIsChecked,
 			symmetryIsChecked,
@@ -211,7 +211,45 @@ export default function App() {
 			symmetryIsChecked &&
 				setSymmetricalCellStyle(e, cells, setCells, setCircledCell);
 		}
-	};
+	}; */
+	const handleClick = useCallback(
+		(e) => {
+			const {
+				cellBlockIsChecked,
+				symmetryIsChecked,
+				shadedCellIsChecked,
+				circleIsChecked,
+			} = cellSettings;
+			if (cellBlockIsChecked) {
+				setCellBlock(e, setCells);
+				symmetryIsChecked && setSymmetricalCellStyle(e, setCells, setCellBlock);
+				setCellNumbers(setCells);
+				setClues(setCells);
+				setClueText(e, setCells);
+
+				return;
+			}
+
+			if (!shadedCellIsChecked && !circleIsChecked) {
+				setDirectionOnClick(e, setDirection);
+				setSelectedCell(e, setCells);
+
+				return;
+			}
+
+			if (shadedCellIsChecked) {
+				setShadedCell(e, setCells);
+				symmetryIsChecked &&
+					setSymmetricalCellStyle(e, setCells, setShadedCell);
+			}
+			if (circleIsChecked) {
+				setCircledCell(e, setCells);
+				symmetryIsChecked &&
+					setSymmetricalCellStyle(e, setCells, setCircledCell);
+			}
+		},
+		[cellSettings]
+	);
 
 	const handleLiClick = (e) => {
 		const { cellBlockIsChecked, shadedCellIsChecked, circleIsChecked } =
