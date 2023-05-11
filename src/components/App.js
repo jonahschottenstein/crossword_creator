@@ -146,35 +146,35 @@ export default function App() {
 
 		let ignore = false;
 
-		const handleBlurOnClick = (e) => {
-			if (!activeTextarea) return;
-			const textarea = document.querySelector(
-				`.clue-textarea[name="${activeTextarea}"]`
-			);
-			const li = textarea.closest(".clue-list-item");
-			const liName = li.getAttribute("name");
-			const liSelector = `.clue-list-item[name="${liName}"]`;
+		// const handleBlurOnClick = (e) => {
+		// 	if (!activeTextarea) return;
+		// 	const textarea = document.querySelector(
+		// 		`.clue-textarea[name="${activeTextarea}"]`
+		// 	);
+		// 	const li = textarea.closest(".clue-list-item");
+		// 	const liName = li.getAttribute("name");
+		// 	const liSelector = `.clue-list-item[name="${liName}"]`;
 
-			if (e.target.matches(`${liSelector}, ${liSelector} *`)) return;
+		// 	if (e.target.matches(`${liSelector}, ${liSelector} *`)) return;
 
-			setActiveTextarea(null);
-			textarea.classList.remove("accessible");
-		};
-		const handleTextareasOnResize = () => {
-			const textareas = document.querySelectorAll(".clue-textarea");
-			textareas.forEach((textarea) => {
-				autoExpand(textarea);
-			});
-		};
-		document.addEventListener("click", handleBlurOnClick);
-		window.addEventListener("resize", handleTextareasOnResize);
+		// 	setActiveTextarea(null);
+		// 	textarea.classList.remove("accessible");
+		// };
+		// const handleTextareasOnResize = () => {
+		// 	const textareas = document.querySelectorAll(".clue-textarea");
+		// 	textareas.forEach((textarea) => {
+		// 		autoExpand(textarea);
+		// 	});
+		// };
+		// document.addEventListener("click", handleBlurOnClick);
+		// window.addEventListener("resize", handleTextareasOnResize);
 		startFetching();
 		return () => {
 			ignore = true;
-			document.removeEventListener("click", handleBlurOnClick);
-			window.removeEventListener("resize", handleTextareasOnResize);
+			// document.removeEventListener("click", handleBlurOnClick);
+			// window.removeEventListener("resize", handleTextareasOnResize);
 		};
-	}, [direction, cells, matchFilterInput, isAutofilling, activeTextarea]);
+	}, [direction, cells, matchFilterInput, isAutofilling]);
 
 	const handleClick = (e) => {
 		const {
