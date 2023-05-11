@@ -48,10 +48,13 @@ import { gridOptions } from "../utilities/gridOptions";
 import { DashboardPageContainer } from "./DashboardPageContainer";
 import { DashboardHeader } from "./DashboardHeader";
 import { DashboardHeaderButton } from "./DashboardHeaderButton";
-import { DashboardPage } from "./DashboardPage";
+import { DashboardPage, FillContent } from "./DashboardPage";
 import { CellSettings } from "./CellSettings";
 import { Board } from "./Board";
 import { fetchWordListMemoized } from "../utilities/autofillGrid";
+import { DashboardStatsTable } from "./DashboardStatsTable";
+import { getStats } from "../utilities/stats";
+import { ClueListsContainer } from "./ClueListsContainer";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -364,6 +367,15 @@ export default function App() {
 	scrollToLi(direction, cells);
 	scrollToLi(getNextDirection(direction), cells);
 
+	const {
+		gridSize,
+		totalWordCount,
+		blackSquareCount,
+		avgWordLength,
+		scrabbleScore,
+		pangram,
+	} = getStats(direction, cells);
+
 	return (
 		<div className="App">
 			<div className="app-content">
@@ -372,22 +384,14 @@ export default function App() {
 						cells={cells}
 						cellSettings={cellSettings}
 						onChange={handleToggleChange}
-						gridOptions={gridOptions}
-						onGridOptionClick={(e) => {
-							handleGridOptionClick(e);
-						}}
-						isOpen={isOpen}
-						onOpenClick={(e) => handleIsOpen(e)}
-						onCloseClick={(e) => handleIsClosed(e)}
-						submissionInfo={submissionInfo}
-						jsPDF={jsPDF}
-						onInfoChange={(e) => handleInfoChange(e)}
+						setCells={setCells}
 					/>
 					<Board
 						direction={direction}
+						setDirection={setDirection}
 						cells={cells}
-						onClick={(e) => handleClick(e)}
-						onKeyDown={handleKeyDown}
+						setCells={setCells}
+						onClick={handleClick}
 					/>
 				</BoardAndSettings>
 				<Dashboard>
@@ -405,40 +409,38 @@ export default function App() {
 						})}
 					</DashboardHeader>
 					<DashboardPageContainer>
-						<DashboardPage
-							direction={direction}
-							cells={cells}
-							visibleDashPage={visibleDashPage}
-							onClick={(e) => handleLiClick(e)}
-							wordMatches={wordMatches}
-							onMatchClick={(e) => handleMatchClick(e)}
-							matchFilterInput={matchFilterInput}
-							onMatchFilterChange={handleMatchFilterChange}
-							onClueLiTextareaChange={(e) => {
-								handleClueLiTextareaChange(e);
-								handleClueText(e);
-							}}
-							onClueEditButtonClick={(e) => {
-								handleClueEditButtonClick(e, setActiveTextarea);
-							}}
-							onClueDoneButtonClick={(e) => {
-								handleClueDoneButtonClick(e, setActiveTextarea);
-							}}
-							onKeyDown={(e) => {
-								handleEnterKeyDown(e, setActiveTextarea);
-							}}
-							onClueTextareaFocus={(e) =>
-								handleClueTextareaFocus(e, setActiveTextarea)
-							}
-							onClueTextareaBlur={(e) => {
-								handleClueTextareaBlur(e, setActiveTextarea);
-							}}
-							activeTextarea={activeTextarea}
-							onAutofillGridButtonClick={() =>
-								handleFillGrid(cells, setCells, setIsAutofilling)
-							}
-							onClearFillButtonClick={() => handleClearFill(setCells)}
-						/>
+						<DashboardPage visibleDashPage={visibleDashPage}>
+							{visibleDashPage === "stats" ? (
+								<DashboardStatsTable
+									gridSize={gridSize}
+									totalWordCount={totalWordCount}
+									blackSquareCount={blackSquareCount}
+									avgWordLength={avgWordLength}
+									scrabbleScore={scrabbleScore}
+									pangram={pangram}
+								/>
+							) : visibleDashPage === "clues" ? (
+								<ClueListsContainer
+									direction={direction}
+									cells={cells}
+									setCells={setCells}
+									onClick={handleLiClick}
+								/>
+							) : (
+								<FillContent
+									direction={direction}
+									cells={cells}
+									matchFilterInput={matchFilterInput}
+									wordMatches={wordMatches}
+									onAutofillGridButtonClick={() =>
+										handleFillGrid(cells, setCells, setIsAutofilling)
+									}
+									onClearFillButtonClick={() => handleClearFill(setCells)}
+									onMatchFilterChange={handleMatchFilterChange}
+									onMatchClick={(e) => handleMatchClick(e)}
+								/>
+							)}
+						</DashboardPage>
 					</DashboardPageContainer>
 				</Dashboard>
 			</div>
