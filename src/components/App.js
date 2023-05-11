@@ -294,12 +294,12 @@ export default function App() {
 		}
 	};
 
-	const handleKeyDown = (e) => {
+	/* const handleKeyDown = (e) => {
 		handleArrowKeys(e, direction, setDirection, cells);
 		handleTabKey(e, direction, setDirection, cells);
 		handleLetterKey(e, direction, setDirection, cells, setCells);
 		handleBackspaceKey(e, direction, setDirection, cells, setCells);
-	};
+	}; */
 
 	const handleToggleChange = (e) => {
 		removeCellSelection(setCells);
