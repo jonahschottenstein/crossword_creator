@@ -2,6 +2,14 @@ import { getClueProps } from "../utilities/clueListItems.js";
 import { getNextDirection } from "../utilities/helpers.js";
 import { ClueListItem } from "./ClueListItem.js";
 
+const getClueText = (cells, clueLabel, listDirection) => {
+	const clueText = cells.find(
+		(cell) => cell.number === clueLabel && cell[listDirection]
+	).clueText[listDirection];
+
+	return clueText ?? "";
+};
+
 export const ClueList = (props) => {
 	const clueProps = getClueProps(props.direction, props.cells);
 	const oppositeClueProps = getClueProps(
