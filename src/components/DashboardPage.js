@@ -5,6 +5,9 @@ import { getWordObj } from "../utilities/words";
 import { DisplayWord } from "./DisplayWord";
 import { MatchFilter } from "./MatchFilter";
 import { MatchTable } from "./MatchTable";
+import { useEffect } from "react";
+import { autoExpand } from "../utilities/handleClueLi";
+// import { handleClueEditButtonClick } from "../utilities/handleClueLi";
 
 /* export const DashboardPage = (props) => {
 	const {
@@ -82,7 +85,54 @@ import { MatchTable } from "./MatchTable";
 	}
 }; */
 
-export const DashboardPage = (props) => {
+export const Button = (props) => {
+	return (
+		<button
+			id={props.id ?? null}
+			className={props.className ?? null}
+			name={props.name ?? null}
+			onClick={props.onClick}>
+			{props.children}
+		</button>
+	);
+};
+
+export const FillContent = (props) => {
+	const selectedWord = getWordObj(props.direction, props.cells).selectedWordObj
+		?.word;
+	const MIN_WORD_LENGTH = 3;
+
+	return (
+		<>
+			<Button id="clear-fill-button" onClick={props.onClearFillButtonClick}>
+				Clear Fill
+			</Button>
+			<Button
+				id="autofill-grid-button"
+				onClick={props.onAutofillGridButtonClick}>
+				Autofill Grid
+			</Button>
+
+			{!selectedWord || selectedWord.length < MIN_WORD_LENGTH ? (
+				<p>{"Select an entry greater than two characters to view matches"}</p>
+			) : (
+				<>
+					<DisplayWord direction={props.direction} cells={props.cells} />
+					<MatchFilter
+						matchFilterInput={props.matchFilterInput}
+						onMatchFilterChange={props.onMatchFilterChange}
+					/>
+					<MatchTable
+						wordMatches={props.wordMatches}
+						onMatchClick={props.onMatchClick}
+					/>
+				</>
+			)}
+		</>
+	);
+};
+
+/* export const DashboardPage = (props) => {
 	const {
 		gridSize,
 		totalWordCount,
@@ -110,25 +160,28 @@ export const DashboardPage = (props) => {
 				<ClueListsContainer
 					direction={props.direction}
 					cells={props.cells}
+					setCells={props.setCells}
 					onClick={props.onClick}
-					onClueLiTextareaChange={props.onClueLiTextareaChange}
-					onClueEditButtonClick={props.onClueEditButtonClick}
-					onClueDoneButtonClick={props.onClueDoneButtonClick}
-					onKeyDown={props.onKeyDown}
-					onClueTextareaFocus={props.onClueTextareaFocus}
-					onClueTextareaBlur={props.onClueTextareaBlur}
-					activeTextarea={props.activeTextarea}
+					// onClueLiTextareaChange={props.onClueLiTextareaChange}
+					// onClueEditButtonClick={props.onClueEditButtonClick}
+					// onClueEditButtonClick={handleClueEditButtonClick}
+					// onClueDoneButtonClick={props.onClueDoneButtonClick}
+					// onKeyDown={props.onKeyDown}
+					// onClueTextareaFocus={props.onClueTextareaFocus}
+					// onClueTextareaBlur={props.onClueTextareaBlur}
+					// activeTextarea={props.activeTextarea}
+					// setActiveTextarea={props.setActiveTextarea}
 				/>
 			) : (
 				<>
-					<button id="clear-fill-button" onClick={props.onClearFillButtonClick}>
+					<Button id="clear-fill-button" onClick={props.onClearFillButtonClick}>
 						Clear Fill
-					</button>
-					<button
+					</Button>
+					<Button
 						id="autofill-grid-button"
 						onClick={props.onAutofillGridButtonClick}>
 						Autofill Grid
-					</button>
+					</Button>
 
 					{!selectedWord || selectedWord.length < MIN_WORD_LENGTH ? (
 						<p>
@@ -150,6 +203,12 @@ export const DashboardPage = (props) => {
 				</>
 			)}
 		</div>
+	);
+}; */
+
+export const DashboardPage = ({ visibleDashPage, children }) => {
+	return (
+		<div className={`dashboard-page ${visibleDashPage}-page`}>{children}</div>
 	);
 };
 
