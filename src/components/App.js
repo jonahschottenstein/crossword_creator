@@ -327,9 +327,9 @@ export default function App() {
 		setMatchFilterInput(e.target.value);
 	};
 
-	const handleClueText = (e) => {
+	/* const handleClueText = (e) => {
 		setClueText(e, setCells);
-	};
+	}; */
 
 	const handleGridOptionClick = (e) => {
 		const buttonIndex = e.target.name.match(/\d+$/);

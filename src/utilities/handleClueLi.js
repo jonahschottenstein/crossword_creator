@@ -1,3 +1,5 @@
+import { setClueText } from "./setClueText";
+
 export const autoExpand = (textarea) => {
 	textarea.style.height = "inherit";
 	const textareaStyles = window.getComputedStyle(textarea);
@@ -21,6 +23,15 @@ const handleTextareaHeight = (e) => {
 
 export const handleClueLiTextareaChange = (e) => {
 	handleTextareaHeight(e);
+};
+
+const handleClueText = (e, setCells) => {
+	setClueText(e, setCells);
+};
+
+export const handleClueTextarea = (e, setCells) => {
+	handleClueLiTextareaChange(e);
+	handleClueText(e, setCells);
 };
 
 export const handleClueEditButtonClick = (e) => {
