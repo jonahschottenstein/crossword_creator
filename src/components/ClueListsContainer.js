@@ -7,6 +7,37 @@ const getClueNumbers = (cells, direction) => {
 };
 
 export const ClueListsContainer = (props) => {
+	const [activeTextarea, setActiveTextarea] = useState(null);
+
+	useEffect(() => {
+		const handleBlurOnClick = (e) => {
+			if (!activeTextarea) return;
+			const textarea = document.querySelector(
+				`.clue-textarea[name="${activeTextarea}"]`
+			);
+			const li = textarea.closest(".clue-list-item");
+			const liName = li.getAttribute("name");
+			const liSelector = `.clue-list-item[name="${liName}"]`;
+
+			if (e.target.matches(`${liSelector}, ${liSelector} *`)) return;
+
+			setActiveTextarea(null);
+			textarea.classList.remove("accessible");
+		};
+		const handleTextareasOnResize = () => {
+			const textareas = document.querySelectorAll(".clue-textarea");
+			textareas.forEach((textarea) => {
+				autoExpand(textarea);
+			});
+		};
+		document.addEventListener("click", handleBlurOnClick);
+		window.addEventListener("resize", handleTextareasOnResize);
+
+		return () => {
+			document.removeEventListener("click", handleBlurOnClick);
+			window.removeEventListener("resize", handleTextareasOnResize);
+		};
+	});
 	return (
 		<div className="clue-lists-container">
 			<ClueList
