@@ -255,6 +255,8 @@ export default function App() {
 	);
 
 	const handleLiClick = (e) => {
+		if (!e.target.matches(".clue-list-item")) return;
+
 		const { cellBlockIsChecked, shadedCellIsChecked, circleIsChecked } =
 			cellSettings;
 		if (cellBlockIsChecked || shadedCellIsChecked || circleIsChecked) return;
