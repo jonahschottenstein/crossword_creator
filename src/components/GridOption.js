@@ -1,12 +1,17 @@
+import { memo } from "react";
 import { GridOptionBoard } from "./GridOptionBoard";
 
-export const GridOption = (props) => {
+export const GridOption = memo(function GridOption({
+	index,
+	onGridOptionClick,
+	gridOptionCells,
+}) {
 	return (
 		<button
 			className="grid-option"
-			name={"grid-option-" + props.index}
-			onClick={props.onGridOptionClick}>
-			<GridOptionBoard gridOptionCells={props.gridOptionCells} />
+			name={"grid-option-" + index}
+			onClick={onGridOptionClick}>
+			<GridOptionBoard gridOptionCells={gridOptionCells} />
 		</button>
 	);
-};
+});
