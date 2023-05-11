@@ -70,23 +70,23 @@ export default function App() {
 	});
 	const [matchFilterInput, setMatchFilterInput] = useState("");
 	const [isAutofilling, setIsAutofilling] = useState(false);
-	const [activeTextarea, setActiveTextarea] = useState(null);
-	const [submissionInfo, setSubmissionInfo] = useState({
-		firstName: "",
-		lastName: "",
-		address: "",
-		city: "",
-		state: "",
-		zipCode: "",
-		email: "",
-		puzzleTitle: "",
-	});
-	const [isOpen, setIsOpen] = useState({
-		gridOptionsPopup: false,
-		submissionInfoPopup: false,
-	});
+	// const [activeTextarea, setActiveTextarea] = useState(null);
+	// const [submissionInfo, setSubmissionInfo] = useState({
+	// 	firstName: "",
+	// 	lastName: "",
+	// 	address: "",
+	// 	city: "",
+	// 	state: "",
+	// 	zipCode: "",
+	// 	email: "",
+	// 	puzzleTitle: "",
+	// });
+	// const [isOpen, setIsOpen] = useState({
+	// 	gridOptionsPopup: false,
+	// 	submissionInfoPopup: false,
+	// });
 
-	const { jsPDF } = window.jspdf;
+	// const { jsPDF } = window.jspdf;
 
 	useEffect(() => {
 		if (isAutofilling) return;
