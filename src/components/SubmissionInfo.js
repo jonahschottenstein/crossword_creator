@@ -18,7 +18,7 @@ const styleTitleFormat = (hyphenatedName) => {
 	return hyphenatedName.replace(/\w+/g, capitalize).replace("-", " ");
 };
 
-export const SubmissionInfo = (props) => {
+export const SubmissionInfo = ({ cells }) => {
 	const [submissionInfo, setSubmissionInfo] = useState({
 		firstName: "",
 		lastName: "",
@@ -61,7 +61,7 @@ export const SubmissionInfo = (props) => {
 			})}
 			<button
 				className="submit-info-button"
-				onClick={() => getPDF(jsPDF, props.cells, submissionInfo)}>
+				onClick={() => getPDF(jsPDF, cells, submissionInfo)}>
 				Download
 			</button>
 		</div>
