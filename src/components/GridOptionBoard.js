@@ -1,7 +1,7 @@
 import { GridOptionCell } from "./GridOptionCell";
 
-export const GridOptionBoard = (props) => {
-	const gridOptionCells = props.gridOptionCells.map((cell, index) => {
+export const GridOptionBoard = ({ gridOptionCells }) => {
+	const gridOptionCellComponents = gridOptionCells.map((cell, index) => {
 		return (
 			<GridOptionCell
 				key={index}
@@ -19,5 +19,5 @@ export const GridOptionBoard = (props) => {
 		);
 	});
 
-	return <div className="grid-option-board">{gridOptionCells}</div>;
+	return <div className="grid-option-board">{gridOptionCellComponents}</div>;
 };
