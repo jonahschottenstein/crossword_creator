@@ -5,12 +5,8 @@ import { setSelectedCell } from "../utilities/setSelectedCell.js";
 import { setCellBlock } from "../utilities/setCellBlock.js";
 import { setCellNumbers } from "../utilities/setCellNumbers.js";
 import { setClues } from "../utilities/setClues.js";
-import { handleLetterKey } from "../utilities/letters.js";
 import { removeCellSelection } from "../utilities/removeCellSelection.js";
 import { createCellObjects } from "../utilities/createCellObjects.js";
-import { handleArrowKeys } from "../utilities/arrows";
-import { handleTabKey } from "../utilities/tab.js";
-import { handleBackspaceKey } from "../utilities/backspace.js";
 import { BoardAndSettings } from "./BoardAndSettings";
 import {
 	scrollToLi,
@@ -30,21 +26,11 @@ import {
 	getFilteredMatches,
 } from "../utilities/gridFill";
 import { getWordObj } from "../utilities/words";
-import {
-	handleClueLiTextareaChange,
-	handleClueEditButtonClick,
-	handleClueTextareaBlur,
-	handleClueDoneButtonClick,
-	handleClueTextareaFocus,
-	handleEnterKeyDown,
-	autoExpand,
-} from "../utilities/handleClueLi";
 import { handleClearFill, handleFillGrid } from "../utilities/gridHandlers";
 import { setClueText } from "../utilities/setClueText";
 import { setShadedCell } from "../utilities/setShadedCell";
 import { setCircledCell } from "../utilities/setCircledCell";
 import { setSymmetricalCellStyle } from "../utilities/setSymmetricalCellStyle";
-import { gridOptions } from "../utilities/gridOptions";
 import { DashboardPageContainer } from "./DashboardPageContainer";
 import { DashboardHeader } from "./DashboardHeader";
 import { DashboardHeaderButton } from "./DashboardHeaderButton";
@@ -73,23 +59,6 @@ export default function App() {
 	});
 	const [matchFilterInput, setMatchFilterInput] = useState("");
 	const [isAutofilling, setIsAutofilling] = useState(false);
-	// const [activeTextarea, setActiveTextarea] = useState(null);
-	// const [submissionInfo, setSubmissionInfo] = useState({
-	// 	firstName: "",
-	// 	lastName: "",
-	// 	address: "",
-	// 	city: "",
-	// 	state: "",
-	// 	zipCode: "",
-	// 	email: "",
-	// 	puzzleTitle: "",
-	// });
-	// const [isOpen, setIsOpen] = useState({
-	// 	gridOptionsPopup: false,
-	// 	submissionInfoPopup: false,
-	// });
-
-	// const { jsPDF } = window.jspdf;
 
 	useEffect(() => {
 		if (isAutofilling) return;
@@ -106,7 +75,6 @@ export default function App() {
 
 			if (!selectedWordObj || wordLength < MIN_WORD_LENGTH) return;
 			if (!ignore) {
-				// const wordList = await fetchWordList(selectedWordObj?.word);
 				const getWordList = await fetchWordListMemoized();
 				const wordList = await getWordList(selectedWordObj?.word);
 				const newWordMatches = await getWordMatches(
@@ -121,13 +89,6 @@ export default function App() {
 					matchFilterInput,
 					currentWordList
 				);
-				// console.log(filteredMatches);
-
-				// const firstMatches = getFirst100Matches(currentWordList);
-				// const hasMatchesLeft = areMatchesLeft(
-				// 	currentWordList,
-				// 	firstMatches.length
-				// );
 				const firstMatches = getFirst100Matches(filteredMatches);
 				const hasMatchesLeft = areMatchesLeft(
 					filteredMatches,
@@ -149,72 +110,12 @@ export default function App() {
 
 		let ignore = false;
 
-		// const handleBlurOnClick = (e) => {
-		// 	if (!activeTextarea) return;
-		// 	const textarea = document.querySelector(
-		// 		`.clue-textarea[name="${activeTextarea}"]`
-		// 	);
-		// 	const li = textarea.closest(".clue-list-item");
-		// 	const liName = li.getAttribute("name");
-		// 	const liSelector = `.clue-list-item[name="${liName}"]`;
-
-		// 	if (e.target.matches(`${liSelector}, ${liSelector} *`)) return;
-
-		// 	setActiveTextarea(null);
-		// 	textarea.classList.remove("accessible");
-		// };
-		// const handleTextareasOnResize = () => {
-		// 	const textareas = document.querySelectorAll(".clue-textarea");
-		// 	textareas.forEach((textarea) => {
-		// 		autoExpand(textarea);
-		// 	});
-		// };
-		// document.addEventListener("click", handleBlurOnClick);
-		// window.addEventListener("resize", handleTextareasOnResize);
 		startFetching();
 		return () => {
 			ignore = true;
-			// document.removeEventListener("click", handleBlurOnClick);
-			// window.removeEventListener("resize", handleTextareasOnResize);
 		};
 	}, [direction, cells, matchFilterInput, isAutofilling]);
 
-	/* const handleClick = (e) => {
-		const {
-			cellBlockIsChecked,
-			symmetryIsChecked,
-			shadedCellIsChecked,
-			circleIsChecked,
-		} = cellSettings;
-		if (cellBlockIsChecked) {
-			setCellBlock(e, setCells);
-			symmetryIsChecked &&
-				setSymmetricalCellStyle(e, cells, setCells, setCellBlock);
-			setCellNumbers(setCells);
-			setClues(setCells);
-			setClueText(e, setCells);
-
-			return;
-		}
-
-		if (!shadedCellIsChecked && !circleIsChecked) {
-			setDirectionOnClick(e, cells, setDirection);
-			setSelectedCell(e, setCells);
-
-			return;
-		}
-
-		if (shadedCellIsChecked) {
-			setShadedCell(e, setCells);
-			symmetryIsChecked &&
-				setSymmetricalCellStyle(e, cells, setCells, setShadedCell);
-		}
-		if (circleIsChecked) {
-			setCircledCell(e, setCells);
-			symmetryIsChecked &&
-				setSymmetricalCellStyle(e, cells, setCells, setCircledCell);
-		}
-	}; */
 	const handleClick = useCallback(
 		(e) => {
 			const {
@@ -299,13 +200,6 @@ export default function App() {
 		}
 	};
 
-	/* const handleKeyDown = (e) => {
-		handleArrowKeys(e, direction, setDirection, cells);
-		handleTabKey(e, direction, setDirection, cells);
-		handleLetterKey(e, direction, setDirection, cells, setCells);
-		handleBackspaceKey(e, direction, setDirection, cells, setCells);
-	}; */
-
 	const handleToggleChange = (e) => {
 		removeCellSelection(setCells);
 
@@ -331,40 +225,6 @@ export default function App() {
 	const handleMatchFilterChange = (e) => {
 		setMatchFilterInput(e.target.value);
 	};
-
-	/* const handleClueText = (e) => {
-		setClueText(e, setCells);
-	}; */
-
-	/* const handleGridOptionClick = (e) => {
-		const buttonIndex = e.target.name.match(/\d+$/);
-		setCells(() => gridOptions[buttonIndex]);
-		setIsOpen({
-			...isOpen,
-			gridOptionsPopup: false,
-		});
-	}; */
-
-	/* const handleInfoChange = (e) => {
-		setSubmissionInfo({
-			...submissionInfo,
-			[e.target.name]: e.target.value,
-		});
-	}; */
-
-	/* const handleIsOpen = (e) => {
-		setIsOpen({
-			...isOpen,
-			[e.target.name]: true,
-		});
-	}; */
-
-	/* const handleIsClosed = (e) => {
-		setIsOpen({
-			...isOpen,
-			[e.target.name]: false,
-		});
-	}; */
 
 	scrollToLi(direction, cells);
 	scrollToLi(getNextDirection(direction), cells);

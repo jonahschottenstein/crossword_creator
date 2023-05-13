@@ -30,19 +30,6 @@ const getClueLi = (direction, cells) => {
 	return clueLi;
 };
 
-/* export const scrollToLi = (direction, cells) => {
-	const clueList = getClueList(direction);
-	const clueLi = getClueLi(direction, cells);
-
-	if (!clueList || !clueLi) return;
-
-	clueList.scrollTo({
-		top: clueLi.offsetTop - 110,
-		// top: clueLi.offsetTop - 74,
-		// top: clueLi.offsetTop - 77,
-		behavior: "smooth",
-	});
-}; */
 export const scrollToLi = (direction, cells) => {
 	const clueList = getClueList(direction);
 	const clueLi = getClueLi(direction, cells);
@@ -64,16 +51,6 @@ export const scrollToLi = (direction, cells) => {
 	}
 };
 
-/* export const getClueLiNumber = (e) => {
-	console.log("getClueLiNumber", e.target);
-	if (!e.target.matches(".clue-list-item")) return;
-
-	const clueLiNumber = Number(
-		e.target.querySelector(".clue-label").textContent
-	);
-
-	return clueLiNumber;
-}; */
 export const getClueLiNumber = (e) => {
 	if (!e.target.matches(".clue-list-item")) return;
 
@@ -84,15 +61,6 @@ export const getClueLiNumber = (e) => {
 	return clueLiNumber;
 };
 
-/* export const getClueLiDirection = (e) => {
-	if (!e.target.matches(".clue-list-item")) return;
-
-	const closestWrapper = e.target.closest(".clue-list-wrapper");
-	const clueLiDirection =
-		closestWrapper.querySelector(".clue-list-title").textContent;
-
-	return clueLiDirection;
-}; */
 export const getClueLiDirection = (e) => {
 	if (!e.target.matches(".clue-list-item")) return;
 

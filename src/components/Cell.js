@@ -1,49 +1,4 @@
-/* export const Cell = (props) => {
-	return (
-		<div
-			id={props.id}
-			className={props.className}
-			data-index={props.index}
-			tabIndex={props.tabIndex}
-			onClick={props.onClick}
-			onKeyDown={props.onKeyDown}>
-			{/circled/.test(props.className) ? (
-				<>
-					<div className="circle"></div>
-					<div className="number">{props.number}</div>
-					<div className="letter">{props.letter}</div>
-				</>
-			) : (
-				<>
-					<div className="number">{props.number}</div>
-					<div className="letter">{props.letter}</div>
-				</>
-			)}
-		</div>
-	);
-}; */
-
 import { memo } from "react";
-
-/* export const Cell = (props) => {
-	return (
-		<div
-			id={props.id}
-			className={props.className}
-			data-index={props.index}
-			tabIndex={props.tabIndex}
-			onClick={props.onClick}
-			onKeyDown={props.onKeyDown}>
-			<>
-				{/circled/.test(props.className) ? (
-					<div className="circle"></div>
-				) : null}
-				<div className="number">{props.number}</div>
-				<div className="letter">{props.letter}</div>
-			</>
-		</div>
-	);
-}; */
 
 export const Cell = memo(function Cell(props) {
 	return (
@@ -52,9 +7,7 @@ export const Cell = memo(function Cell(props) {
 			className={props.className}
 			data-index={props.index}
 			tabIndex={props.tabIndex}
-			onClick={props.onClick}
-			// onKeyDown={props.onKeyDown}
-		>
+			onClick={props.onClick}>
 			<>
 				{/circled/.test(props.className) ? (
 					<div className="circle"></div>

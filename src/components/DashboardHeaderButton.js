@@ -1,6 +1,7 @@
 import { autoExpand } from "../utilities/handleClueLi";
 
 export const DashboardHeaderButton = (props) => {
+	// TODO: Maybe make onChange a function expression
 	return (
 		<label className={props.labelClassName} htmlFor={props.buttonLabel}>
 			<input
@@ -10,7 +11,6 @@ export const DashboardHeaderButton = (props) => {
 				name={"dashboard-header-button"}
 				value={props.buttonLabel}
 				checked={props.visibleDashPage === props.buttonLabel}
-				// onChange={props.onChange}
 				onChange={(e) => {
 					props.onChange(e);
 					setTimeout(() => {

@@ -26,28 +26,6 @@ const getCellClassName = (cell, selectedWord) => {
 	return className;
 };
 
-/* export const Board = (props) => {
-	const { selectedWordObj } = getWordObj(props.direction, props.cells);
-	const selectedWord = selectedWordObj?.word;
-	const cells = props.cells.map((cell, index) => {
-		return (
-			<Cell
-				key={index}
-				id={`cell-${index}`}
-				className={getCellClassName(cell, selectedWord)}
-				index={index}
-				tabIndex={cell.tabIndex}
-				number={cell.number}
-				letter={cell.letter}
-				onClick={props.onClick}
-				onKeyDown={props.onKeyDown}
-			/>
-		);
-	});
-
-	return <div className="board">{cells}</div>;
-}; */
-
 export const Board = memo(function Board(props) {
 	const handleKeyDown = (e) => {
 		if (!document.activeElement.matches(".cell")) return;
@@ -76,7 +54,6 @@ export const Board = memo(function Board(props) {
 				number={cell.number}
 				letter={cell.letter}
 				onClick={props.onClick}
-				// onKeyDown={props.onKeyDown}
 			/>
 		);
 	});

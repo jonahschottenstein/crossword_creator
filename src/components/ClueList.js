@@ -9,7 +9,7 @@ const getClueText = (cells, clueLabel, listDirection) => {
 
 	return clueText ?? "";
 };
-
+// TODO: memoize clueText, getClueLiClassName
 export const ClueList = (props) => {
 	const clueProps = getClueProps(props.direction, props.cells);
 	const oppositeClueProps = getClueProps(
@@ -31,7 +31,6 @@ export const ClueList = (props) => {
 							name={`${number}-${props.listDirection}`}
 							clueLabel={number}
 							clueText={getClueText(props.cells, number, props.listDirection)}
-							// cells={props.cells}
 							setCells={props.setCells}
 							direction={props.listDirection}
 							className={
@@ -44,14 +43,6 @@ export const ClueList = (props) => {
 									? "clue-list-item opposite-highlighted"
 									: "clue-list-item"
 							}
-							// onClick={props.onClick}
-							// onClick={handleLiClick}
-							// onClueLiTextareaChange={props.onClueLiTextareaChange}
-							// onClueEditButtonClick={props.onClueEditButtonClick}
-							// onClueDoneButtonClick={props.onClueDoneButtonClick}
-							// onKeyDown={props.onKeyDown}
-							// onClueTextareaFocus={props.onClueTextareaFocus}
-							// onClueTextareaBlur={props.onClueTextareaBlur}
 							activeTextarea={props.activeTextarea}
 							setActiveTextarea={props.setActiveTextarea}
 						/>

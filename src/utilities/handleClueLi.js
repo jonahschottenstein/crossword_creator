@@ -3,12 +3,6 @@ import { setClueText } from "./setClueText";
 export const autoExpand = (textarea) => {
 	textarea.style.height = "inherit";
 	const textareaStyles = window.getComputedStyle(textarea);
-	// const height =
-	// 	parseInt(textareaStyles.getPropertyValue("border-top-width"), 10) +
-	// 	parseInt(textareaStyles.getPropertyValue("padding-top"), 10) +
-	// 	textarea.scrollHeight +
-	// 	parseInt(textareaStyles.getPropertyValue("padding-bottom"), 10) +
-	// 	parseInt(textareaStyles.getPropertyValue("border-bottom-width"), 10);
 	const height =
 		textarea.scrollHeight +
 		parseInt(textareaStyles.getPropertyValue("border-bottom-width"), 10);
@@ -67,12 +61,9 @@ export const handleClueTextareaFocus = (e, setActiveTextarea) => {
 	setActiveTextarea(e.target.getAttribute("name"));
 };
 
-export const handleClueTextareaBlur = (e, setActiveTextarea) => {
+export const handleClueTextareaBlur = (e) => {
 	console.log("BLUR");
-	// setActiveTextarea(null);
 	const closestLi = e.target.closest(".clue-list-item");
-	// const closestTextarea = closestLi.querySelector("textarea");
-	// closestTextarea.classList.remove("accessible");
 	const doneButton = closestLi.querySelector(".clue-done-button");
 	console.log({ doneButton });
 	doneButton.click();

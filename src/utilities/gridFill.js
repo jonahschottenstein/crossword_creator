@@ -1,4 +1,4 @@
-import { getWordObj, getWords, getWordObjs } from "./words";
+import { getWordObj, getWords } from "./words";
 import { cellHasLetter, getNextDirection } from "./helpers";
 import { fetchWordListMemoized } from "./autofillGrid";
 
@@ -99,7 +99,6 @@ const getCrossingWordLists = async (direction, cells) => {
 	const getWordList = await fetchWordListMemoized();
 	const crossingWordLists = await Promise.all(
 		crossingWords.map(async (word, index, array) => {
-			// const crossingWordList = await fetchWordList(word);
 			const crossingWordList = await getWordList(word);
 			const crossingWordMatches = await getWordMatches(word, crossingWordList);
 			if (crossingWordMatches.length < 1 && array[index].every(cellHasLetter)) {
@@ -179,7 +178,6 @@ const getMatchRegExp = async (currentWordList, direction, cells) => {
 };
 
 export const getTopMatches = async (currentWordList, direction, cells) => {
-	// console.log(await fillTest(direction, cells));
 	const matchRegExp = await getMatchRegExp(currentWordList, direction, cells);
 	const topMatches = currentWordList.filter((obj) =>
 		matchRegExp.test(obj.word)

@@ -18,37 +18,6 @@ const styleTitleFormat = (hyphenatedName) => {
 	return hyphenatedName.replace(/\w+/g, capitalize).replace("-", " ");
 };
 
-/* export const SubmissionInfo = (props) => {
-	const submissionInfoKeys = Object.keys(props.submissionInfo);
-
-	return (
-		<div className="submission-info">
-			{submissionInfoKeys.map((key) => {
-				const hyphenatedName = styleHyphenFormat(key);
-				const labelText = styleTitleFormat(hyphenatedName);
-
-				return (
-					<SubmissionInfoItem
-						key={key}
-						labelFor={hyphenatedName}
-						labelText={labelText}
-						type={key === "email" ? "email" : "text"}
-						name={key}
-						id={hyphenatedName}
-						value={props.submissionInfo[key]}
-						onChange={props.onInfoChange}
-					/>
-				);
-			})}
-			<button
-				className="submit-info-button"
-				onClick={() => getPDF(props.jsPDF, props.cells, props.submissionInfo)}>
-				Download
-			</button>
-		</div>
-	);
-}; */
-
 export const SubmissionInfo = (props) => {
 	const [submissionInfo, setSubmissionInfo] = useState({
 		firstName: "",
