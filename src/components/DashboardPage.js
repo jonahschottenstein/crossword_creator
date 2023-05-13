@@ -6,14 +6,14 @@ import { MatchTable } from "./MatchTable";
 // TODO: Remember to create files for Buttton and FillContent
 
 // TODO: Remember to use Button component in other files
-export const Button = (props) => {
+export const Button = ({ id, className, name, onClick, children }) => {
 	return (
 		<button
-			id={props.id ?? null}
-			className={props.className ?? null}
-			name={props.name ?? null}
-			onClick={props.onClick}>
-			{props.children}
+			id={id ?? null}
+			className={className ?? null}
+			name={name ?? null}
+			onClick={onClick}>
+			{children}
 		</button>
 	);
 };
