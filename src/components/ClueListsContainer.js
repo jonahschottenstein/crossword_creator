@@ -8,7 +8,7 @@ const getClueNumbers = (cells, direction) => {
 		.map((cell) => cell.number);
 };
 
-export const ClueListsContainer = (props) => {
+export const ClueListsContainer = ({ direction, cells, setCells, onClick }) => {
 	const [activeTextarea, setActiveTextarea] = useState(null);
 
 	useEffect(() => {
@@ -44,21 +44,22 @@ export const ClueListsContainer = (props) => {
 	return (
 		<div className="clue-lists-container">
 			<ClueList
-				direction={props.direction}
+				direction={direction}
 				listDirection="across"
-				cells={props.cells}
-				setCells={props.setCells}
-				clueNumbers={getClueNumbers(props.cells, "across")}
-				onClick={props.onClick}
+				cells={cells}
+				setCells={setCells}
+				clueNumbers={getClueNumbers(cells, "across")}
+				onClick={onClick}
 				activeTextarea={activeTextarea}
 				setActiveTextarea={setActiveTextarea}></ClueList>
 
 			<ClueList
-				direction={props.direction}
+				direction={direction}
 				listDirection="down"
-				cells={props.cells}
-				setCells={props.setCells}
-				clueNumbers={getClueNumbers(props.cells, "down")}
+				cells={cells}
+				setCells={setCells}
+				clueNumbers={getClueNumbers(cells, "down")}
+				onClick={onClick}
 				activeTextarea={activeTextarea}
 				setActiveTextarea={setActiveTextarea}></ClueList>
 		</div>
