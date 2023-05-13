@@ -26,14 +26,15 @@ const getCellClassName = (cell, selectedWord) => {
 	return className;
 };
 
-export const Board = memo(function Board(props) {
+export const Board = memo(function Board({
+	direction,
+	setDirection,
+	cells,
+	setCells,
+	onClick,
+}) {
 	const handleKeyDown = (e) => {
 		if (!document.activeElement.matches(".cell")) return;
-
-		const direction = props.direction;
-		const setDirection = props.setDirection;
-		const cells = props.cells;
-		const setCells = props.setCells;
 
 		handleArrowKeys(e, direction, setDirection, cells);
 		handleTabKey(e, direction, setDirection, cells);
@@ -41,9 +42,9 @@ export const Board = memo(function Board(props) {
 		handleBackspaceKey(e, direction, setDirection, cells, setCells);
 	};
 
-	const { selectedWordObj } = getWordObj(props.direction, props.cells);
+	const { selectedWordObj } = getWordObj(direction, cells);
 	const selectedWord = selectedWordObj?.word;
-	const cells = props.cells.map((cell, index) => {
+	const cellComponents = cells.map((cell, index) => {
 		return (
 			<Cell
 				key={index}
@@ -53,14 +54,14 @@ export const Board = memo(function Board(props) {
 				tabIndex={cell.tabIndex}
 				number={cell.number}
 				letter={cell.letter}
-				onClick={props.onClick}
+				onClick={onClick}
 			/>
 		);
 	});
 
 	return (
 		<div className="board" onKeyDown={handleKeyDown}>
-			{cells}
+			{cellComponents}
 		</div>
 	);
 });
