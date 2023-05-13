@@ -1,8 +1,8 @@
-export const GridOptionCell = (props) => {
+export const GridOptionCell = ({ id, className, index, number, letter }) => {
 	return (
-		<div id={props.id} className={props.className} data-index={props.index}>
-			<div className="grid-option-number">{props.number}</div>
-			<div className="grid-option-letter">{props.letter}</div>
+		<div id={id} className={className} data-index={index}>
+			<div className="grid-option-number">{number}</div>
+			<div className="grid-option-letter">{letter}</div>
 		</div>
 	);
 };
