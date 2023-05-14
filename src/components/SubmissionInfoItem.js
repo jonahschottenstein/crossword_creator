@@ -79,6 +79,7 @@ export const SubmissionInfoItem = memo(function SubmissionInfoItem(props) {
 								? "[a-zA-Z0-9._%+\\-]+@[a-zA-Z0-9.\\-]+.[a-zA-Z]{2,}"
 								: null
 						}
+						maxLength={props.name === "zipCode" ? "5" : null}
 						value={props.value}
 						onChange={props.onChange}></input>
 					{props.name === "puzzleTitle" ? (
