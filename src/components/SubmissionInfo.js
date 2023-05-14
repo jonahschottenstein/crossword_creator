@@ -34,10 +34,20 @@ export const SubmissionInfo = ({ cells }) => {
 	const submissionInfoKeys = Object.keys(submissionInfo);
 
 	const handleInfoChange = useCallback((e) => {
-		setSubmissionInfo((prevState) => ({
-			...prevState,
-			[e.target.name]: e.target.value,
-		}));
+		if (
+			document.activeElement.matches("#zip-code") &&
+			/\D/.test(e.target.value)
+		) {
+			setSubmissionInfo((prevState) => ({
+				...prevState,
+				[e.target.name]: e.target.value.replace(/\D/, ""),
+			}));
+		} else {
+			setSubmissionInfo((prevState) => ({
+				...prevState,
+				[e.target.name]: e.target.value,
+			}));
+		}
 	}, []);
 
 	return (
