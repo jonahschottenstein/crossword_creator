@@ -2,6 +2,7 @@
 	--highlight-color: #a7d8ff;
 	--select-color: #ffda00;
 	--shade-color: #dcdcdc;
+	--dashboard-header-height: 29.5px;
 }
 
 * {
@@ -413,6 +414,10 @@
 
 .dashboard-page:has(.dashboard-stats-table) {
 	overflow-x: auto;
+}
+
+.dashboard-page-container:has(.clues-page) {
+	height: calc(100% - 29.5px);
 }
 
 .dashboard-page-container:has(.fill-page) {
