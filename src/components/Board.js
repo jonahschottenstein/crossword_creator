@@ -34,6 +34,7 @@ export const Board = memo(function Board({
 	onClick,
 }) {
 	const handleKeyDown = (e) => {
+		if (e.metaKey) return;
 		if (!document.activeElement.matches(".cell")) return;
 
 		handleArrowKeys(e, direction, setDirection, cells);
