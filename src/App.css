@@ -107,6 +107,12 @@
 	flex-direction: column;
 }
 
+.submission-info-item:has(:invalid) .submission-info-help {
+	color: red;
+	font-size: 12px;
+	font-weight: 700;
+}
+
 .submission-info-label {
 	text-align: left;
 }
