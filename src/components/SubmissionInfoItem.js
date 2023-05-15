@@ -82,12 +82,17 @@ export const SubmissionInfoItem = memo(function SubmissionInfoItem(props) {
 						maxLength={props.name === "zipCode" ? "5" : null}
 						value={props.value}
 						onChange={props.onChange}></input>
-					{props.name === "puzzleTitle" ? (
-						<span className="puzzle-title-help">
-							(Puzzle titles can be the theme revealers for daily themed puzzles
-							or marquee entries for themeless puzzles)
+					{props.name === "zipCode" && (
+						<span className="zip-code-help submission-info-help">
+							Format: #####
 						</span>
-					) : null}
+					)}
+					{props.name === "puzzleTitle" && (
+						<span className="puzzle-title-help submission-info-help">
+							Puzzle titles can be the theme revealers for daily themed puzzles
+							or marquee entries for themeless puzzles
+						</span>
+					)}
 				</>
 			)}
 		</div>
