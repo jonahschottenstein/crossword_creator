@@ -11,9 +11,11 @@ export const fetchWordListMemoized = async () => {
 			const resource = `./wordLists/${wordLength}-letter-words.json`;
 			const response = await fetch(resource);
 			const wordList = await response.json();
-			cache[wordLength] = wordList;
+			const wordListSliced = wordList.slice(0, 10000);
+			console.log(wordListSliced);
+			cache[wordLength] = wordListSliced;
 
-			return wordList;
+			return wordListSliced;
 		}
 	};
 };
@@ -269,22 +271,28 @@ const getUpdatedWordObjs = async (
 	formattedCells,
 	wordsOnBoard
 ) => {
+	console.time("acrossWordObjsWithOptsFromMatches");
 	const acrossWordObjsWithOptsFromMatches = acrossWordObjs.map(
 		(acrossWordObj) => updateOptsFromMatches(acrossWordObj)
 	);
+	console.timeEnd("acrossWordObjsWithOptsFromMatches");
 	const downWordObjsWithOptsFromMatches = downWordObjs.map((downWordObj) =>
 		updateOptsFromMatches(downWordObj)
 	);
+	console.time("getOverlapOpts");
 	const overlapOpts = getOverlapOpts(
 		acrossWordObjsWithOptsFromMatches,
 		downWordObjsWithOptsFromMatches,
 		formattedCells
 	);
+	console.timeEnd("getOverlapOpts");
+	console.time("updateWordObjs");
 	const updatedAcrossWordObjs = await updateWordObjs(
 		acrossWordObjsWithOptsFromMatches,
 		overlapOpts,
 		wordsOnBoard
 	);
+	console.timeEnd("updateWordObjs");
 	const updatedDownWordObjs = await updateWordObjs(
 		downWordObjsWithOptsFromMatches,
 		overlapOpts,
@@ -487,11 +495,11 @@ const getUpdatedFormattedCells = (
 	acrossWordObjs,
 	downWordObjs
 ) => {
+	const acrossCells = getCellsFromWordObjs(acrossWordObjs);
+	const downCells = getCellsFromWordObjs(downWordObjs);
 	const updatedFormattedCells = formattedCells.map((formattedCell) => {
 		if (formattedCell.isBlackSquare) return formattedCell;
 
-		const acrossCells = getCellsFromWordObjs(acrossWordObjs);
-		const downCells = getCellsFromWordObjs(downWordObjs);
 		const sameAcrossCell = acrossCells.find((acrossCell) =>
 			isSameCell(acrossCell, formattedCell)
 		);
@@ -502,11 +510,11 @@ const getUpdatedFormattedCells = (
 			sameAcrossCell.letter === sameDownCell.letter &&
 			cellsHaveSameOpts(sameAcrossCell, sameDownCell);
 
-		if (!cellsAgree) {
+		if (cellsAgree) {
+			return sameAcrossCell;
+		} else {
 			//? Is it appropriate to throw an error here?
 			throw new Error("Cells don't agree");
-		} else {
-			return sameAcrossCell;
 		}
 	});
 
@@ -674,18 +682,22 @@ const getUpdatedWordObjsWrapper = async ({
 	updatedCrossingWordObjs,
 	wordsOnBoard,
 }) => {
+	console.time("getIntegratedWordObjs");
 	const { acrossWordObjsIntegrated, downWordObjsIntegrated } =
 		getIntegratedWordObjs(
 			[...updatedCrossingWordObjs, filledWordObj],
 			acrossWordObjs,
 			downWordObjs
 		);
+	console.timeEnd("getIntegratedWordObjs");
+	console.time("getUpdatedWordObjs");
 	const updatedWordObjs = await getUpdatedWordObjs(
 		acrossWordObjsIntegrated,
 		downWordObjsIntegrated,
 		formattedCells,
 		wordsOnBoard
 	);
+	console.timeEnd("getUpdatedWordObjs");
 	console.log({ updatedWordObjs });
 	console.log(
 		`hasMatchlessWordObj: 
@@ -887,8 +899,9 @@ const autofillGrid = async (
 	`);
 	console.timeLog("autofillGrid");
 	console.log(getConsoleGrid(formattedCells));
-
+	console.time("getPreviousData");
 	const previousData = getPreviousData(argsArr, wordToFill);
+	console.timeEnd("getPreviousData");
 	// TODO: const INDEXES_BEFORE_BACKTRACK = 50
 	if (
 		!hasUntestedWordMatches(wordToFill, wordMatchIndex) ||
@@ -896,20 +909,27 @@ const autofillGrid = async (
 	) {
 		return await backtrack(previousData, setCells, startTime);
 	}
-
+	console.time("getWordsOnBoard");
 	const wordsOnBoard = getWordsOnBoard(allWordObjs);
+	console.timeEnd("getWordsOnBoard");
+	console.time("getFilledWordObj");
 	const filledWordObj = getFilledWordObj(
 		wordToFill,
 		wordsOnBoard,
 		wordMatchIndex
 	);
+	console.timeEnd("getFilledWordObj");
+	console.time("getCrossingWordObjs");
 	const crossingWordObjs = getCrossingWordObjs(filledWordObj, allWordObjs);
+	console.timeEnd("getCrossingWordObjs");
 	console.log({ filledWordObj, crossingWordObjs });
+	console.time("getUpdatedCrossingWordObjs");
 	const updatedCrossingWordObjs = await getUpdatedCrossingWordObjs(
 		filledWordObj,
 		crossingWordObjs,
 		wordsOnBoard
 	);
+	console.timeEnd("getUpdatedCrossingWordObjs");
 	console.log({ updatedCrossingWordObjs });
 
 	if (hasMatchlessWordObj(updatedCrossingWordObjs)) {
@@ -920,7 +940,7 @@ const autofillGrid = async (
 			startTime
 		);
 	}
-
+	console.time("getUpdatedWordObjsWrapper");
 	const updatedWordObjs = await getUpdatedWordObjsWrapper({
 		formattedCells,
 		acrossWordObjs,
@@ -929,6 +949,7 @@ const autofillGrid = async (
 		updatedCrossingWordObjs,
 		wordsOnBoard,
 	});
+	console.timeEnd("getUpdatedWordObjsWrapper");
 	console.log({ updatedWordObjs });
 	const allUpdatedWordObjs = [
 		...updatedWordObjs.acrossWordObjs,
@@ -941,25 +962,33 @@ const autofillGrid = async (
 				allUpdatedWordObjs
 			)}`
 		);
+		console.time("getMatchlessWordObjs");
 		const matchlessWordObjs = getMatchlessWordObjs(allUpdatedWordObjs);
+		console.timeEnd("getMatchlessWordObjs");
 		console.log({ matchlessWordObjs });
 		// TODO: Remove numbers from causeIndex variable names
+		console.time("getMatchlessCauseIndexes");
 		const causeIndexes2 = getMatchlessCauseIndexes(
 			matchlessWordObjs,
 			allUpdatedWordObjs,
 			argsArr
 		);
+		console.timeEnd("getMatchlessCauseIndexes");
+		console.time("causeIndex3");
 		const causeIndex3 = causeIndexes2
 			.slice()
 			.sort((a, b) => a - b)
 			.findLast((index) => index > -1);
+		console.timeEnd("causeIndex3");
 		if (causeIndex3) {
 			console.log({ causeIndexes2, causeIndex3 });
 			console.log("CI");
 		}
+		console.time("shouldJumpBack");
 		console.log(
 			shouldJumpBack(matchlessWordObjs, filledWordObj, updatedCrossingWordObjs)
 		);
+		console.timeEnd("shouldJumpBack");
 
 		if (
 			shouldJumpBack(
@@ -978,16 +1007,19 @@ const autofillGrid = async (
 			);
 		}
 	}
-
+	console.time("getUpdatedFormattedCells");
 	const updatedFormattedCells = getUpdatedFormattedCells(
 		formattedCells,
 		updatedWordObjs.acrossWordObjs,
 		updatedWordObjs.downWordObjs
 	);
-
+	console.timeEnd("getUpdatedFormattedCells");
+	console.time("updateGrid");
 	await updateGrid(updatedFormattedCells, setCells);
-
+	console.timeEnd("updateGrid");
+	console.time("getNextWordToFill");
 	const nextWordToFill = getNextWordToFill(allUpdatedWordObjs);
+	console.timeEnd("getNextWordToFill");
 
 	return await handleNextWordToFill(
 		{ updatedFormattedCells, updatedWordObjs, nextWordToFill },
