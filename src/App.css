@@ -115,8 +115,9 @@
 	margin-bottom: 1rem;
 }
 
-.puzzle-title-help {
-	font-size: 12px;
+.submission-info-help {
+	color: gray;
+	font-size: 10px;
 	text-align: left;
 }
 
