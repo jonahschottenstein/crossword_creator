@@ -57,8 +57,18 @@ export const handleEnterKeyDown = (e, setActiveTextarea) => {
 };
 
 export const handleClueTextareaFocus = (e, setActiveTextarea) => {
-	console.log("textareaFocus");
 	setActiveTextarea(e.target.getAttribute("name"));
+
+	const activeElement = document.activeElement;
+	if (activeElement.matches(".clue-textarea")) {
+		const listItem = activeElement.closest("li");
+		setTimeout(() => {
+			if (!listItem.classList.contains("highlighted")) {
+				listItem.click();
+				activeElement.focus();
+			}
+		}, 50);
+	}
 };
 
 export const handleClueTextareaBlur = (e) => {
