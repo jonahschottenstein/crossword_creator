@@ -25,14 +25,16 @@ export const FillContent = (props) => {
 
 	return (
 		<>
-			<Button id="clear-fill-button" onClick={props.onClearFillButtonClick}>
-				Clear Fill
-			</Button>
-			<Button
-				id="autofill-grid-button"
-				onClick={props.onAutofillGridButtonClick}>
-				Autofill Grid
-			</Button>
+			<div className="fill-buttons">
+				<Button id="clear-fill-button" onClick={props.onClearFillButtonClick}>
+					Clear Fill
+				</Button>
+				<Button
+					id="autofill-grid-button"
+					onClick={props.onAutofillGridButtonClick}>
+					Autofill Grid
+				</Button>
+			</div>
 
 			{!selectedWord || selectedWord.length < MIN_WORD_LENGTH ? (
 				<p>{"Select an entry greater than two characters to view matches"}</p>
