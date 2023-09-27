@@ -271,28 +271,28 @@ const getUpdatedWordObjs = async (
 	formattedCells,
 	wordsOnBoard
 ) => {
-	console.time("acrossWordObjsWithOptsFromMatches");
+	// // console.time("acrossWordObjsWithOptsFromMatches");
 	const acrossWordObjsWithOptsFromMatches = acrossWordObjs.map(
 		(acrossWordObj) => updateOptsFromMatches(acrossWordObj)
 	);
-	console.timeEnd("acrossWordObjsWithOptsFromMatches");
+	// console.timeEnd("acrossWordObjsWithOptsFromMatches");
 	const downWordObjsWithOptsFromMatches = downWordObjs.map((downWordObj) =>
 		updateOptsFromMatches(downWordObj)
 	);
-	console.time("getOverlapOpts");
+	// console.time("getOverlapOpts");
 	const overlapOpts = getOverlapOpts(
 		acrossWordObjsWithOptsFromMatches,
 		downWordObjsWithOptsFromMatches,
 		formattedCells
 	);
-	console.timeEnd("getOverlapOpts");
-	console.time("updateWordObjs");
+	// console.timeEnd("getOverlapOpts");
+	// console.time("updateWordObjs");
 	const updatedAcrossWordObjs = await updateWordObjs(
 		acrossWordObjsWithOptsFromMatches,
 		overlapOpts,
 		wordsOnBoard
 	);
-	console.timeEnd("updateWordObjs");
+	// console.timeEnd("updateWordObjs");
 	const updatedDownWordObjs = await updateWordObjs(
 		downWordObjsWithOptsFromMatches,
 		overlapOpts,
@@ -682,31 +682,31 @@ const getUpdatedWordObjsWrapper = async ({
 	updatedCrossingWordObjs,
 	wordsOnBoard,
 }) => {
-	console.time("getIntegratedWordObjs");
+	// console.time("getIntegratedWordObjs");
 	const { acrossWordObjsIntegrated, downWordObjsIntegrated } =
 		getIntegratedWordObjs(
 			[...updatedCrossingWordObjs, filledWordObj],
 			acrossWordObjs,
 			downWordObjs
 		);
-	console.timeEnd("getIntegratedWordObjs");
-	console.time("getUpdatedWordObjs");
+	// console.timeEnd("getIntegratedWordObjs");
+	// console.time("getUpdatedWordObjs");
 	const updatedWordObjs = await getUpdatedWordObjs(
 		acrossWordObjsIntegrated,
 		downWordObjsIntegrated,
 		formattedCells,
 		wordsOnBoard
 	);
-	console.timeEnd("getUpdatedWordObjs");
-	console.log({ updatedWordObjs });
-	console.log(
-		`hasMatchlessWordObj: 
-		(updatedCrossingWordObjs): ${hasMatchlessWordObj(updatedCrossingWordObjs)},
-		(updatedWordObjs): ${hasMatchlessWordObj([
-			...updatedWordObjs.acrossWordObjs,
-			...updatedWordObjs.downWordObjs,
-		])}`
-	);
+	// console.timeEnd("getUpdatedWordObjs");
+	// console.log({ updatedWordObjs });
+	// console.log(
+	// 	`hasMatchlessWordObj:
+	// 	(updatedCrossingWordObjs): ${hasMatchlessWordObj(updatedCrossingWordObjs)},
+	// 	(updatedWordObjs): ${hasMatchlessWordObj([
+	// 		...updatedWordObjs.acrossWordObjs,
+	// 		...updatedWordObjs.downWordObjs,
+	// 	])}`
+	// );
 
 	return updatedWordObjs;
 };
@@ -868,7 +868,7 @@ const autofillGrid = async (
 ) => {
 	const allWordObjs = [...acrossWordObjs, ...downWordObjs];
 	const elapsedTime = Date.now() - startTime;
-	console.log(elapsedTime);
+	console.log(elapsedTime / 1000 + "s");
 
 	// TODO: const MSECS_BEFORE_RESTART = 30000
 	if (elapsedTime > 30000) {
@@ -890,18 +890,18 @@ const autofillGrid = async (
 		wordMatchIndex,
 	};
 	argsArr.push(initialArgs);
-	console.log(`
-		argsArr.length: ${argsArr.length}
-		wordLength: ${wordToFill.wordCells.length},
-		firstCell: ${wordToFill.wordCells[0].id},
-		wordMatchIndex: ${wordMatchIndex},
-		wordMatchesCount: ${wordToFill.wordMatches.length}
-	`);
-	console.timeLog("autofillGrid");
+	// console.log(`
+	// 	argsArr.length: ${argsArr.length}
+	// 	wordLength: ${wordToFill.wordCells.length},
+	// 	firstCell: ${wordToFill.wordCells[0].id},
+	// 	wordMatchIndex: ${wordMatchIndex},
+	// 	wordMatchesCount: ${wordToFill.wordMatches.length}
+	// `);
+	// console.timeLog("autofillGrid");
 	console.log(getConsoleGrid(formattedCells));
-	console.time("getPreviousData");
+	// console.time("getPreviousData");
 	const previousData = getPreviousData(argsArr, wordToFill);
-	console.timeEnd("getPreviousData");
+	// console.timeEnd("getPreviousData");
 	// TODO: const INDEXES_BEFORE_BACKTRACK = 50
 	if (
 		!hasUntestedWordMatches(wordToFill, wordMatchIndex) ||
@@ -909,38 +909,38 @@ const autofillGrid = async (
 	) {
 		return await backtrack(previousData, setCells, startTime);
 	}
-	console.time("getWordsOnBoard");
+	// console.time("getWordsOnBoard");
 	const wordsOnBoard = getWordsOnBoard(allWordObjs);
-	console.timeEnd("getWordsOnBoard");
-	console.time("getFilledWordObj");
+	// console.timeEnd("getWordsOnBoard");
+	// console.time("getFilledWordObj");
 	const filledWordObj = getFilledWordObj(
 		wordToFill,
 		wordsOnBoard,
 		wordMatchIndex
 	);
-	console.timeEnd("getFilledWordObj");
-	console.time("getCrossingWordObjs");
+	// console.timeEnd("getFilledWordObj");
+	// console.time("getCrossingWordObjs");
 	const crossingWordObjs = getCrossingWordObjs(filledWordObj, allWordObjs);
-	console.timeEnd("getCrossingWordObjs");
-	console.log({ filledWordObj, crossingWordObjs });
-	console.time("getUpdatedCrossingWordObjs");
+	// console.timeEnd("getCrossingWordObjs");
+	// console.log({ filledWordObj, crossingWordObjs });
+	// console.time("getUpdatedCrossingWordObjs");
 	const updatedCrossingWordObjs = await getUpdatedCrossingWordObjs(
 		filledWordObj,
 		crossingWordObjs,
 		wordsOnBoard
 	);
-	console.timeEnd("getUpdatedCrossingWordObjs");
-	console.log({ updatedCrossingWordObjs });
+	// console.timeEnd("getUpdatedCrossingWordObjs");
+	// console.log({ updatedCrossingWordObjs });
 
 	if (hasMatchlessWordObj(updatedCrossingWordObjs)) {
-		console.log(`hasMatchlessWordObj(updatedCrossingWordObjs)`);
+		// console.log(`hasMatchlessWordObj(updatedCrossingWordObjs)`);
 		return await lookAhead(
 			{ initialArgs, argsArr, previousData },
 			setCells,
 			startTime
 		);
 	}
-	console.time("getUpdatedWordObjsWrapper");
+	// console.time("getUpdatedWordObjsWrapper");
 	const updatedWordObjs = await getUpdatedWordObjsWrapper({
 		formattedCells,
 		acrossWordObjs,
@@ -949,46 +949,46 @@ const autofillGrid = async (
 		updatedCrossingWordObjs,
 		wordsOnBoard,
 	});
-	console.timeEnd("getUpdatedWordObjsWrapper");
-	console.log({ updatedWordObjs });
+	// console.timeEnd("getUpdatedWordObjsWrapper");
+	// console.log({ updatedWordObjs });
 	const allUpdatedWordObjs = [
 		...updatedWordObjs.acrossWordObjs,
 		...updatedWordObjs.downWordObjs,
 	];
 
 	if (hasMatchlessWordObj(allUpdatedWordObjs)) {
-		console.log(
-			`hasMatchlessWordObj(allUpdatedWordObjs): ${hasMatchlessWordObj(
-				allUpdatedWordObjs
-			)}`
-		);
-		console.time("getMatchlessWordObjs");
+		// console.log(
+		// 	`hasMatchlessWordObj(allUpdatedWordObjs): ${hasMatchlessWordObj(
+		// 		allUpdatedWordObjs
+		// 	)}`
+		// );
+		// console.time("getMatchlessWordObjs");
 		const matchlessWordObjs = getMatchlessWordObjs(allUpdatedWordObjs);
-		console.timeEnd("getMatchlessWordObjs");
-		console.log({ matchlessWordObjs });
+		// console.timeEnd("getMatchlessWordObjs");
+		// console.log({ matchlessWordObjs });
 		// TODO: Remove numbers from causeIndex variable names
-		console.time("getMatchlessCauseIndexes");
+		// console.time("getMatchlessCauseIndexes");
 		const causeIndexes2 = getMatchlessCauseIndexes(
 			matchlessWordObjs,
 			allUpdatedWordObjs,
 			argsArr
 		);
-		console.timeEnd("getMatchlessCauseIndexes");
-		console.time("causeIndex3");
+		// console.timeEnd("getMatchlessCauseIndexes");
+		// console.time("causeIndex3");
 		const causeIndex3 = causeIndexes2
 			.slice()
 			.sort((a, b) => a - b)
 			.findLast((index) => index > -1);
-		console.timeEnd("causeIndex3");
+		// console.timeEnd("causeIndex3");
 		if (causeIndex3) {
 			console.log({ causeIndexes2, causeIndex3 });
 			console.log("CI");
 		}
-		console.time("shouldJumpBack");
-		console.log(
-			shouldJumpBack(matchlessWordObjs, filledWordObj, updatedCrossingWordObjs)
-		);
-		console.timeEnd("shouldJumpBack");
+		// console.time("shouldJumpBack");
+		// console.log(
+		// 	shouldJumpBack(matchlessWordObjs, filledWordObj, updatedCrossingWordObjs)
+		// );
+		// console.timeEnd("shouldJumpBack");
 
 		if (
 			shouldJumpBack(
@@ -1007,19 +1007,19 @@ const autofillGrid = async (
 			);
 		}
 	}
-	console.time("getUpdatedFormattedCells");
+	// console.time("getUpdatedFormattedCells");
 	const updatedFormattedCells = getUpdatedFormattedCells(
 		formattedCells,
 		updatedWordObjs.acrossWordObjs,
 		updatedWordObjs.downWordObjs
 	);
-	console.timeEnd("getUpdatedFormattedCells");
-	console.time("updateGrid");
+	// console.timeEnd("getUpdatedFormattedCells");
+	// console.time("updateGrid");
 	await updateGrid(updatedFormattedCells, setCells);
-	console.timeEnd("updateGrid");
-	console.time("getNextWordToFill");
+	// console.timeEnd("updateGrid");
+	// console.time("getNextWordToFill");
 	const nextWordToFill = getNextWordToFill(allUpdatedWordObjs);
-	console.timeEnd("getNextWordToFill");
+	// console.timeEnd("getNextWordToFill");
 
 	return await handleNextWordToFill(
 		{ updatedFormattedCells, updatedWordObjs, nextWordToFill },
@@ -1054,11 +1054,11 @@ export const initAutofillGrid = async (cells, setCells, setIsAutofilling) => {
 		downWordObjs,
 		wordToFill,
 	};
-	console.time("autofillGrid");
+	// console.time("autofillGrid");
 	setIsAutofilling(true);
 	const startTime = Date.now();
 	const autofilledGrid = await autofillGrid(argsObj, setCells, startTime);
 	console.log({ autofilledGrid });
 	setIsAutofilling(false);
-	console.timeEnd("autofillGrid");
+	// console.timeEnd("autofillGrid");
 };
