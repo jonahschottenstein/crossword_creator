@@ -462,6 +462,19 @@ td {
 	text-align: left;
 }
 
+.match-filter-container {
+	display: flex;
+	flex-direction: column;
+}
+
+.match-filter-container > label {
+	font-size: 0.8rem;
+}
+
+.match-filter-container > input {
+	align-self: center;
+}
+
 .match-table-container {
 	height: 100%;
 	overflow-y: scroll;
