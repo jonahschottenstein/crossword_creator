@@ -1,70 +1,43 @@
-# Getting Started with Create React App
+# Crossword Creator
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Create custom crossword puzzles from scratch and export them as PDF files formatted according to the New York Times submission guidelines.
 
-## Available Scripts
+## Motivation
 
-In the project directory, you can run:
+Have you ever wanted to submit your own crossword puzzle to the New York Times but found it challenging and time-consuming to create one manually? Crossword Creator is here to solve that problem by providing you with an efficient way to design, fill, and export crossword puzzles that meet the New York Times' requirements.
 
-### `npm start`
+## Why Crossword Creator?
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This project was born out of a desire to learn and master React while also addressing a practical need. As a crossword enthusiast, I wanted to streamline the puzzle creation process and gain a deeper understanding of React's capabilities and its role in building interactive web applications.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Problem Solved
 
-### `npm test`
+Crossword Creator simplifies the process of creating and submitting crossword puzzles to the New York Times. It guides you through every step, from designing the layout of the puzzle board to entering clues and generating a PDF file that adheres to the New York Times' submission guidelines.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## What I Learned
 
-### `npm run build`
+While building Crossword Creator, I acquired a wide range of skills and knowledge, including:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Understanding React and its purpose in web development.
+- Implementing responsive web design.
+- Working with asynchronous JavaScript.
+- Fetching data from external sources.
+- Properly structuring and organizing project files.
+- Effective project planning and management.
+- Problem-solving skills, especially when developing algorithms.
+- Command-line interface usage.
+- Version control with Git and GitHub.
+- Creating PDF files programmatically using JavaScript.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Standout Features
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+What sets Crossword Creator apart:
 
-### `npm run eject`
+- **User Interface:** The user interface closely resembles the New York Times' crossword puzzle layout, making it familiar and easy to use.
+- **Dynamic Wordlist:** Wordlist items are dynamically displayed based on the length and content of the currently selected word on the board. You can further filter these items using regular expressions.
+- **Autofill:** The application features an autofill option that uses advanced backtracking and lookahead algorithms to fill the puzzle board quickly, sometimes in under 10 seconds.
+- **PDF Creator:** Export crossword puzzles in PDF format that meet the New York Times submission guidelines, making the submission process hassle-free.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+With Crossword Creator, creating and submitting your own crossword puzzles has never been easier. Get started and share your puzzles with the world. Happy puzzling!
