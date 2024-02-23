@@ -41,6 +41,7 @@ import { fetchWordListMemoized } from "../utilities/autofillGrid";
 import { DashboardStatsTable } from "./DashboardStatsTable";
 import { getStats } from "../utilities/stats";
 import { ClueListsContainer } from "./ClueListsContainer";
+import { useMediaQuery } from "react-responsive";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -237,6 +238,16 @@ export default function App() {
 		scrabbleScore,
 		pangram,
 	} = getStats(direction, cells);
+
+	const isPortrait = useMediaQuery({ query: "(orientation: portrait)" });
+	const isLandscape = useMediaQuery({ query: "(orientation: landscape)" });
+	const isMobilePortraitWidth = useMediaQuery({ maxDeviceWidth: 430 });
+	const isMobilePortraitHeight = useMediaQuery({ maxDeviceHeight: 932 });
+	const isMobileLandscapeWidth = useMediaQuery({ maxDeviceWidth: 932 });
+	const isMobileLandscapeHeight = useMediaQuery({ maxDeviceHeight: 430 });
+	const isMobile =
+		(isPortrait && isMobilePortraitWidth && isMobilePortraitHeight) ||
+		(isLandscape && isMobileLandscapeWidth && isMobileLandscapeHeight);
 
 	return (
 		<div className="App">
