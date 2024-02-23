@@ -223,8 +223,27 @@ export default function App() {
 		setCellSettings(settings);
 	};
 
-	const handleDashChange = (e) => {
+	/* 	const handleDashChange = (e) => {
 		setVisibleDashPage(e.target.value);
+	}; */
+
+	const handleDashChange = (e) => {
+		let dashPages = { ...visibleDashPages };
+
+		const name = e.target.name;
+		const value = e.target.value;
+		const isAppContentDash = /board|dashboard/i.test(value);
+		const isCrosswordDash = /stats|clues|fill/i.test(value);
+
+		if (name !== "dashboard-header-button") return;
+
+		if (isCrosswordDash) {
+			dashPages["crosswordDash"] = value;
+		} else if (isAppContentDash) {
+			dashPages["appContentDash"] = value;
+		}
+
+		setVisibleDashPages(dashPages);
 	};
 
 	const handleMatchFilterChange = (e) => {
