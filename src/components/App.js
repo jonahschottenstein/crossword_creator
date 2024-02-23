@@ -53,7 +53,11 @@ export default function App() {
 		circleIsChecked: false,
 		newPuzzleIsChecked: false,
 	});
-	const [visibleDashPage, setVisibleDashPage] = useState("stats");
+	// const [visibleDashPage, setVisibleDashPage] = useState("stats");
+	const [visibleDashPages, setVisibleDashPages] = useState({
+		appContentDash: "board",
+		crosswordDash: "stats",
+	});
 	const [wordMatches, setWordMatches] = useState({
 		current: null,
 		hasMatchesLeft: false,
