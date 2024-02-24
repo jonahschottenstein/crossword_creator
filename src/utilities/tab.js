@@ -96,8 +96,15 @@ const selectCellElementOnTabKey = (e, direction, cells) => {
 };
 
 export const handleTabKey = (e, direction, setDirection, cells) => {
-	if (e.key !== "Tab") return;
-	e.preventDefault();
+	if (
+		e.type === "click" &&
+		!e.target.matches("button.mobile-keyboard-key[value='Tab']")
+	)
+		return;
+	if (e.type === "keydown") {
+		if (e.key !== "Tab") return;
+		e.preventDefault();
+	}
 
 	changeDirectionOnTabKey(e, direction, setDirection, cells);
 	selectCellElementOnTabKey(e, direction, cells);
