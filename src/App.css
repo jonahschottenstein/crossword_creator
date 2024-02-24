@@ -390,6 +390,14 @@
 	background-color: var(--highlight-color);
 }
 
+.dashboard:has(.board-and-settings) .board-button-label {
+	font-weight: bold;
+}
+
+.dashboard:has(.dashboard) .dashboard-button-label {
+	font-weight: bold;
+}
+
 .dashboard-header {
 	display: flex;
 }
