@@ -70,7 +70,12 @@ export const handleBackspaceKey = (
 	cells,
 	setCells
 ) => {
-	if (e.key !== "Backspace") return;
+	if (e.type === "keydown" && e.key !== "Backspace") return;
+	if (
+		e.type === "click" &&
+		!e.target.matches("button.mobile-keyboard-key[value='Backspace']")
+	)
+		return;
 
 	changeDirectionOnBackspace(direction, setDirection, cells);
 	deleteLetter(direction, cells, setCells);
