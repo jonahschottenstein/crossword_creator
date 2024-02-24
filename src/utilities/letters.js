@@ -98,7 +98,10 @@ export const handleLetterKey = (
 	cells,
 	setCells
 ) => {
-	if (!entryIsValid(e)) return;
+	const isALetter = /^[A-Z]$/;
+
+	if (e.type === "keydown" && !entryIsValid(e)) return;
+	if (e.type === "click" && !isALetter.test(e.target.value)) return;
 
 	const nextDirection = getNextDirection(direction);
 	const firstBlankNextDirection = getFirstBlank(nextDirection, cells);
