@@ -42,6 +42,10 @@ import { DashboardStatsTable } from "./DashboardStatsTable";
 import { getStats } from "../utilities/stats";
 import { ClueListsContainer } from "./ClueListsContainer";
 import { useMediaQuery } from "react-responsive";
+import {
+	CrosswordDashboard,
+	MobileContainerDashboard,
+} from "./MobileContainerDashboard";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
@@ -274,72 +278,88 @@ export default function App() {
 
 	return (
 		<div className="App">
-			<div className="app-content">
-				<BoardAndSettings>
-					<CellSettings
-						cells={cells}
-						cellSettings={cellSettings}
-						onChange={handleToggleChange}
-						setCells={setCells}
-					/>
-					<Board
+			{isMobile ? (
+				<MobileContainerDashboard
+					direction={direction}
+					setDirection={setDirection}
+					cells={cells}
+					setCells={setCells}
+					visibleDashPages={visibleDashPages}
+					onClick={handleLiClick}
+					onChange={handleDashChange}
+					cellSettingsProps={{
+						cellSettings,
+						onChange: handleToggleChange,
+					}}
+					boardProps={{
+						onClick: handleClick,
+					}}
+					statsProps={{
+						gridSize,
+						totalWordCount,
+						blackSquareCount,
+						avgWordLength,
+						scrabbleScore,
+						pangram,
+					}}
+					fillContentProps={{
+						direction,
+						cells,
+						matchFilterInput,
+						wordMatches,
+						onAutofillGridButtonClick: () =>
+							handleFillGrid(cells, setCells, setIsAutofilling),
+						onClearFillButtonClick: () => handleClearFill(setCells),
+						onMatchFilterChange: handleMatchFilterChange,
+						onMatchClick: (e) => handleMatchClick(e),
+					}}
+				/>
+			) : (
+				<div className="app-content">
+					<BoardAndSettings>
+						<CellSettings
+							cells={cells}
+							cellSettings={cellSettings}
+							onChange={handleToggleChange}
+							setCells={setCells}
+						/>
+						<Board
+							direction={direction}
+							setDirection={setDirection}
+							cells={cells}
+							setCells={setCells}
+							onClick={handleClick}
+						/>
+					</BoardAndSettings>
+					<CrosswordDashboard
 						direction={direction}
-						setDirection={setDirection}
 						cells={cells}
 						setCells={setCells}
-						onClick={handleClick}
+						visibleDashPage={visibleDashPages.crosswordDash}
+						onChange={handleDashChange}
+						statsProps={{
+							gridSize,
+							totalWordCount,
+							blackSquareCount,
+							avgWordLength,
+							scrabbleScore,
+							pangram,
+						}}
+						onClick={handleLiClick}
+						fillContentProps={{
+							direction,
+							cells,
+							matchFilterInput,
+							wordMatches,
+							onAutofillGridButtonClick: () =>
+								handleFillGrid(cells, setCells, setIsAutofilling),
+							onClearFillButtonClick: () => handleClearFill(setCells),
+							onMatchFilterChange: handleMatchFilterChange,
+							onMatchClick: (e) => handleMatchClick(e),
+						}}
 					/>
-				</BoardAndSettings>
-				<Dashboard>
-					<DashboardHeader>
-						{["stats", "clues", "fill"].map((buttonLabel) => {
-							return (
-								<DashboardHeaderButton
-									key={buttonLabel}
-									buttonLabel={buttonLabel}
-									labelClassName={`dashboard-header-button-label ${buttonLabel}-button-label`}
-									visibleDashPage={visibleDashPage}
-									onChange={handleDashChange}
-								/>
-							);
-						})}
-					</DashboardHeader>
-					<DashboardPageContainer>
-						<DashboardPage visibleDashPage={visibleDashPage}>
-							{visibleDashPage === "stats" ? (
-								<DashboardStatsTable
-									gridSize={gridSize}
-									totalWordCount={totalWordCount}
-									blackSquareCount={blackSquareCount}
-									avgWordLength={avgWordLength}
-									scrabbleScore={scrabbleScore}
-									pangram={pangram}
-								/>
-							) : visibleDashPage === "clues" ? (
-								<ClueListsContainer
-									direction={direction}
-									cells={cells}
-									setCells={setCells}
-									onClick={handleLiClick}
-								/>
-							) : (
-								<FillContent
-									direction={direction}
-									cells={cells}
-									matchFilterInput={matchFilterInput}
-									wordMatches={wordMatches}
-									onAutofillGridButtonClick={() =>
-										handleFillGrid(cells, setCells, setIsAutofilling)
-									}
-									onClearFillButtonClick={() => handleClearFill(setCells)}
-									onMatchFilterChange={handleMatchFilterChange}
-									onMatchClick={(e) => handleMatchClick(e)}
-								/>
-							)}
-						</DashboardPage>
-					</DashboardPageContainer>
-				</Dashboard>
-			</div>
+				</div>
+			)}
 		</div>
 	);
 }
