@@ -2,6 +2,7 @@ import { handleLetterKey } from "../utilities/letters";
 import { handleBackspaceKey } from "../utilities/backspace";
 import { getSelectedCell } from "../utilities/helpers";
 import { handleTabKey } from "../utilities/tab";
+import { handleSpaceKey } from "../utilities/space";
 
 const MobileKeyboardRow = ({
 	keys,
@@ -18,6 +19,7 @@ const MobileKeyboardRow = ({
 		handleTabKey(e, direction, setDirection, cells);
 		handleLetterKey(e, direction, setDirection, cells, setCells);
 		handleBackspaceKey(e, direction, setDirection, cells, setCells);
+		handleSpaceKey(e, direction, setDirection);
 	};
 
 	return (

@@ -6,6 +6,7 @@ import { handleArrowKeys } from "../utilities/arrows";
 import { handleBackspaceKey } from "../utilities/backspace";
 import { handleLetterKey } from "../utilities/letters";
 import { handleTabKey } from "../utilities/tab";
+import { handleSpaceKey } from "../utilities/space.js";
 
 const getCellClassName = (cell, selectedWord) => {
 	let className = "cell";
@@ -41,6 +42,7 @@ export const Board = memo(function Board({
 		handleTabKey(e, direction, setDirection, cells);
 		handleLetterKey(e, direction, setDirection, cells, setCells);
 		handleBackspaceKey(e, direction, setDirection, cells, setCells);
+		handleSpaceKey(e, direction, setDirection);
 	};
 
 	const { selectedWordObj } = getWordObj(direction, cells);
