@@ -1,5 +1,6 @@
 import { handleLetterKey } from "../utilities/letters";
 import { handleBackspaceKey } from "../utilities/backspace";
+import { getSelectedCell } from "../utilities/helpers";
 
 const MobileKeyboardRow = ({
 	keys,
@@ -9,6 +10,10 @@ const MobileKeyboardRow = ({
 	setCells,
 }) => {
 	const handleClick = (e) => {
+		const selectedCell = getSelectedCell(cells);
+
+		if (!selectedCell) return;
+
 		handleLetterKey(e, direction, setDirection, cells, setCells);
 		handleBackspaceKey(e, direction, setDirection, cells, setCells);
 	};
