@@ -1,6 +1,7 @@
 import { Board } from "./Board";
 import { BoardAndSettings } from "./BoardAndSettings";
 import { CellSettings } from "./CellSettings";
+import { CrosswordDashboard } from "./CrosswordDashboard";
 import { Dashboard } from "./Dashboard";
 import { DashboardHeader } from "./DashboardHeader";
 import { DashboardHeaderButton } from "./DashboardHeaderButton";

@@ -42,10 +42,8 @@ import { DashboardStatsTable } from "./DashboardStatsTable";
 import { getStats } from "../utilities/stats";
 import { ClueListsContainer } from "./ClueListsContainer";
 import { useMediaQuery } from "react-responsive";
-import {
-	CrosswordDashboard,
-	MobileContainerDashboard,
-} from "./MobileContainerDashboard";
+import { MobileContainerDashboard } from "./MobileContainerDashboard";
+import { CrosswordDashboard } from "./CrosswordDashboard";
 
 export default function App() {
 	const [direction, setDirection] = useState("across");
