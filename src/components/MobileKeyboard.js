@@ -34,8 +34,13 @@ const MobileKeyboardRow = ({
 };
 
 const MobileKeyboardKey = ({ keyVal, onClick }) => {
+	const className =
+		keyVal === "backspace"
+			? "mobile-keyboard-key material-icons-outlined"
+			: "mobile-keyboard-key";
+
 	return (
-		<button className="mobile-keyboard-key" value={keyVal} onClick={onClick}>
+		<button className={className} value={keyVal} onClick={onClick}>
 			{keyVal}
 		</button>
 	);
