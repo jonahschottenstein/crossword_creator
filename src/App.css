@@ -657,10 +657,6 @@ button.mobile-keyboard-key[value="backspace"] {
 		height: 100%;
 	}
 
-	.dashboard-page-container:has(.clues-page) {
-		height: 100%;
-	}
-
 	.dashboard-page:has(.dashboard) {
 		height: 100%;
 	}
