@@ -606,6 +606,27 @@ td {
 	display: none;
 }
 
+/* Mobile Keyboard */
+.mobile-keyboard {
+	height: 100%;
+	margin: 0.125rem 0;
+}
+
+.mobile-keyboard-row {
+	display: flex;
+	flex: 1;
+	height: calc(100% / 3);
+	justify-content: center;
+}
+
+button.mobile-keyboard-key {
+	appearance: none;
+}
+
+button.mobile-keyboard-key[value="backspace"] {
+	font-size: revert;
+}
+
 /* Mobile UI */
 @media (orientation: portrait) and (max-device-width: 430px) and (max-device-height: 932px) {
 	html,
