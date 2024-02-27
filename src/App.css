@@ -569,7 +569,6 @@ td {
 .grid-options {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	overflow-y: scroll;
 	padding: 0.5rem;
 }
 
@@ -666,6 +665,44 @@ button.mobile-keyboard-key[value="backspace"] {
 
 	.cell > .number {
 		font-size: 8px;
+	}
+
+	.popup {
+		bottom: 0;
+		left: 0;
+		right: 0;
+		top: 0;
+		transform: none;
+	}
+
+	.submission-info > *:not(.submit-info-button) {
+		margin-bottom: 0.5rem;
+	}
+
+	.popup:has(.grid-options) {
+		position: fixed;
+		overflow-y: hidden;
+	}
+
+	.popup-content:has(.grid-options) {
+		overflow-y: scroll;
+		width: 100%;
+	}
+
+	.popup > h2 {
+		margin-bottom: 0.5rem;
+	}
+
+	.grid-options {
+		justify-content: center;
+		grid-template-columns: none;
+		grid-template-rows: repeat(6, 1fr);
+		padding-top: 0;
+	}
+
+	button.grid-option {
+		appearance: none;
+		border-radius: 0.25rem;
 	}
 }
 
