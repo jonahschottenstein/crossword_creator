@@ -1,14 +1,11 @@
+import { getNextDirection } from "./helpers";
+
 export const handleSpaceKey = (e, direction, setDirection) => {
+	if (e.key !== " ") return;
+
 	e.preventDefault();
 
-	if (e.type === "keydown" && e.key !== " ") return;
-	if (
-		e.type === "click" &&
-		!e.target.matches("button.mobile-keyboard-key[value='_']")
-	)
-		return;
+	const nextDirection = getNextDirection(direction);
 
-	const newDirection = direction === "across" ? "down" : "across";
-
-	setDirection(newDirection);
+	setDirection(nextDirection);
 };
