@@ -663,6 +663,10 @@ button.mobile-keyboard-key[value="backspace"] {
 	.dashboard-page > .dashboard {
 		height: 100%;
 	}
+
+	.cell > .number {
+		font-size: 8px;
+	}
 }
 
 @media (min-width: 961px) {
