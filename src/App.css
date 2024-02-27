@@ -432,7 +432,7 @@
 }
 
 .dashboard-page-container:has(.clues-page) {
-	height: calc(100% - 29.5px);
+	height: calc(100% - var(--dashboard-header-height));
 }
 
 .dashboard-page-container:has(.fill-page) {
