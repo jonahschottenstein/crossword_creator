@@ -704,6 +704,10 @@ button.mobile-keyboard-key[value="backspace"] {
 		appearance: none;
 		border-radius: 0.25rem;
 	}
+
+	span.clue-textarea-wrapper > textarea {
+		font-size: 1rem;
+	}
 }
 
 @media (min-width: 961px) {
