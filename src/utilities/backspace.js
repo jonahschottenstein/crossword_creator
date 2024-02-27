@@ -73,7 +73,7 @@ export const handleBackspaceKey = (
 	if (e.type === "keydown" && e.key !== "Backspace") return;
 	if (
 		e.type === "click" &&
-		!e.target.matches("button.mobile-keyboard-key[value='Backspace']")
+		!e.target.matches("button.mobile-keyboard-key[value='backspace']")
 	)
 		return;
 
