@@ -163,6 +163,7 @@ export default function App() {
 	);
 
 	const handleLiClick = (e) => {
+		if (isMobile) return;
 		if (!e.target.matches(".clue-list-item")) return;
 
 		const { cellBlockIsChecked, shadedCellIsChecked, circleIsChecked } =
