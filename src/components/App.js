@@ -13,7 +13,7 @@ import {
 	selectCellElementOnLiClick,
 } from "../utilities/clueListItems";
 import { getNextDirection } from "../utilities/helpers";
-import { Dashboard } from "./Dashboard";
+// import { Dashboard } from "./Dashboard";
 import {
 	getWordMatches,
 	isMatchable,
@@ -26,21 +26,22 @@ import {
 	getFilteredMatches,
 } from "../utilities/gridFill";
 import { getWordObj } from "../utilities/words";
-import { handleClearFill, handleFillGrid } from "../utilities/gridHandlers";
+// import { handleClearFill, handleFillGrid } from "../utilities/gridHandlers";
+import { handleClearFill } from "../utilities/gridHandlers";
 import { setClueText } from "../utilities/setClueText";
 import { setShadedCell } from "../utilities/setShadedCell";
 import { setCircledCell } from "../utilities/setCircledCell";
 import { setSymmetricalCellStyle } from "../utilities/setSymmetricalCellStyle";
-import { DashboardPageContainer } from "./DashboardPageContainer";
-import { DashboardHeader } from "./DashboardHeader";
-import { DashboardHeaderButton } from "./DashboardHeaderButton";
-import { DashboardPage, FillContent } from "./DashboardPage";
+// import { DashboardPageContainer } from "./DashboardPageContainer";
+// import { DashboardHeader } from "./DashboardHeader";
+// import { DashboardHeaderButton } from "./DashboardHeaderButton";
+// import { DashboardPage, FillContent } from "./DashboardPage";
 import { CellSettings } from "./CellSettings";
 import { Board } from "./Board";
 import { fetchWordListMemoized } from "../utilities/autofillGrid";
-import { DashboardStatsTable } from "./DashboardStatsTable";
+// import { DashboardStatsTable } from "./DashboardStatsTable";
 import { getStats } from "../utilities/stats";
-import { ClueListsContainer } from "./ClueListsContainer";
+// import { ClueListsContainer } from "./ClueListsContainer";
 import { useMediaQuery } from "react-responsive";
 import { MobileContainerDashboard } from "./MobileContainerDashboard";
 import { CrosswordDashboard } from "./CrosswordDashboard";
@@ -65,10 +66,10 @@ export default function App() {
 		hasMatchesLeft: false,
 	});
 	const [matchFilterInput, setMatchFilterInput] = useState("");
-	const [isAutofilling, setIsAutofilling] = useState(false);
+	// const [isAutofilling, setIsAutofilling] = useState(false);
 
 	useEffect(() => {
-		if (isAutofilling) return;
+		// if (isAutofilling) return;
 
 		const startFetching = async () => {
 			setWordMatches({
@@ -121,7 +122,8 @@ export default function App() {
 		return () => {
 			ignore = true;
 		};
-	}, [direction, cells, matchFilterInput, isAutofilling]);
+	}, [direction, cells, matchFilterInput]);
+	// }, [direction, cells, matchFilterInput, isAutofilling]);
 
 	const handleClick = useCallback(
 		(e) => {
