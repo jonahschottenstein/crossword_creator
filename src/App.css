@@ -341,16 +341,6 @@
 	padding: 0;
 }
 
-.isEditing {
-	/* display: none; */
-	/* visibility: hidden; */
-	/* border: 0; */
-	/* opacity: 0;
-	padding: 0;
-	width: 0; */
-	color: red;
-}
-
 .accessible {
 	pointer-events: auto;
 	user-select: auto;
