@@ -306,8 +306,8 @@ export default function App() {
 						cells,
 						matchFilterInput,
 						wordMatches,
-						onAutofillGridButtonClick: () =>
-							handleFillGrid(cells, setCells, setIsAutofilling),
+						// onAutofillGridButtonClick: () =>
+						// 	handleFillGrid(cells, setCells, setIsAutofilling),
 						onClearFillButtonClick: () => handleClearFill(setCells),
 						onMatchFilterChange: handleMatchFilterChange,
 						onMatchClick: (e) => handleMatchClick(e),
@@ -350,8 +350,8 @@ export default function App() {
 							cells,
 							matchFilterInput,
 							wordMatches,
-							onAutofillGridButtonClick: () =>
-								handleFillGrid(cells, setCells, setIsAutofilling),
+							// onAutofillGridButtonClick: () =>
+							// 	handleFillGrid(cells, setCells, setIsAutofilling),
 							onClearFillButtonClick: () => handleClearFill(setCells),
 							onMatchFilterChange: handleMatchFilterChange,
 							onMatchClick: (e) => handleMatchClick(e),

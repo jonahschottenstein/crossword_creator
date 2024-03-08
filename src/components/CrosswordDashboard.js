@@ -55,9 +55,9 @@ export const CrosswordDashboard = ({
 							cells={cells}
 							matchFilterInput={fillContentProps.matchFilterInput}
 							wordMatches={fillContentProps.wordMatches}
-							onAutofillGridButtonClick={
-								fillContentProps.onAutofillGridButtonClick
-							}
+							// onAutofillGridButtonClick={
+							// 	fillContentProps.onAutofillGridButtonClick
+							// }
 							onClearFillButtonClick={fillContentProps.onClearFillButtonClick}
 							onMatchFilterChange={fillContentProps.onMatchFilterChange}
 							onMatchClick={fillContentProps.onMatchClick}

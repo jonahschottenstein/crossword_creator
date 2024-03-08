@@ -29,11 +29,11 @@ export const FillContent = (props) => {
 				<Button id="clear-fill-button" onClick={props.onClearFillButtonClick}>
 					Clear Fill
 				</Button>
-				<Button
+				{/* <Button
 					id="autofill-grid-button"
 					onClick={props.onAutofillGridButtonClick}>
 					Autofill Grid
-				</Button>
+				</Button> */}
 			</div>
 
 			{!selectedWord || selectedWord.length < MIN_WORD_LENGTH ? (
