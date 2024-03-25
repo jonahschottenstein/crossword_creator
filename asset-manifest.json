@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/crossword_creator/public/index.html/static/css/main.bab9b45f.css",
+    "main.js": "/crossword_creator/public/index.html/static/js/main.75364e3f.js",
+    "static/js/787.c2055c9d.chunk.js": "/crossword_creator/public/index.html/static/js/787.c2055c9d.chunk.js",
+    "index.html": "/crossword_creator/public/index.html/index.html",
+    "main.bab9b45f.css.map": "/crossword_creator/public/index.html/static/css/main.bab9b45f.css.map",
+    "main.75364e3f.js.map": "/crossword_creator/public/index.html/static/js/main.75364e3f.js.map",
+    "787.c2055c9d.chunk.js.map": "/crossword_creator/public/index.html/static/js/787.c2055c9d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bab9b45f.css",
+    "static/js/main.75364e3f.js"
+  ]
+}
