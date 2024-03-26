@@ -366,6 +366,7 @@
 	border: solid black 1px;
 	display: flex;
 	flex-direction: column;
+	min-width: fit-content;
 }
 
 .dashboard:has(.stats-page) .stats-button-label {
