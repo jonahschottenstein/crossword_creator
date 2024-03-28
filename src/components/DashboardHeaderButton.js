@@ -20,7 +20,7 @@ export const DashboardHeaderButton = ({
 			<input
 				type={"radio"}
 				id={buttonLabel}
-				className={"dashboard-header-button"}
+				className={"dashboard-header-button invisible"}
 				name={"dashboard-header-button"}
 				value={buttonLabel}
 				checked={visibleDashPage === buttonLabel}
