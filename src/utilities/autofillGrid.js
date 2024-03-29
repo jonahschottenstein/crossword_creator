@@ -12,7 +12,7 @@ export const fetchWordListMemoized = async () => {
 			const response = await fetch(resource);
 			const wordList = await response.json();
 			const wordListSliced = wordList.slice(0, 10000);
-			console.log(wordListSliced);
+			// console.log(wordListSliced);
 			cache[wordLength] = wordListSliced;
 
 			return wordListSliced;
